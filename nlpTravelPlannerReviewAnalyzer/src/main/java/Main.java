@@ -14,8 +14,10 @@ public class Main {
         SUTimeService service = new SUTimeService();
 
         String s = "Book tickets online in advance, its cheaper from 4.00 pm onwards. Great fun for all!";
+        String s1 = "Book tickets online in advance, its cheaper from 3.00 am onwards. Great fun for all!";
+
         String date = "2013-07-14";
-        List<CoreMap> timexAnnsAll = service.extractDatesAndTimeFromText(new String[] { s }, date);
+        List<CoreMap> timexAnnsAll = service.extractDatesAndTimeFromText(new String[] { s,s1 }, date);
         for (CoreMap cm : timexAnnsAll) {
             List<CoreLabel> tokens = cm.get(CoreAnnotations.TokensAnnotation.class);
             System.out.println(cm

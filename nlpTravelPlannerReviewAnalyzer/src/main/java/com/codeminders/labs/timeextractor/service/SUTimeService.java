@@ -34,16 +34,16 @@ public class SUTimeService {
         pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
         pipeline.addAnnotator(new POSTaggerAnnotator(false));
 
-        String sutimeMainRules = SUTimeService.class.getResource(MAIN_RULES).getPath();
+        String customRules = SUTimeService.class.getResource(MAIN_RULES).getPath();
         String sutimeRules1 = SUTimeService.class.getResource(SUTIME1_RULES).getPath();
         String sutimeRules2 = SUTimeService.class.getResource(SUTIME2_RULES).getPath();
         String defs = SUTimeService.class.getResource(DEFS).getPath();
 
-        // defs ,sutimeMainRules,sutimeRules1,sutimeRules2
-        // sutimeMainRules
+        // defs ,customRules,sutimeRules1,sutimeRules2
+        // customRules
 
-        String allRules = StringUnion.sutimeMainRules(defs, sutimeMainRules, sutimeRules1,
-                sutimeRules2);
+        String allRules = StringUnion
+                .sutimeMainRules(defs, sutimeRules1, sutimeRules2, customRules);
 
         Properties props = new Properties();
         props.setProperty("sutime.markTimeRanges", "true");

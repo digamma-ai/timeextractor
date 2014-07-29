@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.service;
+package com.codeminders.labs.timeextractor.business;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.codeminders.labs.timeextractor.entities.Tip;
-
 
 public class CsvWriter {
 

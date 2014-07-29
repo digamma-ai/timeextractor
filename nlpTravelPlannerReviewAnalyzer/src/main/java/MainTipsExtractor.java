@@ -3,9 +3,9 @@
 import java.io.IOException;
 import java.util.List;
 
+import com.codeminders.labs.timeextractor.business.CsvWriter;
 import com.codeminders.labs.timeextractor.entities.Sort;
 import com.codeminders.labs.timeextractor.entities.Tip;
-import com.codeminders.labs.timeextractor.service.CsvWriter;
 import com.codeminders.labs.timeextractor.service.GetVenueTipsService;
 
 public class MainTipsExtractor {

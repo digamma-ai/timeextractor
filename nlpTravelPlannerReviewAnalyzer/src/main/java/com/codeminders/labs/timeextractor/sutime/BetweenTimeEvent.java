@@ -1,7 +1,5 @@
 package com.codeminders.labs.timeextractor.sutime;
 
-import org.joda.time.Partial;
-
 import edu.stanford.nlp.time.SUTime;
 import edu.stanford.nlp.time.SUTime.Duration;
 import edu.stanford.nlp.time.SUTime.Range;

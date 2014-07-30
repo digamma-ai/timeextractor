@@ -5,6 +5,7 @@ import com.codeminders.labs.timeextractor.service.SUTimeService;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.time.SUTime;
+import edu.stanford.nlp.time.SUTime.Temporal;
 import edu.stanford.nlp.time.TimeExpression;
 import edu.stanford.nlp.util.CoreMap;
 
@@ -13,8 +14,7 @@ public class TrainingMain {
 
         SUTimeService service = new SUTimeService();
         String date = "2014-07-30";
-
-        String toPredict = "Monday 2014 between 10:00 and 11:00 ";
+        String toPredict = "from 10:00 to 11:00 Monday  ";
 
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(new String[] { toPredict },
                 date);
@@ -23,7 +23,8 @@ public class TrainingMain {
         for (CoreMap cm : predicted) {
             cm.get(CoreAnnotations.TokensAnnotation.class);
             TimeExpression timeExpr = cm.get(TimeExpression.Annotation.class);
-            SUTime.Temporal temporal = timeExpr.getTemporal();
+            Temporal temporal = timeExpr.getTemporal();
+
             System.out.println("\n **********SuTime************ ");
             System.out.println("TimeLabel:" + temporal.getTimeLabel());
             System.out.println("TimexValue:" + temporal.getTimexValue());

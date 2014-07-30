@@ -43,7 +43,7 @@ public class SUTimeService {
         // customRules
 
         String allRules = StringUnion
-                .sutimeMainRules(defs, customRules, sutimeRules1, sutimeRules2);
+                .sutimeMainRules(defs, sutimeRules1, sutimeRules2, customRules);
 
         Properties props = new Properties();
         props.setProperty("sutime.markTimeRanges", "true");
@@ -61,7 +61,6 @@ public class SUTimeService {
             List<CoreMap> timexAnnsAll = annotation.get(TimeAnnotations.TimexAnnotations.class);
             allAnnotations.addAll(timexAnnsAll);
         }
-
         return allAnnotations;
     }
 

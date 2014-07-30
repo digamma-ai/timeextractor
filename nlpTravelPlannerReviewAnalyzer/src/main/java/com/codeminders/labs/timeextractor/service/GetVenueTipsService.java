@@ -97,14 +97,14 @@ public class GetVenueTipsService {
             try {
                 userId = user.getAsJsonPrimitive(JSON_PARAM_USER_ID).getAsString();
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+
             }
 
             String firstName = null;
             try {
                 firstName = user.getAsJsonPrimitive(JSON_PARAM_USER_FIRST_NAME).getAsString();
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+
             }
 
             String lastName = null;
@@ -112,7 +112,7 @@ public class GetVenueTipsService {
                 lastName = user.getAsJsonPrimitive(JSON_PARAM_USER_LAST_NAME).getAsString();
 
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+
             }
             String gender = null;
 
@@ -120,7 +120,7 @@ public class GetVenueTipsService {
                 gender = user.getAsJsonPrimitive(JSON_PARAM_USER_GENDER).getAsString();
 
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+
             }
 
             tip.setId(id);

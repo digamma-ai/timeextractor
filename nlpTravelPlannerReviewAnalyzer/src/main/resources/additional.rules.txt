@@ -53,7 +53,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
  // between 11:30 and 12:00
  // between 11h and 14h
  {
-    ruleType: "text",
+   ruleType: "text",
    pattern: /(between)(([\s*]([01]?[0-9]|2[0-3])[:.,][0-5][0-9][\s*])|([\s*][0-2][0-9][\s]?h?[\s]?) )(and)([\s*]([01]?[0-9]|2[0-3])[:.,][0-5][0-9]|([\s*][0-2][0-9][\s]?h?[\s]?))/ ,
    result: BetweenTimeEvent($0)
   }

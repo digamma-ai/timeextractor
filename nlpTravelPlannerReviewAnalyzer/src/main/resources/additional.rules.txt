@@ -1,4 +1,5 @@
 CustomTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.CustomTimeEvent" }
+BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.BetweenTimeEvent" }
  
    TIME_OF_DAY_MAP = {
     "morning": "morning",
@@ -38,30 +39,34 @@ MONTH_OF_YEAR_MAP = {
 $DAY_OF_WEEK = CreateRegex(Keys(DAYOFWEEK_MAP))  
 $MONTH_OF_YEAR = CreateRegex(Keys(MONTH_OF_YEAR_MAP))
 $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?"
-  
+ 
+  // between morning and evening
+  // between morning and 12h
   {
    ruleType: "text",
-   pattern: /(between)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))[\s*](and)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))/ ,
-   result: CustomTimeEvent("BETWEEN") 
+   pattern: /(between)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?(to)?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))[\s*](and)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))/ ,
+   result: CustomTimeEvent($0)
   }
+  
   
  // between 11:30 and 12h
- //between 11:30 and 12:00
+ // between 11:30 and 12:00
  // between 11h and 14h
  {
-   ruleType: "text",
-   pattern: /(between)( ([\s*]([01]?[0-9]|2[0-3])[:.,][0-5][0-9][\s*])|([\s*][0-2][0-9][\s]?h?[\s]?) )(and)([\s*]([01]?[0-9]|2[0-3])[:.,][0-5][0-9]|([\s*][0-2][0-9][\s]?h?[\s]?) )/ ,
-   result: CustomTimeEvent("BETWEEN") 
+    ruleType: "text",
+   pattern: /(between)(([\s*]([01]?[0-9]|2[0-3])[:.,][0-5][0-9][\s*])|([\s*][0-2][0-9][\s]?h?[\s]?) )(and)([\s*]([01]?[0-9]|2[0-3])[:.,][0-5][0-9]|([\s*][0-2][0-9][\s]?h?[\s]?))/ ,
+   result: BetweenTimeEvent($0)
   }
   
-    // until January...
+ 
+ // until January...
   
   {  ruleType: "text", 
      pattern: /until ($MONTH_OF_YEAR)/,
      result: CustomTimeEvent("UNTIL MONTH") 
   } 
   
-    // until Monday...
+ // until Monday...
     
   {  ruleType: "text", 
      pattern: /until ($DAY_OF_WEEK)/,
@@ -86,15 +91,6 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    result: CustomTimeEvent("TIME") 
   }
   
-  
-   //10:30pm every day
-  
-   {
-   ruleType: "text",
-   pattern: /(([01]?[0-9]|2[0-3])[:.,][0-5][0-9][\s]?([p,P][m,M])?([a,A][m,M])? [\s]? |[0-24][\s]?([a,A][m,M])?) everyday|everymonth|everyyear|every year|every day|every month|each month|each day|each year/ ,
-   result: CustomTimeEvent("EVERY") 
-  }
-  
  //every 
   {
    ruleType: "text",
@@ -115,7 +111,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
 	{ 
     ruleType: "text",  
     priority: 1,
-	pattern: / (mid|mid-late)[-\s]?($MONTH_OF_YEAR)/ ,
+	pattern: /(mid|mid-late)[-\s]?($MONTH_OF_YEAR)/ ,
 	result: CustomTimeEvent("SET") 
 	}
 	 
@@ -124,13 +120,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
 	pattern: / (before|until)[\s](mid|mid-late)[-\s]?($MONTH_OF_YEAR)/ ,
 	result: CustomTimeEvent("BEFORE SET") 
 	}
-	
-	{ 
-    ruleType: "text",
-	pattern: /([0-1][0-59]([:,\s]?[0-5][0-9])?[-\s]?([01]?[0-9]|2[0-3])[:.,][0-5][0-9][\s]?([p,P][m,M])?([a,A][m,M])?)/ ,
-	result: CustomTimeEvent("PERIOD_TIME") 
-	}
-	
+
 	{ 
     ruleType: "text",
 	pattern: /([0-9][0-9]?[0-9]?[-][0-9][0-9]?[0-9]?[\s]?(minutes|min|mins))/,
@@ -179,6 +169,6 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    
   { ruleType: "text", pattern: /entire year/,
    result: CustomTimeEvent("Entire Year")  }
-
+   
   
   

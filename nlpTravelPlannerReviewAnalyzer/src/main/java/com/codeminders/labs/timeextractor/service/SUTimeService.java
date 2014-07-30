@@ -43,7 +43,7 @@ public class SUTimeService {
         // customRules
 
         String allRules = StringUnion
-                .sutimeMainRules(defs, sutimeRules1, sutimeRules2, customRules);
+                .sutimeMainRules(defs, customRules, sutimeRules1, sutimeRules2);
 
         Properties props = new Properties();
         props.setProperty("sutime.markTimeRanges", "true");
@@ -51,8 +51,8 @@ public class SUTimeService {
         props.setProperty("restrictToTimex3", "false");
         props.setProperty("sutime.rules", allRules);
 
+        props.setProperty("annotators", "tokenize,ssplit,pos,sutime");
         pipeline.addAnnotator(new TimeAnnotator("sutime", props));
-
         List<CoreMap> allAnnotations = new ArrayList<CoreMap>();
         for (String line : text) {
             Annotation annotation = new Annotation(line);
@@ -63,7 +63,6 @@ public class SUTimeService {
         }
 
         return allAnnotations;
-
     }
 
 }

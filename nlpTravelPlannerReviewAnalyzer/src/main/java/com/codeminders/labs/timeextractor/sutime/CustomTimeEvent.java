@@ -1,6 +1,8 @@
 package com.codeminders.labs.timeextractor.sutime;
 
 import edu.stanford.nlp.time.SUTime.Duration;
+import edu.stanford.nlp.time.SUTime.RelativeTime;
+import edu.stanford.nlp.time.SUTime.TemporalOp;
 import edu.stanford.nlp.time.SUTime.Time;
 
 public class CustomTimeEvent extends Time {
@@ -21,8 +23,9 @@ public class CustomTimeEvent extends Time {
         return label;
     }
 
-    @Override
     public Time add(Duration offset) {
-        return null;
-    }
+        Time t = new RelativeTime(this, TemporalOp.OFFSET_EXACT, offset);
+        return t;
+    };
+
 }

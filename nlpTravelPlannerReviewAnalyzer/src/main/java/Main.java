@@ -65,7 +65,7 @@ public class Main {
         double precision = score.precision(tp, fp);
         double recall = score.recall(tp, fn);
         double fScore = score.f1Score(precision, recall);
-        System.out.println("F SCORE: " + fScore);
+        System.out.println("F-Score: " + fScore);
         System.out.println("Precision: " + precision);
         System.out.println("Recall: " + recall);
         System.out.println("Accuracy: " + accuracy);

@@ -26,7 +26,7 @@ public class Main {
 
         List<Tip> tips = reader.getTipsFromFile(csv, ",");
 
-        for (Tip tip : tips) {
+        main: for (Tip tip : tips) {
             String patternString = "<text>(.*?)</text>";
             Pattern pattern = Pattern.compile(patternString);
             Matcher matcher = pattern.matcher(tip.getTipText());
@@ -37,24 +37,36 @@ public class Main {
                 String result = matcher.group().replace("<text>", "").replace("</text>", "");
                 annotated.add(result.trim());
             }
-
             List<CoreMap> predicted = service.extractDatesAndTimeFromText(
                     new String[] { tip.getTipText() }, date);
 
-            System.out.println(annotated + " " + predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {
+
                 tn++;
                 continue;
             }
             if (annotated.size() == 0) {
+                System.out.println(tip.getTipText());
+                System.out.println(annotated + " " + predicted);
                 fn++;
                 continue;
             }
 
+            if (predicted.size() == 0 && annotated.size() != 0) {
+                System.out.println(tip.getTipText());
+                System.out.println(annotated + " " + predicted);
+                fn++;
+                continue;
+
+            }
+
             for (CoreMap cm : predicted) {
                 if (!annotated.contains(cm.toString())) {
+                    System.out.println(tip.getTipText());
+
+                    System.out.println(annotated + " " + predicted);
                     fp++;
-                    continue;
+                    continue main;
                 }
             }
             tp++;

@@ -237,11 +237,7 @@
   { (/mornings?/) => MORNING }
   { (/afternoons?/) => AFTERNOON }
   { (/evenings?/) => EVENING }
-  { (/dusks?/) => DUSK }
   { (/twilights?/) => TWILIGHT }
-  { (/dawns?|daybreaks?/) => DAWN }
-  { (/sunrises?|sunups?/) => SUNRISE }
-  { (/sundowns?|sunsets?/) => SUNSET }
   { (/middays?|noons?/) => NOON }
   { (/midnights?/) => MIDNIGHT }
   { (/teatimes?/) => TEATIME }
@@ -924,7 +920,6 @@
   # Vague times
   { ( /the/ /past/ | /recently/ ) => TIME_PAST }
   { pattern: ( /at/ /the/ (/time/) ), matchedExpressionGroup: 1, result: TIME_PAST }
-  { ( /past|once|medieval|previously/ ) => TIME_PAST }
   { ( /present|current|currently/ | /right/? /now/ ) => TIME_PRESENT }
   { (  /the/? /near/? /future/ ) => TIME_FUTURE }
 

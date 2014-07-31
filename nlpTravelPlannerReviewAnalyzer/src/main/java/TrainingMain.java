@@ -4,6 +4,8 @@ import java.util.List;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.time.SUTime;
 import edu.stanford.nlp.time.SUTime.Temporal;
 import edu.stanford.nlp.time.TimeExpression;
@@ -14,7 +16,8 @@ public class TrainingMain {
 
         SUTimeService service = new SUTimeService();
         String date = "2014-07-30";
-        String toPredict = "from 10:00 to 11:00 Monday  ";
+        String s = "3-320pm";
+        String toPredict = "the final day";
 
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(new String[] { toPredict },
                 date);
@@ -34,7 +37,7 @@ public class TrainingMain {
             System.out.println("Time:" + temporal.getTime());
             System.out.println("Type:" + temporal.getTimexType());
             SUTime.Range range = temporal.getRange();
-            System.out.println(range.getJodaTimeInterval());
+            // System.out.println(range.getJodaTimeInterval());
 
         }
     }

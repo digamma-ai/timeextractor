@@ -7,6 +7,7 @@ import java.util.Properties;
 import com.codeminders.labs.timeextractor.utilities.StringUnion;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.AnnotationPipeline;
 import edu.stanford.nlp.pipeline.POSTaggerAnnotator;
@@ -39,11 +40,11 @@ public class SUTimeService {
         String sutimeRules2 = SUTimeService.class.getResource(SUTIME2_RULES).getPath();
         String defs = SUTimeService.class.getResource(DEFS).getPath();
 
-        // defs ,customRules,sutimeRules1,sutimeRules2
+        // defs, customRules,sutimeRules1,sutimeRules2
         // customRules
 
         String allRules = StringUnion
-                .sutimeMainRules(defs, sutimeRules1, sutimeRules2, customRules);
+                .sutimeMainRules(defs, customRules,sutimeRules1,sutimeRules2);
 
         Properties props = new Properties();
         props.setProperty("sutime.markTimeRanges", "true");
@@ -56,6 +57,7 @@ public class SUTimeService {
         List<CoreMap> allAnnotations = new ArrayList<CoreMap>();
         for (String line : text) {
             Annotation annotation = new Annotation(line);
+
             annotation.set(CoreAnnotations.DocDateAnnotation.class, date);
             pipeline.annotate(annotation);
             List<CoreMap> timexAnnsAll = annotation.get(TimeAnnotations.TimexAnnotations.class);

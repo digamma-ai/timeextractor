@@ -190,22 +190,32 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", pattern: /week-ends|weekends/,
    result: CustomTimeEvent("WeekEnds")  } 
    
-  { ruleType: "text", pattern: /[\d]weeks/,
+  { ruleType: "text", pattern: /[\d][\s]?weeks/,
    result: CustomTimeEvent("Weeks")  }
    
-  { ruleType: "text", pattern: /entire year/,
-   result: CustomTimeEvent("Entire Year")  }
-   
-  { ruleType: "text", pattern: /summer hours/,
+  
+  // summer hours 
+  { ruleType: "text", pattern: /summer[\s]?[\w]*/,
    result: CustomTimeEvent("Summer")  }
    
+   
+  // get [something] day, like Family day, lovely day, that day  
   { ruleType: "text", pattern: /([\w]*[\s])day/,
   	 result: CustomTimeEvent("day")  }
      
+     
   // filter lovely day, sunny day, windy day, Family Day, etc. 
-  
   { ruleType: "filter",
-	  pattern: ([(/[\w]*/) & ({ tag:/JJ.*/ }|{ tag:/NNP*/ } )][{ word:/day/}]) 
+	  pattern: ([(/[\w]*^(?!(?:whole|all|entire))/) & ({ tag:/JJ.*/ }|{ tag:/NNP*/ } )][{ word:/day/}]) 
   }
-   
+  
+ // filter summer skills, but not summer hours
+    
+ { ruleType: "filter",
+	  pattern: ([{ word:/summer/} & ({ tag:/NN.*/ })][(/[\w]*^(?!(?:hours))/) & ( { tag:/NNS*/ })]) 
+ }
+  
+  
+  { ruleType: "text", pattern: /(whole|all|entire|full)[\s]? (day|month|year)/,
+  	 result: CustomTimeEvent("whole")  }
   

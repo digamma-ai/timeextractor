@@ -7,7 +7,6 @@ import java.util.Properties;
 import com.codeminders.labs.timeextractor.utilities.StringUnion;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.AnnotationPipeline;
 import edu.stanford.nlp.pipeline.POSTaggerAnnotator;

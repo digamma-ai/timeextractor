@@ -13,8 +13,10 @@ import com.codeminders.labs.timeextractor.entities.Tip;
 public class CsvReader {
 
     public List<Tip> getTipsFromFile(String csvFileLocation, String sep) throws IOException {
-        CSVReader reader = new CSVReader(new InputStreamReader(
-                new FileInputStream(csvFileLocation), "UTF-8"), ',', '"', 1);
+        FileInputStream fileStream = new FileInputStream(csvFileLocation);
+        InputStreamReader streamReader = new InputStreamReader(fileStream, "UTF-8");
+        CSVReader reader = new CSVReader(streamReader, ',', '"', 1);
+
         List<Tip> tips = new ArrayList<Tip>();
         try {
 

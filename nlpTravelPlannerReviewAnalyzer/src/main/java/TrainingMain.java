@@ -14,9 +14,7 @@ public class TrainingMain {
 
         SUTimeService service = new SUTimeService();
         String date = "2014-07-30";
-        String s = "3-320pm";
-        String toPredict = "summer skills";
-
+        String toPredict = "the 3rd Thu of the month" ;
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(new String[] { toPredict },
                 date);
         System.out.println(predicted);
@@ -36,7 +34,6 @@ public class TrainingMain {
             System.out.println("Type:" + temporal.getTimexType());
             SUTime.Range range = temporal.getRange();
             // System.out.println(range.getJodaTimeInterval());
-
         }
     }
 }

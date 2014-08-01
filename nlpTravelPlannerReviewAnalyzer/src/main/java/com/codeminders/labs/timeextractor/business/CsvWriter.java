@@ -22,6 +22,14 @@ public class CsvWriter {
         }
     }
 
+    public void writeToFile(String file, String text) {
+        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
+            out.println(text);
+        } catch (IOException e) {
+
+        }
+    }
+
     private String getLine(String... args) {
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < args.length - 1; i++) {

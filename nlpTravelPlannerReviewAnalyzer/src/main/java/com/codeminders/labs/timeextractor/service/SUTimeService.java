@@ -43,7 +43,7 @@ public class SUTimeService {
         // defs, customRules,sutimeRules1,sutimeRules2
         // customRules
 
-        String allRules = StringUnion.sutimeMainRules(defs, customRules,sutimeRules1,sutimeRules2);
+        String allRules = StringUnion.sutimeMainRules(defs, customRules, sutimeRules1, sutimeRules2);
 
         Properties props = new Properties();
         props.setProperty("sutime.markTimeRanges", "true");

@@ -123,7 +123,13 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    
   
   { ruleType: "text", 
-    pattern: /(($DAY_OF_WEEK|$DAYOFWEEK_EASY[.]?)[\s]*[-][\s]*($DAY_OF_WEEK|$DAYOFWEEK_EASY[.]?))/,
+    pattern: /(($DAY_OF_WEEK)[\s]*[-][\s]*($DAY_OF_WEEK))/,
+  	 result: BetweenTimeEvent($0) 
+  }
+  
+    
+  { ruleType: "text", 
+    pattern: /(($DAYOFWEEK_EASY)[.]?[\s]*[-][\s]*($DAYOFWEEK_EASY)[.]?)/,
   	 result: BetweenTimeEvent($0) 
   }
   
@@ -244,7 +250,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   // july 25 - june 26
   {
    ruleType: "text",
-   pattern: /($MONTH_OF_YEAR)[\s]?[0-3][0-9][\s]*[\u0301]*[\s]*($MONTH_OF_YEAR)[\s]?[0-3][0-9]?/,
+   pattern: /($MONTH_OF_YEAR)[\s]?[0-3][0-9][\s]*[-]*[\s]*($MONTH_OF_YEAR)[\s]?[0-3][0-9]?/,
    result: CustomTimeEvent("PERIOD_TIME") 
   }
   

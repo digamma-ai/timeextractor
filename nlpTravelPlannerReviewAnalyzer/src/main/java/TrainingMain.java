@@ -14,7 +14,8 @@ public class TrainingMain {
 
         SUTimeService service = new SUTimeService();
         String date = "2014-07-30";
-        String toPredict = "the 3rd Thu of the month" ;
+        String toPredict = "11.30 am-12.30 pm";
+        System.out.println("To predict: " +toPredict);
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(new String[] { toPredict },
                 date);
         System.out.println(predicted);

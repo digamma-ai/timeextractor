@@ -37,7 +37,7 @@ public class Main {
             HashSet<String> annotated = new HashSet<String>();
 
             while (matcher.find()) {
-                String result = matcher.group().replace("<text>", "").replace("</text>", "");
+                String result = matcher.group().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-");
                 annotated.add(result.trim());
             }
             List<CoreMap> predicted = service.extractDatesAndTimeFromText(
@@ -78,11 +78,12 @@ public class Main {
                     writer.writeToFile(fileToWrite,
                             ("False negative " + predictions + " " + annotated));
                     fn++;
+                    continue main;
 
                 }
             }
 
-            for (String prediction : predictions) {
+       /*     for (String prediction : predictions) {
                 if (!annotated.contains(prediction)) {
                     System.out.println(tip.getTipText());
                     System.out.println("False positive " + predictions + " " + annotated);
@@ -91,7 +92,7 @@ public class Main {
                             ("False positive " + predictions + " " + annotated));
                     fp++;
                 }
-            }
+            }*/
 
             tp++;
         }

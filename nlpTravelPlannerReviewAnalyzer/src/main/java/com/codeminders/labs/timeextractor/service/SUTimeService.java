@@ -23,6 +23,7 @@ public class SUTimeService {
     public static String MAIN_RULES = "/additional.rules.txt";
     public static String SUTIME1_RULES = "/english.sutime.txt";
     public static String SUTIME2_RULES = "/english.sutime2.txt";
+
     public static String DEFS = "/defs.sutime.txt";
 
     /* Method returns annotated temporal expressions */

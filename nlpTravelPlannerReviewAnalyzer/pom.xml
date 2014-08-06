@@ -4,6 +4,37 @@
 	<groupId>nlpTravelPlannerReviewAnalyzer</groupId>
 	<artifactId>nlpTravelPlannerReviewAnalyzer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<webXml>WebContent/WEB-INF/web.xml</webXml>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+
+		<spring.version>3.2.3.RELEASE</spring.version>
+		<jersey.version>1.18.1</jersey.version>
+	</properties>
+
 
 	<dependencies>
 
@@ -43,17 +74,40 @@
 			<classifier>models</classifier>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-servlet</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
 
 	</dependencies>
 
-
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-
-	</build>
-
 	<repositories>
-
 		<repository>
 			<id>google-api-services</id>
 			<url>https://oss.sonatype.org/content/repositories/releases/</url>

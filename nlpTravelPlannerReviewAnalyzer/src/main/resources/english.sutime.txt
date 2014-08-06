@@ -15,7 +15,7 @@
   $INT_TIMES = ( $INT /times/ | once | twice | thrice );
   $REL_MOD = ( /the/? /next|following|last|previous/ | /this/ /coming|past/? | /the/ /coming|past/ );
   $FREQ_MOD = ( /each/ | /every/ $NUM_ORD | /every/ | /each/ | /other|alternate|alternating/? | /alternate|alternating/ );
-  $EARLY_LATE_MOD = ( /late|early|mid-?/ | /the/? /beginning|start|dawn|middle|end/ /of/ );
+  $EARLY_LATE_MOD = ( /late|early|mid-?/ | /the/? /start|dawn|middle|end/ /of/ );
   $APPROX_MOD = ( /about|around|some|exactly|precisely/ );
   $YEAR = ( /[012]\d\d\d/ | /'\d\d/ | /'/ /\d\d/ | /\w+teen|twenty/ [ { numcompvalue<100 } & { numcompvalue>0 } & $INT ] );
   $POSSIBLE_YEAR = ( $YEAR /a\.?d\.?|b\.?c\.?/? | $INT /a\.?d\.?|b\.?c\.?/ | $INT1000TO3000 );
@@ -170,7 +170,7 @@
   # Early late modifiers
   { pattern: ( /late/ | /end/ ),
 	action: Tag($0, "Modifier", "LATE") }
-  { pattern: ( /early/ | /beginning|start|dawn/ ),
+  { pattern: ( /early/ | /start|dawn/ ),
 	action: Tag($0, "Modifier", "EARLY") }
   { pattern: ( /mid-?/ | /middle/ ),
 	action: Tag($0, "Modifier", "MID") }
@@ -221,7 +221,6 @@
   ENV.defaults["ruleType"] = "tokens"
   { (/years?|yrs?/) => YEAR }
   { (/months?|mos?/) => MONTH }
-  { (/days?/) => DAY }
   { (/hours?|hrs?/) => HOUR }
   { (/minutes?|mins?/) => MINUTE }
   { (/seconds?|secs?/) => SECOND }
@@ -634,7 +633,7 @@
    }
 
   { name: "composite-date-expression-2",
-	pattern: ( /the/? (?$mod /beginning|start|middle|mid-?|end/ ) /of|in/? (?$date [ { temporal::IS_TIMEX_DATE } ]) ),
+	pattern: ( /the/? (?$mod /start|middle|mid-?|end/ ) /of|in/? (?$date [ { temporal::IS_TIMEX_DATE } ]) ),
 	result: TemporalCompose(ADD_MODIFIER, $date[0].temporal, GetTag($mod[0], "Modifier") ) }
 
   { name: "composite-date-expression-2a1",
@@ -646,7 +645,7 @@
 	result: TemporalCompose(ADD_MODIFIER, $date[0].temporal, "LATE" ) }
 
   { name: "composite-date-expression-2b",
-	pattern: ( /the/? (?$date [ { temporal::IS_TIMEX_DATE } ]) (/'/ /s/ | /'s/ )? (?$mod /beginning|end/) ),
+	pattern: ( /the/? (?$date [ { temporal::IS_TIMEX_DATE } ]) (/'/ /s/ | /'s/ )? (?$mod /end/) ),
 	result: TemporalCompose(ADD_MODIFIER, $date[0].temporal, GetTag($mod[0], "Modifier") ) }
 
   { name: "composite-date-expression-3",
@@ -920,7 +919,6 @@
   # Vague times
   { ( /the/ /past/ | /recently/ ) => TIME_PAST }
   { pattern: ( /at/ /the/ (/time/) ), matchedExpressionGroup: 1, result: TIME_PAST }
-  { ( /present|current|currently/ | /right/? /now/ ) => TIME_PRESENT }
   { (  /the/? /near/? /future/ ) => TIME_FUTURE }
 
   # Final rules to determine how to resolve date

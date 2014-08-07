@@ -204,12 +204,11 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    result: BetweenTimeEvent($0) 
   }
    
- 
-  //at 10.11pm
+   //at 10.11pm
    {
    ruleType: "text",
-   priority:4,
-   pattern: /\b(at about|at|until|till|til|before|after|by)[\s]*\b(([01]?[0-9]|2[0-3])[\s]*([:.,][0-5][0-9])?)[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M]))?\b[\s]*($TimeZone)?/ ,
+   priority:1,
+   pattern: /\b(at about|at|until|till|til|before|after|by)[\s]*\b(([01]?[0-9]|2[0-3])[\s]*(.[0-5][0-9])?)[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M]))\b?[\s]*($TimeZone)?/ ,
    result: AtTimeEvent($1,$2,$5,$8) 
   }
   
@@ -408,15 +407,15 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   	 result: CustomTimeEvent("long hours")  
   }
   
-  //holidays
+  //holidays New Years' Eve
   
   { ruleType: "text", pattern: /New Years' Eve/,
   	 result: CustomTimeEvent("New Years' Eve")  
   }
   
-  //holidays
+  //holidays St Valentine's Day
   
-  { ruleType: "text", pattern: /St Valentine's Day/,
+  { ruleType: "text", pattern: /St[.]?[\s]*Valentine's[\s]*Day/,
   	 result: CustomTimeEvent("St Valentine's Day")  
   }
   

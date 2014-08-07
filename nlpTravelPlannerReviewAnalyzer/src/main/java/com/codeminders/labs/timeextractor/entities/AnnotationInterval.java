@@ -1,20 +1,22 @@
 package com.codeminders.labs.timeextractor.entities;
 
+import java.util.Locale;
+
 public class AnnotationInterval {
 
 	private int from;
 	private int to;
-	private String value;
 	private double confidence;
+	private Locale locale;
 
 	public AnnotationInterval() {
 	}
 
-	public AnnotationInterval(int from, int to, String value) {
+	public AnnotationInterval(int from, int to, String value, Locale locale) {
 		super();
 		this.from = from;
 		this.to = to;
-		this.value = value;
+		this.locale = locale;
 	}
 
 	public int getFrom() {
@@ -33,20 +35,20 @@ public class AnnotationInterval {
 		this.to = to;
 	}
 
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
 	public double getConfidence() {
 		return confidence;
 	}
 
 	public void setConfidence(double confidence) {
 		this.confidence = confidence;
+	}
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 }

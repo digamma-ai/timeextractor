@@ -15,7 +15,7 @@ public class TrainingMain {
 
 		SUTimeService service = new SUTimeService();
 		String date = "2014-07-30";
-		String toPredict = "Waffles served til 2pm Generously ";
+		String toPredict = "The Looney Tunes Behind the Scenes exhibit runs through May 15, so act quickly! If you miss it, check out Pulitzer Prize-winning artist Berkeley Breathed's career works--runs through June 19.";
 		System.out.println("To predict: " + toPredict);
 		List<CoreMap> predicted = service.extractDatesAndTimeFromText(
 				toPredict, date);

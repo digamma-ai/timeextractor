@@ -191,7 +191,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   //11:30-12:30, 11.30 am-12.30 pm, 
   {
    ruleType: "text",
-   priority:10,
+   priority:5,
    pattern: /\b(([01]?[0-9]|2[0-3]|1[0-9])([:.,][0-5][0-9])?)[\s]*(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?[.]?))?[\s]*[-][\s]*(([01]?[0-9]|2[0-3]|1[0-9])([:.,][0-5][0-9])?)[\s]*(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?\b/ ,
    result: BetweenTimeEvent($0)
   }
@@ -203,23 +203,32 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    pattern: /(((until|till|til|before)[\s]*((0[1-9]|[12][0-9]|3[01])[.\/](0[1-9]|1[012])[.\/](19|20)?\d\d)))/ ,
    result: BetweenTimeEvent($0) 
   }
-   
+  
+   // till 09/13/2013 till 09.13.2013
+   {
+   ruleType: "text",
+   priority:10,
+   pattern: /(((until|till|til|before)[\s]*((0[1-9]|1[012])[.\/](0[1-9]|[12][0-9]|3[01])[.\/](19|20)?\d\d)))/ ,
+   result: BetweenTimeEvent($0) 
+  }
+  
    //at 10.11pm
    {
    ruleType: "text",
    priority:1,
-   pattern: /\b(at about|at|until|till|til|before|after|by)[\s]*\b(([01]?[0-9]|2[0-3])[\s]*(.[0-5][0-9])?)[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M]))\b?[\s]*($TimeZone)?/ ,
+   pattern: /\b(at about|at|until|till|til|before|after|by|up to)[\s]*\b(([01]?[0-9]|2[0-3])[\s]*([.|:][0-5][0-9])?)[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M]))?\b[\s]*($TimeZone)?/ ,
    result: AtTimeEvent($1,$2,$5,$8) 
   }
   
-   // till 13/09/2013 till 13.09.2013
+   //11.30 am/pm
+ 
    {
    ruleType: "text",
-   priority:10,
-   pattern: /\b((until|till|til|before)[\s]*((0[1-9]|[12][0-9]|3[01])[.\/](0[1-9]|1[012])[.\/](19|20)?\d\d))\b/ ,
+   priority:1,
+   pattern: /(([01]?[0-9]|2[0-3]).([0-5][0-9]))[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M]))/ ,
    result: BetweenTimeEvent($0) 
   }
-  
+    
   //any_word 10.11
    
    {
@@ -233,7 +242,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    // from time to time
    {
    ruleType: "text",
-   pattern: /(from)?[\s]*\b(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])[\s]?(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))?[\s]*(to|till|until|before)[\s]*((\b([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])[\s]?([p,P][.]?[m,M]?[.]?)|([a,A][.]?[m,M])?)/ ,
+   pattern: /(from)?[\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\s]*(to|till|until|before)[\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?/ ,
    result: BetweenTimeEvent($0)
    }
 
@@ -306,7 +315,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
       
    { 
     ruleType: "text",
-	pattern: /(through|thru)[\s]($MONTH_OF_YEAR)([\s]?)(0?[1-9]|[12][0-9]|3[01])?/,
+	pattern: /(through|thru)[\s]($MONTH_OF_YEAR)([\s]?)(\b0?[1-9]\b|\b[12][0-9]\b|\b3[01]\b)?/,
 	result: CustomTimeEvent("THROUGH TIME") 
   }
 	  
@@ -331,8 +340,15 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    // 13/03/2014
    // 13.03.2014
   
-  { ruleType: "text", pattern: /(0[1-9]|[12][0-9]|3[01])[.\/](0[1-9]|1[012])[.\/](19|20)\d\d/,
-   result: CustomTimeEvent("WeekEnds")  } 
+  { ruleType: "text", pattern: /(0[1-9]|[12][0-9]|3[01])[-.\/](0[1-9]|1[012])[-.\/](19|20)\d\d/,
+   result: CustomTimeEvent("date")  } 
+   
+    //dd/mm/yyyy 
+   // 13/03/12
+   // 13.03.12
+  
+  { ruleType: "text", pattern: /(0[1-9]|[12][0-9]|3[01])[-.\/](0[1-9]|1[012])[-.\/]\d\d/,
+   result: CustomTimeEvent("date")  } 
    
   { ruleType: "text", pattern: /(^|[\s])[\d][\s]?weeks($|[\s])/,
    result: CustomTimeEvent("Weeks")  }
@@ -407,9 +423,15 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   	 result: CustomTimeEvent("long hours")  
   }
   
+    // morning/evening hours
+  
+  { ruleType: "text", pattern: /(morning|evening) hours/,
+  	 result: CustomTimeEvent("morning/evening hours")  
+  }
+  
   //holidays New Years' Eve
   
-  { ruleType: "text", pattern: /New Years' Eve/,
+  { ruleType: "text", pattern: /(New Years' Eve|New Year's)/,
   	 result: CustomTimeEvent("New Years' Eve")  
   }
   

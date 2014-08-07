@@ -17,6 +17,7 @@ public class BetweenTimeEvent extends Time {
     }
 
     public String toFormattedString(int flags) {
+        System.out.println(values);
         if (getTimeLabel() != null) {
             return getTimeLabel();
         }

@@ -36,7 +36,7 @@ DAYOFWEEK_MAP = {
   
 MONTH_OF_YEAR_MAP = {
    "january": "january",
-    "febr?y": "february",
+    "february": "february",
     "march": "march",
     "april":" april",
     "may":" may",  
@@ -186,6 +186,15 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
      pattern: /(from)?[\s]?((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*((to)|[-])[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*($MONTH_OF_YEAR)[\s,.]*((19|20)\d\d)?/, 
      result: BetweenTimeEvent($0) 
    }
+   
+  // from 9th February -5th June 2012 
+  
+  {  ruleType: "text", 
+     priority:3,
+     pattern: /\b(from)[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\s]*($MONTH_OF_YEAR)[\s]*([-]|(to)|(until))[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\s]*($MONTH_OF_YEAR)[\s]*((19|20)\d\d)?\b/, 
+     result: BetweenTimeEvent($0) 
+   }
+   
 
    
   // 11.30 am-12.30 pm, 

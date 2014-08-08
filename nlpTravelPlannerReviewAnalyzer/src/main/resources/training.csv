@@ -604,7 +604,7 @@ venueId,time,tip
 4adcda83f964a520aa4821e3,1352232048, <text>03/14/11</text>
 4adcda83f964a520aa4821e3,1352232048,The meeting is scheduled for <text>June 30</text> .
 4adcda83f964a520aa4821e3,1352232048,The meeting is scheduled for <text>the 30th of June</text> .
-4adcda83f964a520aa4821e3,1352232048,Her flight leaves <text>at 6:22 a.m.</text>
+4adcda83f964a520aa4821e3,1352232048,Her flight leaves <text>at 6:22 a.m</text> .
 4adcda83f964a520aa4821e3,1352232048, <text>5th of October 2014</text>
 4adcda83f964a520aa4821e3,1352232048, <text>October the 5th 2014</text>
 4adcdab1f964a520075021e3,1352232048, Closes at <text>17:30</text>
@@ -616,7 +616,7 @@ venueId,time,tip
 4adcdab3f964a5203b5021e3,1352232048,<text>the second of December</text>
 4adcdab3f964a5203b5021e3,1352232048,<text>ten minutes to three</text>
 4adcdab3f964a5203b5021e3,1352232048,<text>after 12 PM</text> on <text>Tuesday</text>
-4adcdab3f964a5203b5021e3,1352232048,<text>8:00 p.m/text> . on <text>Friday</text>
+4adcdab3f964a5203b5021e3,1352232048,<text>8:00 p.m</text> . on <text>Friday</text>
 4adcdab3f964a5203b5021e3,1352232048,<text>Friday</text> <text>at 8:00 p.m</text> . 
 4adcdab3f964a5203b5021e3,1352232048,<text>twelve o'clock January 3</text> , <text>1984</text>
 4b0c1159f964a520633623e3,1352232048,Peter Osgood's memorial statue was unveiled on <text>2nd Oct 2010</text> . He scored 150 times in 380 appearances for the Blues.
@@ -734,7 +734,7 @@ venueId,time,tip
 445e36bff964a520fb321fe3,1352232048,"Want to hit the crap out of a giant ball? Barring rain, Volleybonk is played <text>every Sunday</text> at the Dolores Park tennis courts from <text>8 to 10:15 p.m.</text> Drink beer, make new friends, & perfect your high-five!"
 445e36bff964a520fb321fe3,1352232048,"Bring the kids to learn from the best! The Harlem Globetrotters will be hosting some summer skills clinics <text>July 8-13</text> . For more information"
 445e36bff964a520fb321fe3,1352232048,"Enjoy the outdoors and performances hosted by The San Francisco Mime Troupe's opening <text>weekend</text> at Dolores Park. <text>Sat, 7/5</text> , 2p, free"
-445e36bff964a520fb321fe3,1352232048,"Head to Dolores Park for the annual San Francisco Trans March. Be sure to stay around after for the after party hosted by El Rio. <text>Fri, 6/27</text> , <text>12pm-2am</text> ."
+445e36bff964a520fb321fe3,1352232048,"Head to Dolores Park for the <text>annual</text> San Francisco Trans March. Be sure to stay around after for the after party hosted by El Rio. <text>Fri, 6/27</text> , <text>12pm-2am</text> ."
 4ab595e1f964a520877520e3,1352232048,"Bring plenty of your favorite booze, find a friend who lives near by (bathroom lines are soooo long), and watch out for flying corks on Mimosa <text>Sunday</text> Funday! FOUR!!!!"
 4ab595e1f964a520877520e3,1352232048,"<text>18:23</text> Mission Dolores Park"
 4ab595e1f964a520877520e3,1352232048,"It was most grateful <text>Sunday morning</text> ever!"

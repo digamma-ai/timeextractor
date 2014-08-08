@@ -22,10 +22,9 @@ import edu.stanford.nlp.util.CoreMap;
 /* Service class to extract temporal information from texts */
 
 public class SUTimeService {
-    
 
     private TextCleaner textCleaner;
-    
+
     private AnnotationPipeline pipeline;
 
     public SUTimeService() {

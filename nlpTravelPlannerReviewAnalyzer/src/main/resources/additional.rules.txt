@@ -279,6 +279,14 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    pattern:/(from)?[\s]*([0-9]|0[0-9]|1[0-9]|2[0-3])[:.][0-5][0-9][\s]*(to|till|until|before)[\s]*([0-9]|0[0-9]|1[0-9]|2[0-3])[:.][0-5][0-9]/,
    result: BetweenTimeEvent($0)
    }
+   
+   // from 10 to 11
+   {
+   ruleType: "text",
+   priority:1,
+   pattern:/\b(from)?[\s]*([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(to|till|until|before)[\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))\b/,
+   result: BetweenTimeEvent($0)
+   }
 
   // until 7 July
   
@@ -341,7 +349,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
        
    { 
     ruleType: "text",
-	pattern: /(through|thru)[\s]($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY[.]?)([\s]?)([0-3][0-1][-][0-3][0-1])?[\s]?(^\d{4})?[\s]?/,
+	pattern: /(through|thru)[\s]($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY[.]?)([\s]?)([0-3][0-1][-][0-3][0-1])?[\s]?((\d{4})?)/,
 	result: CustomTimeEvent("THROUGH TIME") 
   }
    
@@ -392,6 +400,14 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   priority:1,
   pattern: /\b(([1-9]|[12][0-9]|3[01]))[-.\/](([1-9]|1[012]))[-.\/](\d\d)\b/,
    result: CustomTimeEvent("date")  
+  }  
+  
+  // from 4/23/10 through 8/29/2010
+  
+ { ruleType: "text", 
+  priority:4,
+  pattern: /\b(from)[\s]*(([1-9]|1[012]))[-.\/](([1-9]|[12][0-9]|3[01]))[-.\/]((\d\d)|([12][90]\d\d))[\s]*(to|through|until)[\s]*(([1-9]|1[012]))[-.\/](([1-9]|[12][0-9]|3[01]))[-.\/]((\d\d)|([12][90]\d\d))\b/,
+  result: BetweenTimeEvent($0)
   }  
    
     //dd/mm/yyyy 

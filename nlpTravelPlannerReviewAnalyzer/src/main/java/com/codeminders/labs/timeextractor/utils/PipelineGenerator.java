@@ -13,49 +13,45 @@ import edu.stanford.nlp.time.TimeAnnotator;
 
 public class PipelineGenerator {
 
-	private static final String MAIN_RULES = "/additional.rules.txt";
-	private static final String SUTIME1_RULES = "/english.sutime.txt";
-	private static final String SUTIME2_RULES = "/english.sutime2.txt";
-	private static final String DEFS = "/defs.sutime.txt";
+    private static final String MAIN_RULES = "/additional.rules.txt";
+    private static final String SUTIME1_RULES = "/english.sutime.txt";
+    private static final String SUTIME2_RULES = "/english.sutime2.txt";
+    private static final String DEFS = "/defs.sutime.txt";
 
-	private static AnnotationPipeline pipeline = new AnnotationPipeline();
+    private static AnnotationPipeline pipeline = new AnnotationPipeline();
 
-	public static AnnotationPipeline getPipeline() {
+    static {
+        pipeline.addAnnotator(new PTBTokenizerAnnotator(false));
+        pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
+        pipeline.addAnnotator(new POSTaggerAnnotator(false));
+        Properties props = getProperties();
+        pipeline.addAnnotator(new TimeAnnotator("sutime", props));
+    }
+    
+    public static AnnotationPipeline getPipeline() {
+        return pipeline;
+    }
 
-		pipeline.addAnnotator(new PTBTokenizerAnnotator(false));
-		pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
-		pipeline.addAnnotator(new POSTaggerAnnotator(false));
-		Properties props = getProperties();
-		pipeline.addAnnotator(new TimeAnnotator("sutime", props));
+    private static Properties getProperties() {
 
-		return pipeline;
+        String customRules = SUTimeService.class.getResource(MAIN_RULES).getPath();
+        String sutimeRules1 = SUTimeService.class.getResource(SUTIME1_RULES).getPath();
+        String sutimeRules2 = SUTimeService.class.getResource(SUTIME2_RULES).getPath();
+        String defs = SUTimeService.class.getResource(DEFS).getPath();
 
-	}
+        // defs, customRules,sutimeRules1,sutimeRules2
+        // customRules
 
-	private static Properties getProperties() {
+        String allRules = StringUnion.sutimeMainRules(defs, customRules, sutimeRules1, sutimeRules2);
 
-		String customRules = SUTimeService.class.getResource(MAIN_RULES)
-				.getPath();
-		String sutimeRules1 = SUTimeService.class.getResource(SUTIME1_RULES)
-				.getPath();
-		String sutimeRules2 = SUTimeService.class.getResource(SUTIME2_RULES)
-				.getPath();
-		String defs = SUTimeService.class.getResource(DEFS).getPath();
+        Properties props = new Properties();
+        props.setProperty("sutime.markTimeRanges", "true");
+        props.setProperty("sutime.includeRange", "true");
+        props.setProperty("restrictToTimex3", "false");
+        props.setProperty("sutime.rules", allRules);
+        props.setProperty("annotators", "tokenize,ssplit,pos,sutime");
 
-		// defs, customRules,sutimeRules1,sutimeRules2
-		// customRules
-
-		String allRules = StringUnion.sutimeMainRules(defs, customRules,
-				sutimeRules1, sutimeRules2);
-
-		Properties props = new Properties();
-		props.setProperty("sutime.markTimeRanges", "true");
-		props.setProperty("sutime.includeRange", "true");
-		props.setProperty("restrictToTimex3", "false");
-		props.setProperty("sutime.rules", allRules);
-		props.setProperty("annotators", "tokenize,ssplit,pos,sutime");
-
-		return props;
-	}
+        return props;
+    }
 
 }

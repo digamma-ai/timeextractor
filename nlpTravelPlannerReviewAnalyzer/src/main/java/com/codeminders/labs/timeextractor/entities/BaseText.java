@@ -1,8 +1,8 @@
 package com.codeminders.labs.timeextractor.entities;
 
-public class BaseTexts {
+public class BaseText {
 
-	public BaseTexts() {
+	public BaseText() {
 	}
 
 	private String id;

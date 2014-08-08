@@ -16,7 +16,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
-import com.codeminders.labs.timeextractor.entities.BaseTexts;
+import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.utilities.RestParameters;
 
@@ -50,10 +50,10 @@ public class TimeExtractorRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
-        List<BaseTexts> baseTexts = new ArrayList<BaseTexts>();
+        List<BaseText> baseTexts = new ArrayList<BaseText>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
-            BaseTexts baseText = new BaseTexts();
+            BaseText baseText = new BaseText();
             JSONObject object = jsonArray.getJSONObject(i);
             baseText.setId(object.optString(RestParameters.ID));
             baseText.setText(object.optString(RestParameters.TEXT));

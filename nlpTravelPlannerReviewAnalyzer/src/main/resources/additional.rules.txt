@@ -456,11 +456,12 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", pattern: /summer[\s]?(hours|hour)/,
    result: CustomTimeEvent("Summer")  }
    
-
+ // all day - duration
   { ruleType: "text", pattern: /(all|entire|full)[\s]? (day|month|year)/,
   	 result: CustomTimeEvent("whole")  
   }
   
+   
   { ruleType: "text", pattern: /most of the year/,
   	 result: CustomTimeEvent("most of the year")  
   }
@@ -505,32 +506,32 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   	 result: BetweenTimeEvent($0) 
   }
   
-    // June 24-29 July 2014 etc.
+   // June 24-29 July 2014 etc.
   { ruleType: "text", pattern: /($MONTH_OF_YEAR)[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[-]((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*((19|20)\d\d)?/,
   	 result: BetweenTimeEvent($0) 
   }
   
-   // 30-45 minutes, 2 mns
+  // 30-45 minutes, 2 mns
 	{ 
     ruleType: "text",
 	pattern: /\b(([1-9])|([1-9][0-9]))(([\s]*[-][\s]*(([1-9])|([1-9][0-9][0-9]?)))?[\s]?)?(minutes|minute|mins|min|mns|mn)\b/,
 	result: CustomTimeEvent("PERIOD_TIME") 
     }
     
-   // half hour, quarter hour
+  // half hour, quarter hour
 	{ 
     ruleType: "text",
 	pattern: /\b((half|quarter)[\s]*(hour))\b/,
 	result: CustomTimeEvent("PERIOD_TIME") 
     }
     
-   // long hours
+  // long hours
   
   { ruleType: "text", pattern: /long hours/,
   	 result: CustomTimeEvent("long hours")  
   }
   
-    // morning/evening hours
+  // morning/evening hours
   
   { ruleType: "text", pattern: /(morning|evening) hours/,
   	 result: CustomTimeEvent("morning/evening hours")  

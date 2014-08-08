@@ -25,11 +25,10 @@ public class SUTimeService {
 
     private TextCleaner textCleaner;
 
-    private AnnotationPipeline pipeline;
+    private static AnnotationPipeline pipeline = PipelineGenerator.getPipeline();
 
     public SUTimeService() {
         textCleaner = new TextCleaner();
-        pipeline = PipelineGenerator.getPipeline();
     }
 
     /**
@@ -43,7 +42,6 @@ public class SUTimeService {
      */
 
     public List<CoreMap> extractDatesAndTimeFromText(String text, String date) {
-
         // clean text
         text = textCleaner.cleanText(text);
 

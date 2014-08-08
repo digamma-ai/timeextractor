@@ -31,18 +31,6 @@ public class TimeExtractorRestService {
         setSutimeService(new SUTimeService());
     }
 
-    /* Get all annotation for plain text */
-
-    @POST
-    @Path("/getAllAnnotationsForPlainText/")
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllAnnotationsForPlainText(String text) {
-        List<CoreMap> result = sutimeService.extractDatesAndTimeFromText(text, null);
-        List<AnnotationInterval> intervals = sutimeService.getAllAnotations(result);
-        return Response.status(200).entity(intervals).build();
-    }
-
     /* Get all annotation for multiple texts */
 
     @POST
@@ -64,10 +52,8 @@ public class TimeExtractorRestService {
             baseTexts.add(baseText);
         }
 
-        Map<String, List<CoreMap>> extractDates = sutimeService
-                .extractDatesAndTimeFromText(baseTexts);
-        Map<String, List<AnnotationInterval>> annotatedIntervals = sutimeService
-                .getAllAnnotations(extractDates);
+        Map<String, List<CoreMap>> extractDates = sutimeService.extractDatesAndTimeFromText(baseTexts);
+        Map<String, List<AnnotationInterval>> annotatedIntervals = sutimeService.getAllAnnotations(extractDates);
         return Response.status(200).entity(annotatedIntervals).build();
     }
 

@@ -8,20 +8,21 @@ $(document).ready(function() {
     $("#myButton").click(function(e){
             dataString = $("#myAjaxRequestForm").find('input, select, textarea, button').serialize();
             var text = $("textarea#text").val(); 
-            dataString = "Text =" + text;
+            var json = [{ 'id': '1', 'text': text }];
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/timeextractor/api/getAllAnnotationsForPlainText",
-                data: text,
-                contentType: "text/plain",
+                url: "http://localhost:8080/timeextractor/api/annotate",
+                data: JSON.stringify(json),
+                contentType: "application/json",
+                dataType: 'json',
                 success: function(data, textStatus, jqXHR) {
                     $("#ajaxResponse").html("");
                     text1 = text;
                     var index = (text.length);
                     var k = 0;
-                    for (var obj in data) {
-                    	var fr = data[obj].from+k; 
-                    	var to = data[obj].to+k;
+                    for (var obj in data[1]) {
+                    	var fr = data[1][obj].from+k; 
+                    	var to = data[1][obj].to+k;
                     	if(fr==0){
                     		text1 ="<b>"+text1.substring(fr,to)+"</b>"+text1.substring(to,index);
                     	}

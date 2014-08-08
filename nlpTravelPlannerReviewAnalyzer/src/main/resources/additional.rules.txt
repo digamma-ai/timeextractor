@@ -169,7 +169,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    pattern: /(between)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])|([a,A][m,M])?[\s-]?(to)?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))[\s*](and)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))/ ,
    result: CustomTimeEvent($0)
   }
-  
+   
  // between 11:30 and 12h
  // between 11:30 and 12:00
  // between 11h and 14h
@@ -228,8 +228,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    result: AtTimeEvent($1,$2,$5,$8) 
   }
   
-  
-   //3 days
+     //3 days
    {
    ruleType: "text",
    priority:1,
@@ -260,7 +259,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    {
    ruleType: "text",
    priority:0,
-   pattern: /\b(\w*[\s]?(([01]?[0-9]|2[0-3])[.][0-5][0-9]))\b/ ,
+   pattern: /([a-zA-Z]+[\s]*([01]?[0-9]|2[0-3])([.][0-5][0-9]))/ ,
    result: CustomTimeEvent($0) 
   }
 
@@ -268,7 +267,16 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    // from time to time
    {
    ruleType: "text",
+   priority:3,
    pattern: /(from)?[\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\s]*(to|till|until|before)[\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?/ ,
+   result: BetweenTimeEvent($0)
+   }
+   
+   // from 10:00 to 11:00
+   {
+   ruleType: "text",
+   priority:2,
+   pattern:/(from)?[\s]*([0-9]|0[0-9]|1[0-9]|2[0-3])[:.][0-5][0-9][\s]*(to|till|until|before)[\s]*([0-9]|0[0-9]|1[0-9]|2[0-3])[:.][0-5][0-9]/,
    result: BetweenTimeEvent($0)
    }
 
@@ -361,22 +369,52 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    pattern: /($MONTH_OF_YEAR)[\s]?[0-3][0-9][\s]*[-]*[\s]*($MONTH_OF_YEAR)[\s]?[0-3][0-9]?/,
    result: CustomTimeEvent("PERIOD_TIME") 
   }
+    
+  // 2009/04/10
   
-    //dd/mm/yyyy 
-   // 13/03/2014
-   // 13.03.2014
+  { ruleType: "text", 
+  priority:3,
+  pattern: /\b((19|20)\d\d)[-.\/]((0[1-9]|1[012]))[-.\/]((0[1-9]|[12][0-9]|3[01]))\b/,
+   result: CustomTimeEvent("date")  
+   } 
+   
+  // 14/3/2011
   
-  { ruleType: "text", pattern: /(0[1-9]|[12][0-9]|3[01])[-.\/](0[1-9]|1[012])[-.\/](19|20)\d\d/,
-   result: CustomTimeEvent("date")  } 
+  { ruleType: "text", 
+  priority:3,
+  pattern: /\b(([1-9]|[12][0-9]|3[01]))[-.\/](([1-9]|1[012]))[-.\/]((19|20)\d\d)\b/,
+   result: CustomTimeEvent("date")  
+   }
+   
+   // 14/3/11
+  
+  { ruleType: "text", 
+  priority:1,
+  pattern: /\b(([1-9]|[12][0-9]|3[01]))[-.\/](([1-9]|1[012]))[-.\/](\d\d)\b/,
+   result: CustomTimeEvent("date")  
+  }  
    
     //dd/mm/yyyy 
    // 13/03/12
    // 13.03.12
   
-  { ruleType: "text", pattern: /(0[1-9]|[12][0-9]|3[01])[-.\/](0[1-9]|1[012])[-.\/]\d\d/,
-   result: CustomTimeEvent("date")  } 
+  { ruleType: "text", 
+  pattern: /(0[1-9]|[12][0-9]|3[01])[-.\/](0[1-9]|1[012])[-.\/]\d\d/,
+  priority:2,
+   result: CustomTimeEvent("date")  
+   } 
    
-  { ruleType: "text", pattern: /(^|[\s])[\d][\s]?weeks($|[\s])/,
+  // 13/03/2014
+   // 13.03.2014
+  
+  { ruleType: "text", 
+  pattern: /\b((0[1-9]|[12][0-9]|3[01]))[-.\/]((0[1-9]|1[012]))[-.\/]((19|20)\d\d)\b/,
+  priority:3,
+   result: CustomTimeEvent("date")  
+   } 
+   
+   
+  { ruleType: "text", pattern: /([\d][\s]?(weeks)\b)/,
    result: CustomTimeEvent("Weeks")  }
    
   
@@ -415,7 +453,16 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   
    // 1-2 hours
   
-  { ruleType: "text", pattern: /(\b[1-9](([-,-][1-9][\s]*)|[0-9])?(hours|hrs)\b)/,
+  { ruleType: "text",
+    priority: 3,
+    pattern: /(\b((\d)[\s]*[-][\s]*([0-9])[\s]*(hours|hrs))\b)/,
+  	 result: BetweenTimeEvent($0) 
+  }
+  
+  //3 hours, 2hrs
+  
+  { ruleType: "text", pattern: /(((\d)(\d)?.(\d)|(\d)(\d)|(\d))[\s]*(hours|hour|hrs|hr)\b)/,
+    priority:1,
   	 result: BetweenTimeEvent($0) 
   }
   
@@ -457,7 +504,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   
   //holidays New Years' Eve
   
-  { ruleType: "text", pattern: /((New Year)|(New Years' Eve))/,
+  { ruleType: "text", pattern: /(\b(New Years' Eve)\b|\b(New Year)\b)/,
   	 result: CustomTimeEvent("New Years' Eve")  
   }
   
@@ -478,4 +525,4 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
      pattern: /[1-7][\s]*(days a week)/, 
      result: CustomTimeEvent("PERIOD_TIME") 
   }
- 
+  

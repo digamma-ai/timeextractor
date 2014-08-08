@@ -221,7 +221,6 @@
   ENV.defaults["ruleType"] = "tokens"
   { (/years?|yrs?/) => YEAR }
   { (/months?|mos?/) => MONTH }
-  { (/hours?|hrs?/) => HOUR }
   { (/minutes?|mins?/) => MINUTE }
   { (/seconds?|secs?/) => SECOND }
   { (/milliseconds?|millisecs?/) => MILLIS }

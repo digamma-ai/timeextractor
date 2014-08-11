@@ -324,7 +324,7 @@ DAYOFWEEK_MAP = {
   }
        
   DAYOFWEEK_MAP_EASY = {
-   "Sun": "Sunday",
+   "Sun": "sunday",
    "Mon": "monday",
    "Tue": "tuesday",
    "Wed":" wednesday",

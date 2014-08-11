@@ -8,15 +8,14 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
  
   // first monday of month 
   
-  { ruleType: "text", pattern: /(($BasicOrdTerm|[1-9](rd|th))([\s])?($DAY_OF_WEEK|$DAYOFWEEK_EASY)[\s]?(of)[\s]?(the)?[\s]?(month))/,
+  { ruleType: "text", pattern: /(($BasicOrdTerm|[1-9](rd|th))([\s])?($DAY_OF_WEEK|$DAYOFWEEK_EASY)(s)?[\s]?(of)[\s]?(the)?(most)?[\s]?(month(s)?))/,
   	 result: BetweenTimeEvent($0) 
   }
   
   { ruleType: "text", pattern: /($SEASON)[\s]*(months|month)/,
   	 result: BetweenTimeEvent($0) 
   }
- 
-  
+   
    // Sat/Sun
   { ruleType: "text", pattern: /(($DAYOFWEEK_EASY)[\/]($DAYOFWEEK_EASY))/,
   	 result: BetweenTimeEvent($0) 

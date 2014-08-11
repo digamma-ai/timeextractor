@@ -21,108 +21,6 @@
   $POSSIBLE_YEAR = ( $YEAR /a\.?d\.?|b\.?c\.?/? | $INT /a\.?d\.?|b\.?c\.?/ | $INT1000TO3000 );
   $hasTemporal = "( { temporal::EXISTS } & {{ temporal.value != NON_TEMPORAL }} & !{{ tags[\"TIMEZONE\"] }} )"
 
-  # Decades
-  DECADES_MAP = {
-    "twenties": "2X",
-    "thirties": "3X",
-    "forties": "4X",
-    "fifties": "5X",
-    "sixties": "6X",
-    "seventies": "7X",
-    "eighties": "8X",
-    "nineties": "9X"
-  }
-  $Decades = CreateRegex(Keys(DECADES_MAP))
-
-  # Durations
-  TIMEUNIT_MAP = {
-    "year": YEAR,
-    "yr": YEAR,
-    "month": MONTH,
-    "mo": MONTH,
-    "day": DAY,
-    "hour": HOUR,
-    "hr": HOUR,
-    "minute": MINUTE,
-    "min": MINUTE,
-    "second": SECOND,
-    "sec": SECOND,
-    "millisecond": MILLIS,
-    "millisec": MILLIS,
-    "week": WEEK,
-    "wk": WEEK,
-    "fortnight": FORTNIGHT,
-    "quarter": QUARTER,
-    "century": CENTURY,
-    "centuries": CENTURY,
-    "millennia": MILLENNIUM,
-    "millennium": MILLENNIUM,
-    "millenia": MILLENNIUM,
-    "millenium": MILLENNIUM
-  }
-  $TEUnits = CreateRegex(Keys(TIMEUNIT_MAP))
-  BASIC_NUMBER_MAP = {
-    "one": 1,
-    "two": 2,
-    "three": 3,
-    "four": 4,
-    "five": 5,
-    "six": 6,
-    "seven": 7,
-    "eight": 8,
-    "nine": 9,
-    "ten": 10,
-    "eleven": 11,
-    "twelve": 12,
-    "thirteen": 13,
-    "fourteen": 14,
-    "fifteen": 15,
-    "sixteen": 16,
-    "seventeen": 17,
-    "eighteen": 18,
-    "nineteen": 19,
-    "twenty": 20,
-    "thirty": 30,
-    "forty": 40,
-    "fifty": 50,
-    "sixty": 60,
-    "seventy": 70,
-    "eighty": 80,
-    "ninety": 90,
-    "hundred": 100
-  }
-  $BasicNumTerm = CreateRegex(Keys(BASIC_NUMBER_MAP))
-  BASIC_ORDINAL_MAP = {
-    "first": 1,
-    "second": 2,
-    "third": 3,
-    "fourth": 4,
-    "fifth": 5,
-    "sixth": 6,
-    "seventh": 7,
-    "eighth": 8,
-    "ninth": 9,
-    "tenth": 10,
-    "eleventh": 11,
-    "twelfth": 12,
-    "thirteenth": 13,
-    "fourteenth": 14,
-    "fifteenth": 15,
-    "sixteenth": 16,
-    "seventeenth": 17,
-    "eighteenth": 18,
-    "nineteenth": 19,
-    "twentieth": 20,
-    "thirtieth": 30,
-    "fortieth": 40,
-    "fiftieth": 50,
-    "sixtieth": 60,
-    "seventieth": 70,
-    "eightieth": 80,
-    "ninetieth": 90,
-    "hundredth": 100
-  }
-  $BasicOrdTerm = CreateRegex(Keys(BASIC_ORDINAL_MAP))
 
   ########################################################################################################################
 
@@ -519,12 +417,6 @@
   { pattern: ( /another/ (?: ($NUM) /to|-/ )? ($NUM)? ([ { temporal::IS_TIME_UNIT } ]) ),
 	result: Duration($1, $2, $3, TIME_REF, TIME_UNKNOWN) }
 
-  # i.e. "the 2 months following the crash", "for ten days before leaving"
-  # TODO: NEED TO FIX THIS, right now it doesn't include "the crash" or "leaving"
-  # ...need to be able to recognize NPs and VPs using POS tags
-  { pattern: ( /the/ (?: ($NUM) /to|-/ )? ($NUM) ([ { temporal::IS_TIME_UNIT } ]) ),
-	result: Duration($1, $2, $3) }
-
   # i.e. "the first 9 months of 1997"
   { pattern: ( /the/ /first|initial|last|final|latest/ (?: ($NUM) /to|-/ )? ($NUM)? ([ { temporal::IS_TIME_UNIT } ]) ),
 	result: Duration( $1, $2, $3 ) }
@@ -683,7 +575,7 @@
   }
 
   { name: "composite-date-expression-7a",
-    pattern: ( (?: /the/? /day/ (/before/|/prior/ /to/) ([ { temporal::IS_TIMEX_DATE } ]) ) ),
+    pattern: ( (?: /the/? /day/ (/prior/ /to/) ([ { temporal::IS_TIMEX_DATE } ]) ) ),
 	result: TemporalCompose(
 	          PLUS,
 			  $2[0].temporal,
@@ -750,7 +642,7 @@
 
   { name: "composite-time-expression-2",
     pattern: (  (?$minute /a/? /quarter/ | /a/? /half/ | [ $INT & { numcompvalue<=60 } ] /minutes?/? )
-		        (?$rel /past|after|before|to|until/)
+		        (?$rel /past|after|to|until/)
 				(?: (?$time [ { temporal::IS_TIMEX_TIME } ]) | (?$hour [ $INT & { numcompvalue<=24 } ]))
              ),
 	result: TemporalCompose(
@@ -808,7 +700,7 @@
   }
 
   { name: "temporal-composite-3",
-    pattern: ( ( [ { temporal::IS_TIMEX_DURATION } ] )  (/before|from|since|after/ | /prior/ /to/)
+    pattern: ( ( [ { temporal::IS_TIMEX_DURATION } ] )  (/from|since|after/ | /prior/ /to/)
 	   ( [ ({ temporal::IS_TIMEX_TIME }  |  { temporal::IS_TIMEX_DATE }) ] ) ),
 	result: TemporalCompose(
 	          OFFSET, $0[-1].temporal,
@@ -816,7 +708,7 @@
 			   MULTIPLY,
 			   $0[0].temporal,
 			   :case {
-			     $2 =~ (/before/|/prior/ /to/) => -1,
+			     $2 =~ (/prior/ /to/) => -1,
 			     :else => 1
                } ))
   }
@@ -835,7 +727,7 @@
   # expand: timex later|earlier|late => one timex
   { name: "temporal-composite-5",
     pattern: ( ( [ $hasTemporal & !{ temporal::IS_TIMEX_DURATION } ] )
-               (/before|earlier|later|late|ago|hence/ | /from/ /now/) ),
+               (/earlier|later|late|ago|hence/ | /from/ /now/) ),
 	result: $0[0].temporal.value }
 
   { name: "temporal-composite-6a",

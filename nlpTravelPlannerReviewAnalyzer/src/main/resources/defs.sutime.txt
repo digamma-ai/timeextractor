@@ -199,3 +199,196 @@
   QUARTERLY = PeriodicTemporalSet(NIL, QUARTER, "EVERY", "P1X");
   YEARLY = PeriodicTemporalSet(NIL, YEAR, "EVERY", "P1X");
   WEEKLY = PeriodicTemporalSet(NIL, WEEK, "EVERY", "P1X");    
+  
+    # Decades
+  DECADES_MAP = {
+    "twenties": "2X",
+    "thirties": "3X",
+    "forties": "4X",
+    "fifties": "5X",
+    "sixties": "6X",
+    "seventies": "7X",
+    "eighties": "8X",
+    "nineties": "9X"
+  }
+  $Decades = CreateRegex(Keys(DECADES_MAP))
+
+  # Durations
+  TIMEUNIT_MAP = {
+    "year": YEAR,
+    "yr": YEAR,
+    "month": MONTH,
+    "mo": MONTH,
+    "day": DAY,
+    "hour": HOUR,
+    "hr": HOUR,
+    "minute": MINUTE,
+    "min": MINUTE,
+    "second": SECOND,
+    "sec": SECOND,
+    "millisecond": MILLIS,
+    "millisec": MILLIS,
+    "week": WEEK,
+    "wk": WEEK,
+    "fortnight": FORTNIGHT,
+    "quarter": QUARTER,
+    "century": CENTURY,
+    "centuries": CENTURY,
+    "millennia": MILLENNIUM,
+    "millennium": MILLENNIUM,
+    "millenia": MILLENNIUM,
+    "millenium": MILLENNIUM
+  }
+  $TEUnits = CreateRegex(Keys(TIMEUNIT_MAP))
+  BASIC_NUMBER_MAP = {
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "eleven": 11,
+    "twelve": 12,
+    "thirteen": 13,
+    "fourteen": 14,
+    "fifteen": 15,
+    "sixteen": 16,
+    "seventeen": 17,
+    "eighteen": 18,
+    "nineteen": 19,
+    "twenty": 20,
+    "thirty": 30,
+    "forty": 40,
+    "fifty": 50,
+    "sixty": 60,
+    "seventy": 70,
+    "eighty": 80,
+    "ninety": 90,
+    "hundred": 100
+  }
+  $BasicNumTerm = CreateRegex(Keys(BASIC_NUMBER_MAP))
+  BASIC_ORDINAL_MAP = {
+    "first": 1,
+    "second": 2,
+    "third": 3,
+    "fourth": 4,
+    "fifth": 5,
+    "sixth": 6,
+    "seventh": 7,
+    "eighth": 8,
+    "ninth": 9,
+    "tenth": 10,
+    "eleventh": 11,
+    "twelfth": 12,
+    "thirteenth": 13,
+    "fourteenth": 14,
+    "fifteenth": 15,
+    "sixteenth": 16,
+    "seventeenth": 17,
+    "eighteenth": 18,
+    "nineteenth": 19,
+    "twentieth": 20,
+    "thirtieth": 30,
+    "fortieth": 40,
+    "fiftieth": 50,
+    "sixtieth": 60,
+    "seventieth": 70,
+    "eightieth": 80,
+    "ninetieth": 90,
+    "hundredth": 100
+  }
+  $BasicOrdTerm = CreateRegex(Keys(BASIC_ORDINAL_MAP))
+  
+  TIME_OF_DAY_MAP = {
+    "morning": "morning",
+    "afternoon": "afternoon",
+    "evening": "evening",
+    "night":" night",
+    "noon": "noon",
+    "midnight": "midnight"
+  }
+$TIME_OF_DAY = CreateRegex(Keys(TIME_OF_DAY_MAP))
+  
+DAYOFWEEK_MAP = {
+   "monday": "monday",
+    "tuesday": "tuesday",
+    "wednesday": "wednesday",
+    "thursday":" thursday",
+    "friday":" friday",  
+    "saturday": "saturday",
+    "sunday": "sunday"
+  }
+       
+  DAYOFWEEK_MAP_EASY = {
+   "Sun": "Sunday",
+   "Mon": "monday",
+   "Tue": "tuesday",
+   "Wed":" wednesday",
+   "Thu":" thursday",
+   "Thur":" thursday",  
+   "Fri": "friday",
+   "Sat": "saturday"
+  }
+  
+MONTH_OF_YEAR_MAP = {
+   "january": "january",
+    "february": "february",
+    "march": "march",
+    "april":" april",
+    "may":" may",  
+    "june": "june",
+    "july": "july",
+    "august": "august",
+    "september": "september",
+    "october": "october",
+    "november": "november",
+    "december": "december"
+  }
+    
+  MONTH_OF_YEAR_EASY_MAP = {
+   "jan": "jan",
+    "feb": "feb",
+    "mar": "mar",
+    "apr":" apr",
+    "may":" may",  
+    "jun": "jun",
+    "jul": "jul",
+    "aug": "aug",
+    "sept": "sept",
+    "oct": "oct",
+    "nov": "nov",
+    "dec": "dec"
+  }
+   
+   
+TIME_ZONE = {
+    "PST": "PST",
+    "EST": "EST",
+    "ET": "ET",
+    "EDT": "EDT",
+    "CST":" CST",
+    "PDT":" PDT",  
+    "GMT": "GMT",
+    "UTC": "UTC"
+  }  
+  
+  TIME_OF_YEAR_MAP = {
+  
+    "winter": "winter",
+    "summer": "summer",
+    "autumn": "summer",
+    "spring":" spring"
+  } 
+    
+
+$TimeZone = CreateRegex(Keys(TIME_ZONE))
+  
+$DAY_OF_WEEK = CreateRegex(Keys(DAYOFWEEK_MAP))  
+$MONTH_OF_YEAR = CreateRegex(Keys(MONTH_OF_YEAR_MAP))
+$DAYOFWEEK_EASY = CreateRegex(Keys(DAYOFWEEK_MAP_EASY))
+$MONTH_OF_YEAR_EASY=CreateRegex(Keys(MONTH_OF_YEAR_EASY_MAP))
+$SEASON=CreateRegex(Keys(TIME_OF_YEAR_MAP))

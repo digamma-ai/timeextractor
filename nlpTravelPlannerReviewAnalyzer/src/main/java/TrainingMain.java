@@ -14,11 +14,11 @@ public class TrainingMain {
 
         SUTimeService service = new SUTimeService();
         String date = "2014-07-30";
-        String toPredict = "from 11.30 to 12.00";
+        String toPredict = "two days";
         System.out.println("To predict: " + toPredict);
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(toPredict, date);
         System.out.println(predicted);
-
+                       
         for (CoreMap cm : predicted) {
             cm.get(CoreAnnotations.TokensAnnotation.class);
             TimeExpression timeExpr = cm.get(TimeExpression.Annotation.class);

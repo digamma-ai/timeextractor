@@ -14,7 +14,7 @@ public class TrainingMain {
 
         SUTimeService service = new SUTimeService();
         String date = "2014-07-30";
-        String toPredict = "Sunday";
+        String toPredict = "Today (Aug 24) is the final day of our summer museum theater program The Time Trial of John Brown. Performances are in the Price of Freedom Theater on 3 East today at 11am, 1pm, 2:30pm, and 4pm .";
         System.out.println("To predict: " + toPredict);
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(toPredict, date);
         System.out.println(predicted);

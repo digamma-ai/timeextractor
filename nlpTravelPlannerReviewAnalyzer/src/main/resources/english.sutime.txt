@@ -810,7 +810,6 @@
   # Vague times
   { ( /the/ /past/ | /recently/ ) => TIME_PAST }
   { pattern: ( /at/ /the/ (/time/) ), matchedExpressionGroup: 1, result: TIME_PAST }
-  { (  /the/? /near/? /future/ ) => TIME_FUTURE }
 
   # Final rules to determine how to resolve date
   ENV.defaults["ruleType"] = "composite"
@@ -841,8 +840,7 @@
   ENV.defaultTokensAnnotationKey = tokens
 
   {  pattern: ( $NUM /to/ $NUM) }
-  {  pattern: ( /(quarter|sun)s?/ ) }
-  {  pattern: ( [ { word:/(fall|spring|second|march|may|sat|sun|min)s?/ } & !{ tag:/NN.*/ } ] )  }
+  {  pattern: ( [ { word:/(fall|spring|second|march|may|min)s?/ } & !{ tag:/NN.*/ } ] )  }
   {  pattern: ( /the/ [ { word:/second/ } & !{ tag:/NN.*/ } ] )  }
   {  pattern: ( [ { word:/((twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)-)?second/ } ] )  }
   {  pattern: ( [ {{ temporal.value == NON_TEMPORAL }} ] ), over: NIL }

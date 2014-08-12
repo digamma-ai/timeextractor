@@ -105,6 +105,11 @@
 			<version>${jersey.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -120,4 +125,5 @@
 
 	</repositories>
 
+	<packaging>war</packaging>
 </project>

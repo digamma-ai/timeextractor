@@ -1,4 +1,4 @@
-
+//  http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/nlpTravelPlannerReviewAnalyzer-0.0.1-SNAPSHOT/api/annotate
 $(document).ready(function() {
 	
     $("#requestForm").submit(function(e){
@@ -8,10 +8,10 @@ $(document).ready(function() {
     $("#myButton").click(function(e){
             dataString = $("#myAjaxRequestForm").find('input, select, textarea, button').serialize();
             var text = $("textarea#text").val(); 
-            var json = [{ 'id': '1', 'text': text }];
+            var json = [{ 'id': '1', 'text': text, date:"2014-07-27"}];
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8080/timeextractor/api/annotate",
+                url: "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/nlpTravelPlannerReviewAnalyzer-0.0.1-SNAPSHOT/api/annotate",
                 data: JSON.stringify(json),
                 contentType: "application/json",
                 dataType: 'json',

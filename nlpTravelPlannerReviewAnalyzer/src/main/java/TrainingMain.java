@@ -1,9 +1,10 @@
 import java.io.IOException;
 import java.util.List;
 
+import com.codeminders.labs.timeextractor.entities.Confidence;
+import com.codeminders.labs.timeextractor.service.ConfidenceLevelService;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 
-import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.time.SUTime;
 import edu.stanford.nlp.time.SUTime.Temporal;
 import edu.stanford.nlp.time.TimeExpression;
@@ -13,14 +14,17 @@ public class TrainingMain {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         SUTimeService service = new SUTimeService();
+        ConfidenceLevelService confService = new ConfidenceLevelService();
+
         String date = "2014-07-30";
-        String toPredict = "Today (Aug 24) is the final day of our summer museum theater program The Time Trial of John Brown. Performances are in the Price of Freedom Theater on 3 East today at 11am, 1pm, 2:30pm, and 4pm .";
+        String toPredict = "Parking is hard to find. Also JFK drive is closed on Sundays. But great museum!";
         System.out.println("To predict: " + toPredict);
+
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(toPredict, date);
+        confService.getConfidenceLevel(predicted);
         System.out.println(predicted);
-                       
+
         for (CoreMap cm : predicted) {
-            cm.get(CoreAnnotations.TokensAnnotation.class);
             TimeExpression timeExpr = cm.get(TimeExpression.Annotation.class);
             Temporal temporal = timeExpr.getTemporal();
 
@@ -32,6 +36,8 @@ public class TrainingMain {
             System.out.println("Range:" + temporal.getRange());
             System.out.println("Time:" + temporal.getTime());
             System.out.println("Type:" + temporal.getTimexType());
+            System.out.println("confidence level: " + cm.get(Confidence.class));
+
             SUTime.Range range = temporal.getRange();
             // System.out.println(range.getJodaTimeInterval());
         }

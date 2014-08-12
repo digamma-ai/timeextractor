@@ -23,13 +23,9 @@ import edu.stanford.nlp.util.CoreMap;
 
 public class SUTimeService {
 
-    private TextCleaner textCleaner;
+    private static TextCleaner textCleaner = new TextCleaner();
 
     private static AnnotationPipeline pipeline = PipelineGenerator.getPipeline();
-
-    public SUTimeService() {
-        textCleaner = new TextCleaner();
-    }
 
     /**
      * Method returns List of annotated objects

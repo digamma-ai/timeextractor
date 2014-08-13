@@ -273,7 +273,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
  //every 
   {
    ruleType: "text",
-   pattern: /everyday|everymonth|everyyear|every year|every day|every month|each month|each day|each year/ ,
+   pattern: /\beveryday|everymonth|everyyear|every year|every day|every month|each month|each day|each year\b/ ,
    result: CustomTimeEvent("EVERY") 
   }
   
@@ -421,7 +421,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   }  
    
       
-  { ruleType: "text", pattern: /((\d|\d\d)[\s]?(weeks))/,
+  { ruleType: "text", pattern: /\b((\d|\d\d)[\s]?(weeks))\b/,
    result: CustomTimeEvent("N Weeks")  }
    
   // summer hours 

@@ -24,7 +24,6 @@ import edu.stanford.nlp.util.CoreMap;
 public class SUTimeService {
 
     private static TextCleaner textCleaner = new TextCleaner();
-
     private static AnnotationPipeline pipeline = PipelineGenerator.getPipeline();
 
     /**

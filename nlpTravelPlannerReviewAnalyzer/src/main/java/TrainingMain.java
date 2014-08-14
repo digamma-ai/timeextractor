@@ -17,7 +17,7 @@ public class TrainingMain {
         ConfidenceLevelService confService = new ConfidenceLevelService();
 
         String date = "2014-07-30";
-        String toPredict = "Amalric 2 days ";
+        String toPredict = "This section";
         System.out.println("To predict: " + toPredict);
 
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(toPredict, date);

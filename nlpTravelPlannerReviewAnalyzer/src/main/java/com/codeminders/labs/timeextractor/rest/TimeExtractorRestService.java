@@ -25,11 +25,7 @@ import edu.stanford.nlp.util.CoreMap;
 @Path("/")
 public class TimeExtractorRestService {
 
-    private SUTimeService sutimeService;
-
-    public TimeExtractorRestService() {
-        setSutimeService(new SUTimeService());
-    }
+    private static SUTimeService sutimeService = new SUTimeService();
 
     /* Get all annotation for multiple texts */
 
@@ -45,6 +41,7 @@ public class TimeExtractorRestService {
             JSONObject object = jsonArray.getJSONObject(i);
             baseText.setId(object.optString(RestParameters.ID));
             baseText.setText(object.optString(RestParameters.TEXT));
+
             try {
                 baseText.setDate(object.optString(RestParameters.DATE));
             } catch (Exception ex) {

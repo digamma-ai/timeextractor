@@ -37,7 +37,8 @@ public class SUTimeService {
      */
 
     public List<CoreMap> extractDatesAndTimeFromText(String text, String date) {
-        // clean text
+
+        // clean text from special symbols
         text = textCleaner.cleanText(text);
 
         // in case date wasn't set

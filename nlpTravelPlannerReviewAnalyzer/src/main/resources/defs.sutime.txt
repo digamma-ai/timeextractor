@@ -224,8 +224,6 @@
     "hr": HOUR,
     "minute": MINUTE,
     "min": MINUTE,
-    "second": SECOND,
-    "sec": SECOND,
     "millisecond": MILLIS,
     "millisec": MILLIS,
     "week": WEEK,

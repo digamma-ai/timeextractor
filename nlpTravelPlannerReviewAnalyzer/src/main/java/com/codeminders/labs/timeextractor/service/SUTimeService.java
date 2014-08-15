@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.BaseText;
+import com.codeminders.labs.timeextractor.entities.HtmlElement;
 import com.codeminders.labs.timeextractor.utils.PipelineGenerator;
 import com.codeminders.labs.timeextractor.utils.TextCleaner;
 import com.codeminders.labs.timeextractor.utils.Utils;
@@ -100,6 +101,27 @@ public class SUTimeService {
         for (BaseText baseText : baseTexts) {
             List<CoreMap> resuts = extractDatesAndTimeFromText(baseText.getText(), baseText.getDate());
             map.put(baseText.getId(), resuts);
+        }
+        return map;
+    }
+
+    /**
+     * Method extracts temporal information for multiple texts
+     * 
+     * @param List
+     *            <BaseText> baseTexts (BaseText object contains String id of
+     *            text, String text object itself and String of date of text
+     *            creation)
+     * @return Map<String, List<CoreMap>>
+     */
+
+    public Map<HtmlElement, List<CoreMap>> extractDatesAndTimeFromHtml(List<HtmlElement> htmlElements) {
+        Map<HtmlElement, List<CoreMap>> map = new HashMap<HtmlElement, List<CoreMap>>();
+        for (HtmlElement htmlElement : htmlElements) {
+            List<CoreMap> results = extractDatesAndTimeFromText(htmlElement.getText(), "2013-03-03");
+            if (results.size() > 0) {
+                map.put(htmlElement, results);
+            }
         }
         return map;
     }

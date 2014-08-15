@@ -26,6 +26,7 @@ public class Html2TextRestService {
         JSONObject object = jsonArray.getJSONObject(0);
         String text = object.optString(RestParameters.TEXT);
         String result = Jsoup.parse(text).text();
+        
         BaseText basetest = new BaseText();
         basetest.setText(result);
         return Response.status(200).entity(basetest).build();

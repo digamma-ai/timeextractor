@@ -1,5 +1,7 @@
 package com.codeminders.labs.timeextractor.rest;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -10,26 +12,28 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-import org.jsoup.Jsoup;
 
-import com.codeminders.labs.timeextractor.entities.BaseText;
+import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
+import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.utilities.RestParameters;
 
-@Path("/cleaner/")
-public class Html2TextRestService {
+/* Rest service to extract temporal date from html page*/
+
+@Path("/html")
+public class TimeExtractorFromHtmlRestService {
+
+    private static SUTimeService sutimeService = new SUTimeService();
 
     @POST
-    @Path("/clean/")
+    @Path("/annotate")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
         JSONObject object = jsonArray.getJSONObject(0);
-        String text = object.optString(RestParameters.TEXT);
-        String result = Jsoup.parse(text).text();
-
-        BaseText basetest = new BaseText();
-        basetest.setText(result);
-        return Response.status(200).entity(basetest).build();
+        String html = object.optString(RestParameters.TEXT);
+        List<AnnotationIntervalHtml> result = sutimeService.extractDatesAndTimeFromHtml(html);
+        System.out.println(result);
+        return Response.status(200).entity(result).build();
     }
 
 }

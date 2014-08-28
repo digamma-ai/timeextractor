@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
+import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
 import com.codeminders.labs.timeextractor.utils.PipelineGenerator;
@@ -26,6 +27,7 @@ public class SUTimeService {
 
     private static TextCleaner textCleaner = new TextCleaner();
     private static AnnotationPipeline pipeline = PipelineGenerator.getPipeline();
+    private static GetHtmlText htmlService = new GetHtmlText();
 
     /**
      * Method returns List of annotated objects
@@ -99,8 +101,8 @@ public class SUTimeService {
     public Map<String, List<CoreMap>> extractDatesAndTimeFromText(List<BaseText> baseTexts) {
         Map<String, List<CoreMap>> map = new HashMap<String, List<CoreMap>>();
         for (BaseText baseText : baseTexts) {
-            List<CoreMap> resuts = extractDatesAndTimeFromText(baseText.getText(), baseText.getDate());
-            map.put(baseText.getId(), resuts);
+            List<CoreMap> results = extractDatesAndTimeFromText(baseText.getText(), baseText.getDate());
+            map.put(baseText.getId(), results);
         }
         return map;
     }
@@ -115,15 +117,47 @@ public class SUTimeService {
      * @return Map<String, List<CoreMap>>
      */
 
-    public Map<HtmlElement, List<CoreMap>> extractDatesAndTimeFromHtml(List<HtmlElement> htmlElements) {
+    public List<AnnotationIntervalHtml> extractDatesAndTimeFromHtml(String html) {
+        List<HtmlElement> htmlElements = htmlService.getElements(html);
         Map<HtmlElement, List<CoreMap>> map = new HashMap<HtmlElement, List<CoreMap>>();
         for (HtmlElement htmlElement : htmlElements) {
             List<CoreMap> results = extractDatesAndTimeFromText(htmlElement.getText(), "2013-03-03");
             if (results.size() > 0) {
                 map.put(htmlElement, results);
             }
+
         }
-        return map;
+
+        List<AnnotationIntervalHtml> result = getAnnotationIntervalsForHtml(map);
+        return result;
+    }
+
+    /**
+     * Method transfers Map<HtmlElement, List<CoreMap>> map of annotations into
+     * List<AnnotationIntervalHtml>
+     * 
+     * @return List<AnnotationIntervalHtml>
+     */
+    private List<AnnotationIntervalHtml> getAnnotationIntervalsForHtml(Map<HtmlElement, List<CoreMap>> map) {
+        List<AnnotationIntervalHtml> list = new ArrayList<AnnotationIntervalHtml>();
+
+        for (Map.Entry<HtmlElement, List<CoreMap>> entry : map.entrySet()) {
+            HtmlElement element = entry.getKey();
+            List<CoreMap> annotations = entry.getValue();
+            for (CoreMap annotation : annotations) {
+                AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
+                interval.setTag(element.getTag());
+                interval.setText(element.getText());
+                int from = element.getText().indexOf(annotation.toString());
+                int to = from + annotation.toString().length();
+                interval.setFrom(from);
+                interval.setTo(to);
+                interval.setHtmlTagFrom(element.getTextFrom());
+                interval.setHtmlTagTo(element.getTextTo());
+                list.add(interval);
+            }
+        }
+        return list;
     }
 
     /**
@@ -147,4 +181,5 @@ public class SUTimeService {
         }
         return result;
     }
+
 }

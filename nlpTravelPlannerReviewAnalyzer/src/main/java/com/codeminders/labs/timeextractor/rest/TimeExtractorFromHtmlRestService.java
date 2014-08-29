@@ -1,6 +1,7 @@
 package com.codeminders.labs.timeextractor.rest;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -31,7 +32,7 @@ public class TimeExtractorFromHtmlRestService {
     public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
         JSONObject object = jsonArray.getJSONObject(0);
         String html = object.optString(RestParameters.TEXT);
-        List<AnnotationIntervalHtml> result = sutimeService.extractDatesAndTimeFromHtml(html);
+        Map<String, List<AnnotationIntervalHtml>> result = sutimeService.extractDatesAndTimeFromHtml(html);
         System.out.println(result);
         return Response.status(200).entity(result).build();
     }

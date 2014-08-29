@@ -117,18 +117,19 @@ public class SUTimeService {
      * @return Map<String, List<CoreMap>>
      */
 
-    public List<AnnotationIntervalHtml> extractDatesAndTimeFromHtml(String html) {
+    public Map<String, List<AnnotationIntervalHtml>> extractDatesAndTimeFromHtml(String html) {
         List<HtmlElement> htmlElements = htmlService.getElements(html);
         Map<HtmlElement, List<CoreMap>> map = new HashMap<HtmlElement, List<CoreMap>>();
         for (HtmlElement htmlElement : htmlElements) {
-            List<CoreMap> results = extractDatesAndTimeFromText(htmlElement.getText(), "2013-03-03");
+            List<CoreMap> results = extractDatesAndTimeFromText(htmlElement.getExtractedText(), "2013-03-03");
             if (results.size() > 0) {
                 map.put(htmlElement, results);
             }
 
         }
+        Map<String, List<AnnotationIntervalHtml>> result = getAnnotationIntervalsForHtml(map);
+        System.out.println(map.size());
 
-        List<AnnotationIntervalHtml> result = getAnnotationIntervalsForHtml(map);
         return result;
     }
 
@@ -138,26 +139,31 @@ public class SUTimeService {
      * 
      * @return List<AnnotationIntervalHtml>
      */
-    private List<AnnotationIntervalHtml> getAnnotationIntervalsForHtml(Map<HtmlElement, List<CoreMap>> map) {
-        List<AnnotationIntervalHtml> list = new ArrayList<AnnotationIntervalHtml>();
-
+    private Map<String, List<AnnotationIntervalHtml>> getAnnotationIntervalsForHtml(Map<HtmlElement, List<CoreMap>> map) {
+        Map<String, List<AnnotationIntervalHtml>> resultMap = new HashMap<String, List<AnnotationIntervalHtml>>();
+        int count = 1;
         for (Map.Entry<HtmlElement, List<CoreMap>> entry : map.entrySet()) {
+            List<AnnotationIntervalHtml> list = new ArrayList<AnnotationIntervalHtml>();
             HtmlElement element = entry.getKey();
             List<CoreMap> annotations = entry.getValue();
+
             for (CoreMap annotation : annotations) {
                 AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
-                interval.setTag(element.getTag());
-                interval.setText(element.getText());
-                int from = element.getText().indexOf(annotation.toString());
+                int from = element.getExtractedText().indexOf(annotation.toString());
                 int to = from + annotation.toString().length();
                 interval.setFrom(from);
                 interval.setTo(to);
+                interval.setExtractedText(annotation.toString());
                 interval.setHtmlTagFrom(element.getTextFrom());
                 interval.setHtmlTagTo(element.getTextTo());
+                interval.setTag(element.getTag());
                 list.add(interval);
             }
+
+            resultMap.put(Integer.valueOf(count).toString(), list);
+            count++;
         }
-        return list;
+        return resultMap;
     }
 
     /**

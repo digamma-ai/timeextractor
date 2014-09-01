@@ -1,9 +1,8 @@
 package com.codeminders.labs.timeextractor.sutime;
 
 import edu.stanford.nlp.time.SUTime.Duration;
-import edu.stanford.nlp.time.SUTime.RelativeTime;
-import edu.stanford.nlp.time.SUTime.TemporalOp;
 import edu.stanford.nlp.time.SUTime.Time;
+import edu.stanford.nlp.time.SUTime.TimexType;
 
 public class CustomTimeEvent extends Time {
     private static final long serialVersionUID = 1;
@@ -12,7 +11,6 @@ public class CustomTimeEvent extends Time {
 
     public CustomTimeEvent(String label) {
         this.label = label;
-
     }
 
     public String toFormattedString(int flags) {
@@ -20,12 +18,14 @@ public class CustomTimeEvent extends Time {
             return getTimeLabel();
         }
 
-        return label;
+        return "test";
     }
 
     public Time add(Duration offset) {
-        Time t = new RelativeTime(this, TemporalOp.OFFSET_EXACT, offset);
-        return t;
+        // Time t = new RelativeTime(this, TemporalOp.OFFSET_EXACT, offset);
+        return null;
     };
+
+
 
 }

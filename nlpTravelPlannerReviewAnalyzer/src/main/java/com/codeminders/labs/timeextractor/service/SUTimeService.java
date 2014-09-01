@@ -19,6 +19,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.AnnotationPipeline;
 import edu.stanford.nlp.time.TimeAnnotations;
+import edu.stanford.nlp.time.TimeExpression;
 import edu.stanford.nlp.util.CoreMap;
 
 /* Service class to extract temporal information from texts */
@@ -121,7 +122,7 @@ public class SUTimeService {
         List<HtmlElement> htmlElements = htmlService.getElements(html);
         Map<HtmlElement, List<CoreMap>> map = new HashMap<HtmlElement, List<CoreMap>>();
         for (HtmlElement htmlElement : htmlElements) {
-            List<CoreMap> results = extractDatesAndTimeFromText(htmlElement.getExtractedText(), "2013-03-03");
+            List<CoreMap> results = extractDatesAndTimeFromText(htmlElement.getExtractedText(), null);
             if (results.size() > 0) {
                 map.put(htmlElement, results);
             }
@@ -148,6 +149,10 @@ public class SUTimeService {
             List<CoreMap> annotations = entry.getValue();
 
             for (CoreMap annotation : annotations) {
+
+                System.out.println(annotation.toString() + " " + annotation.get(TimeExpression.Annotation.class).getTemporal().getTimexType());
+                System.out.println(annotation.toString() + " " + annotation.get(TimeExpression.Annotation.class).getTemporal().getTimexValue());
+
                 AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
                 int from = element.getExtractedText().indexOf(annotation.toString());
                 int to = from + annotation.toString().length();

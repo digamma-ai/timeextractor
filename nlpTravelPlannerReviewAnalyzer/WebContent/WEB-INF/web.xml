@@ -16,7 +16,7 @@
    
         <init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>com.codeminders.labs.timeextractor</param-value>
+			<param-value>com.codeminders.labs.timeextractor.rest</param-value>
 		</init-param>
 		
  		<init-param>

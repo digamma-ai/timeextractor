@@ -4,6 +4,7 @@ import java.util.List;
 import com.codeminders.labs.timeextractor.entities.Confidence;
 import com.codeminders.labs.timeextractor.service.ConfidenceLevelService;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
+import com.codeminders.labs.timeextractor.temporal.parser.AnnotationToObjectParser;
 
 import edu.stanford.nlp.time.SUTime;
 import edu.stanford.nlp.time.SUTime.Temporal;
@@ -16,8 +17,8 @@ public class TrainingMain {
         SUTimeService service = new SUTimeService();
         ConfidenceLevelService confService = new ConfidenceLevelService();
 
-        String date = "2014-07-30";
-        String toPredict = "This section";
+        String date = "2014-09-01";
+        String toPredict = "Stories about Indian folklore and history are shared twice <text>each day</text>, <text>at 11 a.m</text> . and <text>1 p.m</text> . Powered by ParentsConnect.com";
         System.out.println("To predict: " + toPredict);
 
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(toPredict, date);
@@ -27,9 +28,12 @@ public class TrainingMain {
         for (CoreMap cm : predicted) {
             TimeExpression timeExpr = cm.get(TimeExpression.Annotation.class);
             Temporal temporal = timeExpr.getTemporal();
+            AnnotationToObjectParser parser = new AnnotationToObjectParser();
+            parser.getCustomDateAndTime(date, temporal);
 
             System.out.println("\n **********SuTime************ ");
             System.out.println("TimeLabel:" + temporal.getTimeLabel());
+            System.out.println("TimexType:" + temporal.getTimexType());
             System.out.println("TimexValue:" + temporal.getTimexValue());
             System.out.println("Duration:" + temporal.getDuration());
             System.out.println("Period:" + temporal.getPeriod());

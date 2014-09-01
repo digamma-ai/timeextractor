@@ -1,7 +1,8 @@
 CustomTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.CustomTimeEvent" }
 AtTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.AtTimeEvent" }
-
 BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.BetweenTimeEvent" }
+EveryTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.EveryEvent" }
+DateEventPattern1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.DateEventPattern1" }
  
 $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?"
  
@@ -68,13 +69,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   	 result: BetweenTimeEvent($0) 
   }
   
-  
-   //YEAR 19xx,20xx
-  
-  { ruleType: "time", 
-    pattern: /\b((19|20)\d\d)\b/,
-  	 result: CustomTimeEvent($0) 
-  }
+ 
   
   // between morning and evening
   // between morning and 12h
@@ -280,8 +275,8 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
  //every 
   {
    ruleType: "text",
-   pattern: /\beveryday|everymonth|everyyear|every year|every day|every month|each month|each day|each year\b/ ,
-   result: CustomTimeEvent("EVERY") 
+   pattern: /\b(everyday|everymonth|everyyear|every year|every day|every month|each month|each day|each year|everyweek|every week)\b/ ,
+   result: EveryTimeEvent($0) 
   }
   
    //for one year from the date
@@ -296,7 +291,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   	 result: CustomTimeEvent("whole")  
   }
   
-    //through/thru month
+   //through/thru month
        
    { 
     ruleType: "text",
@@ -355,8 +350,8 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", 
   priority:4,
   pattern: /\b((19|20)\d\d)[-.\/]((0[1-9]|1[012]))[-.\/]((0[1-9]|[12][0-9]|3[01]))\b/,
-   result: CustomTimeEvent("date")  
-   } 
+  result: DateEventPattern1($0)  
+  } 
    
   // 14/3/2011
   
@@ -371,7 +366,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", 
   priority:2,
   pattern: /\b(([1-9]|[12][0-9]|3[01]))[-.\/](([1-9]|1[012]))[-.\/](\d\d)\b/,
-   result: CustomTimeEvent("date")  
+   result: CustomTimeEvent($0)  
   }  
   
      //dd/mm/yyyy 
@@ -410,15 +405,14 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
       result: CustomTimeEvent("date")  
   }
   
-    // 10/31
+  // 10/31
     
   {  ruleType: "text", 
      priority:0,
      pattern: /\b(([0][1-9])|[1][0-2])\/(([1-9])|([1-2][0-9])|([3][0-1]))\b/, 
      result: CustomTimeEvent("PERIOD_TIME") 
   }
-  
-  
+    
   // from 4/23/10 through 8/29/2010
   
  { ruleType: "text", 
@@ -440,7 +434,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   	 result: CustomTimeEvent("whole")  
   }
   
-     { ruleType: "text", pattern: /most of the year/,
+  { ruleType: "text", pattern: /most of the year/,
   	 result: CustomTimeEvent("most of the year")  
   }
   
@@ -641,4 +635,53 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
      priority:1,
      pattern: /\b24\/7\b/, 
      result: CustomTimeEvent("PERIOD_TIME") 
+  }
+  
+   // may fall
+  
+  {  ruleType: "text", 
+     priority:1,
+     pattern: /\b(may fall)\b/, 
+     result: CustomTimeEvent("PERIOD_TIME") 
+  }
+  
+  
+  ############FILTERS##################
+  
+  // the sun
+  
+  {  ruleType: "text", 
+     priority:1,
+     pattern: /the sun/, 
+     result: CustomTimeEvent("PERIOD_TIME") 
+  }
+  
+  
+  //filter the Sun
+  
+  { ruleType: "filter", 
+    pattern: ( /the/ [ { word:/sun/ }] )  
+
+  }
+  
+   //recently
+  
+  { ruleType: "filter", 
+    pattern: ( [ { word:/recently/ }] )  
+
+  }
+  
+    
+   // may fall
+  
+  { ruleType: "filter", 
+    pattern: ( /may/ [ { word:/fall/ }] )  
+
+  }
+  
+   //filter YEAR 19xx,20xx
+  
+  { ruleType: "filter", 
+    priority:10,
+    pattern: (/\b(([1][0-8])\d\d)\b/)
   }

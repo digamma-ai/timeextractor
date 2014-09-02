@@ -31,10 +31,11 @@ public class TimeExtractorFromHtmlRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
         JSONObject object = jsonArray.getJSONObject(0);
-        String html = object.optString(RestParameters.TEXT);
+        String html = object.optString(RestParameters.HTML);
         Map<String, List<AnnotationIntervalHtml>> result = sutimeService.extractDatesAndTimeFromHtml(html);
+        Response response = Response.status(200).entity(result).build();
         System.out.println(result);
-        return Response.status(200).entity(result).build();
+        return response;
     }
 
 }

@@ -17,6 +17,7 @@ public class PipelineGenerator {
     private static final String SUTIME1_RULES = "/english.sutime.txt";
     private static final String SUTIME2_RULES = "/english.sutime2.txt";
     private static final String DEFS = "/defs.sutime.txt";
+    private static final String BASE_RULES = "/base.rules.txt";
 
     private static AnnotationPipeline pipeline = new AnnotationPipeline();
 
@@ -35,14 +36,18 @@ public class PipelineGenerator {
     private static Properties getProperties() {
 
         String customRules = SUTimeService.class.getResource(MAIN_RULES).getPath();
-        String sutimeRules1 = SUTimeService.class.getResource(SUTIME1_RULES).getPath();
-        String sutimeRules2 = SUTimeService.class.getResource(SUTIME2_RULES).getPath();
+        String baseRules = SUTimeService.class.getResource(BASE_RULES).getPath();
+
+        // String sutimeRules1 =
+        // SUTimeService.class.getResource(SUTIME1_RULES).getPath();
+        // String sutimeRules2 =
+        // SUTimeService.class.getResource(SUTIME2_RULES).getPath();
         String defs = SUTimeService.class.getResource(DEFS).getPath();
 
         // defs, customRules,sutimeRules1,sutimeRules2
         // customRules
 
-        String allRules = StringUnion.sutimeMainRules(defs, customRules, sutimeRules1, sutimeRules2);
+        String allRules = StringUnion.sutimeMainRules(defs, baseRules, customRules);
 
         Properties props = new Properties();
         props.setProperty("sutime.markTimeRanges", "true");

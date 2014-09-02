@@ -19,13 +19,13 @@ public class GetHtmlText {
         document.outputSettings(new Document.OutputSettings().prettyPrint(false));
         Elements htmlElements = document.body().select("*");
         for (Element element : htmlElements) {
-            if (element.childNodes().size() > 3) {
+            if (element.childNodes().size() > 3 && element.ownText().isEmpty()) {
                 continue;
             }
             if (element.ownText().isEmpty() || element.ownText().length() < 2 || element.toString().length() > 10000) {
                 continue;
             }
-            String text = element.ownText();
+            String text = element.text();
 
             try {
                 String elementString = element.toString();

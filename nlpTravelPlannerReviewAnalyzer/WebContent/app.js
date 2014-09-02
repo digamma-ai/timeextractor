@@ -11,7 +11,7 @@ $(document).ready(function() {
             var json = [{ 'id': '1', 'text': text, date:"2014-07-27"}];
             $.ajax({
                 type: "POST",
-                url: "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/nlpTravelPlannerReviewAnalyzer-0.0.1-SNAPSHOT/api/annotate",
+                url: "http://localhost:8080/timeextractor/api/annotate",
                 data: JSON.stringify(json),
                 contentType: "application/json",
                 dataType: 'json',

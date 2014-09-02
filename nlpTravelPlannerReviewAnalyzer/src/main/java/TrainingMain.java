@@ -18,13 +18,12 @@ public class TrainingMain {
         ConfidenceLevelService confService = new ConfidenceLevelService();
 
         String date = "2014-09-01";
-        String toPredict = "Stories about Indian folklore and history are shared twice <text>each day</text>, <text>at 11 a.m</text> . and <text>1 p.m</text> . Powered by ParentsConnect.com";
+        String toPredict = "New Years' Eve";
         System.out.println("To predict: " + toPredict);
 
         List<CoreMap> predicted = service.extractDatesAndTimeFromText(toPredict, date);
         confService.getConfidenceLevel(predicted);
         System.out.println(predicted);
-
         for (CoreMap cm : predicted) {
             TimeExpression timeExpr = cm.get(TimeExpression.Annotation.class);
             Temporal temporal = timeExpr.getTemporal();

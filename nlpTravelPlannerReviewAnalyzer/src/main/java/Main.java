@@ -40,7 +40,7 @@ public class Main {
                 String result = matcher.group().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-");
                 annotated.add(result.trim());
             }
-            String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-");
+            String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-").trim();
 
             List<CoreMap> predicted = service.extractDatesAndTimeFromText(text, date);
             System.out.println(text);

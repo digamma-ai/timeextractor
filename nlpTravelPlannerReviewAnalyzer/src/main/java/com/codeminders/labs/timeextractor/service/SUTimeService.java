@@ -150,9 +150,6 @@ public class SUTimeService {
 
             for (CoreMap annotation : annotations) {
 
-                System.out.println(annotation.toString() + " " + annotation.get(TimeExpression.Annotation.class).getTemporal().getTimexType());
-                System.out.println(annotation.toString() + " " + annotation.get(TimeExpression.Annotation.class).getTemporal().getTimexValue());
-
                 AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
                 int from = element.getExtractedText().indexOf(annotation.toString());
                 int to = from + annotation.toString().length();

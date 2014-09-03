@@ -425,19 +425,8 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   	 result: BetweenTimeEvent("whole")  
   }
   
-  { ruleType: "text", pattern: /most of the year/,
-  	 result: BetweenTimeEvent("most of the year")  
-  }
   
-  { ruleType: "text", pattern: /this time of the year/,
-  	 result: BetweenTimeEvent("this time of the year")  
-  }
-  
-  { ruleType: "text", pattern: /once a (month|year|day)/,
-  	 result: BetweenTimeEvent("this time of the year")  
-  }
-    
-  // past 7 years 
+ // past 7 years 
   
   { ruleType: "text", pattern: /\b(past)[\s]?\b[\d]\b[\s]?(years)\b/,
   	 result: BetweenTimeEvent($0) 

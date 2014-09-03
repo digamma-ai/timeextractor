@@ -18,9 +18,9 @@ import org.codehaus.jettison.json.JSONObject;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
+import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 import com.codeminders.labs.timeextractor.utilities.RestParameters;
 
-import edu.stanford.nlp.util.CoreMap;
 
 @Path("/")
 public class TimeExtractorRestService {
@@ -49,7 +49,7 @@ public class TimeExtractorRestService {
             baseTexts.add(baseText);
         }
 
-        Map<String, List<CoreMap>> extractDates = sutimeService.extractDatesAndTimeFromText(baseTexts);
+        Map<String, List<TemporalExtraction>> extractDates = sutimeService.extractDatesAndTimeFromText(baseTexts);
         Map<String, List<AnnotationInterval>> annotatedIntervals = sutimeService.getAllAnnotations(extractDates);
         return Response.status(200).entity(annotatedIntervals).build();
     }

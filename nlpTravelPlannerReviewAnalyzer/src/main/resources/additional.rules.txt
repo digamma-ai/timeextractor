@@ -1,8 +1,7 @@
-CustomTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.CustomTimeEvent" }
-AtTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.AtTimeEvent" }
-BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.BetweenTimeEvent" }
-EveryTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.EveryEvent" }
-DateEventPattern1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.sutime.DateEventPattern1" }
+AtTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.AtTimeEvent" }
+BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.BetweenTimeEvent" }
+EveryTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.EveryEvent" }
+DateEventPattern1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.DateEventPattern1" }
  
 $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?"
  
@@ -70,7 +69,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {
    ruleType: "text",
    pattern: /(between)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])|([a,A][m,M])?[\s-]?(to)?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))[\s*](and)[\s*]($TIME_OF_DAY|$DAY_OF_WEEK|([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?)?))/ ,
-   result: CustomTimeEvent($0)
+   result: BetweenTimeEvent($0)
   }
    
  // between 11:30 and 12h
@@ -131,19 +130,27 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    result: BetweenTimeEvent($0) 
   }
   
-   //at 10.11pm
+     //at 5pm
    {
    ruleType: "text",
    priority:1,
-   pattern: /\b(at about|at|until|till|til|before|after|by|up to)[\s]*\b(([01]?[0-9]|2[0-3])[\s]*([.|:]([0-5][0-9])|oo)?)[\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))?(h)?\b[\s]*($TimeZone)?/ ,
+   pattern: /(at about|at|until|till|til|before|after|by|up to)[\s]*((([01]?[0-9]|2[0-3])[\s]*(([.|:]([0-5][0-9]))?|oo)))[\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))/ ,
+   result: AtTimeEvent($1,$2,$5,$8) 
+  }
+  
+   //at 10.11pm
+   {
+   ruleType: "text",
+   priority:2,
+   pattern: /\b(at about|at|until|till|til|before|after|by|up to)[\s]*((([01]?[0-9]|2[0-3])[\s]*([.|:]([0-5][0-9])|oo)))([\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))?(h)?\b[\s]*($TimeZone)?)\b/ ,
    result: AtTimeEvent($1,$2,$5,$8) 
   }
   
    //by 21.11CET
    {
    ruleType: "text",
-   priority:2,
-   pattern: /\b(at about|at|until|till|til|before|after|by|up to)[\s]*\b((2[0-3]|[01]?[0-9])[\s]*[.|:]([0-5][0-9]|oo))[\s]*($TimeZone)?/ ,
+   priority:3,
+   pattern: /(\b(at about|at|until|till|til|before|after|by|up to)[\s]*\b((2[0-3]|[01]?[0-9])[\s]*[.|:]([0-5][0-9]|oo)\b)[\s]*($TimeZone)?)/ ,
    result: BetweenTimeEvent($0)  
   }
   
@@ -187,7 +194,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    ruleType: "text",
    priority:0,
    pattern: /\b(([a-zA-Z]+[\s]*(([01]?[0-9])|(2[0-3]))[.]([0-5][0-9]))[\s])/ ,
-   result: CustomTimeEvent($0) 
+   result: BetweenTimeEvent($0) 
   }
 
 
@@ -231,14 +238,14 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
  {
    ruleType: "text", 
    pattern: /\b(week days|weekdays|weekday|week day)\b/,
-   result: CustomTimeEvent("DATE") 
+   result: BetweenTimeEvent("DATE") 
   }
   
   // weekend, week-end, weekends, week-ends  	
  {
    ruleType: "text",
    pattern: /\b(weekends|week-ends)\b/,
-   result: CustomTimeEvent("Week-ends") 
+   result: BetweenTimeEvent("Week-ends") 
   }
   
  // lunch time
@@ -246,14 +253,14 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
  {
    ruleType: "text",
    pattern: /\b(lunch time)\b/,
-   result: CustomTimeEvent("TIME") 
+   result: BetweenTimeEvent("TIME") 
   }
   
   // after lunch
    {
    ruleType: "text",
    pattern: /(after l?ch)/,
-   result: CustomTimeEvent("TIME") 
+   result: BetweenTimeEvent("TIME") 
   }
   
  //every 
@@ -267,12 +274,12 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {
    ruleType: "text",
    pattern: /for one year from the date/ ,
-   result: CustomTimeEvent("for one year from the date") 
+   result: BetweenTimeEvent("for one year from the date") 
   }
 
 
   { ruleType: "text", pattern: /(whole|all|entire|full)[\s]? (day|month|year)/,
-  	 result: CustomTimeEvent("whole")  
+  	 result: BetweenTimeEvent("whole")  
   }
   
    //through/thru month
@@ -280,7 +287,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    { 
     ruleType: "text",
 	pattern: /\b(through|thru)[\s]($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY[.]?)([\s]?)([0-3][0-1][-][0-3][0-1])?[\s]?((\d{4})?)\b/,
-	result: CustomTimeEvent("THROUGH TIME") 
+	result: BetweenTimeEvent("THROUGH TIME") 
   }
    
     //through/thru month
@@ -288,7 +295,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    { 
     ruleType: "text",
 	pattern: /\b(through|thru)[\s]($MONTH_OF_YEAR)([\s]?)(\b0?[1-9]\b|\b[12][0-9]\b|\b3[01]\b)?\b/,
-	result: CustomTimeEvent("THROUGH TIME") 
+	result: BetweenTimeEvent("THROUGH TIME") 
   }
   
   	//April through October
@@ -297,7 +304,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
     ruleType: "text",  
     priority: 1,
 	pattern: /($MONTH_OF_YEAR)[\s]*(through|thru)[\s]*($MONTH_OF_YEAR)/ ,
-	result: CustomTimeEvent("April through October") 
+	result: BetweenTimeEvent("April through October") 
 	}
 	 
 	 
@@ -307,7 +314,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
     ruleType: "text",  
     priority: 1,
 	pattern: /\b($DAYOFWEEK_EASY)[\s]*(through|thru)[\s]*($DAYOFWEEK_EASY)\b/ ,
-	result: CustomTimeEvent("THROUGH TIME") 
+	result: BetweenTimeEvent("THROUGH TIME") 
 	}
 	 
 	  
@@ -317,7 +324,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
     ruleType: "text",  
     priority: 1,
 	pattern: /(mid|mid-late)[-\s]?($MONTH_OF_YEAR)/ ,
-	result: CustomTimeEvent("SET") 
+	result: BetweenTimeEvent("SET") 
 	}
 	
 
@@ -326,7 +333,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {
    ruleType: "text",
    pattern: /($MONTH_OF_YEAR)[\s]?[0-3][0-9][\s]*[-]*[\s]*($MONTH_OF_YEAR)[\s]?[0-3][0-9]?/,
-   result: CustomTimeEvent("PERIOD_TIME") 
+   result: BetweenTimeEvent("PERIOD_TIME") 
   }
     
   // 2009/04/10
@@ -342,7 +349,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", 
   priority:3,
   pattern: /\b(([1-9]|[12][0-9]|3[01]))[-.\/](([1-9]|1[012]))[-.\/]((19|20)\d\d)\b/,
-   result: CustomTimeEvent("date")  
+   result: BetweenTimeEvent("date")  
    }
    
    // 14/3/11
@@ -350,7 +357,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", 
   priority:2,
   pattern: /\b(([1-9]|[12][0-9]|3[01]))[-.\/](([1-9]|1[012]))[-.\/](\d\d)\b/,
-   result: CustomTimeEvent($0)  
+   result: BetweenTimeEvent($0)  
   }  
   
      //dd/mm/yyyy 
@@ -360,7 +367,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", 
   pattern: /(0[1-9]|[12][0-9]|3[01])[-.\/](0[1-9]|1[012])[-.\/]\d\d/,
   priority:4,
-   result: CustomTimeEvent("date")  
+   result: BetweenTimeEvent("date")  
    } 
    
       
@@ -370,7 +377,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", 
   pattern: /\b((0[1-9]|[12][0-9]|3[01]))[-.\/]((0[1-9]|1[012]))[-.\/]((19|20)\d\d)\b/,
   priority:5,
-   result: CustomTimeEvent("date")  
+   result: BetweenTimeEvent("date")  
    } 
    
   // 3/14/11
@@ -378,7 +385,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   { ruleType: "text", 
   pattern: /\b((in|on|by|until)[\s]*)?((1[012]|0?[1-9]))[-.\/]((3[01]|[12][0-9]|0[1-9]))[-.\/](((19|20)\d\d)|\d\d)\b/,
   priority:6,
-  result: CustomTimeEvent("date")  
+  result: BetweenTimeEvent("date")  
   } 
  
   // 17/06
@@ -386,7 +393,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:0,
      pattern: /\b([0]?([1-9])|([1-2][0-9])|([3][0-1]))\/(([0][1-9])|[1][0-2])\b/, 
-      result: CustomTimeEvent("date")  
+      result: BetweenTimeEvent("date")  
   }
   
   // 10/31
@@ -394,7 +401,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:0,
      pattern: /\b(([0][1-9])|[1][0-2])\/(([1-9])|([1-2][0-9])|([3][0-1]))\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
     
   // from 4/23/10 through 8/29/2010
@@ -407,27 +414,27 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
    
       
   { ruleType: "text", pattern: /\b((\d|\d\d)[\s]?(weeks))\b/,
-   result: CustomTimeEvent("N Weeks")  }
+   result: BetweenTimeEvent("N Weeks")  }
    
   // summer hours 
   { ruleType: "text", pattern: /\b(summer)[\s]?(hours|hour)\b/,
-   result: CustomTimeEvent("Summer")  }
+   result: BetweenTimeEvent("Summer")  }
    
  // all day - duration
   { ruleType: "text", pattern: /(all|entire|full)[\s]? (day|month|year)/,
-  	 result: CustomTimeEvent("whole")  
+  	 result: BetweenTimeEvent("whole")  
   }
   
   { ruleType: "text", pattern: /most of the year/,
-  	 result: CustomTimeEvent("most of the year")  
+  	 result: BetweenTimeEvent("most of the year")  
   }
   
   { ruleType: "text", pattern: /this time of the year/,
-  	 result: CustomTimeEvent("this time of the year")  
+  	 result: BetweenTimeEvent("this time of the year")  
   }
   
   { ruleType: "text", pattern: /once a (month|year|day)/,
-  	 result: CustomTimeEvent("this time of the year")  
+  	 result: BetweenTimeEvent("this time of the year")  
   }
     
   // past 7 years 
@@ -471,39 +478,39 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
 	{ 
     ruleType: "text",
 	pattern: /\b((half|quarter)[\s]*(hour))\b/,
-	result: CustomTimeEvent("PERIOD_TIME") 
+	result: BetweenTimeEvent("PERIOD_TIME") 
     }
     
   // long hours
   
   { ruleType: "text", pattern: /long hours/,
-  	 result: CustomTimeEvent("long hours")  
+  	 result: BetweenTimeEvent("long hours")  
   }
   
   // morning/evening hours
   
   { ruleType: "text", pattern: /(morning|evening) hours/,
-  	 result: CustomTimeEvent("morning/evening hours")  
+  	 result: BetweenTimeEvent("morning/evening hours")  
   }
   
   //holidays New Years' Eve
   
   { ruleType: "text", pattern: /(\b(New Years' Eve)\b|\b(New Year)\b)/,
-  	 result: CustomTimeEvent("New Years' Eve")  
+  	 result: BetweenTimeEvent("New Years' Eve")  
   }
   
   //holidays St Valentine's Day
   
   { ruleType: "text", 
     pattern: /St[.]?[\s]*Valentine's[\s]*Day/,
-  	 result: CustomTimeEvent("St Valentine's Day")  
+  	 result: BetweenTimeEvent("St Valentine's Day")  
   }
   
   
   // n days a week
   {  ruleType: "text", 
      pattern: /\b[1-7][\s]*(days a week)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
    
   // 30-45 minutes, 2 mns
@@ -511,7 +518,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
     ruleType: "text",
     priority:0,
 	pattern: /\b((the)[\s](($BasicOrdTerm))[\s]*)?(([1-9])|([1-9][0-9]))(([\s]*[-][\s]*(([1-9])|([1-9][0-9][0-9]?)))?[\s]?)?(minutes|minute|mins|min|mns|mn)\b/,
-	result: CustomTimeEvent("abc") 
+	result: BetweenTimeEvent("abc") 
     }
     
     // 30-45 minutes, 2 mns
@@ -519,7 +526,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
     ruleType: "text",
     priority:0,
 	pattern: /\b((about|at about)[\s]*)?(([1-9])|([1-9][0-9]))(([\s]*[-][\s]*(([1-9])|([1-9][0-9][0-9]?)))?[\s]?)?(minutes|minute|mins|min|mns|mn)\b/,
-	result: CustomTimeEvent("abc") 
+	result: BetweenTimeEvent("abc") 
     }
     
 
@@ -527,14 +534,14 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
     {  ruleType: "text", 
      priority: 3,
      pattern: /\b((at le.*st)[\s]*(($BasicNumTerm)|(\d\d?))[\s]*(hours|hour|hrs|hr|h))\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
     // more than an hour
     {  ruleType: "text", 
      priority: 1,
      pattern: /\b(more than an hour)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
     // every hour
@@ -542,35 +549,35 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
     {  ruleType: "text", 
      priority: 1,
      pattern: /\b(every hour)\b/, 
-     result: CustomTimeEvent("every hour") 
+     result: BetweenTimeEvent("every hour") 
   }
   
     // last an hour
     {  ruleType: "text", 
      priority: 1,
      pattern: /\b((last)[\s]*($BasicNumTerm)?(an)?[\s]*(hours|hour|hrs|hr|h))\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
     // n hours
     {  ruleType: "text", 
      priority: 0,
      pattern: /\b($BasicNumTerm)[\s]*(hours|hour|hrs|hr|h)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
    // Dec. 26-30
    
   {  ruleType: "text", 
      pattern: /\b(($MONTH_OF_YEAR_EASY)[.]?[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[-]((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b)))\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
    // October the 5th 2014
    
   {  ruleType: "text", 
      pattern: /($MONTH_OF_YEAR)[,]?[\s]*(the)?[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th|d)?[\s]*((19|20)\d\d)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
    // January,21,2013
@@ -578,7 +585,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:1,
      pattern: /($MONTH_OF_YEAR)[,][\s]*(([1-9])|([1-2][0-9])|([3][0-1]))[,][\s]*((19|20)\d\d)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
     
@@ -587,7 +594,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:1,
      pattern: /\b($MONTH_OF_YEAR_EASY)[-]((19|20)\d\d)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
     // March the Fourteenth, 2011
@@ -595,7 +602,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:3,
      pattern: /\b($MONTH_OF_YEAR)[\s]*(the)[\s]*($BasicOrdTerm)[,][\s]*((19|20)\d\d)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
   // two days 
@@ -603,7 +610,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:0,
      pattern: /\b($BasicNumTerm)[\s]*(days)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
  // at 1200
@@ -611,7 +618,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:1,
      pattern: /\b(at|until)[\s]*([2][1-4]|[1][0-9]|[1-9])([0-5][0-9])\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
     
    //n days/week
@@ -619,7 +626,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:2,
      pattern: /\b[2-7][\s]*(days)\/(week)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
    // 24/7
@@ -627,7 +634,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:1,
      pattern: /\b24\/7\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
    // may fall
@@ -635,7 +642,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:1,
      pattern: /\b(may (fall|be))\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
   
@@ -646,7 +653,7 @@ $PM_AM_TIME = "[0-9][\s]?([p,P]?[m,M])?(|[a,A][m,M])?[\s-]?([0-9][\s]?([p,P]?[m,
   {  ruleType: "text", 
      priority:0,
      pattern: /\b(the sun)\b/, 
-     result: CustomTimeEvent("PERIOD_TIME") 
+     result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
   

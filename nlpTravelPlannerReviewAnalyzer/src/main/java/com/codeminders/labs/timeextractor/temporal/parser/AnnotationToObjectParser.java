@@ -1,35 +1,61 @@
 package com.codeminders.labs.timeextractor.temporal.parser;
 
-import org.joda.time.DateTime;
+import java.util.List;
 
-import com.codeminders.labs.timeextractor.temporal.entites.CustomDateTime;
-
-import edu.stanford.nlp.time.SUTime.Temporal;
+import com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule1;
+import com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule1;
+import com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule2;
+import com.codeminders.labs.timeextractor.rules.date.MonthAndYearRule1;
+import com.codeminders.labs.timeextractor.rules.date.MonthOfYear1;
+import com.codeminders.labs.timeextractor.rules.date.YearRule;
+import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
 public class AnnotationToObjectParser {
 
-    public CustomDateTime getCustomDateAndTime(String currentDate, Temporal temporal) {
+	public List<Temporal> getTemporal(TemporalExtraction temporal) {
+		List<Temporal> result = null;
+		String extractedText = temporal.getTemporalExpression();
+		switch (temporal.getClassOfRuleType()) {
 
-        CustomDateTime customDateTime = null;
+		// 2009
+		case ("YearRule"):
+			YearRule rule = new YearRule(extractedText);
+			result = rule.getTemporal();
+			break;
 
-        switch (temporal.getTimexValue()) {
+		// October
+		case ("MonthOfYear1"):
+			MonthOfYear1 rule1 = new MonthOfYear1(extractedText);
+			result = rule1.getTemporal();
+			break;
 
-        // 2012/09/01
-        case ("DateEventPattern1"):
-            String date = temporal.getTimeLabel();
-            String timeString = date.replace("/", "-") + "T00:00:00+00:00";
-            String timeString2 = date.replace("/", "-") + "T23:59:59+00:00";
+		// October 2012
+		case ("MonthAndYearRule1"):
+			MonthAndYearRule1 rule2 = new MonthAndYearRule1(extractedText);
+			result = rule2.getTemporal();
+			break;
 
-            DateTime dt = new DateTime(timeString);
-            DateTime dt2 = new DateTime(timeString2);
+		// July 14
+		case ("MonthAndDayRule1"):
+			MonthAndDayRule1 rule3 = new MonthAndDayRule1(extractedText);
+			result = rule3.getTemporal();
+			break;
 
-            System.out.println(dt);
-            System.out.println(dt2);
+		// 14 July
+		case ("MonthAndDayRule2"):
+			MonthAndDayRule2 rule4 = new MonthAndDayRule2(extractedText);
+			result = rule4.getTemporal();
+			break;
 
-            break;
-        }
+		// Sunday
+		case ("DayOfWeekRule1"):
+			DayOfWeekRule1 rule5 = new DayOfWeekRule1(extractedText);
+			result = rule5.getTemporal();
+			break;
+		}
 
-        return customDateTime;
-    }
+		return result;
+	}
 
 }

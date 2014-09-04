@@ -55,9 +55,9 @@ public class SUTimeService {
 		Annotation annotation = new Annotation(text);
 		annotation.set(CoreAnnotations.DocDateAnnotation.class, date);
 		pipeline.annotate(annotation);
-		List<TemporalExtraction> timexAnnsAll = annotation
+		List<TemporalExtraction> extracted = annotation
 				.get(TemporalExtractionAnnotation.class);
-		allAnnotations.addAll(timexAnnsAll);
+		allAnnotations.addAll(extracted);
 		return allAnnotations;
 	}
 

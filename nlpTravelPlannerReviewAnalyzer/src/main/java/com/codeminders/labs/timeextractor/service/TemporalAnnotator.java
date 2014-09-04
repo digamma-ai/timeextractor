@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.annotator;
+package com.codeminders.labs.timeextractor.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ import edu.stanford.nlp.pipeline.Annotator;
 import edu.stanford.nlp.time.GenericTimeExpressionPatterns;
 import edu.stanford.nlp.time.Options;
 import edu.stanford.nlp.time.TimeExpression;
-import edu.stanford.nlp.time.TimeExpressionExtractorImpl;
 import edu.stanford.nlp.time.TimeExpressionPatterns;
 import edu.stanford.nlp.util.CoreMap;
 
@@ -27,7 +26,6 @@ public class TemporalAnnotator implements Annotator {
 	TimeExpressionPatterns timexPatterns;
 
 	public TemporalAnnotator(String name, Properties properties) {
-		new TimeExpressionExtractorImpl(name, properties);
 		timexPatterns = new GenericTimeExpressionPatterns(new Options(name,
 				properties));
 		this.expressionExtractor = timexPatterns.createExtractor();

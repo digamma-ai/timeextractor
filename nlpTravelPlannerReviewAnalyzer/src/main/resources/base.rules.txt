@@ -1,9 +1,16 @@
+YearRule =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.YearRule" }
+MonthOfYear1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthOfYear1" }
+MonthAndYearRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndYearRule1" }
+MonthAndDayRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule1" }
+MonthAndDayRule2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule2" }
+DayOfWeekRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule1" }
+
 // month of the year, ex. October 
   
    { ruleType: "text", 
     priority:0,
     pattern: /\b($MONTH_OF_YEAR)\b/,
-  	result: BetweenTimeEvent($0) 
+  	result: MonthOfYear1($0) 
   }
   
   // year, ex. 2012   
@@ -11,15 +18,15 @@
    { ruleType: "text", 
     priority:0,
     pattern: /\b([2][0-9]\d\d)\b/,
-  	result: BetweenTimeEvent($0) 
+  	result: YearRule($0) 
   }
   
-   // October 2012  
+   // October 2012  or Oct. 2012
   
    { ruleType: "text", 
     priority:1,
-    pattern: /\b($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*([2][0-9]\d\d)\b/,
-  	result: BetweenTimeEvent($0) 
+    pattern: /\b($MONTH_OF_YEAR|($MONTH_OF_YEAR_EASY)[.]?)[\s]*([2][0-9]\d\d)\b/,
+  	result: MonthAndYearRule1($0) 
   }
   
   // July 14 
@@ -27,7 +34,7 @@
    { ruleType: "text", 
     priority:1,
     pattern: /\b($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))\b/,
-  	result: BetweenTimeEvent($0) 
+  	result: MonthAndDayRule1($0) 
   }
   
    // 14 July 
@@ -35,18 +42,36 @@
    { ruleType: "text", 
     priority:1,
     pattern: /\b(((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY))\b/,
-  	result: BetweenTimeEvent($0) 
+  	result: MonthAndDayRule2($0) 
   }
-    
-    // n year/years
+  
+    // day of week, ex. Sunday, 
+  
+   { ruleType: "text", 
+    priority:3,
+    pattern: /\b($DAY_OF_WEEK)[s]?\b/,
+  	result: DayOfWeekRule1($0) 
+  	
+  }
+  
+    //Wed
+  
+   { ruleType: "text", 
+    priority:0,
+    pattern: /\b($DAYOFWEEK_EASY)[s]?\b/,
+  	result: DayOfWeekRule1($0) 
+  }
+     
+   // day of week, ex. Sunday 16, 
   
    { ruleType: "text", 
     priority:1,
-    pattern: /\b((the last|about the last)[\s]*)?([1-9][0-9]?[0-9]?)[\s]*(year|years)\b/,
+    pattern: /\b($DAY_OF_WEEK)[s]?[\s]*([1-9]|[1-2][0-9]|[3][0-1])\b[^-]/,
   	result: BetweenTimeEvent($0) 
   }
+    
   
-   // time of day, ex. midnight
+   // time of day, ex. midnight (time interval)
   
    { ruleType: "text", 
     priority:0,
@@ -54,7 +79,7 @@
   	result: BetweenTimeEvent($0) 
   }
   
-   // season, ex. winter
+   // season, ex. winter (date interval)
   
    { ruleType: "text", 
     priority:0,
@@ -62,22 +87,7 @@
   	result: BetweenTimeEvent($0) 
   }
   
-   // day of week, ex. Sunday, 
-  
-   { ruleType: "text", 
-    priority:0,
-    pattern: /\b($DAY_OF_WEEK)[s]?\b/,
-  	result: BetweenTimeEvent($0) 
-  	
-  }
-     
-   // day of week, ex. Sunday 16, 
-  
-   { ruleType: "text", 
-    priority:1,
-    pattern: /\b($DAY_OF_WEEK)[s]?[\s]*(([1-9]|[1-2][0-9]|[3][0-1]))\b/,
-  	result: BetweenTimeEvent($0) 
-  }
+
   
    // Tuesday - Sunday, Wed.-Fri.
    
@@ -126,14 +136,7 @@
     pattern: /\b(til|till|until|before)[\s]*\b(((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*($MONTH_OF_YEAR))[\s]*([2][0-9]\d\d)\b/,
     result: BetweenTimeEvent($0) 
   }
-  
-    //Wed
-  
-   { ruleType: "text", 
-    priority:0,
-    pattern: /\b($DAYOFWEEK_EASY)[s]?\b/,
-  	result: BetweenTimeEvent($0) 
-  }
+ 
   
    // 7pm
   

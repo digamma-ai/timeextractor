@@ -1,11 +1,5 @@
 
-  // first monday of month 
-  
-  {  ruleType: "text", pattern: /((the[\s]*)?(($BasicOrdTerm)|[1-9](rd|th))([\s])?($DAY_OF_WEEK|$DAYOFWEEK_EASY)(s)?[\s]?(of)[\s]?(the)?(most|every)?[\s]?(month(s)?))/,
-  	 priority:5,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
+ 
    //during Spring and Fall
   
    { ruleType: "text", 
@@ -628,6 +622,14 @@
      result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
+     // may fall
+  
+  {  ruleType: "text", 
+     priority:1,
+     pattern: /\b(march of protest)\b/, 
+     result: BetweenTimeEvent("PERIOD_TIME") 
+  }
+  
      // n year/years
   
    { ruleType: "text", 
@@ -655,13 +657,14 @@
 
   }
   
-   //recently
+    //filter march of protest
   
   { ruleType: "filter", 
-    pattern: ( [ { word:/recently/ }] )  
+    pattern: ( /march/ /of/ /protest/ )  
 
   }
-    
+  
+     
    // may fall
   
   { ruleType: "filter", 
@@ -675,4 +678,9 @@
     pattern: ( /may/ [ { word:/be/ }] )  
 
   }
+  
+  { ruleType: "filter", 
+    pattern: ( [ { word:/(fall|spring|second|march|may|sat|sun|min)s?/ } & !{ tag:/NN.*/ } ] ) 
+   }
+  
  

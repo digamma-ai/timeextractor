@@ -1,60 +1,78 @@
 package com.codeminders.labs.timeextractor.temporal.entites;
 
 import com.codeminders.labs.timeextractor.constants.DayOfWeek;
+import com.codeminders.labs.timeextractor.constants.WeekOfMonth;
 
 public class Date {
 
-	private int year;
-	private int month;
-	private int day;
-	private DayOfWeek dayOfWeek;
-	private int weekOfMonth;
+    private int year;
+    private int month;
+    private int day;
+    private DayOfWeek dayOfWeek;
+    private WeekOfMonth weekOfMonth;
 
-	public int getYear() {
-		return year;
-	}
+    public Date() {
+    }
 
-	public void setYear(int year) {
-		this.year = year;
-	}
+    public Date(int year, int month, int day, DayOfWeek dayOfWeek, WeekOfMonth weekOfMonth) {
+        super();
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.dayOfWeek = dayOfWeek;
+        this.weekOfMonth = weekOfMonth;
+    }
 
-	public int getMonth() {
-		return month;
-	}
+    public Date(int year, int month, int day) {
+        super();
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
 
-	public void setMonth(int month) {
-		this.month = month;
-	}
+    public int getYear() {
+        return year;
+    }
 
-	public int getDay() {
-		return day;
-	}
+    public void setYear(int year) {
+        this.year = year;
+    }
 
-	public void setDay(int day) {
-		this.day = day;
-	}
+    public int getMonth() {
+        return month;
+    }
 
-	public DayOfWeek getDayOfWeek() {
-		return dayOfWeek;
-	}
+    public void setMonth(int month) {
+        this.month = month;
+    }
 
-	public void setDayOfWeek(DayOfWeek dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
-	}
+    public int getDay() {
+        return day;
+    }
 
-	public int getWeekOfMonth() {
-		return weekOfMonth;
-	}
+    public void setDay(int day) {
+        this.day = day;
+    }
 
-	public void setWeekOfMonth(int weekOfMonth) {
-		this.weekOfMonth = weekOfMonth;
-	}
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
 
-	@Override
-	public String toString() {
-		return "Date [year=" + year + ", month=" + month + ", day=" + day
-				+ ", dayOfWeek=" + dayOfWeek + ", weekOfMonth=" + weekOfMonth
-				+ "]";
-	}
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public void setWeekOfMonth(WeekOfMonth weekOfMonth2) {
+        this.weekOfMonth = weekOfMonth2;
+    }
+
+    public WeekOfMonth getWeekOfMonth() {
+        return weekOfMonth;
+    }
+
+    @Override
+    public String toString() {
+        return "Date [year=" + year + ", month=" + month + ", day=" + day + ", dayOfWeek=" + dayOfWeek + ", weekOfMonth=" + weekOfMonth + "]";
+    }
 
 }

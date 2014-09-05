@@ -16,44 +16,41 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
-// Sunday, Sundays
+// Sunday, Sundays, Sun
 
 public class DayOfWeekRule1 extends BaseRule {
 
-	public static String rule = "(" + DAY_OF_WEEK + "|" + DAY_OF_WEEK_EASY
-			+ ")";
-	private String extractedText;
-	protected Locale locale = Locale.US;
-	protected double confidence = 0.83;
+    public static String rule = "(" + DAY_OF_WEEK + "|" + DAY_OF_WEEK_EASY + ")";
+    private String extractedText;
+    protected Locale locale = Locale.US;
+    protected double confidence = 0.83;
 
-	public DayOfWeekRule1(String extractedText) {
-		this.extractedText = extractedText;
-	}
+    public DayOfWeekRule1(String extractedText) {
+        this.extractedText = extractedText;
+    }
 
-	@Override
-	public Type getType() {
-		return Type.DATE;
-	}
+    @Override
+    public Type getType() {
+        return Type.DATE;
+    }
 
-	@Override
-	public List<Temporal> getTemporal() {
-		Pattern pattern = Pattern.compile(rule);
-		Matcher matcher = pattern.matcher(extractedText);
-		DayOfWeek dayOfWeek = null;
+    @Override
+    public List<Temporal> getTemporal() {
+        Pattern pattern = Pattern.compile(rule);
+        Matcher matcher = pattern.matcher(extractedText);
+        DayOfWeek dayOfWeek = null;
 
-		while (matcher.find()) {
-			dayOfWeek = TemporalBasicCaseParser
-					.getDayOfWeek((matcher.group(1)));
-		}
+        while (matcher.find()) {
+            dayOfWeek = TemporalBasicCaseParser.getDayOfWeek((matcher.group(1)));
+        }
 
-		Date date = new Date();
-		date.setDayOfWeek(dayOfWeek);
-		Temporal temporal = TemporalObjectGenerator.generateTemporalObject(
-				type, date);
+        Date date = new Date();
+        date.setDayOfWeek(dayOfWeek);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalObject(type, date);
 
-		List<Temporal> temporalList = new ArrayList<Temporal>();
-		temporalList.add(temporal);
+        List<Temporal> temporalList = new ArrayList<Temporal>();
+        temporalList.add(temporal);
 
-		return temporalList;
-	}
+        return temporalList;
+    }
 }

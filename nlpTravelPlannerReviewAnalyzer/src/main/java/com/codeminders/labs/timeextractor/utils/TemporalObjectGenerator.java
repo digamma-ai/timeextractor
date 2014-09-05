@@ -7,17 +7,22 @@ import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
 
 public class TemporalObjectGenerator {
 
-	public static Temporal generateTemporalObject(Type type, Date date) {
+    public static Temporal generateTemporalObject(Type type, Date date) {
 
-		Temporal temporal = new Temporal();
-		TimeDate timeDate = new TimeDate();
-		timeDate.setDate(date);
-		temporal.setStartDate(timeDate);
-		temporal.setEndDate(timeDate);
-		temporal.setType(Type.DATE);
+        Temporal temporal = new Temporal();
+        TimeDate start = new TimeDate();
+        TimeDate end = new TimeDate();
 
-		return temporal;
+        start.setDate(date);
+        end.setDate(date);
 
-	}
+        temporal.setStartDate(start);
+        temporal.setStartDate(start);
+        temporal.setEndDate(end);
+        temporal.setType(Type.DATE);
+
+        return temporal;
+
+    }
 
 }

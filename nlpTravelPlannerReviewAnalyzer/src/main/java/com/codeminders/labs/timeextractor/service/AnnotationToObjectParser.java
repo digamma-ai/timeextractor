@@ -1,5 +1,6 @@
 package com.codeminders.labs.timeextractor.service;
 
+import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule1;
 import com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule2;
 import com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule1;
@@ -14,6 +15,7 @@ import com.codeminders.labs.timeextractor.rules.date.MonthAndYearRule1;
 import com.codeminders.labs.timeextractor.rules.date.MonthOfYear1;
 import com.codeminders.labs.timeextractor.rules.date.YearRule;
 import com.codeminders.labs.timeextractor.rules.time.Time1Rule;
+import com.codeminders.labs.timeextractor.rules.time.Time2Rule;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
 import edu.stanford.nlp.ling.tokensregex.MatchedExpression;
@@ -27,7 +29,7 @@ public class AnnotationToObjectParser {
 
         // 2009
         case ("YearRule"):
-            YearRule extracted = (YearRule) temporal;
+            BaseRule extracted = (YearRule) temporal;
             result = new TemporalExtraction();
             result.setClassOfRuleType(type);
             result.setTemporalExpression(expr.getText());
@@ -134,7 +136,7 @@ public class AnnotationToObjectParser {
             result.setTemporal(rule10.getTemporal());
             break;
 
-        // 7 pm
+        // the first of December 2011
         case ("DayOrderAndMonthRule1"):
             DayOrderAndMonthRule1 rule11 = (DayOrderAndMonthRule1) temporal;
             result = new TemporalExtraction();
@@ -143,13 +145,22 @@ public class AnnotationToObjectParser {
             result.setTemporal(rule11.getTemporal());
             break;
 
-        // 7 pm, 11 am, etc.
+        // 7pm, 11 am
         case ("Time1Rule"):
             Time1Rule rule12 = (Time1Rule) temporal;
             result = new TemporalExtraction();
             result.setClassOfRuleType(type);
             result.setTemporalExpression(expr.getText());
             result.setTemporal(rule12.getTemporal());
+            break;
+
+        // 12:22 CET
+        case ("Time2Rule"):
+            Time2Rule rule13 = (Time2Rule) temporal;
+            result = new TemporalExtraction();
+            result.setClassOfRuleType(type);
+            result.setTemporalExpression(expr.getText());
+            result.setTemporal(rule13.getTemporal());
             break;
         }
 

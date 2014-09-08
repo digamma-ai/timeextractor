@@ -13,7 +13,9 @@ DayOfWeekOrderRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextracto
 DayOfWeekOrderRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule2" }
 DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOrderAndMonthRule1" }
 MonthAndDayRule0 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule0" }
+
 Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time1Rule" }
+Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time2Rule" }
 
 // month of the year, ex. October 
   
@@ -128,6 +130,22 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
     pattern: /\b(the[\s]*)?($BasicOrdTerm)[\s]*(of[\s]*)?($MONTH_OF_YEAR)[\s]*[,;]?[\s]*(\b[2][0-9]\d\d\b)?\b/,
   	result: DayOrderAndMonthRule1($2,$4,$5) 
   }
+  
+     // 7pm (time, exact)
+  
+  { ruleType: "text", 
+ 	priority:0,
+    pattern:  /\b(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))([\s]*($TimeZone))?\b/,
+    result: Time1Rule($2,$3,$4) 
+  }
+  
+     // hh:mm CET?
+  
+   { ruleType: "text", 
+    priority:0,
+    pattern: /\b(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))([\s]*($TimeZone))?\b/,
+  	result: Time2Rule($2,$3,$5) 
+  }
    
    // time of day, ex. midnight (time interval)
   
@@ -146,7 +164,7 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
   }
   
   
-   // Tuesday - Sunday, Wed.-Fri.
+   // Tuesday - Sunday, Wed.-Fri. (date interval)
    
   {  ruleType: "text", 
  	 priority:4,
@@ -154,7 +172,7 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
   	 result: BetweenTimeEvent($0) 
   }
   
-  // friday nights, etc.
+  // friday nights, etc.(date + time interval)
   
   { ruleType: "text", 
     priority:1,
@@ -162,23 +180,15 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
   	result: BetweenTimeEvent($0) 
   }
       
-   // October 3-4, 2012; October 3-4
+   // October 3-4, 2012; October 3-4 (date interval)
   
    { ruleType: "text", 
     priority:2,
     pattern: /\b(($MONTH_OF_YEAR)[\s]*(\b([1-9]|[1-2][0-9]|[3][0-1])\b))[-](\b([1-9]|[1-2][0-9]|[3][0-1])[.,;][\s]*([2][0-9]\d\d)?\b)/,
   	result: BetweenTimeEvent($0) 
   }
-  
-   // 7pm (time, exact)
-  
-  { ruleType: "text", 
- 	priority:0,
-    pattern:  /\b(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))\b/,
-    result: Time1Rule($2,$3) 
-  }
-  
-   // yearly, weekly, daily
+   
+   // yearly, weekly, daily (frequency)
   
    { ruleType: "text", 
     priority:0,
@@ -186,7 +196,7 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
   	result: BetweenTimeEvent($0) 
   }
   
-  // today, yesterday
+  // today, yesterday (? how to parse)
   
    { ruleType: "text", 
     priority:0,
@@ -194,7 +204,7 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
   	result: BetweenTimeEvent($0) 
   }
   
-  // every,each
+  // every,each (frequency)
   
    { ruleType: "text", 
     priority:0,
@@ -202,11 +212,5 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
   	result: BetweenTimeEvent($0) 
   }
   
-   // hh:mm CET?
-  
-   { ruleType: "text", 
-    priority:0,
-    pattern: /\b(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])([\s]*($TimeZone))?\b/,
-  	result: BetweenTimeEvent($0) 
-  }
+
   

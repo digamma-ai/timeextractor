@@ -46,7 +46,7 @@ public class DayOfWeekRule1 extends BaseRule {
 
         Date date = new Date();
         date.setDayOfWeek(dayOfWeek);
-        Temporal temporal = TemporalObjectGenerator.generateTemporalObject(type, date);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
 
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);

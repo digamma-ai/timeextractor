@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
-public class MonthAndDayRule1Test {
+public class MonthAndDayRule0Test {
     private SUTimeService service;
 
     @Before
@@ -21,11 +21,11 @@ public class MonthAndDayRule1Test {
     @Test
     public void MonthAndDayRule0Test1() {
 
-        String toPredict = "July 14th 2014";
+        String toPredict = "July 24, 2014";
         List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("July 14th 2014", predicted.get(0).getTemporalExpression());
+        assertEquals("July 24, 2014", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
-        assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
+        assertEquals(24, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
         assertEquals(2014, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getYear());
 
     }
@@ -33,11 +33,11 @@ public class MonthAndDayRule1Test {
     @Test
     public void MonthAndDayRule0Test2() {
 
-        String toPredict = "July the 14th 2014";
+        String toPredict = "July 24 2014";
         List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("July the 14th 2014", predicted.get(0).getTemporalExpression());
+        assertEquals("July 24 2014", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
-        assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
+        assertEquals(24, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
         assertEquals(2014, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getYear());
 
     }
@@ -45,11 +45,11 @@ public class MonthAndDayRule1Test {
     @Test
     public void MonthAndDayRule0Test3() {
 
-        String toPredict = "July the 14th of 2014";
+        String toPredict = "July, 24, 2014";
         List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("July the 14th of 2014", predicted.get(0).getTemporalExpression());
+        assertEquals("July, 24, 2014", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
-        assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
+        assertEquals(24, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
         assertEquals(2014, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getYear());
 
     }
@@ -57,22 +57,11 @@ public class MonthAndDayRule1Test {
     @Test
     public void MonthAndDayRule0Test4() {
 
-        String toPredict = "July the 14th";
+        String toPredict = "July, 24, 20114";
         List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("July the 14th", predicted.get(0).getTemporalExpression());
+        assertEquals("July, 24", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
-        assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
-
-    }
-
-    @Test
-    public void MonthAndDayRule0Test5() {
-
-        String toPredict = "July 14th";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("July 14th", predicted.get(0).getTemporalExpression());
-        assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
-        assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
+        assertEquals(24, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
 
     }
 }

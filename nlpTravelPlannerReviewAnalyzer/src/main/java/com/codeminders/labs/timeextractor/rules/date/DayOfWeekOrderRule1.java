@@ -1,12 +1,9 @@
 package com.codeminders.labs.timeextractor.rules.date;
 
-import static com.codeminders.labs.timeextractor.constants.Constants.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.constants.Type;
@@ -19,13 +16,14 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class DayOfWeekOrderRule1 extends BaseRule {
 
-    public static String rule = "\\b(the)?[\\s]*" + BASIC_ORDER_WEEK_OF_MONTH + "[\\s]*(of)?[\\s]*" + "(" + DAY_OF_WEEK + "|" + DAY_OF_WEEK_EASY + ")" + "[s]?[\\s]*(of (the)? month)?";
-    private String extractedText;
     protected Locale locale = Locale.US;
     protected double confidence = 0.83;
+    private String dayOfWeek;
+    private String weekOfMonth;
 
-    public DayOfWeekOrderRule1(String extractedText) {
-        this.extractedText = extractedText;
+    public DayOfWeekOrderRule1(String weekOfMonth, String dayOfWeek) {
+        this.weekOfMonth = weekOfMonth;
+        this.dayOfWeek = dayOfWeek;
     }
 
     @Override
@@ -35,20 +33,16 @@ public class DayOfWeekOrderRule1 extends BaseRule {
 
     @Override
     public List<Temporal> getTemporal() {
-        Pattern pattern = Pattern.compile(rule);
-        Matcher matcher = pattern.matcher(extractedText);
         DayOfWeek dayOfWeek = null;
         WeekOfMonth weekOfMonth = null;
-        while (matcher.find()) {
-            dayOfWeek = TemporalBasicCaseParser.getDayOfWeek((matcher.group(4)));
-            weekOfMonth = TemporalBasicCaseParser.getWeekOfMonth((matcher.group(2)));
-        }
+        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(this.dayOfWeek);
+        weekOfMonth = TemporalBasicCaseParser.getWeekOfMonth(this.weekOfMonth);
 
         Date date = new Date();
         date.setDayOfWeek(dayOfWeek);
         date.setWeekOfMonth(weekOfMonth);
 
-        Temporal temporal = TemporalObjectGenerator.generateTemporalObject(type, date);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
 
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);

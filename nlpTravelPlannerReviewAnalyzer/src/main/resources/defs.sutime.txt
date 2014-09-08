@@ -131,6 +131,7 @@ MONTH_OF_YEAR_MAP = {
     "jul": "jul",
     "aug": "aug",
     "sept": "sept",
+    "sep": "sep",
     "oct": "oct",
     "nov": "nov",
     "dec": "dec"

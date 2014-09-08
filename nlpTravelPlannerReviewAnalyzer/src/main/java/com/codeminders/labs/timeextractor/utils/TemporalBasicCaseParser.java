@@ -57,7 +57,7 @@ public class TemporalBasicCaseParser {
         if (text.equalsIgnoreCase("August") || text.equalsIgnoreCase("Aug")) {
             return MonthOfYear.AUGUST;
         }
-        if (text.equalsIgnoreCase("September") || text.equalsIgnoreCase("Sep")) {
+        if (text.equalsIgnoreCase("September") || text.equalsIgnoreCase("Sep") || text.equalsIgnoreCase("Sept")) {
             return MonthOfYear.SEPTEMBER;
         }
         if (text.equalsIgnoreCase("October") || text.equalsIgnoreCase("Oct")) {

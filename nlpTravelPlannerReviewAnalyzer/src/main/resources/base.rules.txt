@@ -1,3 +1,5 @@
+// LOCALE EN_US
+
 YearRule =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.YearRule" }
 MonthOfYear1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthOfYear1" }
 MonthAndYearRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndYearRule1" }
@@ -10,45 +12,55 @@ DayOfWeekRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rul
 DayOfWeekOrderRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule1" }
 DayOfWeekOrderRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule2" }
 DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOrderAndMonthRule1" }
+MonthAndDayRule0 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule0" }
+Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time1Rule" }
 
 // month of the year, ex. October 
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b($MONTH_OF_YEAR)\b/,
-  	result: MonthOfYear1($0) 
+    pattern: /\b($MONTH_OF_YEAR)([.,;\s]|$)/,
+  	result: MonthOfYear1($1) 
   }
   
-  // year, ex. 2012   
+  // year, ex. 2014 
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b([2][0-9]\d\d)\b/,
-  	result: YearRule($0) 
+    pattern: /\b([2][0]\d\d)\b(\s|[.;,]|$)/,
+  	result: YearRule($1) 
   }
   
    // October 2012  or Oct. 2012
   
    { ruleType: "text", 
     priority:1,
-    pattern: /\b($MONTH_OF_YEAR|($MONTH_OF_YEAR_EASY)[.]?)[\s]*([2][0-9]\d\d)\b/,
-  	result: MonthAndYearRule1($0) 
+    pattern: /\b($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[.,;]?[\s]*([2][0]\d\d)\b/,
+  	result: MonthAndYearRule1($1,$2) 
+  }
+  
+    // July 14 2014, July 14
+  
+   { ruleType: "text", 
+    priority:2,
+    pattern: /\b($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*([,][\s]*)?(\b([1-2][0-9])\b|\b([3][0-1])\b|\b([1-9])\b)[\s]*([,]?[\s]*([\s]*\b[2][0-9]\d\d\b))?/,
+  	result: MonthAndDayRule0($1, $3, $8) 
   }
   
   // July the 14th 2014, July 14 2014, July 14
   
    { ruleType: "text", 
-    priority:1,
-    pattern: /\b($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*[,]?[\s]*(the[\s]*)?(([1-9])|([1-2][0-9])|([3][0-1]))(th|st|nd)?[\s]*[,]?[\s]*([\s]*([2][0-9]\d\d))?\b/,
-  	result: MonthAndDayRule1($0) 
+    priority:3,
+    pattern: /\b($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*[,]?[\s]*(the[\s]*)?\b(([1-2][0-9])|([3][0-1])|([1-9]))(th|st|nd)[\s]*[,]?(of)?[\s]*([\s]*([2][0-9]\d\d))?/,
+  	result: MonthAndDayRule1($1,$3,$9) 
   }
   
    // 14th July 2012
   
    { ruleType: "text", 
     priority:1,
-    pattern: /\b((([1-2][0-9])|([3][0-1]|([1-9])))(th|st|nd)?[\s]*(of|[,])?[\s]*($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY))[,]?([\s]*(of|[,])?[\s]*([2][0-9]\d\d))?\b/,
-  	result: MonthAndDayRule2($0) 
+    pattern: /\b(([1-2][0-9])|([3][0-1])|([1-9]))(th|st|nd)?[\s]*(of|[,])?[\s]*($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[,]?([\s]*(of|[,])?[\s]*([2][0-9]\d\d))?\b/,
+  	result: MonthAndDayRule2($1,$7,$10) 
   }
   
     // day of week, ex. Sunday, 
@@ -64,8 +76,8 @@ DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextrac
   
    { ruleType: "text", 
     priority:2,
-    pattern: /\b($DAY_OF_WEEK)[s]?[\s]*([1-2][0-9]|[3][0-1]|[1-9])\b([^.;-]|$)/,
-  	result: DayOfWeekRule2($0) 
+    pattern: /\b($DAY_OF_WEEK)[s]?[\s]*(\b[1-2][0-9]\b|\b[3][0-1]\b|\b[1-9]\b)\b([\s,]|$)/,
+  	result: DayOfWeekRule2($1,$2) 
   }
   
     //Wed
@@ -81,15 +93,15 @@ DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextrac
    { ruleType: "text", 
     priority:2,
     pattern: /\b(the)[\s]*([1-9]|[1-2][0-9]|[3][0-1])(th|st|nd)[\s]*(of[\s]*)?($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*([2][0-9]\d\d)?\b/,
-  	result: MonthAndDayRule3($0) 
+  	result: MonthAndDayRule3($2,$5,$6) 
   }
   
      // jan. 21 2014
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b($MONTH_OF_YEAR_EASY)[.][\s]*([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd)?[\s]*[,]?([\s]*([2][0-9]\d\d))?\b/,
-  	result: MonthAndDayRule4($0) 
+    pattern: /\b($MONTH_OF_YEAR_EASY)[.][\s]*([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd)?[\s]*[,]?([\s]*(\b[2][0-9]\d\d\b))?\b/,
+  	result: MonthAndDayRule4($1,$2,$4) 
   }
   
   
@@ -98,14 +110,14 @@ DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextrac
    { ruleType: "text", 
     priority:3,
     pattern: /(the)?[\s]*($BasicOrdTerm)[\s]*(of)?[\s]*($DAY_OF_WEEK)[s]?[\s]*((of)[\s]*(the[\s]*)?(month))?/,
-  	result: DayOfWeekOrderRule1($0) 
+  	result: DayOfWeekOrderRule1($2,$4) 
   }
   
     // the 1st Tuesday (of the month)
   
    { ruleType: "text", 
     priority:3,
-    pattern: /(the)?[\s]*(([1-2][0-9]|[3][0-1]|[1-9]))(th|st|nd)?[\s]*(of)?[\s]*($DAY_OF_WEEK)[s]?[\s]*((of)[\s]*(the[\s]*)?(month))?/,
+    pattern: /([^$-]|^)\b(([1-2][0-9]|[3][0-1]|[1-9]))(th|st|nd)?[\s]*(of)?[\s]*($DAY_OF_WEEK)[s]?[\s]*((of)[\s]*(the[\s]*)?(month))?\b/,
   	result: DayOfWeekOrderRule2($0) 
   }
   
@@ -113,11 +125,10 @@ DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextrac
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b(the[\s]*)?($BasicOrdTerm)[\s]*(of[\s]*)?($MONTH_OF_YEAR)[\s]*[,;]?[\s]*([2][0-9]\d\d)?\b/,
-  	result: DayOrderAndMonthRule1($0) 
+    pattern: /\b(the[\s]*)?($BasicOrdTerm)[\s]*(of[\s]*)?($MONTH_OF_YEAR)[\s]*[,;]?[\s]*(\b[2][0-9]\d\d\b)?\b/,
+  	result: DayOrderAndMonthRule1($2,$4,$5) 
   }
    
-
    // time of day, ex. midnight (time interval)
   
    { ruleType: "text", 
@@ -159,12 +170,12 @@ DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextrac
   	result: BetweenTimeEvent($0) 
   }
   
-   // 7pm
+   // 7pm (time, exact)
   
   { ruleType: "text", 
  	priority:0,
     pattern:  /\b(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))\b/,
-    result: BetweenTimeEvent($0) 
+    result: Time1Rule($2,$3) 
   }
   
    // yearly, weekly, daily

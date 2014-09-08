@@ -48,7 +48,7 @@ public class DayOfWeekOrderRule2 extends BaseRule {
         date.setDayOfWeek(dayOfWeek);
         date.setWeekOfMonth(weekOfMonth);
 
-        Temporal temporal = TemporalObjectGenerator.generateTemporalObject(type, date);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
 
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);

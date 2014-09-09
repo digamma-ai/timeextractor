@@ -29,6 +29,9 @@ Time4Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
 SeasonRules =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules" }
 SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules2" }
 
+MonthDaysIntervalRule1  =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.MonthDaysIntervalRule1" }
+MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1" }
+
 // month of the year, ex. October 
   
    { ruleType: "text", 
@@ -41,7 +44,7 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
   
    { ruleType: "text", 
     priority:0,
-    pattern: /([\s]|^)\b([2][0]\d\d)\b(\s|[.;,]|$)/,
+    pattern: /([\s]|^)\b([2][0]\d\d)\b(\s|[.;:,?!]|$)/,
   	result: YearRule($2) 
   }
   
@@ -81,7 +84,7 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
   
    { ruleType: "text", 
     priority:1,
-    pattern: /\b($DAY_OF_WEEK|$DAYOFWEEK_EASY)[s]?\b([.,;\s]|$)/,
+    pattern: /\b($DAY_OF_WEEK|$DAYOFWEEK_EASY)[s]?\b([.,;?!\s]|$)/,
   	result: DayOfWeekRule1($1) 
   	
   }
@@ -126,8 +129,7 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
   	result: MonthAndDayRule4($1,$2,$4) 
   }
   
-  
-    // the first Tuesday (of the month)
+      // the first Tuesday (of the month)
   
    { ruleType: "text", 
     priority:3,
@@ -138,8 +140,8 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
     // 1st Tuesday of the month
   
    { ruleType: "text", 
-    priority:3,
-    pattern: /\b([1-5])(th|st|nd|rd)?[\s]*(of)?[\s]*($DAY_OF_WEEK)[s]?[\s]*((of)[\s]*(the[\s]*)?(month))?\b/,
+    priority:4,
+    pattern: /\b([1-5])(th|st|nd|rd)?[\s]*(of)?[\s]*($DAY_OF_WEEK)[s]?[\s]*((of)[\s]*(the[\s]*)?(month))?/,
   	result: DayOfWeekOrderRule2($1,$4) 
   }
   
@@ -239,8 +241,8 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b($SEASON)\b/,
-  	result: SeasonRules($0) 
+    pattern: /\b($SEASON)[\s]*(months|month)\b/,
+  	result: SeasonRules($1) 
   }
   
    // season, ex. winter 2014 (date interval)
@@ -250,6 +252,24 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
     pattern: /\b($SEASON)[\s]*(\b[2][0-9]\d\d\b)?\b/,
   	result: SeasonRules2($1,$2) 
   }
+  
+    
+  // July 28th-31st (date period ), Jul 28th-31st 2014
+  
+  { ruleType: "text", 
+ 	 priority:4,
+    pattern: /\b(($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*([3][0-1]|[1-2][0-9]|[1-9])[\s]*(th|st|rd|nd)?[\s]*[-][\s]*([3][0-1]|[1-2][0-9]|[1-9])[\s]*(th|st|rd|nd)?)[\s]*(\b[2][0-9]\d\d\b)?\b/,
+  	 result: MonthDaysIntervalRule1($2,$3,$5, $7) 
+  }
+  
+    //April through October 2014
+	
+	{ 
+    ruleType: "text",  
+    priority: 2,
+	pattern: /($MONTH_OF_YEAR[.]?|$MONTH_OF_YEAR_EASY[.]?)[\s]*(through|thru|to|-)[\s]*($MONTH_OF_YEAR[.]?|$MONTH_OF_YEAR_EASY[.]?)[\s]*[,]?[\s]*(\b[2][0-9]\d\d\b)?\b/ ,
+	result: MonthToMonthRule1($1,$3,$4)
+	}
    
    // time of day, ex. midnight (time interval)
   
@@ -258,9 +278,7 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
     pattern: /\b(this[\s]*)?($TIME_OF_DAY)[s]?\b/,
   	result: BetweenTimeEvent($0) 
   }
-  
-
-  
+   
   // Tuesday - Sunday, Wed.-Fri. (date interval)
    
   {  ruleType: "text", 

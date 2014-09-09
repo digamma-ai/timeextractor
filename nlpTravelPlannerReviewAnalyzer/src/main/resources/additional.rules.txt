@@ -6,26 +6,14 @@
   	result: BetweenTimeEvent($0) 
   }
     
-  // date period  
-  { ruleType: "text", pattern: /($SEASON)[\s]*(months|month)/,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
-    // date period 
-   // Sat/Sun
+  // date period 
+  // Sat/Sun
   { ruleType: "text", pattern: /(($DAYOFWEEK_EASY)\/($DAYOFWEEK_EASY))/,
     priority:3,
-  	 result: BetweenTimeEvent($0) 
+  	result: BetweenTimeEvent($0) 
   }
   
-  // July 28th-31st (date period )
-  
-  { ruleType: "text", 
-    pattern: /\b(($MONTH_OF_YEAR)[\s]*(([3][0-1])|([1-2][0-9])|([1-9]))[\s]*(th|st)?[\s]*[-][\s]*(([3][0-1])|([1-2][0-9])|([1-9]))[\s]*(th|st)?)\b/,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
-  
+ 
   //Wed.-Fri. (date period )
   
   { ruleType: "text", 

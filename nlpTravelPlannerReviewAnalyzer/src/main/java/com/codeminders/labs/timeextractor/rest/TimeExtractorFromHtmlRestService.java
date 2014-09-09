@@ -14,9 +14,9 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import com.codeminders.labs.timeextractor.constants.RestParameters;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
-import com.codeminders.labs.timeextractor.utilities.RestParameters;
 
 /* Rest service to extract temporal date from html page*/
 

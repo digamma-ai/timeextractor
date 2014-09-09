@@ -4,7 +4,6 @@ import java.util.Properties;
 
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.service.TemporalAnnotator;
-import com.codeminders.labs.timeextractor.utilities.StringUnion;
 
 import edu.stanford.nlp.pipeline.AnnotationPipeline;
 import edu.stanford.nlp.pipeline.POSTaggerAnnotator;
@@ -33,15 +32,14 @@ public class PipelineGenerator {
 
 	private static Properties getProperties() {
 
-		String customRules = SUTimeService.class.getResource(MAIN_RULES)
-				.getPath();
+	//	String customRules = SUTimeService.class.getResource(MAIN_RULES)
+	//			.getPath();
 		String baseRules = SUTimeService.class.getResource(BASE_RULES)
 				.getPath();
 
 		String defs = SUTimeService.class.getResource(DEFS).getPath();
 
-		String allRules = StringUnion.sutimeMainRules(defs, baseRules,
-				customRules);
+		String allRules = StringUnion.sutimeMainRules(defs, baseRules);
 
 		Properties props = new Properties();
 		props.setProperty("sutime.rules", allRules);

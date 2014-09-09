@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Date;
@@ -11,21 +12,18 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
-// the 20th of january 2014
-
-public class MonthAndDayRule3 extends BaseRule {
+public class DayOfWeekRule3 extends BaseRule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.83;
-    private String month;
-    private String day;
+    private String dayOfWeek;
+    private String dayOfMonth;
     private String year;
 
-    public MonthAndDayRule3(String day, String month, String year) {
-        this.month = month;
-        this.day = day;
+    public DayOfWeekRule3(String dayOfWeek, String dayOfMonth, String year) {
+        this.dayOfWeek = dayOfWeek;
+        this.dayOfMonth = dayOfMonth;
         this.year = year;
-
     }
 
     @Override
@@ -35,17 +33,22 @@ public class MonthAndDayRule3 extends BaseRule {
 
     @Override
     public List<Temporal> getTemporal() {
-        int month = 0;
-        int day = 0;
+        DayOfWeek dayOfWeek = null;
+        int dayOfMonth = 0;
         int year = 0;
-        month = TemporalBasicCaseParser.getMonthOfYear(this.month).getValue();
-        day = Integer.parseInt(this.day);
+
+        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek((this.dayOfWeek));
+        dayOfMonth = Integer.parseInt(this.dayOfMonth);
         if (this.year != null) {
             year = Integer.parseInt(this.year);
         }
+        Date date = new Date();
+        date.setDayOfWeek(dayOfWeek);
+        date.setDay(dayOfMonth);
+        date.setYear(year);
 
-        Date date = new Date(year, month, day);
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
+
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
 

@@ -8,25 +8,25 @@ public class TemporalBasicCaseParser {
 
     public static DayOfWeek getDayOfWeek(String text) {
 
-        if (text.equalsIgnoreCase("Monday") || text.equalsIgnoreCase("Mon") || text.equalsIgnoreCase("Mo")) {
+        if (text.equalsIgnoreCase("Monday") || text.equalsIgnoreCase("Mon") || text.equalsIgnoreCase("Mo") || text.equalsIgnoreCase("Mondays")) {
             return DayOfWeek.MONDAY;
         }
-        if (text.equalsIgnoreCase("Tuesday") || text.equalsIgnoreCase("Tue")) {
+        if (text.equalsIgnoreCase("Tuesday") || text.equalsIgnoreCase("Tue") || text.equalsIgnoreCase("Tuesdays")) {
             return DayOfWeek.TUESDAY;
         }
-        if (text.equalsIgnoreCase("Wednesday") || text.equalsIgnoreCase("Wed")) {
+        if (text.equalsIgnoreCase("Wednesday") || text.equalsIgnoreCase("Wed") || text.equalsIgnoreCase("Wednesdays")) {
             return DayOfWeek.WEDNESDAY;
         }
-        if (text.equalsIgnoreCase("Thursday") || text.equalsIgnoreCase("Thur")) {
+        if (text.equalsIgnoreCase("Thursday") || text.equalsIgnoreCase("Thur") || text.equalsIgnoreCase("Thursdays")) {
             return DayOfWeek.THURSDAY;
         }
-        if (text.equalsIgnoreCase("Friday") || text.equalsIgnoreCase("Fri")) {
+        if (text.equalsIgnoreCase("Friday") || text.equalsIgnoreCase("Fri") || text.equalsIgnoreCase("Fridays")) {
             return DayOfWeek.FRIDAY;
         }
-        if (text.equalsIgnoreCase("Saturday") || text.equalsIgnoreCase("Sat")) {
+        if (text.equalsIgnoreCase("Saturday") || text.equalsIgnoreCase("Sat") || text.equalsIgnoreCase("Saturdays")) {
             return DayOfWeek.SATURDAY;
         }
-        if (text.equalsIgnoreCase("Sunday") || text.equalsIgnoreCase("Sun")) {
+        if (text.equalsIgnoreCase("Sunday") || text.equalsIgnoreCase("Sun") || text.equalsIgnoreCase("Sundays")) {
             return DayOfWeek.SUNDAY;
         }
         return null;

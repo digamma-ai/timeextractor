@@ -1,5 +1,3 @@
-
- 
    //during Spring and Fall
   
    { ruleType: "text", 

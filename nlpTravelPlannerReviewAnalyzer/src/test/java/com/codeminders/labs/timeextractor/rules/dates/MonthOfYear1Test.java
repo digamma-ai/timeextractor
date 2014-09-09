@@ -1,22 +1,15 @@
-package com.codemonders.labs.timeextractor.rules.dates;
+package com.codeminders.labs.timeextractor.rules.dates;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import com.codeminders.labs.timeextractor.service.SUTimeService;
+import com.codeminders.labs.timeextractor.rules.general.GeneralTest;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
-public class MonthOfYear1Test {
-    private SUTimeService service;
-
-    @Before
-    public void before() {
-        service = new SUTimeService();
-    }
+public class MonthOfYear1Test extends GeneralTest {
 
     @Test
     public void testMonthOfYear1() {

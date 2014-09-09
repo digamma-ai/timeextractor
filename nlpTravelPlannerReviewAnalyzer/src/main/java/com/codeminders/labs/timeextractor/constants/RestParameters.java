@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.utilities;
+package com.codeminders.labs.timeextractor.constants;
 
 public class RestParameters {
 	

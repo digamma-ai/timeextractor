@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.utilities;
+package com.codeminders.labs.timeextractor.utils;
 
 public class StringUnion {
 	

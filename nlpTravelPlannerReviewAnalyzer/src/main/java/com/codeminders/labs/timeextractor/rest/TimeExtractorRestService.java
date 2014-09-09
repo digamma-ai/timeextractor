@@ -15,11 +15,11 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import com.codeminders.labs.timeextractor.constants.RestParameters;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
-import com.codeminders.labs.timeextractor.utilities.RestParameters;
 
 
 @Path("/")

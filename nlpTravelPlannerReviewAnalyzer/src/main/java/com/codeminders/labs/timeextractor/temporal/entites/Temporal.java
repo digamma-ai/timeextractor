@@ -8,6 +8,15 @@ public class Temporal {
     private TimeDate startDate;
     private TimeDate endDate;
 
+    public Temporal() {
+
+    }
+
+    public Temporal(TimeDate startDate, TimeDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Type getType() {
         return type;
     }

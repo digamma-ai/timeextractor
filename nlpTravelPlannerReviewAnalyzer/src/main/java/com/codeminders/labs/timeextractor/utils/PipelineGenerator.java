@@ -12,39 +12,38 @@ import edu.stanford.nlp.pipeline.WordsToSentencesAnnotator;
 
 public class PipelineGenerator {
 
-	private static final String BASE_RULES = "/base.rules.txt";
-	private static final String MAIN_RULES = "/additional.rules.txt";
-	private static final String DEFS = "/defs.sutime.txt";
+    private static final String BASE_RULES = "/base.rules.txt";
+    private static final String MAIN_RULES = "/additional.rules.txt";
+    private static final String DEFS = "/defs.sutime.txt";
 
-	private static AnnotationPipeline pipeline = new AnnotationPipeline();
+    private static AnnotationPipeline pipeline = new AnnotationPipeline();
 
-	static {
-		pipeline.addAnnotator(new PTBTokenizerAnnotator(false));
-		pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
-		pipeline.addAnnotator(new POSTaggerAnnotator(false));
-		Properties props = getProperties();
-		pipeline.addAnnotator(new TemporalAnnotator("sutime", props));
-	}
+    static {
+        pipeline.addAnnotator(new PTBTokenizerAnnotator(false));
+        pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
+        pipeline.addAnnotator(new POSTaggerAnnotator(false));
+        Properties props = getProperties();
+        pipeline.addAnnotator(new TemporalAnnotator("sutime", props));
+    }
 
-	public static AnnotationPipeline getPipeline() {
-		return pipeline;
-	}
+    public static AnnotationPipeline getPipeline() {
+        return pipeline;
+    }
 
-	private static Properties getProperties() {
+    private static Properties getProperties() {
 
-	//	String customRules = SUTimeService.class.getResource(MAIN_RULES)
-	//			.getPath();
-		String baseRules = SUTimeService.class.getResource(BASE_RULES)
-				.getPath();
+        // String customRules =
+        // SUTimeService.class.getResource(MAIN_RULES).getPath();
+        String baseRules = SUTimeService.class.getResource(BASE_RULES).getPath();
 
-		String defs = SUTimeService.class.getResource(DEFS).getPath();
+        String defs = SUTimeService.class.getResource(DEFS).getPath();
 
-		String allRules = StringUnion.sutimeMainRules(defs, baseRules);
+        String allRules = StringUnion.sutimeMainRules(defs, baseRules);
 
-		Properties props = new Properties();
-		props.setProperty("sutime.rules", allRules);
-		props.setProperty("annotators", "lemma, pos, tokenize");
-		return props;
-	}
+        Properties props = new Properties();
+        props.setProperty("sutime.rules", allRules);
+        props.setProperty("annotators", "lemma, pos, tokenize");
+        return props;
+    }
 
 }

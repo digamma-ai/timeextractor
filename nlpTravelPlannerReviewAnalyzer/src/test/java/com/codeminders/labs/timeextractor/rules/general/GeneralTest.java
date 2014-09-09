@@ -1,14 +1,14 @@
 package com.codeminders.labs.timeextractor.rules.general;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 
 public class GeneralTest {
-    protected SUTimeService service;
+    protected static SUTimeService service;
 
-    @Before
-    public void before() {
+    @BeforeClass
+    public static void before() {
         service = new SUTimeService();
     }
 

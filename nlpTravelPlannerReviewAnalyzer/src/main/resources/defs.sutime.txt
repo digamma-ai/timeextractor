@@ -147,7 +147,8 @@ TIME_ZONE = {
     "CET":" CET",
     "PDT":" PDT",  
     "GMT": "GMT",
-    "UTC": "UTC"
+    "UTC": "UTC",
+    "HKT":"HKT"
   }  
   
   TIME_OF_YEAR_MAP = {

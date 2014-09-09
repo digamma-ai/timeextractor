@@ -3,6 +3,9 @@ package com.codeminders.labs.timeextractor.utils;
 import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.constants.MonthOfYear;
 import com.codeminders.labs.timeextractor.constants.WeekOfMonth;
+import com.codeminders.labs.timeextractor.temporal.entites.Date;
+import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
 
 public class TemporalBasicCaseParser {
 
@@ -74,19 +77,19 @@ public class TemporalBasicCaseParser {
 
     public static WeekOfMonth getWeekOfMonth(String text) {
 
-        if (text.equalsIgnoreCase("first")) {
+        if (text.equalsIgnoreCase("first") || text.equalsIgnoreCase("1")) {
             return WeekOfMonth.FIRST;
         }
-        if (text.equalsIgnoreCase("second")) {
+        if (text.equalsIgnoreCase("second") || text.equalsIgnoreCase("2")) {
             return WeekOfMonth.SECOND;
         }
-        if (text.equalsIgnoreCase("third")) {
+        if (text.equalsIgnoreCase("third") || text.equalsIgnoreCase("3")) {
             return WeekOfMonth.THIRD;
         }
-        if (text.equalsIgnoreCase("fourth")) {
+        if (text.equalsIgnoreCase("fourth") || text.equalsIgnoreCase("4")) {
             return WeekOfMonth.FOURTH;
         }
-        if (text.equalsIgnoreCase("fifth")) {
+        if (text.equalsIgnoreCase("fifth") || text.equalsIgnoreCase("5")) {
             return WeekOfMonth.FIFTH;
         }
 
@@ -205,4 +208,39 @@ public class TemporalBasicCaseParser {
         return 0;
     }
 
+    public static Temporal getSeason(String season, int year) {
+        TimeDate start = new TimeDate();
+        TimeDate end = new TimeDate();
+
+        if (season.equalsIgnoreCase("Summer")) {
+            Date startDate = new Date(6, 1);
+            Date endDate = new Date(8, 31);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            return new Temporal(start, end);
+
+        }
+        if (season.equalsIgnoreCase("Winter")) {
+            Date startDate = new Date(12, 1);
+            Date endDate = new Date(2, 28);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            return new Temporal(start, end);
+        }
+        if (season.equalsIgnoreCase("Autumn") || season.equalsIgnoreCase("Fall")) {
+            Date startDate = new Date(9, 1);
+            Date endDate = new Date(11, 30);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            return new Temporal(start, end);
+        }
+        if (season.equalsIgnoreCase("Spring")) {
+            Date startDate = new Date(3, 1);
+            Date endDate = new Date(5, 31);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            return new Temporal(start, end);
+        }
+        return null;
+    }
 }

@@ -8,6 +8,7 @@ public class Filter {
     public void filter(TemporalExtraction extraction) {
         if (extraction != null && extraction.getTemporalExpression() != null) {
             filterLastCharacter(extraction);
+            filterFirstCharacter(extraction);
         }
     }
 
@@ -20,6 +21,17 @@ public class Filter {
             extraction.setTemporalExpression(finalString);
             extraction.setToPosition(to);
 
+        }
+    }
+
+    // clear first character in case of , . ; or space
+    private void filterFirstCharacter(TemporalExtraction extraction) {
+        char lastCharacter = extraction.getTemporalExpression().charAt(0);
+        if (lastCharacter == ' ') {
+            int from = extraction.getFromPosition() + 1;
+            String finalString = extraction.getTemporalExpression().substring(1, extraction.getTemporalExpression().length());
+            extraction.setTemporalExpression(finalString);
+            extraction.setFromPosition(from);
         }
     }
 }

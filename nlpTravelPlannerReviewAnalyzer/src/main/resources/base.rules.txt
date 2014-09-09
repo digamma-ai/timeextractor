@@ -17,10 +17,17 @@ DayOfWeekOrderRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextracto
 DayOfWeekOrderRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule2" }
 
 DayOrderAndMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOrderAndMonthRule1" }
+DayOrderAndMonthRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOrderAndMonthRule2" }
+
 MonthAndDayRule0 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule0" }
 
 Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time1Rule" }
 Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time2Rule" }
+Time3Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time3Rule" }
+Time4Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time4Rule" }
+
+SeasonRules =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules" }
+SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules2" }
 
 // month of the year, ex. October 
   
@@ -34,8 +41,8 @@ Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.tim
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b([2][0]\d\d)\b(\s|[.;,]|$)/,
-  	result: YearRule($1) 
+    pattern: /([\s]|^)\b([2][0]\d\d)\b(\s|[.;,]|$)/,
+  	result: YearRule($2) 
   }
   
    // October 2012  or Oct. 2012
@@ -107,7 +114,7 @@ Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.tim
   
    { ruleType: "text", 
     priority:3,
-    pattern: /\b(the)?[\s]*([1-9]|[1-2][0-9]|[3][0-1])(th|st|nd)[\s]*[,]?[\s]*(of[\s]*)?($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*(\b[2][0-9]\d\d\b)?\b/,
+    pattern: /\b(the)?[\s]*([1-9]|[1-2][0-9]|[3][0-1])(th|st|nd|rd)[\s]*[,]?[\s]*(of[\s]*)?($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*(\b[2][0-9]\d\d\b)?\b/,
   	result: MonthAndDayRule3($2,$5,$6) 
   }
   
@@ -115,7 +122,7 @@ Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.tim
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b($MONTH_OF_YEAR_EASY)[.][\s]*([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd)?[\s]*[,]?([\s]*(\b[2][0-9]\d\d\b))?\b/,
+    pattern: /\b($MONTH_OF_YEAR_EASY)[.][\s]*([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd|rd)?[\s]*[,]?([\s]*(\b[2][0-9]\d\d\b))?\b/,
   	result: MonthAndDayRule4($1,$2,$4) 
   }
   
@@ -132,8 +139,8 @@ Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.tim
   
    { ruleType: "text", 
     priority:3,
-    pattern: /([^$-]|^)\b(([1-2][0-9]|[3][0-1]|[1-9]))(th|st|nd|rd)?[\s]*(of)?[\s]*($DAY_OF_WEEK)[s]?[\s]*((of)[\s]*(the[\s]*)?(month))?\b/,
-  	result: DayOfWeekOrderRule2($0) 
+    pattern: /\b([1-5])(th|st|nd|rd)?[\s]*(of)?[\s]*($DAY_OF_WEEK)[s]?[\s]*((of)[\s]*(the[\s]*)?(month))?\b/,
+  	result: DayOfWeekOrderRule2($1,$4) 
   }
   
   // the second of December
@@ -144,20 +151,104 @@ Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.tim
   	result: DayOrderAndMonthRule1($2,$4,$5) 
   }
   
-     // 7pm (time, exact)
-  
-  { ruleType: "text", 
- 	priority:0,
-    pattern:  /\b(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))([\s]*($TimeZone))?\b/,
-    result: Time1Rule($2,$3,$4) 
-  }
-  
-     // hh:mm CET?
+   // the 1st of December
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))([\s]*($TimeZone))?\b/,
-  	result: Time2Rule($2,$3,$5) 
+    pattern: /\b(the[\s]*)?([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd|rd)?[\s]*(of[\s]*)?($MONTH_OF_YEAR)[\s]*[,;]?[\s]*(\b[2][0-9]\d\d\b)?\b/,
+  	result: DayOrderAndMonthRule2($2,$5,$6) 
+  }
+    
+     // Sunday 17 of July
+  
+  { ruleType: "text", 
+    pattern: /(($DAY_OF_WEEK)[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]?((of)(the)?[\s]?($MONTH_OF_YEAR)))/,
+  	 result: BetweenTimeEvent($0) 
+  }
+  
+  
+   // 7pm (time, exact)
+  
+  { ruleType: "text", 
+ 	priority:0,
+    pattern:  /([\s]|^)(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))([\s]*($TimeZone))?\b/,
+    result: Time1Rule($3,$4,$5) 
+  }
+  
+    //at 5 (time, exact)
+   {
+   ruleType: "text",
+   priority:1,
+   pattern: /\b(at about|at)[\s]*(\b[01]?[0-9]|2[0-3]\b)([\s]*($TimeZone))?\b/ ,
+   result: Time4Rule($2, $3)  
+  }
+  
+    //at 5:30 (time, exact)
+   {
+   ruleType: "text",
+   priority:2,
+   pattern: /([\s]|^)\b(at about|at)[\s]*(\b[01]?[0-9]\b|\b2[0-3]\b)[\s]*(([.|:](\b[0-5][0-9]\b))?)([\s]*($TimeZone))?\b/ ,
+   result: Time4Rule($3, $6, $7)  
+  }
+  
+ 
+   //14h00
+ 
+   {
+   ruleType: "text",
+   priority:1,
+   pattern: /(([\s]|^)\b([01]?[0-9]|2[0-3])(h|hours)([0-5][0-9])\b)([\s]*($TimeZone))?\b/ ,
+   result: Time4Rule($3, $5, $6)  
+  }
+  
+   //at 2100 CET
+ 
+   {
+   ruleType: "text",
+   priority:3,
+   pattern: /([\s]|^)(at about|at)[\s]*\b([0-9]|0[0-9]|1[0-9]|2[0-3])([0-5][0-9])\b([\s,.]*(CET))?([\s,.]|$)/ ,
+   result: Time4Rule($3, $4, $6)  
+  }
+    
+   //2100 CET
+ 
+   {
+   ruleType: "text",
+   priority:2,
+   pattern: /([\s]|^)\b([0-9]|0[0-9]|1[0-9]|2[0-3])([0-5][0-9])\b([\s]*($TimeZone))([\s,.]|$)/ ,
+   result: Time4Rule($2, $3, $4)  
+  }
+  
+     //at 5pm, at 5.33 am (time, exact)
+   {
+   ruleType: "text",
+   priority:3,
+   pattern: /([\s]|^)\b(at about|at)?[\s]*((([01]?[0-9]|2[0-3])[\s]*(([.|:]([0-5][0-9]))?)))[\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))([\s]*($TimeZone))?\b/ ,
+   result: Time3Rule($5,$8,$9, $13)  
+  }
+  
+   // hh:mm CET?
+  
+   { ruleType: "text", 
+    priority:0,
+    pattern: /([\s]|^)\b(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))([\s]*($TimeZone))?\b/,
+  	result: Time2Rule($3,$4,$6) 
+  }
+  
+     // season, ex. winter (date interval)
+  
+   { ruleType: "text", 
+    priority:0,
+    pattern: /\b($SEASON)\b/,
+  	result: SeasonRules($0) 
+  }
+  
+   // season, ex. winter 2014 (date interval)
+  
+   { ruleType: "text", 
+    priority:0,
+    pattern: /\b($SEASON)[\s]*(\b[2][0-9]\d\d\b)?\b/,
+  	result: SeasonRules2($1,$2) 
   }
    
    // time of day, ex. midnight (time interval)
@@ -168,15 +259,9 @@ Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.tim
   	result: BetweenTimeEvent($0) 
   }
   
-   // season, ex. winter (date interval)
+
   
-   { ruleType: "text", 
-    priority:0,
-    pattern: /\b($SEASON)\b/,
-  	result: BetweenTimeEvent($0) 
-  }
-  
-     // Tuesday - Sunday, Wed.-Fri. (date interval)
+  // Tuesday - Sunday, Wed.-Fri. (date interval)
    
   {  ruleType: "text", 
  	 priority:4,
@@ -225,4 +310,49 @@ Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.tim
   }
   
 
+  ############FILTERS##################
+  
+  // the sun
+  
+  {  ruleType: "text", 
+     priority:0,
+     pattern: /\b(the sun)\b/, 
+     result: BetweenTimeEvent("PERIOD_TIME") 
+  }
+  
+  
+  //filter the Sun
+  
+  { ruleType: "filter", 
+    pattern: ( /the/ [ { word:/sun/ }] )  
+
+  }
+  
+    //filter march of protest
+  
+  { ruleType: "filter", 
+    pattern: ( /march/ /of/ /protest/ )  
+
+  }
+  
+     
+   // may fall
+  
+  { ruleType: "filter", 
+    pattern: ( /may/ [ { word:/fall/ }] )  
+
+  }
+  
+   // may be
+  
+  { ruleType: "filter", 
+    pattern: ( /may/ [ { word:/be/ }] )  
+
+  }
+  
+  { ruleType: "filter", 
+    pattern: ( [ { word:/(fall|spring|second|march|may|sat|sun|thus|min)s?/ } & !{ tag:/NN.*/ } ] ) 
+   }
+  
+ 
   

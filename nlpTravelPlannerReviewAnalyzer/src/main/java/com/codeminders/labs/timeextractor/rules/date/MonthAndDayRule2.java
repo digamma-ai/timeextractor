@@ -34,7 +34,6 @@ public class MonthAndDayRule2 extends BaseRule {
 
     @Override
     public List<Temporal> getTemporal() {
-        System.out.println(this.month);
         int month = 0;
         int day = 0;
         int year = 0;

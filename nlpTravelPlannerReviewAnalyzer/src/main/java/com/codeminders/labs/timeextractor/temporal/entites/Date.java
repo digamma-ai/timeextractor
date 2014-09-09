@@ -30,6 +30,12 @@ public class Date {
         this.day = day;
     }
 
+    public Date(int month, int day) {
+        super();
+        this.month = month;
+        this.day = day;
+    }
+
     public int getYear() {
         return year;
     }

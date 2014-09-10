@@ -19,6 +19,7 @@ public class PipelineGenerator {
     private static AnnotationPipeline pipeline = new AnnotationPipeline();
 
     static {
+
         pipeline.addAnnotator(new PTBTokenizerAnnotator(false));
         pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
         pipeline.addAnnotator(new POSTaggerAnnotator(false));
@@ -35,9 +36,7 @@ public class PipelineGenerator {
         // String customRules =
         // SUTimeService.class.getResource(MAIN_RULES).getPath();
         String baseRules = SUTimeService.class.getResource(BASE_RULES).getPath();
-
         String defs = SUTimeService.class.getResource(DEFS).getPath();
-
         String allRules = StringUnion.sutimeMainRules(defs, baseRules);
 
         Properties props = new Properties();

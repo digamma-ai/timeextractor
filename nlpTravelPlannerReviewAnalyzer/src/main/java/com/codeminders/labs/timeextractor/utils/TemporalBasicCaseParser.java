@@ -1,5 +1,7 @@
 package com.codeminders.labs.timeextractor.utils;
 
+import java.util.Calendar;
+
 import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.constants.MonthOfYear;
 import com.codeminders.labs.timeextractor.constants.WeekOfMonth;
@@ -213,34 +215,49 @@ public class TemporalBasicCaseParser {
         TimeDate end = new TimeDate();
 
         if (season.equalsIgnoreCase("Summer")) {
-            Date startDate = new Date(6, 1);
-            Date endDate = new Date(8, 31);
+            Date startDate = new Date(year, 6, 1);
+            Date endDate = new Date(year, 8, 31);
             start.setDate(startDate);
             end.setDate(endDate);
             return new Temporal(start, end);
 
         }
         if (season.equalsIgnoreCase("Winter")) {
-            Date startDate = new Date(12, 1);
-            Date endDate = new Date(2, 28);
+            Date startDate = new Date(year, 12, 1);
+            // as end date will be in new year
+            year = year + 1;
+            boolean leap = isLeapYear(year);
+            Date endDate = new Date(year, 2, 28);
+            if (leap) {
+                endDate = new Date(2, 29);
+            }
             start.setDate(startDate);
             end.setDate(endDate);
             return new Temporal(start, end);
         }
         if (season.equalsIgnoreCase("Autumn") || season.equalsIgnoreCase("Fall")) {
-            Date startDate = new Date(9, 1);
-            Date endDate = new Date(11, 30);
+            Date startDate = new Date(year, 9, 1);
+            Date endDate = new Date(year, 11, 30);
             start.setDate(startDate);
             end.setDate(endDate);
             return new Temporal(start, end);
         }
         if (season.equalsIgnoreCase("Spring")) {
-            Date startDate = new Date(3, 1);
-            Date endDate = new Date(5, 31);
+            Date startDate = new Date(year, 3, 1);
+            Date endDate = new Date(year, 5, 31);
             start.setDate(startDate);
             end.setDate(endDate);
             return new Temporal(start, end);
         }
         return null;
+    }
+
+    public static boolean isLeapYear(int year) {
+        if (year == 0) {
+            return false;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        return cal.getActualMaximum(cal.DAY_OF_YEAR) > 365;
     }
 }

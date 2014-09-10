@@ -41,7 +41,6 @@ public class TemporalAnnotator implements Annotator {
         List<CoreMap> mergedNumbers = NumberNormalizer.findAndMergeNumbers(annotation);
         annotation.set(CoreAnnotations.NumerizedTokensAnnotation.class, mergedNumbers);
         List<? extends MatchedExpression> matchedExpressions = expressionExtractor.extractExpressions(annotation);
-        new ArrayList<TimeExpression>(matchedExpressions.size());
 
         for (MatchedExpression expr : matchedExpressions) {
             Object object = expr.getValue().get();

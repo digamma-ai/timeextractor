@@ -32,6 +32,8 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
 MonthDaysIntervalRule1  =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.MonthDaysIntervalRule1" }
 MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1" }
 
+DayOfWeekIntervalRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule1" }
+
 // month of the year, ex. October 
   
    { ruleType: "text", 
@@ -237,19 +239,19 @@ MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
   	result: Time2Rule($3,$4,$6) 
   }
   
-     // season, ex. winter (date interval)
+   // season, ex. winter (date interval)
   
    { ruleType: "text", 
     priority:0,
-    pattern: /\b($SEASON)[\s]*(months|month)\b/,
+    pattern: /\b($SEASON)[\s]*(months|month)?/,
   	result: SeasonRules($1) 
   }
   
    // season, ex. winter 2014 (date interval)
   
    { ruleType: "text", 
-    priority:0,
-    pattern: /\b($SEASON)[\s]*(\b[2][0-9]\d\d\b)?\b/,
+    priority:1,
+    pattern: /\b($SEASON)[\s]*([2][0-9]\d\d)\b?/,
   	result: SeasonRules2($1,$2) 
   }
   
@@ -257,9 +259,9 @@ MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
   // July 28th-31st (date period ), Jul 28th-31st 2014
   
   { ruleType: "text", 
- 	 priority:4,
+ 	priority:4,
     pattern: /\b(($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*([3][0-1]|[1-2][0-9]|[1-9])[\s]*(th|st|rd|nd)?[\s]*[-][\s]*([3][0-1]|[1-2][0-9]|[1-9])[\s]*(th|st|rd|nd)?)[\s]*(\b[2][0-9]\d\d\b)?\b/,
-  	 result: MonthDaysIntervalRule1($2,$3,$5, $7) 
+  	result: MonthDaysIntervalRule1($2,$3,$5, $7) 
   }
   
     //April through October 2014
@@ -270,6 +272,15 @@ MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
 	pattern: /($MONTH_OF_YEAR[.]?|$MONTH_OF_YEAR_EASY[.]?)[\s]*(through|thru|to|-)[\s]*($MONTH_OF_YEAR[.]?|$MONTH_OF_YEAR_EASY[.]?)[\s]*[,]?[\s]*(\b[2][0-9]\d\d\b)?\b/ ,
 	result: MonthToMonthRule1($1,$3,$4)
 	}
+	
+	//Wed.-Fri. (date period )
+  
+  { ruleType: "text", 
+    priority:3,
+    pattern: /\b($DAYOFWEEK_EASY|$DAY_OF_WEEK)[.]?[\s]*[-][\s]*($DAYOFWEEK_EASY|$DAY_OF_WEEK)[.]?\b/,
+  	result: DayOfWeekIntervalRule1($1,$2) 
+  }
+  
    
    // time of day, ex. midnight (time interval)
   
@@ -303,15 +314,7 @@ MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
   	result: BetweenTimeEvent($0) 
   }
    
-   // yearly, weekly, daily (frequency)
-  
-   { ruleType: "text", 
-    priority:0,
-    pattern: /\b(yearly|weekly|daily)\b/,
-  	result: BetweenTimeEvent($0) 
-  }
-  
-  // today, yesterday (? how to parse)
+   // today, yesterday (? how to parse)
   
    { ruleType: "text", 
     priority:0,
@@ -325,8 +328,8 @@ MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
     priority:0,
     pattern: /\b(every|each)\b/,
   	result: BetweenTimeEvent($0) 
-  }
-  
+  } 
+
 
   ############FILTERS##################
   
@@ -352,8 +355,7 @@ MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
     pattern: ( /march/ /of/ /protest/ )  
 
   }
-  
-     
+       
    // may fall
   
   { ruleType: "filter", 
@@ -368,6 +370,7 @@ MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
 
   }
   
+ 
   { ruleType: "filter", 
     pattern: ( [ { word:/(fall|spring|second|march|may|sat|sun|thus|min)s?/ } & !{ tag:/NN.*/ } ] ) 
    }

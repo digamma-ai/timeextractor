@@ -1,12 +1,8 @@
 package com.codeminders.labs.timeextractor.rules.date;
 
-import static com.codeminders.labs.timeextractor.constants.Constants.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.constants.Type;
@@ -20,13 +16,12 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class DayOfWeekRule1 extends BaseRule {
 
-    public static String rule = "(" + DAY_OF_WEEK + "|" + DAY_OF_WEEK_EASY + ")";
-    private String extractedText;
+    private String dayOfWeek;
     protected Locale locale = Locale.US;
     protected double confidence = 0.83;
 
-    public DayOfWeekRule1(String extractedText) {
-        this.extractedText = extractedText;
+    public DayOfWeekRule1(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     @Override
@@ -36,16 +31,15 @@ public class DayOfWeekRule1 extends BaseRule {
 
     @Override
     public List<Temporal> getTemporal() {
-        Pattern pattern = Pattern.compile(rule);
-        Matcher matcher = pattern.matcher(extractedText);
         DayOfWeek dayOfWeek = null;
 
-        while (matcher.find()) {
-            dayOfWeek = TemporalBasicCaseParser.getDayOfWeek((matcher.group(1)));
-        }
-
+        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(this.dayOfWeek);
         Date date = new Date();
-        date.setDayOfWeek(dayOfWeek);
+
+        if (dayOfWeek != null) {
+            date.setDayOfWeek(dayOfWeek);
+
+        }
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
 
         List<Temporal> temporalList = new ArrayList<Temporal>();

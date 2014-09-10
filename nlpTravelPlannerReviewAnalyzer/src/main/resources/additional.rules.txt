@@ -13,15 +13,7 @@
   	result: BetweenTimeEvent($0) 
   }
   
- 
-  //Wed.-Fri. (date period )
-  
-  { ruleType: "text", 
-    priority:3,
-    pattern: /(($DAYOFWEEK_EASY)[.]?[\s]*[-][\s]*($DAYOFWEEK_EASY)[.]?)/,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
+
    // Tuesday-Sunday 11-18 (date +time period)
    
   {  ruleType: "text", 

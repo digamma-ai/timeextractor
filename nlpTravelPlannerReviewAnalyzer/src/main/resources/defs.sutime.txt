@@ -156,7 +156,8 @@ TIME_ZONE = {
     "winter": "winter",
     "summer": "summer",
     "autumn": "summer",
-    "spring":" spring"
+    "spring":" spring",
+    "fall":" fall"
   } 
     
 

@@ -13,40 +13,48 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class MonthAndDayRule0 extends BaseRule {
 
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
-    private String month;
-    private String day;
-    private String year;
+	protected Locale locale = Locale.US;
+	protected double confidence = 0.83;
+	private String month;
+	private String day;
+	private String year;
 
-    public MonthAndDayRule0(String month, String day, String year) {
-        this.month = month;
-        this.day = day;
-        this.year = year;
-    }
+	public MonthAndDayRule0(String month, String day, String year) {
+		this.month = month;
+		this.day = day;
+		this.year = year;
+	}
 
-    @Override
-    public Type getType() {
-        return Type.DATE;
-    }
+	public MonthAndDayRule0(String month, String year) {
+		this.month = month;
+		this.year = year;
+	}
 
-    @Override
-    public List<Temporal> getTemporal() {
-        int year = 0;
-        int month = 0;
-        int day = 0;
-        month = TemporalBasicCaseParser.getMonthOfYear(this.month).getValue();
+	@Override
+	public Type getType() {
+		return Type.DATE;
+	}
 
-        day = Integer.parseInt(this.day);
-        if (this.year != null) {
-            year = Integer.parseInt(this.year);
-        }
-        Date date = new Date(year, month, day);
-        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-        List<Temporal> temporalList = new ArrayList<Temporal>();
-        temporalList.add(temporal);
+	@Override
+	public List<Temporal> getTemporal() {
+		int year = 0;
+		int month = 0;
+		int day = 0;
+		month = TemporalBasicCaseParser.getMonthOfYear(this.month).getValue();
+		if (this.day != null) {
+			day = Integer.parseInt(this.day);
 
-        return temporalList;
-    }
+		}
+		if (this.year != null) {
+			year = Integer.parseInt(this.year);
+		}
+		Date date = new Date(year, month, day);
+		Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type,
+				date);
+		List<Temporal> temporalList = new ArrayList<Temporal>();
+		temporalList.add(temporal);
+
+		return temporalList;
+	}
 
 }

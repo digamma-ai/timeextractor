@@ -1,4 +1,4 @@
-// LOCALE EN_US
+############################## LOCALE EN_US #########################################
 
 YearRule =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.YearRule" }
 MonthOfYear1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthOfYear1" }
@@ -8,6 +8,8 @@ MonthAndDayRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.
 MonthAndDayRule2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule2" }
 MonthAndDayRule3 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule3" }
 MonthAndDayRule4 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule4" }
+MonthAndDayRule5 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule5" }
+MonthDayYearRule1= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule1" }
 
 DayOfWeekRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule1" }
 DayOfWeekRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule2" }
@@ -34,13 +36,25 @@ SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
 MonthDaysIntervalRule1  =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.MonthDaysIntervalRule1" }
 MonthToMonthRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1" }
 
+TimeIntervalRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule1" }
+
+
+WeekEnd =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.WeekEnd" }
+Holidays =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.Holidays" }
+EveryPeriod  =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.set.EveryPeriod" }
+AllPeriod =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.set.AllPeriod" }
+
 DayOfWeekIntervalRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule1" }
 BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.BetweenTimeEvent" }
+TodayTomorrowEtc = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc" }
+
+
+DurationRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.duration.DurationRule1" }
+
 
 // composite rule classes
 CompositeTime4RuleMonthAndDayRule0 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeTime4RuleMonthAndDayRule0" }
 CompositeDayOfWeekTimeOfDay = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeDayOfWeekTimeOfDay" }
-
 FrequencyTime = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime" }
 
 ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntityTagAnnotation" }
@@ -54,6 +68,14 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
      pattern: (/($MONTH_OF_YEAR)/),
      action: Annotate($0, ner, "MonthOfYear1"),
      result: MonthOfYear1($$0.text) 
+  }
+  
+   { ruleType: "tokens", 
+     priority:0,
+     matchWithResults: TRUE,
+     pattern: (/through|thru/ (/($MONTH_OF_YEAR)/)),
+     action: Annotate($0, ner, "MonthOfYear1"),
+     result: MonthOfYear1($$1.matchResults[0].word.group(1)) 
   }
   
   // year, ex. 2014 
@@ -76,6 +98,36 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   	 result: TimeOfDayRule($$0.text) 
   }
   
+     // time of day: morning, evening, etc.
+  
+   { ruleType: "tokens", 
+     priority:0,
+     matchWithResults: TRUE,
+     pattern: ( (/($TIME_OF_DAY)[s]?/) /hours/),
+     action: Annotate($0, ner, "TimeOfDayRule"),
+  	 result: TimeOfDayRule($$1.matchResults[0].word.group(1)) 
+  }
+  
+   // every/each day, week, month, year
+  
+   { ruleType: "tokens", 
+     priority:0,
+     matchWithResults: TRUE,
+     pattern: ( (/(every|each)/)(/(day|week|month|year)/)),
+     action: Annotate($0, ner, "EveryPeriod"),
+  	 result: EveryPeriod($$2.matchResults[0].word.group(1)) 
+  }
+  
+    // whole|all|entire day, week, month, year
+  
+   { ruleType: "tokens", 
+     priority:0,
+     matchWithResults: TRUE,
+     pattern: ( (/(whole|all|entire)/) (/(day|week|month|year)/) ),
+     action: Annotate($0, ner, "AllPeriod"),
+  	 result: AllPeriod($$2.matchResults[0].word.group(1)) 
+  }
+  
   
   // frequency: yearly, weekly, monthly, etc.
   
@@ -87,12 +139,33 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   	 result: FrequencyTime($$0.text) 
   }
   
+   // weekend, weekends, week-end, week-ends
+  
+   { ruleType: "tokens", 
+     priority:2,
+     matchWithResults: TRUE,
+     pattern: (/weekend|weekends|week-end|week-ends/),
+     action: Annotate($0, ner, "WeekEnd"),
+  	 result: WeekEnd($$0.text) 
+  }
+  
+   // holidays
+  
+   { ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: ((/new/ /year/ /day/?)|(/st.?|saint/? /valentine|valentine's/ /day/? )),
+     action: Annotate($0, ner, "Holidays"),
+  	 result: Holidays($$0.text) 
+  }
+  
+ 
    // October 2012  or Oct. 2012
   
    { ruleType: "tokens", 
      priority:1,
      matchWithResults: TRUE,
-     pattern: ( (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)/) /[,;.]/? (/([2][0]\d\d)/) ),
+     pattern: ( (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)([.])?/) /[,;.]/? (/([2][0]\d\d)/) ),
      action: Annotate($0, ner, "MonthAndYearRule1"),
   	 result: MonthAndYearRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
   }
@@ -105,6 +178,15 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     pattern: ( (/(($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY))/)/[,;.]/?(/([1-2][0-9]|[3][0-1]|[1-9])/) /,/? (/([2][0-9]\d\d)/)? ),
     action: Annotate($0, ner, "MonthAndDayRule0"),
   	result: MonthAndDayRule0($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1), $$3.matchResults[0].word.group(1)) 
+  }
+  
+   // Jan-2013
+   
+  {  ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: ( (/($MONTH_OF_YEAR_EASY)[-](2[0-9]\d\d)/) ), 
+     result: MonthAndDayRule0($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(2)) 
   }
   
   // July the 14th 2014, July 14 2014, July 14
@@ -184,7 +266,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     priority:1,
     matchWithResults: TRUE,
     pattern: ((/(0[1-9]|[12][0-9]|3[01])[.\/](0[1-9]|1[012])[.\/](([2][0-9])?\d\d)/) ),
-    result: BetweenTimeEvent($$1.matchResults[0].word.group(1),$$1.matchResults[0].word.group(2)) 
+    result: MonthDayYearRule1($$1.matchResults[0].word.group(1),$$1.matchResults[0].word.group(2),$$1.matchResults[0].word.group(3)) 
   }
   
     // 1st Tuesday of the month
@@ -205,40 +287,51 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     pattern: ( /the[\s]*/? (/($BasicOrdTerm)/) /(of[\s]*)/? (/($MONTH_OF_YEAR)/) /[,;]/? (/([2][0-9]\d\d)/)? ),
   	result: DayOrderAndMonthRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
+    
+   // Sunday 17 of July
   
-  
-     // Sunday 17 of July
-  
-  { ruleType: "text", 
-    pattern: /(($DAY_OF_WEEK)[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]?((of)(the)?[\s]?($MONTH_OF_YEAR)))/,
-  	 result: BetweenTimeEvent($0) 
+  { ruleType: "tokens", 
+    pattern: ((/($DAY_OF_WEEK)/) /,/? (/([1-2][0-9]|[3][0-1]|[1-9])/) /(of)(the)?/? (/($MONTH_OF_YEAR)/) ),
+  	result: MonthAndDayRule5($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1), $$3.matchResults[0].word.group(1)) 
   }
+    
+   // at 7pm (time, exact)
   
-  
-   // 7pm (time, exact)
-  
-  { ruleType: "text", 
+  { ruleType: "tokens", 
  	priority:0,
-    pattern:  /([\s]|^)(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))([\s]*($TimeZone))?\b/,
-    result: Time1Rule($3,$4,$5) 
+    matchWithResults: TRUE,
+    pattern:  (/at about|about|at/? (/(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))/) (/($TimeZone)/)? ),
+    result: Time1Rule($$1.matchResults[0].word.group(2),$$1.matchResults[0].word.group(3),$$2.matchResults[0].word.group(1)) 
   }
   
-    //at 5 (time, exact)
+  // at 5 (time, exact)
    {
-   ruleType: "text",
+   ruleType: "tokens",
    priority:1,
-   pattern: /\b(at about|at)[\s]*(\b[01]?[0-9]|2[0-3]\b)([\s]*($TimeZone))?\b/ ,
-   result: Time4Rule($2, $3)  
+   matchWithResults: TRUE,
+   pattern: (/at about|at|about/ (/([01]?[0-9]|2[0-3])/) (/($TimeZone)/)?) ,
+   result: Time4Rule($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1))  
   }
   
-    //at 5:30 (time, exact)
+   // after 5 (time, exact)
    {
-   ruleType: "text",
-   priority:2,
-   pattern: /([\s]|^)\b(at about|at)[\s]*(\b[01]?[0-9]\b|\b2[0-3]\b)[\s]*(([.|:](\b[0-5][0-9]\b))?)([\s]*($TimeZone))?\b/ ,
-   result: Time4Rule($3, $6, $7)  
+   ruleType: "tokens",
+   priority:1,
+   matchWithResults: TRUE,
+   pattern: (/after|before|until/ (/([01]?[0-9]|2[0-3])/) (/($TimeZone)/)?) ,
+   result: TimeIntervalRule1($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1))  
   }
   
+   //at 5:30 (time, exact)
+   {
+   ruleType: "tokens",
+   priority:2,
+    matchWithResults: TRUE,
+   pattern: (/(at about|at)/  (/([01]?[0-9]|2[0-3])[\s]*([.|:]([0-5][0-9]))?/) (/($TimeZone)/)? ) ,
+   result: Time4Rule($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(3), $$2.text)  
+  }
+  
+  // 2100 CET
   {
    ruleType: "tokens",
    pattern: ( (/([0-9]|0[0-9]|1[0-9]|2[0-3])([0-5][0-9])/) (/($TimeZone)/) ),
@@ -268,110 +361,115 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    result: Time4Rule($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(2), $$2.matchResults[0].word.group(1))  
   }
 
-   //at 5pm, at 5.33 am (time, exact)
+   //at 5 pm, at 5.33 am (time, exact)
    
    {
    ruleType: "tokens",
-   priority:3,
+   priority:5,
    matchWithResults: TRUE,
-   pattern: (/at|about/? (/([01]?[0-9]|2[0-3])[\s]*(([.|:])([0-5][0-9]))?[\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))/) (/($TimeZone)/)?) ,
-   result: Time3Rule($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(4), $$1.matchResults[0].word.group(5), $$2.matchResults[0].word.group(1))  
+   pattern: (/at/? /about/? (/([01]?[0-9]|2[0-3])[\s]*(([.|:])([0-5][0-9]))?/) (/(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))/) (/($TimeZone)/)?) ,
+   result: Time3Rule($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(4), $$2.matchResults[0].word.group(1), $$3.matchResults[0].word.group(1))  
   }
   
    // hh:mm CET?
   
-   { ruleType: "text", 
+   { ruleType: "tokens", 
     priority:0,
-    pattern: /([\s]|^)\b(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))([\s]*($TimeZone))?\b/ ,
-  	result: Time2Rule($3,$4,$6) 
+    matchWithResults: TRUE,
+    pattern: ( (/([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])/) (/($TimeZone)/)? ) ,
+  	result: Time2Rule($$1.matchResults[0].word.group(1),$$1.matchResults[0].word.group(2),$$2.matchResults[0].word.group(1)) 
   }
   
    // season, ex. winter (date interval)
   
-   { ruleType: "text", 
+   { ruleType: "tokens", 
     priority:0,
-    pattern: /\b($SEASON)[\s]*(months|month|hours)?/,
-  	result: SeasonRules($1) 
+    matchWithResults: TRUE,
+    pattern: (/\b(fall|winter|summer|spring|autumn)[s]?\b/ /month|months|hours/?),
+  	result: SeasonRules($$0.text) 
   }
   
    // season, ex. winter 2014 (date interval)
   
-   { ruleType: "text", 
+   { ruleType: "tokens", 
     priority:1,
-    pattern: /\b($SEASON)[\s]*([2][0-9]\d\d)\b?/,
-  	result: SeasonRules2($1,$2) 
+    matchWithResults: TRUE,
+    pattern: ((/(fall|winter|summer|spring|autumn)/) (/([2][0-9]\d\d)/)),
+  	result: SeasonRules2($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
   }
   
-    
   // July 28th-31st (date period ), Jul 28th-31st 2014
   
-  { ruleType: "text", 
+  { ruleType: "tokens", 
  	priority:4,
-    pattern: /\b(($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)[\s]*([3][0-1]|[1-2][0-9]|[1-9])[\s]*(th|st|rd|nd)?[\s]*[-][\s]*([3][0-1]|[1-2][0-9]|[1-9])[\s]*(th|st|rd|nd)?)[\s]*(\b[2][0-9]\d\d\b)?\b/,
-  	result: MonthDaysIntervalRule1($2,$3,$5, $7) 
+ 	matchWithResults: TRUE,
+    pattern: ( (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)/) (/([3][0-1]|[1-2][0-9]|[1-9])[\s]*(th|st|rd|nd)?[\s]*[-][\s]*([3][0-1]|[1-2][0-9]|[1-9])[\s]*(|th|st|rd|nd)?/)/,/?(/([2][0-9]\d\d)/)? ),
+  	result: MonthDaysIntervalRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$2.matchResults[0].word.group(3), $$3.matchResults[0].word.group(1)) 
   }
   
-    //April through October 2014
+    //April through,to,- October 2014
 	
 	{ 
-    ruleType: "text",  
+    ruleType: "tokens",  
     priority: 2,
-	pattern: /($MONTH_OF_YEAR[.]?|$MONTH_OF_YEAR_EASY[.]?)[\s]*(through|thru|to|-)[\s]*($MONTH_OF_YEAR[.]?|$MONTH_OF_YEAR_EASY[.]?)[\s]*[,]?[\s]*(\b[2][0-9]\d\d\b)?\b/ ,
-	result: MonthToMonthRule1($1,$3,$4)
+    matchWithResults: TRUE,
+	pattern: ( (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)([.]?)/)/(through|thru|to|-)/(/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)([.]?)/) /[,]/?(/([2][0-9]\d\d)/)? ) ,
+	result: MonthToMonthRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1))
 	}
 	
 	//Wed.-Fri. (date period )
   
-  { ruleType: "text", 
-    priority:3,
-    pattern: /\b($DAYOFWEEK_EASY|$DAY_OF_WEEK)[.]?[\s]*[-][\s]*($DAYOFWEEK_EASY|$DAY_OF_WEEK)[.]?\b/,
-  	result: DayOfWeekIntervalRule1($1,$2) 
+  { ruleType: "tokens", 
+    priority:5,
+    matchWithResults: TRUE,
+    pattern: ( (/($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?([-\s])*($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?/) ),
+  	result: DayOfWeekIntervalRule1($$1.matchResults[0].word.group(1),$$0.matchResults[0].word.group(4)) 
+  }
+  
+    { ruleType: "tokens", 
+    priority:5,
+    matchWithResults: TRUE,
+    pattern: (/from/? (/($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?/)/(-|to|thru|through)/(/($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?/) ),
+  	result: DayOfWeekIntervalRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
   }
     
-  // Tuesday - Sunday, Wed.-Fri. (date interval)
-   
-  {  ruleType: "text", 
- 	 priority:4,
-     pattern: /\b(($DAY_OF_WEEK)[\s]*[-][\s]*($DAY_OF_WEEK))\b/,
-  	 result: BetweenTimeEvent($0) 
-  }
-       
-   // October 3-4, 2012; October 3-4 (date interval)
-  
-   { ruleType: "text", 
-    priority:2,
-    pattern: /\b(($MONTH_OF_YEAR)[\s]*(\b([1-9]|[1-2][0-9]|[3][0-1])\b))[-](\b([1-9]|[1-2][0-9]|[3][0-1])[.,;][\s]*([2][0-9]\d\d)?\b)/,
-  	result: BetweenTimeEvent($0) 
-  }
-   
+          
    // today, yesterday (? how to parse)
   
-   { ruleType: "text", 
-    priority:0,
-    pattern: /\b(today|yesterday)\b/,
-  	result: BetweenTimeEvent($0) 
+   { ruleType: "tokens", 
+    priority:1,
+    matchWithResults: TRUE,
+    pattern: (/(today|yesterday|tomorrow)/),
+  	result: TodayTomorrowEtc($$0.text) 
   }
-  
-  
-  ############ RULES THAT HAVE DOT INSIDE THE RULE ##################
-
   
   // jan. 21 2014
   
-   { ruleType: "text", 
+   { ruleType: "tokens", 
     priority:0,
-    pattern: /\b($MONTH_OF_YEAR_EASY)[.][\s]*([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd|rd)?[\s]*[,]?([\s]*(\b[2][0-9]\d\d\b))?\b/,
-  	result: MonthAndDayRule4($1,$2,$4) 
+    matchWithResults: TRUE, 
+    pattern: ( (/($MONTH_OF_YEAR_EASY)[.]?/) (/([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd|rd)?/)/[,]/? (/([2][0-9]\d\d)/)? ),
+  	result: MonthAndDayRule4($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
   
-  // Oct. 2012
+  ############ Duration ##################
   
-   { ruleType: "text", 
-     priority:1,
-     pattern: /($MONTH_OF_YEAR_EASY)[.][\s]*([2][0]\d\d)/,
-  	 result: MonthAndYearRule1($1,$2) 
-  }
+  // n minutes, n hours, n years
   
+   { ruleType: "tokens", 
+    priority:1,
+    matchWithResults: TRUE, 
+    pattern: (/lasts|past|at least|up to/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))[\s]*(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
+    result: DurationRule1($$1.matchResults[0].word.group(1),$$1.matchResults[0].word.group(2)) 
+    }
+    
+   { ruleType: "tokens", 
+    priority:1,
+    matchWithResults: TRUE, 
+    pattern: ( /at/? /least/? /the/? /up/? /to/? /more/? /than/? /lasts|past|last/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))/) (/(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
+    result: DurationRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
+    }
+   
 
   ############COMPOSITE##################
 
@@ -405,11 +503,33 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
      result: BetweenTimeEvent("") 
   }
   
+    // the sun
+  
+  {  ruleType: "text", 
+     priority:0,
+     pattern: /\b(sun storm)\b/, 
+     result: BetweenTimeEvent("") 
+  }
+  
+  // fall from
+  
+  {  ruleType: "text", 
+     priority:0,
+     pattern: /\b(fall from)\b/, 
+     result: BetweenTimeEvent("") 
+  }
+  
+  
   
   //filter the Sun
   
   { ruleType: "filter", 
     pattern: ( /the/ [ { word:/sun/ }] )  
+
+  }
+  
+    { ruleType: "filter", 
+    pattern: ( /sun/ [ { word:/storm/ }] )  
 
   }
   
@@ -424,6 +544,13 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   
   { ruleType: "filter", 
     pattern: ( /may/ [ { word:/fall/ }] )  
+
+  }
+  
+    // fall from
+  
+  { ruleType: "filter", 
+    pattern: ( /fall/ [ { word:/from/ }] )  
 
   }
   

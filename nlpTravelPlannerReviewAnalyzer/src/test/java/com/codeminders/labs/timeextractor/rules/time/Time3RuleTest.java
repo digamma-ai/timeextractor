@@ -19,7 +19,6 @@ public class Time3RuleTest extends GeneralTest {
         assertEquals("at 5.33 am", predicted.get(0).getTemporalExpression());
         assertEquals(5, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(33, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getMinutes());
-
     }
 
     @Test
@@ -30,7 +29,6 @@ public class Time3RuleTest extends GeneralTest {
         assertEquals("at 5pm", predicted.get(0).getTemporalExpression());
         assertEquals(17, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(00, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getMinutes());
-
     }
 
     @Test

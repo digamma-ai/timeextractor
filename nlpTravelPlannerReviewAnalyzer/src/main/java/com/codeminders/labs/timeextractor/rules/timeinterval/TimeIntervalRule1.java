@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.time;
+package com.codeminders.labs.timeextractor.rules.timeinterval;
 
 import java.util.List;
 
@@ -6,22 +6,26 @@ import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 
-// time of day: morning, evening, etc.
+public class TimeIntervalRule1 extends BaseRule {
 
-public class TimeOfDayRule extends BaseRule {
-	private String timeOfDay;
+	private String time;
+	private String timeZone;
 
-	public TimeOfDayRule(String timeOfDay) {
-		this.timeOfDay = timeOfDay;
+	public TimeIntervalRule1(String time, String timeZone) {
+		super();
+		this.time = time;
+		this.timeZone = timeZone;
 	}
 
 	@Override
 	public Type getType() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Temporal> getTemporal() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -1,5 +1,4 @@
 BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.BetweenTimeEvent" }
-EveryTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.EveryEvent" }
   
   BASIC_NUMBER_MAP = {
     "one": 1,
@@ -86,6 +85,7 @@ EveryTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rul
     "midnight": "midnight"    
   }
   
+ 
 $TIME_OF_DAY = CreateRegex(Keys(TIME_OF_DAY_MAP))
   
 DAYOFWEEK_MAP = {
@@ -154,18 +154,10 @@ TIME_ZONE = {
     "HKT":"HKT"
   }  
   
-  TIME_OF_YEAR_MAP = {
-  
-    "winter": "winter",
-    "summer": "summer",
-    "autumn": "summer",
-    "spring":" spring",
-    "fall":" fall"
-  } 
       
 $TimeZone = CreateRegex(Keys(TIME_ZONE))
 $DAY_OF_WEEK = CreateRegex(Keys(DAYOFWEEK_MAP))  
 $MONTH_OF_YEAR = CreateRegex(Keys(MONTH_OF_YEAR_MAP))
 $DAYOFWEEK_EASY = CreateRegex(Keys(DAYOFWEEK_MAP_EASY))
 $MONTH_OF_YEAR_EASY=CreateRegex(Keys(MONTH_OF_YEAR_EASY_MAP))
-$SEASON=CreateRegex(Keys(TIME_OF_YEAR_MAP))
+$SEASON=(fall|winter|summer|spring|autumn)

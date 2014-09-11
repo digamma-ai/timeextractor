@@ -106,16 +106,6 @@
    result: BetweenTimeEvent($0) 
   }
   
-   // 3 days
-   {
-   ruleType: "text",
-   priority:1,
-   pattern: /\b(\d[\s]*(days))\b/ ,
-   result: BetweenTimeEvent($0) 
-  }
-    
-
-    
   //any_word 10.11
    
    {
@@ -223,16 +213,7 @@
 	pattern: /\b(through|thru)[\s]($MONTH_OF_YEAR)([\s]?)(\b0?[1-9]\b|\b[12][0-9]\b|\b3[01]\b)?\b/,
 	result: BetweenTimeEvent("THROUGH TIME") 
   }
-  
-  	//April through October
-	
-	{ 
-    ruleType: "text",  
-    priority: 1,
-	pattern: /($MONTH_OF_YEAR)[\s]*(through|thru)[\s]*($MONTH_OF_YEAR)/ ,
-	result: BetweenTimeEvent("April through October") 
-	}
-	 
+
 	 
    //Wed through Sun
 
@@ -395,19 +376,7 @@
 	pattern: /\b((half|quarter)[\s]*(hour))\b/,
 	result: BetweenTimeEvent("PERIOD_TIME") 
     }
-    
-  // long hours
-  
-  { ruleType: "text", pattern: /long hours/,
-  	 result: BetweenTimeEvent("long hours")  
-  }
-  
-  // morning/evening hours
-  
-  { ruleType: "text", pattern: /(morning|evening) hours/,
-  	 result: BetweenTimeEvent("morning/evening hours")  
-  }
-  
+ 
   //holidays New Years' Eve
   
   { ruleType: "text", pattern: /(\b(New Years' Eve)\b|\b(New Year)\b)/,
@@ -487,37 +456,13 @@
      pattern: /\b(($MONTH_OF_YEAR_EASY)[.]?[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[-]((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b)))\b/, 
      result: BetweenTimeEvent("PERIOD_TIME") 
   }
-  
-   // October the 5th 2014
    
-  {  ruleType: "text", 
-     pattern: /($MONTH_OF_YEAR)[,]?[\s]*(the)?[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th|d)?[\s]*((19|20)\d\d)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
-   // January,21,2013
-   
-  {  ruleType: "text", 
-     priority:1,
-     pattern: /($MONTH_OF_YEAR)[,][\s]*(([1-9])|([1-2][0-9])|([3][0-1]))[,][\s]*((19|20)\d\d)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
-    
-   // Jan-2013
-   
-  {  ruleType: "text", 
-     priority:1,
-     pattern: /\b($MONTH_OF_YEAR_EASY)[-]((19|20)\d\d)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
     // March the Fourteenth, 2011
    
   {  ruleType: "text", 
      priority:3,
      pattern: /\b($MONTH_OF_YEAR)[\s]*(the)[\s]*($BasicOrdTerm)[,][\s]*((19|20)\d\d)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
+     result: MonthAndDayRule0("PERIOD_TIME") 
   }
   
   // two days 
@@ -525,14 +470,6 @@
   {  ruleType: "text", 
      priority:0,
      pattern: /\b($BasicNumTerm)[\s]*(days)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
- // at 1200
-  
-  {  ruleType: "text", 
-     priority:1,
-     pattern: /\b(at|until)[\s]*([2][1-4]|[1][0-9]|[1-9])([0-5][0-9])\b/, 
      result: BetweenTimeEvent("PERIOD_TIME") 
   }
     
@@ -552,22 +489,7 @@
      result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
-   // may fall
-  
-  {  ruleType: "text", 
-     priority:1,
-     pattern: /\b(may (fall|be))\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
-     // may fall
-  
-  {  ruleType: "text", 
-     priority:1,
-     pattern: /\b(march of protest)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
+
      // n year/years
   
    { ruleType: "text", 
@@ -576,49 +498,3 @@
   	result: BetweenTimeEvent($0) 
   }
   
-  
-  ############FILTERS##################
-  
-  // the sun
-  
-  {  ruleType: "text", 
-     priority:0,
-     pattern: /\b(the sun)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
-  
-  //filter the Sun
-  
-  { ruleType: "filter", 
-    pattern: ( /the/ [ { word:/sun/ }] )  
-
-  }
-  
-    //filter march of protest
-  
-  { ruleType: "filter", 
-    pattern: ( /march/ /of/ /protest/ )  
-
-  }
-  
-     
-   // may fall
-  
-  { ruleType: "filter", 
-    pattern: ( /may/ [ { word:/fall/ }] )  
-
-  }
-  
-   // may be
-  
-  { ruleType: "filter", 
-    pattern: ( /may/ [ { word:/be/ }] )  
-
-  }
-  
-  { ruleType: "filter", 
-    pattern: ( [ { word:/(fall|spring|second|march|may|sat|sun|min)s?/ } & !{ tag:/NN.*/ } ] ) 
-   }
-  
- 

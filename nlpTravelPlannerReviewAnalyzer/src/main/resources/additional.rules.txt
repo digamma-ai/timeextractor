@@ -13,7 +13,7 @@
   	result: BetweenTimeEvent($0) 
   }
   
-
+  
    // Tuesday-Sunday 11-18 (date +time period)
    
   {  ruleType: "text", 

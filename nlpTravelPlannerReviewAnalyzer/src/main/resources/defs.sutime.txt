@@ -76,13 +76,16 @@ EveryTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rul
   $BasicOrdTerm = CreateRegex(Keys(BASIC_ORDINAL_MAP))
   
   TIME_OF_DAY_MAP = {
+  
     "morning": "morning",
     "afternoon": "afternoon",
     "evening": "evening",
     "night":" night",
+    "midday":" midday",
     "noon": "noon",
-    "midnight": "midnight"
+    "midnight": "midnight"    
   }
+  
 $TIME_OF_DAY = CreateRegex(Keys(TIME_OF_DAY_MAP))
   
 DAYOFWEEK_MAP = {
@@ -159,10 +162,8 @@ TIME_ZONE = {
     "spring":" spring",
     "fall":" fall"
   } 
-    
-
+      
 $TimeZone = CreateRegex(Keys(TIME_ZONE))
-  
 $DAY_OF_WEEK = CreateRegex(Keys(DAYOFWEEK_MAP))  
 $MONTH_OF_YEAR = CreateRegex(Keys(MONTH_OF_YEAR_MAP))
 $DAYOFWEEK_EASY = CreateRegex(Keys(DAYOFWEEK_MAP_EASY))

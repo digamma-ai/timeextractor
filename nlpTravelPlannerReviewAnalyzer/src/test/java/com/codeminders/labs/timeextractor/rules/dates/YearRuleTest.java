@@ -64,12 +64,6 @@ public class YearRuleTest extends GeneralTest {
 
     }
 
-    @Test
-    public void testYear7() {
-        String toPredict = "2000/";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals(0, predicted.size());
-    }
 
     @Test
     public void testYear8() {

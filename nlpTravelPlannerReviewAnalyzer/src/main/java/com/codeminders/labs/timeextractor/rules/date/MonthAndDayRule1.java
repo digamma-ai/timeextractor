@@ -15,41 +15,41 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class MonthAndDayRule1 extends BaseRule {
 
-    private String month;
-    private String day;
-    private String year;
+	private String month;
+	private String day;
+	private String year;
 
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+	protected Locale locale = Locale.US;
+	protected double confidence = 0.83;
 
-    public MonthAndDayRule1(String month, String day, String year) {
-        this.month = month;
-        this.day = day;
-        this.year = year;
+	public MonthAndDayRule1(String month, String day, String year) {
+		this.month = month;
+		this.day = day;
+		this.year = year;
+	}
 
-    }
+	@Override
+	public Type getType() {
+		return Type.DATE;
+	}
 
-    @Override
-    public Type getType() {
-        return Type.DATE;
-    }
+	@Override
+	public List<Temporal> getTemporal() {
+		int month = 0;
+		int day = 0;
+		int year = 0;
 
-    @Override
-    public List<Temporal> getTemporal() {
-        int month = 0;
-        int day = 0;
-        int year = 0;
+		month = TemporalBasicCaseParser.getMonthOfYear(this.month).getValue();
+		day = Integer.parseInt(this.day);
+		if (this.year != null) {
+			year = Integer.parseInt(this.year);
+		}
+		Date date = new Date(year, month, day);
+		Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type,
+				date);
+		List<Temporal> temporalList = new ArrayList<Temporal>();
+		temporalList.add(temporal);
 
-        month = TemporalBasicCaseParser.getMonthOfYear(this.month).getValue();
-        day = Integer.parseInt(this.day);
-        if (this.year != null) {
-            year = Integer.parseInt(this.year);
-        }
-        Date date = new Date(year, month, day);
-        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-        List<Temporal> temporalList = new ArrayList<Temporal>();
-        temporalList.add(temporal);
-
-        return temporalList;
-    }
+		return temporalList;
+	}
 }

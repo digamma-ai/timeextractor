@@ -67,7 +67,8 @@ public class MonthOfYear1Test extends GeneralTest {
 
         String toPredict = "October-";
         List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals(0, predicted.size());
+        assertEquals("October", predicted.get(0).getTemporalExpression());
+        assertEquals(10, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
     }
 
 }

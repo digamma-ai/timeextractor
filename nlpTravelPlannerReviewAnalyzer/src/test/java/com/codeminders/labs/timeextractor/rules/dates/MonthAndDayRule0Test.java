@@ -47,14 +47,4 @@ public class MonthAndDayRule0Test extends GeneralTest {
 
     }
 
-    @Test
-    public void monthAndDayRule0Test4() {
-
-        String toPredict = "July, 24, 20114";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("July, 24", predicted.get(0).getTemporalExpression());
-        assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
-        assertEquals(24, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
-
-    }
 }

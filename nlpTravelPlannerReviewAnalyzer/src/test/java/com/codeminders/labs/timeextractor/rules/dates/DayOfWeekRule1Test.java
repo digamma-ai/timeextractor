@@ -12,33 +12,28 @@ import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
 public class DayOfWeekRule1Test extends GeneralTest {
 
-    @Test
-    public void dayOfWeekRule1Test1() {
+	@Test
+	public void dayOfWeekRule1Test1() {
 
-        String toPredict = "Sunday";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("Sunday", predicted.get(0).getTemporalExpression());
-        assertEquals(DayOfWeek.SUNDAY, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
+		String toPredict = "Sunday";
+		List<TemporalExtraction> predicted = service
+				.extractDatesAndTimeFromText(toPredict, null);
+		assertEquals("Sunday", predicted.get(0).getTemporalExpression());
+		assertEquals(DayOfWeek.SUNDAY, predicted.get(0).getTemporal().get(0)
+				.getStartDate().getDate().getDayOfWeek());
 
-    }
+	}
 
-    @Test
-    public void dayOfWeekRule1Test2() {
+	@Test
+	public void dayOfWeekRule1Test2() {
 
-        String toPredict = "Wed";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("Wed", predicted.get(0).getTemporalExpression());
-        assertEquals(DayOfWeek.WEDNESDAY, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
+		String toPredict = "Wed";
+		List<TemporalExtraction> predicted = service
+				.extractDatesAndTimeFromText(toPredict, null);
+		assertEquals("Wed", predicted.get(0).getTemporalExpression());
+		assertEquals(DayOfWeek.WEDNESDAY, predicted.get(0).getTemporal().get(0)
+				.getStartDate().getDate().getDayOfWeek());
 
-    }
+	}
 
-    @Test
-    public void dayOfWeekRule1Test3() {
-
-        String toPredict = "Wed.";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
-        assertEquals("Wed", predicted.get(0).getTemporalExpression());
-        assertEquals(DayOfWeek.WEDNESDAY, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
-
-    }
 }

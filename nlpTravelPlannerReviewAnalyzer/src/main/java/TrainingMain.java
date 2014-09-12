@@ -11,7 +11,7 @@ public class TrainingMain {
         SUTimeService service = new SUTimeService();
 
         String date = "2014-09-01";
-        String toPredict = "mid-late-february";
+        String toPredict = "Located at 2 8";
         List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, date);
         for (TemporalExtraction cm : predicted) {
             System.out.println("Text: " + cm.getTemporalExpression());

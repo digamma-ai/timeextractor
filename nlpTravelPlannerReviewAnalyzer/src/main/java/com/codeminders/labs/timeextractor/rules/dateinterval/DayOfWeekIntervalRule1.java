@@ -49,7 +49,6 @@ public class DayOfWeekIntervalRule1 extends BaseRule {
 
         start.setDate(startDate);
         end.setDate(endDate);
-
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(start, end);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);

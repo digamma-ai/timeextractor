@@ -11,9 +11,9 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
-public class WeekEnd extends BaseRule {
+public class WeekDay extends BaseRule {
 
-    public WeekEnd() {
+    public WeekDay() {
     }
 
     @Override
@@ -29,8 +29,8 @@ public class WeekEnd extends BaseRule {
         Date startDate = new Date();
         Date endDate = new Date();
 
-        startDate.setDayOfWeek(DayOfWeek.SATURDAY);
-        endDate.setDayOfWeek(DayOfWeek.SUNDAY);
+        startDate.setDayOfWeek(DayOfWeek.MONDAY);
+        endDate.setDayOfWeek(DayOfWeek.FRIDAY);
 
         start.setDate(startDate);
         end.setDate(endDate);
@@ -41,4 +41,5 @@ public class WeekEnd extends BaseRule {
 
         return temporalList;
     }
+
 }

@@ -5,6 +5,7 @@ import com.codeminders.labs.timeextractor.constants.Type;
 public class Temporal {
 
     private Type type;
+    private Duration duration;
     private TimeDate startDate;
     private TimeDate endDate;
 
@@ -41,9 +42,17 @@ public class Temporal {
         this.endDate = endDate;
     }
 
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
     @Override
     public String toString() {
-        return "Temporal [type=" + type + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+        return "Temporal [type=" + type + ", duration=" + duration + ", startDate=" + startDate + ", endDate=" + endDate + "]";
     }
 
 }

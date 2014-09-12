@@ -1,9 +1,7 @@
 package com.codeminders.labs.timeextractor.rules.date;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.constants.Type;
@@ -14,10 +12,10 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
+// the first Tuesday (of the month)
 public class DayOfWeekOrderRule1 extends BaseRule {
 
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.99;
     private String dayOfWeek;
     private String weekOfMonth;
 
@@ -49,4 +47,5 @@ public class DayOfWeekOrderRule1 extends BaseRule {
 
         return temporalList;
     }
+
 }

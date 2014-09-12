@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.dates;
+package com.codeminders.labs.timeextractor.rules.date;
 
 import static org.junit.Assert.*;
 

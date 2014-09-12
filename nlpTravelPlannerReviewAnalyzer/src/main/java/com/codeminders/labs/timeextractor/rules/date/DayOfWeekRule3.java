@@ -12,6 +12,7 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
+// Sunday 16 2014
 public class DayOfWeekRule3 extends BaseRule {
 
     protected Locale locale = Locale.US;

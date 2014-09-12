@@ -15,40 +15,37 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class MonthAndYearRule1 extends BaseRule {
 
-	public static String rule = "(" + MONTH_OF_YEAR + "|" + MONTH_OF_YEAR_EASY
-			+ ")" + "[.]?\\s*([2][0-9]\\d\\d)";
-	private String month;
-	private String year;
+    public static String rule = "(" + MONTH_OF_YEAR + "|" + MONTH_OF_YEAR_EASY + ")" + "[.]?\\s*([2][0-9]\\d\\d)";
+    private String month;
+    private String year;
 
-	protected Locale locale = Locale.US;
-	protected double confidence = 0.83;
+    protected Locale locale = Locale.US;
+    protected double confidence = 0.83;
 
-	public MonthAndYearRule1(String month, String year) {
-		System.out.println(month + " " + year);
-		this.month = month;
-		this.year = year;
-	}
+    public MonthAndYearRule1(String month, String year) {
+        this.month = month;
+        this.year = year;
+    }
 
-	@Override
-	public Type getType() {
-		return Type.DATE;
-	}
+    @Override
+    public Type getType() {
+        return Type.DATE;
+    }
 
-	@Override
-	public List<Temporal> getTemporal() {
-		int year = 0;
-		int month = 0;
+    @Override
+    public List<Temporal> getTemporal() {
+        int year = 0;
+        int month = 0;
 
-		month = TemporalBasicCaseParser.getMonthOfYear(this.month).getValue();
-		year = Integer.parseInt(this.year);
+        month = TemporalBasicCaseParser.getMonthOfYear(this.month).getValue();
+        year = Integer.parseInt(this.year);
 
-		Date date = new Date(year, month, 0);
-		Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type,
-				date);
+        Date date = new Date(year, month, 0);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
 
-		List<Temporal> temporalList = new ArrayList<Temporal>();
-		temporalList.add(temporal);
+        List<Temporal> temporalList = new ArrayList<Temporal>();
+        temporalList.add(temporal);
 
-		return temporalList;
-	}
+        return temporalList;
+    }
 }

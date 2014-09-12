@@ -24,6 +24,7 @@ public class AnnotationToObjectParser {
             result.setClassOfRuleType(type);
             result.setTemporalExpression(expr.getText());
             result.setTemporal(extracted.getTemporal());
+            result.setConfidence(extracted.getConfidence());
         }
 
         return result;

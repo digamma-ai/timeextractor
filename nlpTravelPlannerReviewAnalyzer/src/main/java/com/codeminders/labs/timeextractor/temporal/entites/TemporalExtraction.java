@@ -21,6 +21,7 @@ public class TemporalExtraction {
     private int toPosition;
     private String classOfRuleType;
     private List<Temporal> temporal;
+    private double confidence;
 
     public String getTemporalExpression() {
         return temporalExpression;
@@ -65,6 +66,14 @@ public class TemporalExtraction {
     @Override
     public String toString() {
         return temporalExpression;
+    }
+
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
 }

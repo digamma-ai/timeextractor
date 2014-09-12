@@ -12,8 +12,7 @@
     priority:3,
   	result: BetweenTimeEvent($0) 
   }
-  
-  
+    
    // Tuesday-Sunday 11-18 (date +time period)
    
   {  ruleType: "text", 
@@ -150,20 +149,6 @@
    }
        
   
- // weekday week day  	  	
- {
-   ruleType: "text", 
-   pattern: /\b(week days|weekdays|weekday|week day)\b/,
-   result: BetweenTimeEvent("DATE") 
-  }
-  
-  // weekend, week-end, weekends, week-ends  	
- {
-   ruleType: "text",
-   pattern: /\b(weekends|week-ends)\b/,
-   result: BetweenTimeEvent("Week-ends") 
-  }
-  
  // lunch time
   
  {
@@ -198,23 +183,7 @@
   	 result: BetweenTimeEvent("whole")  
   }
   
-   //through/thru month
-       
-   { 
-    ruleType: "text",
-	pattern: /\b(through|thru)[\s]($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY[.]?)([\s]?)([0-3][0-1][-][0-3][0-1])?[\s]?((\d{4})?)\b/,
-	result: BetweenTimeEvent("THROUGH TIME") 
-  }
-   
-    //through/thru month
-      
-   { 
-    ruleType: "text",
-	pattern: /\b(through|thru)[\s]($MONTH_OF_YEAR)([\s]?)(\b0?[1-9]\b|\b[12][0-9]\b|\b3[01]\b)?\b/,
-	result: BetweenTimeEvent("THROUGH TIME") 
-  }
-
-	 
+ 
    //Wed through Sun
 
 	{ 
@@ -377,20 +346,7 @@
 	result: BetweenTimeEvent("PERIOD_TIME") 
     }
  
-  //holidays New Years' Eve
-  
-  { ruleType: "text", pattern: /(\b(New Years' Eve)\b|\b(New Year)\b)/,
-  	 result: BetweenTimeEvent("New Years' Eve")  
-  }
-  
-  //holidays St Valentine's Day
-  
-  { ruleType: "text", 
-    pattern: /St[.]?[\s]*Valentine's[\s]*Day/,
-  	 result: BetweenTimeEvent("St Valentine's Day")  
-  }
-  
-  
+ 
   // n days a week
   {  ruleType: "text", 
      pattern: /\b[1-7][\s]*(days a week)\b/, 
@@ -443,13 +399,6 @@
      result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
-    // n hours
-    {  ruleType: "text", 
-     priority: 0,
-     pattern: /\b($BasicNumTerm)[\s]*(hours|hour|hrs|hr|h)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
    // Dec. 26-30
    
   {  ruleType: "text", 
@@ -472,15 +421,7 @@
      pattern: /\b($BasicNumTerm)[\s]*(days)\b/, 
      result: BetweenTimeEvent("PERIOD_TIME") 
   }
-    
-   //n days/week
-  
-  {  ruleType: "text", 
-     priority:2,
-     pattern: /\b[2-7][\s]*(days)\/(week)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
+     
    // 24/7
   
   {  ruleType: "text", 

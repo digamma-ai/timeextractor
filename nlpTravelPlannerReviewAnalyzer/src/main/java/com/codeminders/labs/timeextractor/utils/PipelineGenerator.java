@@ -13,38 +13,40 @@ import edu.stanford.nlp.process.PTBTokenizer;
 
 public class PipelineGenerator {
 
-	private static final String BASE_RULES = "/base.rules.txt";
-	private static final String MAIN_RULES = "/additional.rules.txt";
-	private static final String DEFS = "/defs.sutime.txt";
+    private static final String BASE_RULES = "/base.rules.txt";
+    private static final String MAIN_RULES = "/additional.rules.txt";
+    private static final String HOLIDAY_RULES = "/holidays.txt";
 
-	private static AnnotationPipeline pipeline = new AnnotationPipeline();
+    private static final String DEFS = "/defs.sutime.txt";
 
-	static {
+    private static AnnotationPipeline pipeline = new AnnotationPipeline();
 
-		pipeline.addAnnotator(new PTBTokenizerAnnotator(false));
-		pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
-		pipeline.addAnnotator(new POSTaggerAnnotator(false));
-		Properties props = getProperties();
-		pipeline.addAnnotator(new TemporalAnnotator("sutime", props));
-	}
+    static {
 
-	public static AnnotationPipeline getPipeline() {
-		return pipeline;
-	}
+        pipeline.addAnnotator(new PTBTokenizerAnnotator(false));
+        pipeline.addAnnotator(new WordsToSentencesAnnotator(false));
+        pipeline.addAnnotator(new POSTaggerAnnotator(false));
+        Properties props = getProperties();
+        pipeline.addAnnotator(new TemporalAnnotator("sutime", props));
+    }
 
-	private static Properties getProperties() {
+    public static AnnotationPipeline getPipeline() {
+        return pipeline;
+    }
 
-		// String customRules =
-		// SUTimeService.class.getResource(MAIN_RULES).getPath();
-		String baseRules = SUTimeService.class.getResource(BASE_RULES)
-				.getPath();
-		String defs = SUTimeService.class.getResource(DEFS).getPath();
-		String allRules = StringUnion.sutimeMainRules(defs, baseRules);
+    private static Properties getProperties() {
 
-		Properties props = new Properties();
-		props.setProperty("sutime.rules", allRules);
-		props.setProperty("annotators", "lemma, pos, tokenize");
-		return props;
-	}
+        // String customRules =
+        // SUTimeService.class.getResource(MAIN_RULES).getPath();
+        String baseRules = SUTimeService.class.getResource(BASE_RULES).getPath();
+        String defs = SUTimeService.class.getResource(DEFS).getPath();
+        String holidays = SUTimeService.class.getResource(HOLIDAY_RULES).getPath();
+        String allRules = StringUnion.sutimeMainRules(defs, baseRules, holidays);
+
+        Properties props = new Properties();
+        props.setProperty("sutime.rules", allRules);
+        props.setProperty("annotators", "lemma, pos, tokenize");
+        return props;
+    }
 
 }

@@ -2,7 +2,6 @@ package com.codeminders.labs.timeextractor.rules.date;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import com.codeminders.labs.timeextractor.constants.MonthOfYear;
 import com.codeminders.labs.timeextractor.constants.Type;
@@ -12,17 +11,15 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
-public class DayOrderAndMonthRule2 extends BaseRule {
-
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
-    private String dayOfMonth;
-    private String month;
+public class MonthAndDayOrderRule6 extends BaseRule {
     private String year;
+    private String orderDay;
+    private String month;
+    private double confidence = 0.99;
 
-    public DayOrderAndMonthRule2(String dayOfMonth, String month, String year) {
-        this.dayOfMonth = dayOfMonth;
+    public MonthAndDayOrderRule6(String month, String orderDay, String year) {
         this.month = month;
+        this.orderDay = orderDay;
         this.year = year;
     }
 
@@ -33,25 +30,31 @@ public class DayOrderAndMonthRule2 extends BaseRule {
 
     @Override
     public List<Temporal> getTemporal() {
-        int dayOfMonth = 0;
-        MonthOfYear monthOfYear = null;
-        int year = 0;
+        Date date = new Date();
 
-        monthOfYear = TemporalBasicCaseParser.getMonthOfYear((this.month));
-        dayOfMonth = TemporalBasicCaseParser.getDayOfWeekFromOrder((this.dayOfMonth));
         if (this.year != null) {
-            year = Integer.parseInt(this.year.trim());
+            date.setYear(Integer.parseInt(this.year));
+        }
+        if (this.month != null) {
+            MonthOfYear currentMonth = TemporalBasicCaseParser.getMonthOfYear(this.month);
+            date.setMonth(currentMonth.getValue());
+
         }
 
-        Date date = new Date();
-        date.setMonth(monthOfYear.getValue());
-        date.setDay(dayOfMonth);
-        date.setYear(year);
+        int day = TemporalBasicCaseParser.getDayOfWeekFromOrder(this.orderDay);
+        date.setDay(day);
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-
-        List<Temporal> temporalList = new ArrayList<Temporal>();
-        temporalList.add(temporal);
-
-        return temporalList;
+        List<Temporal> result = new ArrayList<Temporal>();
+        result.add(temporal);
+        return result;
     }
+
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
 }

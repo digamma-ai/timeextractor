@@ -1,0 +1,55 @@
+  Holidays =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.Holidays" }
+ 
+   // holidays
+  
+   { ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: (/new/ /year/ /day/?),
+  	 result: Holidays("new year") 
+  }
+  
+     // holidays
+  
+   { ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: (/st.?|saint/? /valentine|valentine's|valentines/ /day/?),
+  	 result: Holidays("St. Valentine day") 
+  }
+  
+     // holidays
+  
+   { ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: (/halloween/),
+  	 result: Holidays("halloween") 
+  }
+  
+     // holidays
+  
+   { ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: (/christmas/ /day/? /eve/?),
+  	 result: Holidays("christmas") 
+  }
+  
+     // holidays
+  
+   { ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: (/Thanksgiving/ /day/?),
+  	 result: Holidays("thanksgiving") 
+  }
+  
+       // holidays
+  
+   { ruleType: "tokens", 
+     priority:1,
+     matchWithResults: TRUE,
+     pattern: (/independence/ /day/),
+  	 result: Holidays("independence") 
+  }

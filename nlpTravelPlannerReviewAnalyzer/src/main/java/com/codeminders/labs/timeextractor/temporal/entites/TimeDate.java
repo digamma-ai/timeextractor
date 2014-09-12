@@ -2,38 +2,46 @@ package com.codeminders.labs.timeextractor.temporal.entites;
 
 public class TimeDate {
 
-	private Time time;
-	private Date date;
-	private Set set;
+    private Time time;
+    private Date date;
+    private Set set;
+    private boolean relative;
 
-	public Time getTime() {
-		return time;
-	}
+    public Time getTime() {
+        return time;
+    }
 
-	public void setTime(Time time) {
-		this.time = time;
-	}
+    public void setTime(Time time) {
+        this.time = time;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public Set getSet() {
-		return set;
-	}
+    public Set getSet() {
+        return set;
+    }
 
-	public void setSet(Set set) {
-		this.set = set;
-	}
+    public void setSet(Set set) {
+        this.set = set;
+    }
 
-	@Override
-	public String toString() {
-		return "TimeDate [time=" + time + ", date=" + date + ", set=" + set
-				+ "]";
-	}
+    public boolean isRelative() {
+        return relative;
+    }
+
+    public void setRelative(boolean relative) {
+        this.relative = relative;
+    }
+
+    @Override
+    public String toString() {
+        return "TimeDate [time=" + time + ", date=" + date + ", set=" + set + "]";
+    }
 
 }

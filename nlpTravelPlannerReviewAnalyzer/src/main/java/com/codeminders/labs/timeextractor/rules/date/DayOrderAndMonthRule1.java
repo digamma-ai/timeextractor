@@ -2,11 +2,6 @@ package com.codeminders.labs.timeextractor.rules.date;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.codeminders.labs.timeextractor.constants.Constants.*;
 
 import com.codeminders.labs.timeextractor.constants.MonthOfYear;
 import com.codeminders.labs.timeextractor.constants.Type;
@@ -16,10 +11,10 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
+// the second of December
 public class DayOrderAndMonthRule1 extends BaseRule {
 
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.99;
     private String dayOfMonth;
     private String month;
     private String year;

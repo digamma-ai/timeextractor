@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.duration;
+package com.codeminders.labs.timeextractor.rules.timeinterval;
 
 import java.util.List;
 
@@ -6,13 +6,14 @@ import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 
-public class DurationRule1 extends BaseRule {
-    private String duration;
-    private String durationPeriod;
+public class TimeIntervalRule2 extends BaseRule {
 
-    public DurationRule1(String duration, String durationPeriod) {
-        this.duration = duration;
-        this.durationPeriod = durationPeriod;
+    private String timeOfDay1;
+    private String timeOfDay2;
+
+    public TimeIntervalRule2(String timeOfDay1, String timeOfDay2) {
+        this.timeOfDay1 = timeOfDay1;
+        this.timeOfDay2 = timeOfDay2;
     }
 
     @Override

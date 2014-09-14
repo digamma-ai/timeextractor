@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.time;
+package com.codeminders.labs.timeextractor.rules.timeinterval;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class TimeOfDayRule extends BaseRule {
 
 	@Override
 	public Type getType() {
-		return null;
+		return Type.TIMEINTERVAL;
 	}
 
 	@Override

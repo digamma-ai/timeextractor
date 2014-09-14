@@ -63,7 +63,7 @@ public class MonthDaysIntervalRule1 extends BaseRule {
         start.setDate(startDate);
         end.setDate(endDate);
 
-        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(start, end);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATEINTERVAL, start, end);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;

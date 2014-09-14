@@ -8,24 +8,23 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 
 public class TimeIntervalRule2 extends BaseRule {
 
-    private String timeOfDay1;
-    private String timeOfDay2;
+	private String timeOfDay1;
+	private String timeOfDay2;
 
-    public TimeIntervalRule2(String timeOfDay1, String timeOfDay2) {
-        this.timeOfDay1 = timeOfDay1;
-        this.timeOfDay2 = timeOfDay2;
-    }
+	public TimeIntervalRule2(String timeOfDay1, String timeOfDay2) {
+		this.timeOfDay1 = timeOfDay1;
+		this.timeOfDay2 = timeOfDay2;
+	}
 
-    @Override
-    public Type getType() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public Type getType() {
+		return Type.TIMEINTERVAL;
+	}
 
-    @Override
-    public List<Temporal> getTemporal() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public List<Temporal> getTemporal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

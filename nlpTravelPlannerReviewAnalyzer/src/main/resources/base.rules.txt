@@ -27,7 +27,6 @@ Time1Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.ti
 Time2Rule= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time2Rule" }
 Time3Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time3Rule" }
 Time4Rule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.Time4Rule" }
-TimeOfDayRule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.time.TimeOfDayRule" }
 
 SeasonRules =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules" }
 SeasonRules2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules2" }
@@ -39,6 +38,7 @@ TimeIntervalRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.
 TimeIntervalRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule2" }
 TimeIntervalRule3 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule3" }
 TimeIntervalRule4= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule4" }
+TimeOfDayRule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeOfDayRule" }
 
 WeekEnd =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.WeekEnd" }
 WeekDay = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.WeekDay" }
@@ -49,9 +49,6 @@ AllPeriod =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.s
 DayOfWeekIntervalRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule1" }
 BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.BetweenTimeEvent" }
 TodayTomorrowEtc = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc" }
-
-DurationRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.duration.DurationRule1" }
-DurationRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.duration.DurationRule2" }
 
 // composite rule classes
 CompositeTime4RuleMonthAndDayRule0 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeTime4RuleMonthAndDayRule0" }
@@ -133,8 +130,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
      action: Annotate($0, ner, "AllPeriod"),
   	 result: AllPeriod($$2.matchResults[0].word.group(1)) 
   }
-  
-  
+    
   // frequency: yearly, weekly, monthly, etc.
   
    { ruleType: "tokens", 
@@ -410,16 +406,6 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     
     ############################## Time interval #########################################
   
-  
-   // after 5, until 6 (time, exact)
-   {
-   ruleType: "tokens",
-   priority:1,
-   matchWithResults: TRUE,
-   pattern: ( (/(after|before|until|till|til|by)/) (/([01]?[0-9]|2[0-3])/) (/($TimeZone)/)?) ,
-   result: TimeIntervalRule1($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1))  
-  }
-  
       
    //after 5:30, until 5:30 (time, exact)
    {
@@ -528,42 +514,6 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    result: TimeIntervalRule2($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1))
   }
   
-  ############ Duration ##################
-  
-  // n minutes, n hours, n years
-  
-   { ruleType: "tokens", 
-    priority:1,
-    matchWithResults: TRUE, 
-    pattern: (/lasts|past|at least|up to/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))[\s]*(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
-    result: DurationRule1($$1.matchResults[0].word.group(1),$$1.matchResults[0].word.group(2)) 
-    }
-    
-    // three minutes, five hours, n years
-  
-   { ruleType: "tokens", 
-    priority:1,
-    matchWithResults: TRUE, 
-    pattern: (/lasts|past|at least|up to/? (/($BasicNumTerm)/) (/(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
-    result: DurationRule2($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
-    }
-    
-   { ruleType: "tokens", 
-    priority:1,
-    matchWithResults: TRUE, 
-    pattern: ( /at/? /least/? /the/? /up/? /to/? /more/? /than/? /about|lasts|past|last/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))/) (/(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
-    result: DurationRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
-    }
-    
-   { ruleType: "text", 
-    priority:1,
-    matchWithResults: TRUE, 
-    pattern: /(about|lasts|past|last|at least|up to|more than) (an|a)? (hour|minute|second|day|week|month|year)/,
-    result: DurationRule1("1",$$1.matchResults[0].word.group(1)) 
-    }
-    
-
-
   ############COMPOSITE##################
 
     ENV.defaults["stage"] = 2

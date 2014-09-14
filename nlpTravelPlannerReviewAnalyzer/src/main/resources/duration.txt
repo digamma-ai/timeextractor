@@ -1,0 +1,40 @@
+DurationRule1 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.duration.DurationRule1" }
+DurationRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.duration.DurationRule2" }
+
+  ############ Duration ##################
+  
+  // n minutes, n hours, n years
+  
+   { ruleType: "tokens", 
+    priority:1,
+    matchWithResults: TRUE, 
+    pattern: (/lasts|past|at least|up to/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))[\s]*(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
+    result: DurationRule1($$1.matchResults[0].word.group(1),$$1.matchResults[0].word.group(2)) 
+    }
+    
+       { ruleType: "tokens", 
+    priority:1,
+    matchWithResults: TRUE, 
+    pattern: ( /at/? /least/? /the/? /up/? /to/? /more/? /than/? /about|lasts|past|last/? /by/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))/) (/(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
+    result: DurationRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
+    }
+    
+   { ruleType: "text", 
+    priority:1,
+    matchWithResults: TRUE, 
+    pattern: /(about|lasts|past|last|at least|up to|more than) (an|a)? (hour|minute|second|day|week|month|year)/,
+    result: DurationRule1("1",$$1.matchResults[0].word.group(1)) 
+    }
+    
+    
+    // three minutes, five hours, n years
+  
+   { ruleType: "tokens", 
+    priority:1,
+    matchWithResults: TRUE, 
+    pattern: (/lasts|past|at least|up to/? (/($BasicNumTerm)/) (/(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
+    result: DurationRule2($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
+    }
+    
+
+    

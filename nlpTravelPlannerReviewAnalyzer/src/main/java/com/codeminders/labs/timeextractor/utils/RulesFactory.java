@@ -39,11 +39,11 @@ import com.codeminders.labs.timeextractor.rules.time.Time1Rule;
 import com.codeminders.labs.timeextractor.rules.time.Time2Rule;
 import com.codeminders.labs.timeextractor.rules.time.Time3Rule;
 import com.codeminders.labs.timeextractor.rules.time.Time4Rule;
-import com.codeminders.labs.timeextractor.rules.time.TimeOfDayRule;
 import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule1;
 import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule2;
 import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule3;
 import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule4;
+import com.codeminders.labs.timeextractor.rules.timeinterval.TimeOfDayRule;
 
 // factory that returns object of concrete  rule class
 

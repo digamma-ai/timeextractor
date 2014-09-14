@@ -144,13 +144,23 @@ MONTH_OF_YEAR_MAP = {
 TIME_ZONE = {
     "PST": "PST",
     "EST": "EST",
+    "EEST": "EEST",
     "ET": "ET",
     "EDT": "EDT",
     "CST":" CST",
     "CET":" CET",
+    "CEST":" CEST",
+    "BST":" BST",
     "PDT":" PDT",  
     "GMT": "GMT",
     "UTC": "UTC",
+     "IST": "IST",
+     "MSD": "MSD",
+     "MSK": "MSK",
+     "WEST": "WEST",
+     "WET": "WET",
+     "JST": "JST",
+     "IDT":"IDT",
     "HKT":"HKT"
   }  
   

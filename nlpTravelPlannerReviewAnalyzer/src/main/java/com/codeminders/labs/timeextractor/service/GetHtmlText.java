@@ -6,17 +6,25 @@ import java.util.regex.PatternSyntaxException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities.EscapeMode;
 import org.jsoup.select.Elements;
 
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
 
 public class GetHtmlText {
 
+    public GetHtmlText() {
+    }
+
     public ArrayList<HtmlElement> getElements(String html) {
 
         ArrayList<HtmlElement> elements = new ArrayList<HtmlElement>();
         Document document = Jsoup.parse(html);
-        document.outputSettings(new Document.OutputSettings().prettyPrint(false));
+
+        Document.OutputSettings settings = document.outputSettings();
+        settings.prettyPrint(false);
+        settings.escapeMode(EscapeMode.xhtml);
+
         Elements htmlElements = document.body().select("*");
         for (Element element : htmlElements) {
             if (element.childNodes().size() > 3 && element.ownText().isEmpty()) {
@@ -29,11 +37,6 @@ public class GetHtmlText {
 
             try {
                 String elementString = element.toString();
-                if (!html.contains(elementString)) {
-                    System.out.println("Element :" + element);
-                    System.out.println("Text :" + text);
-
-                }
                 if (html.contains(elementString)) {
                     HtmlElement htmlEl = new HtmlElement();
                     htmlEl.setTag(element.tagName());

@@ -49,7 +49,7 @@ TodayTomorrowEtc = { type: "CLASS", value: "com.codeminders.labs.timeextractor.r
 // composite rule classes
 CompositeTime4RuleMonthAndDayRule0 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeTime4RuleMonthAndDayRule0" }
 CompositeDayOfWeekTimeOfDay = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeDayOfWeekTimeOfDay" }
-
+CompositeDayOfWeekDate = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeDayOfWeekDate" }
 
 FrequencyTime = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime" }
 
@@ -342,17 +342,27 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     result: Time1Rule($$1.matchResults[0].word.group(2),$$1.matchResults[0].word.group(3),$$2.matchResults[0].word.group(1)) 
   }
   
-    //at 5:30 (time, exact)
+    //at 5 (time, exact)
    {
    ruleType: "tokens",
    priority:2,
    matchWithResults: TRUE,
-   pattern: (/(at about|at|about)/  (/([01]?[0-9]|2[0-3])[\s]*([.|:]([0-5][0-9]))?/) (/($TimeZone)/)? ) ,
-   action: Annotate($0, ner, "Time4Rule"),
-   result: Time4Rule($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(3), $$2.text)  
+   pattern: (/at about|at|about/  (/([01]?[0-9]|2[0-3])/) (/($TimeZone)/)? ) ,
+   action: Annotate($0, ner, "Time5Rule"),
+   result: Time4Rule($$1.matchResults[0].word.group(1), $$2.text)  
   }
   
-     
+  //at 5:30 (time, exact)
+   {
+   ruleType: "tokens",
+   priority:2,
+   matchWithResults: TRUE,
+   pattern: ( /at/? /about/? (/([01]?[0-9]|2[0-3])[.:]([0-5][0-9])/) (/($TimeZone)/)? ) ,
+   action: Annotate($0, ner, "Time4Rule"),
+   result: Time4Rule($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(2), $$2.text)  
+  }
+ 
+
   // 2100 CET
   {
    ruleType: "tokens",
@@ -537,37 +547,15 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   	 result: CompositeDayOfWeekTimeOfDay($$1.text, $$2.text)
   }
   
-  // Sunday at 4.30 pm
   
-  { pattern: (([{ner:DayOfWeekRule1}]) /,/? ([{ner:Time3Rule}]+) ),  
-     name: "CompositeDayOfWeekTimeOfDay2",
-     priority:10,
-  	 result: CompositeDayOfWeekTimeOfDay($$1.text, $$2.text)
-  }
+   // Sunday at 4
   
-   // 11:30 on Saturday
-   
-   { pattern: ( ([{ner:Time2Rule}]+ ) /(,;)|(on)|(at)/? ([{ner:DayOfWeekRule1}]) ),  
-     name: "CompositeDayOfWeekTimeOfDay2",
-     priority:10,
-  	 result: CompositeDayOfWeekTimeOfDay($$2.text, $$1.text)
-  }
-  
-     // 11:30 on Saturday
-   
-   { pattern: ( ([{ner:Time3Rule}]+ ) /(,;)|(on)|(at)/? ([{ner:DayOfWeekRule1}]) ),  
-     name: "CompositeDayOfWeekTimeOfDay2",
-     priority:10,
-  	 result: CompositeDayOfWeekTimeOfDay($$2.text, $$1.text)
-  }
-  
-    // Sunday at 4
-  
-  { pattern: (([{ner:DayOfWeekRule1}]) /,/? ([{ner:Time4Rule}]+) ),  
+  { pattern: (([{ner:DayOfWeekRule1}]) /,/? ([{ner:Time5Rule}]+) ),  
      name: "CompositeDayOfWeekTimeOfDay3",
      priority:10,
   	 result: CompositeDayOfWeekTimeOfDay($$1.text, $$2.text)
   }
+  
   
    // the first Sunday of every month
  
@@ -599,6 +587,14 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
      name: "CompositeDayOfWeekTimeOfDay",
      priority:10,
   	 result: CompositeSet1($$1.text)
+  }
+  
+    // Tuesday September 16
+ 
+   { pattern: ( ([{ner:DayOfWeekRule1}]+) /,/? ([{ner:MonthAndDayRule1}]+) ),  
+     name: "CompositeDayOfWeekTimeOfDay",
+     priority:10,
+  	 result: CompositeDayOfWeekDate($$1.text, $$2.text)
   }
     
   

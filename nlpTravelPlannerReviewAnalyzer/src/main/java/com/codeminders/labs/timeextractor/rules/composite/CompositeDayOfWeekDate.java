@@ -9,38 +9,42 @@ import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
-// Friday night, Tuesday morning
-
-public class CompositeDayOfWeekTimeOfDay extends BaseRule {
-	private SUTimeService service = new SUTimeService();
+public class CompositeDayOfWeekDate extends BaseRule {
+	private SUTimeService service;
 	private Temporal temporal;
 
-	public CompositeDayOfWeekTimeOfDay(String dayOfWeek, String timeOfDay) {
+	{
+		service = new SUTimeService();
+	}
+
+	public CompositeDayOfWeekDate(String dayOfWeek, String date) {
 		List<TemporalExtraction> one = service.extractDatesAndTimeFromText(
 				dayOfWeek, null);
 		List<TemporalExtraction> two = service.extractDatesAndTimeFromText(
-				timeOfDay, null);
+				date, null);
 
 		Temporal dayOfWeekTemporal = one.get(0).getTemporal().get(0);
-		Temporal timeOfDayTemporal = two.get(0).getTemporal().get(0);
+		Temporal dateTemporal = two.get(0).getTemporal().get(0);
 
-		timeOfDayTemporal.getStartDate().setDate(
-				dayOfWeekTemporal.getStartDate().getDate());
-		timeOfDayTemporal.getEndDate().setDate(
-				dayOfWeekTemporal.getEndDate().getDate());
+		dateTemporal
+				.getStartDate()
+				.getDate()
+				.setDayOfWeek(
+						dayOfWeekTemporal.getStartDate().getDate()
+								.getDayOfWeek());
+		dateTemporal
+				.getEndDate()
+				.getDate()
+				.setDayOfWeek(
+						dayOfWeekTemporal.getEndDate().getDate().getDayOfWeek());
 
-		this.temporal = timeOfDayTemporal;
+		this.temporal = dateTemporal;
 
-	}
-
-	public CompositeDayOfWeekTimeOfDay(java.lang.String dayOfWeek,
-			java.util.ArrayList timeOfDay) {
-		System.out.println(timeOfDay);
 	}
 
 	@Override
 	public Type getType() {
-		return Type.DATE_TIME_INTERVAL;
+		return Type.DATE;
 	}
 
 	@Override
@@ -49,5 +53,4 @@ public class CompositeDayOfWeekTimeOfDay extends BaseRule {
 		temporalList.add(temporal);
 		return temporalList;
 	}
-
 }

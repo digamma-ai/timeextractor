@@ -31,7 +31,7 @@ public class MonthDaysIntervalRule1 extends BaseRule {
 
     @Override
     public Type getType() {
-        return Type.DATEINTERVAL;
+        return Type.DATE_INTERVAL;
     }
 
     @Override
@@ -63,9 +63,27 @@ public class MonthDaysIntervalRule1 extends BaseRule {
         start.setDate(startDate);
         end.setDate(endDate);
 
-        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATEINTERVAL, start, end);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE_INTERVAL, start, end);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+    
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 }

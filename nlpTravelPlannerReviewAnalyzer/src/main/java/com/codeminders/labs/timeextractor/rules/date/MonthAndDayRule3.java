@@ -51,4 +51,22 @@ public class MonthAndDayRule3 extends BaseRule {
 
         return temporalList;
     }
+
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
 }

@@ -42,7 +42,7 @@ public class Time2Rule extends BaseRule {
 		int timezone = 0;
 		if (this.timezone != null) {
 			timezone = parser.getTimeZone(this.timezone);
-			time.setTimezoneOffset(timezone);
+			time.setTimezone(timezone);
 		}
 		Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type,
 				time);

@@ -34,12 +34,12 @@ import com.codeminders.labs.timeextractor.rules.duration.DurationRule1;
 import com.codeminders.labs.timeextractor.rules.duration.DurationRule2;
 import com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime;
 import com.codeminders.labs.timeextractor.rules.set.AllPeriod;
+import com.codeminders.labs.timeextractor.rules.set.CompositeSet1;
 import com.codeminders.labs.timeextractor.rules.set.EveryPeriod;
 import com.codeminders.labs.timeextractor.rules.time.Time1Rule;
 import com.codeminders.labs.timeextractor.rules.time.Time2Rule;
 import com.codeminders.labs.timeextractor.rules.time.Time3Rule;
 import com.codeminders.labs.timeextractor.rules.time.Time4Rule;
-import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule1;
 import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule2;
 import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule3;
 import com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule4;
@@ -160,9 +160,6 @@ public class RulesFactory {
             // all week
         case ("AllPeriod"):
             return (AllPeriod) obj;
-            // after 5
-        case ("TimeIntervalRule1"):
-            return (TimeIntervalRule1) obj;
             // between morning and night
         case ("TimeIntervalRule2"):
             return (TimeIntervalRule2) obj;
@@ -179,6 +176,8 @@ public class RulesFactory {
             return (CompositeTime4RuleMonthAndDayRule0) obj;
         case ("CompositeDayOfWeekTimeOfDay"):
             return (CompositeDayOfWeekTimeOfDay) obj;
+        case ("CompositeSet1"):
+            return (CompositeSet1) obj;
         }
         return null;
     }

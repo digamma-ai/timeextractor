@@ -2,6 +2,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
@@ -15,7 +16,7 @@ public class YearRule extends BaseRule {
 
     String year;
 
-    protected double confidence;
+    protected double confidence = 0.7;
 
     public YearRule(String year) {
         this.year = year;
@@ -45,6 +46,24 @@ public class YearRule extends BaseRule {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
 }

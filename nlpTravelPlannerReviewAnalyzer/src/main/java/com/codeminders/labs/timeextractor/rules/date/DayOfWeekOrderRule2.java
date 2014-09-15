@@ -2,6 +2,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.constants.Type;
@@ -47,5 +48,23 @@ public class DayOfWeekOrderRule2 extends BaseRule {
         temporalList.add(temporal);
 
         return temporalList;
+    }
+    
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 }

@@ -13,40 +13,58 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.TimeConvertor;
 
 public class Time1Rule extends BaseRule {
-	private TemporalBasicCaseParser parser;
-	protected Locale locale = Locale.US;
-	protected double confidence = 0.83;
-	private String hours;
-	private String aMPm;
-	private String timezone;
+    private TemporalBasicCaseParser parser;
+    protected Locale locale = Locale.US;
+    protected double confidence = 0.83;
+    private String hours;
+    private String aMPm;
+    private String timezone;
 
-	public Time1Rule(String hours, String aMPm, String timezone) {
-		parser = new TemporalBasicCaseParser();
-		this.hours = hours;
-		this.aMPm = aMPm;
-		this.timezone = timezone;
-	}
+    public Time1Rule(String hours, String aMPm, String timezone) {
+        parser = new TemporalBasicCaseParser();
+        this.hours = hours;
+        this.aMPm = aMPm;
+        this.timezone = timezone;
+    }
 
-	@Override
-	public Type getType() {
-		return Type.TIME;
-	}
+    @Override
+    public Type getType() {
+        return Type.TIME;
+    }
 
-	@Override
-	public List<Temporal> getTemporal() {
-		Time time = new Time();
-		int hours = Integer.parseInt(this.hours);
-		hours = TimeConvertor.convertTime(hours, aMPm);
-		time.setHours(hours);
-		int timezone = 0;
-		if (this.timezone != null) {
-			timezone = parser.getTimeZone(this.timezone);
-			time.setTimezoneOffset(timezone);
-		}
-		Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type,
-				time);
-		List<Temporal> temporalList = new ArrayList<Temporal>();
-		temporalList.add(temporal);
-		return temporalList;
-	}
+    @Override
+    public List<Temporal> getTemporal() {
+        Time time = new Time();
+        int hours = Integer.parseInt(this.hours);
+        hours = TimeConvertor.convertTime(hours, aMPm);
+        time.setHours(hours);
+        int timezone = 0;
+        if (this.timezone != null) {
+            timezone = parser.getTimeZone(this.timezone);
+            time.setTimezone(timezone);
+        }
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type, time);
+        List<Temporal> temporalList = new ArrayList<Temporal>();
+        temporalList.add(temporal);
+        return temporalList;
+    }
+
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
 }

@@ -1,5 +1,86 @@
 package com.codeminders.labs.timeextractor.rest.entities;
 
+import com.codeminders.labs.timeextractor.temporal.entites.Duration;
+import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+
 public class DurationHtml implements HtmlTemporal {
+    private int seconds;
+    private int minutes;
+    private int hours;
+    private int days;
+    private int weeks;
+    private int months;
+    private int years;
+
+    public DurationHtml(Temporal temporal) {
+        days = temporal.getDuration().getDays();
+        hours = temporal.getDuration().getHours();
+        minutes = temporal.getDuration().getMinutes();
+        seconds = temporal.getDuration().getSeconds();
+        years = temporal.getDuration().getYears();
+        weeks = temporal.getDuration().getWeeks();
+        months = temporal.getDuration().getMonths();
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
+    }
+
+    public int getYears() {
+        return years;
+    }
+
+    public void setYears(int years) {
+        this.years = years;
+    }
+
+    public int getWeeks() {
+        return weeks;
+    }
+
+    public void setWeeks(int weeks) {
+        this.weeks = weeks;
+    }
+
+    public int getMonths() {
+        return months;
+    }
+
+    public void setMonths(int months) {
+        this.months = months;
+    }
+
+    @Override
+    public String toString() {
+        return "Duration [days=" + days + ", hours=" + hours + ", minutes=" + minutes + ", seconds=" + seconds + ", years=" + years + ", weeks=" + weeks + ", months=" + months + "]";
+    }
 
 }

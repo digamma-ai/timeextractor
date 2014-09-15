@@ -47,7 +47,7 @@ public class Time3Rule extends BaseRule {
 		int timezone = 0;
 		if (this.timezone != null) {
 			timezone = parser.getTimeZone(this.timezone);
-			time.setTimezoneOffset(timezone);
+			time.setTimezone(timezone);
 		}
 		time.setHours(hours);
 		Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type,

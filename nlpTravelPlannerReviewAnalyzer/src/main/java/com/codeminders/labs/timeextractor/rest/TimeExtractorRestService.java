@@ -21,7 +21,6 @@ import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
-
 @Path("/")
 public class TimeExtractorRestService {
 
@@ -56,9 +55,5 @@ public class TimeExtractorRestService {
 
     public SUTimeService getSutimeService() {
         return sutimeService;
-    }
-
-    public void setSutimeService(SUTimeService sutimeService) {
-        this.sutimeService = sutimeService;
     }
 }

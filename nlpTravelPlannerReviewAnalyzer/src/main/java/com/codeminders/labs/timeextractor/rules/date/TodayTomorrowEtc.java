@@ -2,6 +2,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.joda.time.LocalDate;
 
@@ -13,6 +14,7 @@ import com.codeminders.labs.timeextractor.utils.TemporalParser;
 public class TodayTomorrowEtc extends BaseRule {
     private String date;
     private TemporalParser parser;
+    private double confidence = 0.99;
 
     public TodayTomorrowEtc(String date) {
         this.date = date;
@@ -31,5 +33,23 @@ public class TodayTomorrowEtc extends BaseRule {
         List<Temporal> result = new ArrayList<Temporal>();
         result.add(temporal);
         return result;
+    }
+
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 }

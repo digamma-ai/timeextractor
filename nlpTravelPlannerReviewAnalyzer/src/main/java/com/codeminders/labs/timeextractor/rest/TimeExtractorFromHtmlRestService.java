@@ -34,7 +34,6 @@ public class TimeExtractorFromHtmlRestService {
         String html = object.optString(RestParameters.HTML);
         Map<String, List<AnnotationIntervalHtml>> result = sutimeService.extractDatesAndTimeFromHtml(html);
         Response response = Response.status(200).entity(result).build();
-        System.out.println(result);
         return response;
     }
 

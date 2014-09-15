@@ -5,7 +5,16 @@ public class Time {
     private int hours;
     private int minutes;
     private int seconds;
-    private int timezoneOffset;
+    private int timezone;
+
+    public Time() {
+    }
+
+    public Time(int hours, int minutes, int seconds) {
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+    }
 
     public int getHours() {
         return hours;
@@ -32,16 +41,16 @@ public class Time {
     }
 
     public int getTimezoneOffset() {
-        return timezoneOffset;
+        return timezone;
     }
 
-    public void setTimezoneOffset(int timezoneOffset) {
-        this.timezoneOffset = timezoneOffset;
+    public void setTimezone(int timezone) {
+        this.timezone = timezone;
     }
 
     @Override
     public String toString() {
-        return "Time [hours=" + hours + ", minutes=" + minutes + ", seconds=" + seconds + ", timezoneOffset=" + timezoneOffset + "]";
+        return "Time [hours=" + hours + ", minutes=" + minutes + ", seconds=" + seconds + ", timezoneOffset=" + timezone + "]";
     }
 
 }

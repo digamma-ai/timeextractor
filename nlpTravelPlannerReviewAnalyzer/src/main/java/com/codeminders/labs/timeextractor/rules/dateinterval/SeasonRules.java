@@ -24,7 +24,7 @@ public class SeasonRules extends BaseRule {
 
     @Override
     public Type getType() {
-        return Type.DATEINTERVAL;
+        return Type.DATE_INTERVAL;
     }
 
     @Override
@@ -33,5 +33,23 @@ public class SeasonRules extends BaseRule {
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+    
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 }

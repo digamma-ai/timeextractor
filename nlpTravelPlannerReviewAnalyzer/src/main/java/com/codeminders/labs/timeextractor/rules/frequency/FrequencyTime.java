@@ -8,21 +8,20 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 
 public class FrequencyTime extends BaseRule {
 
-	private String frequencyTime;
+    private String frequencyTime;
 
-	public FrequencyTime(String frequencyTime) {
-		this.frequencyTime = frequencyTime;
-	}
+    public FrequencyTime(String frequencyTime) {
+        this.frequencyTime = frequencyTime;
+    }
 
-	@Override
-	public Type getType() {
-		return Type.FREQUENCY;
-	}
+    @Override
+    public Type getType() {
+        return Type.FREQUENCY;
+    }
 
-	@Override
-	public List<Temporal> getTemporal() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<Temporal> getTemporal() {
+        return null;
+    }
 
 }

@@ -247,7 +247,7 @@ public class TemporalParser {
         }
         if (timeOfDay.equalsIgnoreCase("night") || timeOfDay.equalsIgnoreCase("nights")) {
             Time startTime = new Time(22, 0, 0);
-            Time endTime = new Time(4, 0, 0);
+            Time endTime = new Time(23, 59, 59);
             start.setTime(startTime);
             end.setTime(endTime);
             temporal = new Temporal(start, end);

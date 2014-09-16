@@ -84,8 +84,8 @@ public class AnnotationIntervalHtml extends AnnotationInterval {
 
     @Override
     public String toString() {
-        return "AnnotationIntervalHtml [htmlTagFrom=" + htmlTagFrom + ", htmlTagTo=" + htmlTagTo + ", extractedText=" + extractedText + ", from=" + from + ", to=" + to + ", confidence=" + confidence
-                + ", locale=" + locale + "]";
+        return "AnnotationIntervalHtml [htmlTagFrom=" + htmlTagFrom + ", htmlTagTo=" + htmlTagTo + ", extractedText=" + extractedText + ", extractedTemporal=" + extractedTemporal + ", tag=" + tag
+                + ", locale=" + locale + ", confidence=" + confidence + ", temporalType=" + temporalType + "]";
     }
 
 }

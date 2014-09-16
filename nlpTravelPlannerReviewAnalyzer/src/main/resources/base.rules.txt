@@ -10,6 +10,7 @@ MonthAndDayRule3 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.
 MonthAndDayRule4 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule4" }
 MonthAndDayRule5 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule5" }
 MonthDayYearRule1= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule1" }
+MonthAndDayRule6  = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule6" }
 
 DayOfWeekRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule1" }
 DayOfWeekRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule2" }
@@ -37,10 +38,14 @@ MidLateMonthRule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.r
 TimeIntervalRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule2" }
 TimeIntervalRule3 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule3" }
 TimeIntervalRule4= { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule4" }
+TimeIntervalRule5 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule5" }
+
 TimeOfDayRule = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.timeinterval.TimeOfDayRule" }
 
 WeekEnd =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.WeekEnd" }
 WeekDay = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.WeekDay" }
+Dateinterval2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.Dateinterval2" } 
+DateInterval3 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval3" } 
 
 DayOfWeekIntervalRule1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule1" }
 BetweenTimeEvent = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.BetweenTimeEvent" }
@@ -50,6 +55,7 @@ TodayTomorrowEtc = { type: "CLASS", value: "com.codeminders.labs.timeextractor.r
 CompositeTime4RuleMonthAndDayRule0 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeTime4RuleMonthAndDayRule0" }
 CompositeDayOfWeekTimeOfDay = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeDayOfWeekTimeOfDay" }
 CompositeDayOfWeekDate = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeDayOfWeekDate" }
+CompositeDateIntervals  = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.composite.CompositeDateIntervals" }
 
 FrequencyTime = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime" }
 
@@ -58,7 +64,7 @@ EveryPeriod  =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
 AllPeriod =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.set.AllPeriod" }
 
 CompositeSet1 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.set.CompositeSet1" }
-
+CompositeSet2 =  { type: "CLASS", value: "com.codeminders.labs.timeextractor.rules.set.CompositeSet2" }
 
 ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntityTagAnnotation" }
 
@@ -141,7 +147,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
      priority:2,
      matchWithResults: TRUE,
-     pattern: (/daily|weekly|monthly|yearly/),
+     pattern: (/daily|weekly|monthly|yearly|annual/),
      action: Annotate($0, ner, "FrequencyTime"),
   	 result: FrequencyTime($$0.text) 
   }
@@ -298,16 +304,23 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    // Sunday 17 of July
   
   { ruleType: "tokens", 
-    pattern: ((/($DAY_OF_WEEK)/) /,/? (/([1-2][0-9]|[3][0-1]|[1-9])/) /(of)(the)?/? (/($MONTH_OF_YEAR)/) ),
+    pattern: ((/($DAY_OF_WEEK|$DAYOFWEEK_EASY)/) /,/? (/([1-2][0-9]|[3][0-1]|[1-9])/) /(of)(the)?/? (/($MONTH_OF_YEAR)/) ),
     matchWithResults: TRUE,    
   	result: MonthAndDayRule5($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1), $$3.matchResults[0].word.group(1)) 
+  }
+  
+    // Fri, 6/27
+  
+  {  ruleType: "text", 
+     pattern: /\b($DAY_OF_WEEK|$DAYOFWEEK_EASY)[,][\s]*((\b[1-9]\b)|(\b[1][0-2]\b))\/((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*([,])?([2][0-9]\d\d)?/,
+  	 result: MonthAndDayRule6($1,$2,$5,$10) 
   }
          
   // March the Fourteenth, 2011
    
   {  ruleType: "text", 
      priority:3,
-     pattern: /\b($MONTH_OF_YEAR)[\s]*(the)?[\s]*($BasicOrdTerm)[,]?([\s]*of)?[\s]*((19|20)\d\d)\b/, 
+     pattern: /\b($MONTH_OF_YEAR)[\s]*(the)?[\s]*($BasicOrdTerm)[,]?([\s]*of)?[\s]*((20)\d\d)\b/, 
      result: MonthAndDayOrderRule6($1,$3,$5) 
   }
                 
@@ -328,6 +341,9 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     pattern: ( (/($MONTH_OF_YEAR_EASY)[.]?/) (/([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd|rd)?/)/[,]/? (/([2][0-9]\d\d)/)? ),
   	result: MonthAndDayRule4($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
+  
+  
+ 
     
   ############################## Time exact #########################################
   
@@ -457,7 +473,33 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     pattern:  ( (/(after|before|until|till|til|by)/) (/(([0-9]|0[0-9]|1[0-9]|2[0-3])[\s]*(([p,P][.]?[m,M])|([a,A][.]?[m,M])))/) (/($TimeZone)/)? ),
     result: TimeIntervalRule4($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(2),$$2.matchResults[0].word.group(3),$$3.matchResults[0].word.group(1)) 
   }
+  
+  
+   // 11.30 am-12.30 pm CET, 
+  {
+   ruleType: "text",
+   priority:5,
+   pattern: /\b((from|between)[\s]*)?(([01]?[0-9]|2[0-3]|1[0-9])([:.,]([0-5][0-9]))?)[\s]*(([p,P][.]?[m,M]?[.]?)|([a,A][.]?[m,M]?[.]?))?[\s]*(-|to|until|till|til|up to|through|thru)[\s]*(\b([01]?[0-9]|2[0-3]|1[0-9])([:.,]([0-5][0-9]))?\b)[\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))[\s]*($TimeZone)?/ ,
+   result: TimeIntervalRule5($4,$6,$7,$12,$14,$15,$18)
+  }
+  
+  // 11:30 am-12:30 pm CET, 
+  {
+   ruleType: "text",
+   priority:5,
+   pattern: /\b((from|between)[\s]*)?(([01]?[0-9]|2[0-3]|1[0-9])([:]([0-5][0-9]))?)[\s]*(([p,P][.]?[m,M]?[.]?)|([a,A][.]?[m,M]?[.]?))?[\s]*(-|to|until|till|til|up to|through|thru|and)[\s]*(\b([01]?[0-9]|2[0-3]|1[0-9])([:.,]([0-5][0-9])))[\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))?\b[\s]*($TimeZone)?/ ,
+   result: TimeIntervalRule5($4,$6,$7,$12,$14,$15,$18)
+  }
       
+     // 9am till 6pm
+   
+   {
+   ruleType: "text",
+   priority:3,
+   pattern: /(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\s]*(to|till|until|before)[\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))[\s]*($TimeZone)?/ ,
+   result: TimeIntervalRule5($1,"0",$3,$7,"0",$9,$12)
+   }
+  
       
 ############################## Date Interval #########################################
             
@@ -498,6 +540,14 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
 	result: MonthToMonthRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1))
 	}
 	
+	// from 9th February -5th June 2012 
+  
+  {  ruleType: "text", 
+     priority:3,
+     pattern: /\b(from)[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\s]*($MONTH_OF_YEAR)[\s]*([-]|(to)|(until))[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\s]*($MONTH_OF_YEAR)[\s]*((20)\d\d)?\b/, 
+     result: Dateinterval2($2, $7, $11, $16,$17) 
+   }
+	
 	// Wed.-Fri. (date period )
   
   { ruleType: "tokens", 
@@ -527,6 +577,13 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    result: TimeIntervalRule2($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1))
   }
   
+    // 1-21 July 2014 etc.
+  { ruleType: "text", 
+    pattern: /((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[-]((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*($MONTH_OF_YEAR)[\s]*((20)\d\d)?/,
+  	result: DateInterval3($1,$5,$9,$10) 
+  }
+  
+  
   ############COMPOSITE##################
 
     ENV.defaults["stage"] = 2
@@ -544,6 +601,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { pattern: (([{ner:DayOfWeekRule1}]) /,/? ([{ner:TimeOfDayRule}]+) ),  
      name: "CompositeDayOfWeekTimeOfDay",
      priority:10,
+     action: Annotate($0, ner, "CompositeDayOfWeekTimeOfDay"),
   	 result: CompositeDayOfWeekTimeOfDay($$1.text, $$2.text)
   }
   
@@ -573,6 +631,8 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   	 result: CompositeSet1($$1.text)
   }
   
+
+  
     // every 1st Sunday 
  
    { pattern: ( /every/ ([{ner:DayOfWeekOrderRule2}]+) ),  
@@ -596,13 +656,48 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
      priority:10,
   	 result: CompositeDayOfWeekDate($$1.text, $$2.text)
   }
+  
+   // 1st April to 31st October
+ 
+   { pattern: ( ([{ner:MonthAndDayRule2}]+) /to|-/ ([{ner:MonthAndDayRule2}]+) ),  
+     name: "CompositeDayOfWeekTimeOfDay",
+     priority:10,
+  	 result: CompositeDayOfWeekDate($1.word, $2.word)
+  }
+  
+     // Jan 26 to June 26, 2014 
+ 
+   { pattern: ( ([{ner:MonthAndDayRule1}]+) /to|-/ ([{ner:MonthAndDayRule1}]+) ),  
+     name: "CompositeDateIntervals",
+     priority:10,
+  	 result: CompositeDateIntervals($1.word, $2.word)
+  }
     
   
   ############OWN COMPOSITE##################
   
    ENV.defaults["stage"] = 3
+   
 
 
+   ############SET##################
+  
+    // every Friday night, Wed morning
+ 
+   { pattern: (/every/ ([{ner:CompositeDayOfWeekTimeOfDay}]+) ),  
+     name: "CompositeDayOfWeekTimeOfDay",
+     priority:10,
+  	 result: CompositeSet2($$1.text)
+  }
+  
+      // every Sunday 
+ 
+   { pattern: ( /every/ ([{ner:DayOfWeekRule1}]+) ),  
+     name: "CompositeDayOfWeekTimeOfDay",
+     priority:10,
+  	 result: CompositeSet2($$1.text)
+  }
+  
 
   ############FILTERS##################
    

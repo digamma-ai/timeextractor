@@ -6,24 +6,22 @@ import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
 public class TrainingMain {
 
-	public static void main(String[] args) throws IOException,
-			ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-		SUTimeService service = new SUTimeService();
+        SUTimeService service = new SUTimeService();
 
-		String date = "2014-09-01";
-		String toPredict = "Thurs at 2:30pm";
-		List<TemporalExtraction> predicted = service
-				.extractDatesAndTimeFromText(toPredict, date);
-		for (TemporalExtraction cm : predicted) {
-			System.out.println("Text: " + cm.getTemporalExpression());
-			System.out.println("Class of rule: " + cm.getClassOfRuleType());
-			System.out.println(cm.getTemporal());
-			System.out.println(cm.getFromPosition());
-			System.out.println(cm.getToPosition());
-			System.out.println(cm.getConfidence());
+        String date = "2014-09-01";
+        String toPredict = "March the Fourteenth, 2011";
+        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, date);
+        for (TemporalExtraction cm : predicted) {
+            System.out.println("Text: " + cm.getTemporalExpression());
+            System.out.println("Class of rule: " + cm.getClassOfRuleType());
+            System.out.println(cm.getTemporal());
+            System.out.println(cm.getFromPosition());
+            System.out.println(cm.getToPosition());
+            System.out.println(cm.getConfidence());
 
-			System.out.println("----------------------------------");
-		}
-	}
+            System.out.println("----------------------------------");
+        }
+    }
 }

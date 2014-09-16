@@ -48,31 +48,7 @@
      result: BetweenTimeEvent($0) 
    }
    
-  // from 9th February -5th June 2012 
-  
-  {  ruleType: "text", 
-     priority:3,
-     pattern: /\b(from)[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\s]*($MONTH_OF_YEAR)[\s]*([-]|(to)|(until))[\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\s]*($MONTH_OF_YEAR)[\s]*((19|20)\d\d)?\b/, 
-     result: BetweenTimeEvent($0) 
-   }
    
-  
-  // 11.30 am-12.30 pm, 
-  {
-   ruleType: "text",
-   priority:5,
-   pattern: /\b(([01]?[0-9]|2[0-3]|1[0-9])([:.,][0-5][0-9])?)[\s]*(([p,P][.]?[m,M]?[.]?)|([a,A][.]?[m,M]?[.]?))?[\s]*(-|to)[\s]*(([01]?[0-9]|2[0-3]|1[0-9])([:.,][0-5][0-9])?)[\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))/ ,
-   result: BetweenTimeEvent($0)
-  }
-  
-  //11:30-12:30, 11.30 am-12.30 pm, 
-  {
-   ruleType: "text",
-   priority:6,
-   pattern: /\b(from[\s]*)?(2[0-3]|1[0-9]|([01]?[0-9]))(([:.,][0-5][0-9])?)[\s]*(-|to)[\s]*(2[0-3]|1[0-9]|([01]?[0-9]))([:.,][0-5][0-9])[\s]*(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?\b/ ,
-   result: BetweenTimeEvent($0)
-  }
- 
    // till 09/13/2013, till 09.13.2013
    {
    ruleType: "text",
@@ -131,24 +107,7 @@
    result: BetweenTimeEvent($0)
    }
    
-    // from 10:00 to 11:00
-   {
-   ruleType: "text",
-   priority:2,
-   pattern:/(from)?[\s]*([0-9]|0[0-9]|1[0-9]|2[0-3])[:.][0-5][0-9][\s]*(to|till|until|before)[\s]*([0-9]|0[0-9]|1[0-9]|2[0-3])[:.][0-5][0-9]/,
-   result: BetweenTimeEvent($0)
-   }
-   
-   // 9am till 6pm
-   
-   {
-   ruleType: "text",
-   priority:3,
-   pattern: /(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\s]*(to|till|until|before)[\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))/ ,
-   result: BetweenTimeEvent($0)
-   }
-       
-  
+    
  // lunch time
   
  {
@@ -288,32 +247,12 @@
   result: BetweenTimeEvent($0)
   }  
    
-      
-  { ruleType: "text", pattern: /\b((\d|\d\d)[\s]?(weeks))\b/,
-   result: BetweenTimeEvent("N Weeks")  }
-   
-  // summer hours 
-  { ruleType: "text", pattern: /\b(summer)[\s]?(hours|hour)\b/,
-   result: BetweenTimeEvent("Summer")  }
-   
+  
  // all day - duration
   { ruleType: "text", pattern: /(all|entire|full)[\s]? (day|month|year)/,
   	 result: BetweenTimeEvent("whole")  
   }
-  
-  
- // past 7 years 
-  
-  { ruleType: "text", pattern: /\b(past)[\s]?\b[\d]\b[\s]?(years)\b/,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
-  // Fri, 6/27
-  
-  { ruleType: "text", pattern: /\b($DAYOFWEEK_EASY)[,][\s]*((\b[1-9]\b)|(\b[1][0-2]\b))\/((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))\b/,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
+   
    // 1-2 hours
   
   { ruleType: "text",
@@ -329,24 +268,14 @@
   	 result: BetweenTimeEvent($0) 
   }
   
-  // 1-21 July 2014 etc.
-  { ruleType: "text", pattern: /((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[-]((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*($MONTH_OF_YEAR)[\s]*((19|20)\d\d)?/,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
-   // June 24-29 July 2014 etc.
-  { ruleType: "text", pattern: /($MONTH_OF_YEAR)[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[-]((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*((19|20)\d\d)?/,
-  	 result: BetweenTimeEvent($0) 
-  }
-
-  // half hour, quarter hour
+ 
+   // half hour, quarter hour
 	{ 
     ruleType: "text",
 	pattern: /\b((half|quarter)[\s]*(hour))\b/,
 	result: BetweenTimeEvent("PERIOD_TIME") 
     }
- 
- 
+  
   // n days a week
   {  ruleType: "text", 
      pattern: /\b[1-7][\s]*(days a week)\b/, 
@@ -357,7 +286,7 @@
 	{ 
     ruleType: "text",
     priority:0,
-	pattern: /\b((the)[\s](($BasicOrdTerm))[\s]*)?(([1-9])|([1-9][0-9]))(([\s]*[-][\s]*(([1-9])|([1-9][0-9][0-9]?)))?[\s]?)?(minutes|minute|mins|min|mns|mn)\b/,
+	pattern: /\b((the)[\s](($BasicOrdTerm))[\s]*)?(([1-9])|([1-9][0-9]))(([\s]*[-][\s]*(([1-9])|([1-9][0-9][0-9]?)))[\s]?)?(minutes|minute|mins|min|mns|mn)\b/,
 	result: BetweenTimeEvent("abc") 
     }
     
@@ -391,20 +320,7 @@
      pattern: /\b(every hour)\b/, 
      result: BetweenTimeEvent("every hour") 
   }
-  
-    // last an hour
-    {  ruleType: "text", 
-     priority: 1,
-     pattern: /\b((last)[\s]*($BasicNumTerm)?(an)?[\s]*(hours|hour|hrs|hr|h))\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
-  
-   // Dec. 26-30
-   
-  {  ruleType: "text", 
-     pattern: /\b(($MONTH_OF_YEAR_EASY)[.]?[\s]*((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[-]((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b)))\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
-  }
+
    
     // March the Fourteenth, 2011
    
@@ -412,14 +328,6 @@
      priority:3,
      pattern: /\b($MONTH_OF_YEAR)[\s]*(the)[\s]*($BasicOrdTerm)[,][\s]*((19|20)\d\d)\b/, 
      result: MonthAndDayRule0("PERIOD_TIME") 
-  }
-  
-  // two days 
-  
-  {  ruleType: "text", 
-     priority:0,
-     pattern: /\b($BasicNumTerm)[\s]*(days)\b/, 
-     result: BetweenTimeEvent("PERIOD_TIME") 
   }
      
    // 24/7
@@ -430,12 +338,4 @@
      result: BetweenTimeEvent("PERIOD_TIME") 
   }
   
-
-     // n year/years
-  
-   { ruleType: "text", 
-    priority:1,
-    pattern: /\b((the last|about the last)[\s]*)?([1-9][0-9]?[0-9]?)[\s]*(year|years)\b/,
-  	result: BetweenTimeEvent($0) 
-  }
   

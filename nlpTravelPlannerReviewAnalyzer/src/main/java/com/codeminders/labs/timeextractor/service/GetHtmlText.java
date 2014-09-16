@@ -27,13 +27,13 @@ public class GetHtmlText {
 
         Elements htmlElements = document.body().select("*");
         for (Element element : htmlElements) {
-            if (element.childNodes().size() > 3 && element.ownText().isEmpty()) {
+            if (element.childNodes().size() > 2 || element.ownText().isEmpty()) {
                 continue;
             }
-            if (element.ownText().isEmpty() || element.ownText().length() < 2 || element.toString().length() > 10000) {
+            if (element.ownText().length() < 2 || element.toString().length() > 7000) {
                 continue;
             }
-            String text = element.text();
+            String text = element.ownText();
 
             try {
                 String elementString = element.toString();

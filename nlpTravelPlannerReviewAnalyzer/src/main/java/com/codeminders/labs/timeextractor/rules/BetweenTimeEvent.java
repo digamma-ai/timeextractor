@@ -12,12 +12,10 @@ public class BetweenTimeEvent extends BaseRule {
 	String values;
 
 	public BetweenTimeEvent(String label, String a) {
-		System.out.println(label + " " + a);
 		this.values = label;
 	}
 
 	public BetweenTimeEvent(String label) {
-		System.out.println(label);
 		this.values = label;
 	}
 

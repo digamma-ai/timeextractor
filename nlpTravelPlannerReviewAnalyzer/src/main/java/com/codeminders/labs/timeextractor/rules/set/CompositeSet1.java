@@ -23,7 +23,6 @@ public class CompositeSet1 extends BaseRule {
     }
 
     public CompositeSet1(String firstDayOfWeekOfEveryMonth) {
-        System.out.println(firstDayOfWeekOfEveryMonth);
         List<TemporalExtraction> one = service.extractDatesAndTimeFromText(firstDayOfWeekOfEveryMonth, null);
         Temporal dayOfWeek = one.get(0).getTemporal().get(0);
         Set set = new Set();

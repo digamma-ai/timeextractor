@@ -51,7 +51,7 @@ public class TimeOfDayRuleTest extends GeneralTest {
         List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
         assertEquals("night", predicted.get(0).getTemporalExpression());
         assertEquals(22, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
-        assertEquals(4, predicted.get(0).getTemporal().get(0).getEndDate().getTime().getHours());
+        assertEquals(23, predicted.get(0).getTemporal().get(0).getEndDate().getTime().getHours());
 
     }
 

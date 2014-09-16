@@ -33,11 +33,6 @@ public class CompositeDayOfWeekTimeOfDay extends BaseRule {
 
 	}
 
-	public CompositeDayOfWeekTimeOfDay(java.lang.String dayOfWeek,
-			java.util.ArrayList timeOfDay) {
-		System.out.println(timeOfDay);
-	}
-
 	@Override
 	public Type getType() {
 		return Type.DATE_TIME_INTERVAL;

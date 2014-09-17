@@ -17,43 +17,53 @@ import org.codehaus.jettison.json.JSONObject;
 
 import com.codeminders.labs.timeextractor.constants.RestParameters;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
+import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
+
+/* Rest service to extract temporal date either from array of texts or from html page*/
 
 @Path("/")
 public class TimeExtractorRestService {
 
     private static SUTimeService sutimeService = new SUTimeService();
 
-    /* Get all annotation for multiple texts */
-
     @POST
-    @Path("/annotate/")
+    @Path("/annotate")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
-        List<BaseText> baseTexts = new ArrayList<BaseText>();
+        JSONObject object = jsonArray.getJSONObject(0);
+        String html = object.optString(RestParameters.HTML);
+        // html case
+        if (html != null & !html.isEmpty()) {
+            Map<String, List<AnnotationIntervalHtml>> result = sutimeService.extractDatesAndTimeFromHtml(html);
+            return Response.status(200).entity(result).build();
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            BaseText baseText = new BaseText();
-            JSONObject object = jsonArray.getJSONObject(i);
-            baseText.setId(object.optString(RestParameters.ID));
-            baseText.setText(object.optString(RestParameters.TEXT));
-
-            try {
-                baseText.setDate(object.optString(RestParameters.DATE));
-            } catch (Exception ex) {
-            }
-            baseTexts.add(baseText);
         }
+        // text case
+        else {
+            List<BaseText> baseTexts = new ArrayList<BaseText>();
 
-        Map<String, List<TemporalExtraction>> extractDates = sutimeService.extractDatesAndTimeFromText(baseTexts);
-        Map<String, List<AnnotationInterval>> annotatedIntervals = sutimeService.getAllAnnotations(extractDates);
-        return Response.status(200).entity(annotatedIntervals).build();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                BaseText baseText = new BaseText();
+                object = jsonArray.getJSONObject(i);
+                baseText.setId(object.optString(RestParameters.ID));
+                baseText.setText(object.optString(RestParameters.TEXT));
+                try {
+                    baseText.setDate(object.optString(RestParameters.DATE));
+                } catch (Exception ex) {
+
+                }
+                baseTexts.add(baseText);
+            }
+
+            Map<String, List<TemporalExtraction>> extractDates = sutimeService.extractDatesAndTimeFromText(baseTexts);
+            Map<String, List<AnnotationInterval>> annotatedIntervals = sutimeService.getAllAnnotations(extractDates);
+            return Response.status(200).entity(annotatedIntervals).build();
+
+        }
     }
 
-    public SUTimeService getSutimeService() {
-        return sutimeService;
-    }
 }

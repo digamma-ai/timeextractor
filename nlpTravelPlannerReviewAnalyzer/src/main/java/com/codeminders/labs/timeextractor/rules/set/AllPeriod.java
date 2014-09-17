@@ -1,13 +1,19 @@
 package com.codeminders.labs.timeextractor.rules.set;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.utils.TemporalParser;
 
 public class AllPeriod extends BaseRule {
     private String period;
+    private TemporalParser parser;
+    {
+        parser = new TemporalParser();
+    }
 
     public AllPeriod(String period) {
         this.period = period;
@@ -15,13 +21,14 @@ public class AllPeriod extends BaseRule {
 
     @Override
     public Type getType() {
-        // TODO Auto-generated method stub
-        return null;
+        return Type.DURATION;
     }
 
     @Override
     public List<Temporal> getTemporal() {
-        // TODO Auto-generated method stub
-        return null;
+        Temporal temporal = parser.getDuration(period, 1);
+        List<Temporal> temporalList = new ArrayList<Temporal>();
+        temporalList.add(temporal);
+        return temporalList;
     }
 }

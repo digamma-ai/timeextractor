@@ -137,8 +137,6 @@ public class SUTimeService {
 
         }
         Map<String, List<AnnotationIntervalHtml>> result = getAnnotationIntervalsForHtml(map);
-        System.out.println(map.size());
-
         return result;
     }
 

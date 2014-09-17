@@ -10,7 +10,7 @@ import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 
 public class DurationRule1 extends BaseRule {
-    TemporalParser parser;
+    private TemporalParser parser;
     private String duration;
     private String durationPeriod;
     private double confidence = 0.9;

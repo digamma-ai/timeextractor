@@ -4,11 +4,13 @@ import java.util.Calendar;
 
 import org.joda.time.LocalDate;
 
+import com.codeminders.labs.timeextractor.constants.Frequency;
 import com.codeminders.labs.timeextractor.constants.Holidays;
 import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.constants.WeekOfMonth;
 import com.codeminders.labs.timeextractor.temporal.entites.Date;
 import com.codeminders.labs.timeextractor.temporal.entites.Duration;
+import com.codeminders.labs.timeextractor.temporal.entites.Set;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.Time;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
@@ -279,4 +281,47 @@ public class TemporalParser {
         return temporal;
 
     }
+
+    public Temporal getTemporalForEveryPeriod(String period) {
+        Temporal temporal = new Temporal();
+        Set set = new Set();
+        temporal.setType(Type.SET);
+
+        if (period.equalsIgnoreCase("day") || period.equalsIgnoreCase("daily")) {
+            set.setFrequency(Frequency.EVERY_DAY);
+            temporal.setSet(set);
+            return temporal;
+
+        } else if (period.equalsIgnoreCase("week") || period.equalsIgnoreCase("weekly")) {
+            set.setFrequency(Frequency.EVERY_WEEK);
+            temporal.setSet(set);
+            return temporal;
+
+        } else if (period.equalsIgnoreCase("month") || period.equalsIgnoreCase("monthly")) {
+            set.setFrequency(Frequency.EVERY_MONTH);
+            temporal.setSet(set);
+            return temporal;
+
+        } else if (period.equalsIgnoreCase("year") || period.equalsIgnoreCase("yearly") || period.equalsIgnoreCase("annual")) {
+            set.setFrequency(Frequency.EVERY_YEAR);
+            temporal.setSet(set);
+            return temporal;
+        }
+
+        else if (period.equalsIgnoreCase("weekend")) {
+            set.setFrequency(Frequency.EVERY_WEEKEND);
+            temporal.setSet(set);
+            return temporal;
+        }
+
+        else if (period.equalsIgnoreCase("weekday")) {
+            set.setFrequency(Frequency.EVERY_WEEKDAY);
+            temporal.setSet(set);
+            return temporal;
+        } else {
+            return null;
+        }
+
+    }
+
 }

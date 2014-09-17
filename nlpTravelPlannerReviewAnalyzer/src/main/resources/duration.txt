@@ -15,7 +15,7 @@ DurationRule2 = { type: "CLASS", value: "com.codeminders.labs.timeextractor.rule
    { ruleType: "tokens", 
     priority:2,
     matchWithResults: TRUE, 
-    pattern: ( /at/? /least/? /the/? /up/? /to/? /more/? /than/? /about|lasts|past|last/? /by/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))/)(/(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
+    pattern: ( /at/? /least/? /the/? /up/? /to/? /more/? /less/? /than/? /about|lasts|past|last/? /by/? (/(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))/)(/(minutes|minute|mins|min|mns|mn|hours|hour|hrs|weeks|week|months|month|years|year|days|day)/) ),
     result: DurationRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
     }
     

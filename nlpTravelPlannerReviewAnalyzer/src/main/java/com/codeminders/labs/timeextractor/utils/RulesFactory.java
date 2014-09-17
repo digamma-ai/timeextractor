@@ -5,6 +5,7 @@ import com.codeminders.labs.timeextractor.rules.composite.CompositeDateIntervals
 import com.codeminders.labs.timeextractor.rules.composite.CompositeDayOfWeekDate;
 import com.codeminders.labs.timeextractor.rules.composite.CompositeDayOfWeekTimeOfDay;
 import com.codeminders.labs.timeextractor.rules.composite.CompositeTime4RuleMonthAndDayRule0;
+import com.codeminders.labs.timeextractor.rules.composite.OrderYearTemporal;
 import com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule1;
 import com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule2;
 import com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule1;
@@ -199,6 +200,8 @@ public class RulesFactory {
             return (DateInterval3) obj;
         case ("MonthAndDayRule6"):
             return (MonthAndDayRule6) obj;
+        case ("OrderYearTemporal"):
+            return (OrderYearTemporal) obj;
         }
         return null;
     }

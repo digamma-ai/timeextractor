@@ -16,7 +16,6 @@ public class CompositeDayOfWeekTimeOfDay extends BaseRule {
     private Temporal temporal;
 
     public CompositeDayOfWeekTimeOfDay(ArrayList<String> dayofWeekList, ArrayList<String> timeOfDayList) {
-        System.out.println(dayofWeekList + " " + timeOfDayList);
         String dayOfWeek = "";
         String timeOfDay = "";
 

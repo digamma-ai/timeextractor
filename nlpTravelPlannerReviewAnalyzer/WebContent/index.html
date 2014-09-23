@@ -1,41 +1,160 @@
+
 <html>
 <head>
-<title>Temporal information extraction example</title>
+    <title>Codeminders - Temporal Extractor</title>
+    <meta name="copyright" content="Copyright 2004-2014 &quot;codeminders&quot;">
+    <meta name="description" content="Instantly turn your computer with web camera into Internet-connected motion-sensing security system.">
+    <meta name="keywords" content="codeminders, machine learning, nlp, time extraction, temporal extraction">
+    <meta name="robots" content="all">
 
-<link
-	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
-	rel="stylesheet" type="text/css" />
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="http://www.codeminders.com/css/codeminders.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.codeminders.com/favicon.ico">
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"
-	type="text/javascript"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
-	type="text/javascript"></script>
-<script type="text/javascript" src="app.js"></script>
-<link rel="stylesheet" type="text/css" href="custom.css" />
+    <style type="text/css">
+        .temporalextractorheader
+        {
+            top: 173px;
+            left: 245px;
+            z-index: 100;
+            position: absolute;
+        }
 
+        .temporalextractortitle
+        {
+            font-size: 18pt;
+            font-weight: bold;
+            top: 190px;
+            left: 550px;
+            z-index: 100;
+            position: absolute;
+        }
+
+        .reference td {
+            border: 1px solid #d4d4d4;
+            padding: 5px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            vertical-align: top;
+        }
+
+    </style>
 </head>
-<body>
 
-	<form id="requestForm">
-		<fieldset>
-		<h1>Input text here</h1>
-			<p>
-				<textarea id="text"  name="text" class = "ta5">
-				</textarea>
-			</p>
-			<p>
-				<input id="myButton" type="button" value="Submit" class = "myButton" />
-			</p>
-		</fieldset>
-	</form>
-	<div id="anotherSection">
-		<fieldset>
-			<h1>Annotated text</h1>
-			<div id="ajaxResponse"></div>
-		</fieldset>
-	</div>
+<body>
+<div id="container" class="pages">
+
+<div id="intro">
+<div class="codeminders-big">
+    <a href="../index.html" alt=""><img src="http://www.codeminders.com/images/codeminders-big.png" alt=""/></a>
+</div>
+
+<div class="CodemindersMottoPage">
+    <h2>from ideas. to reality.</h2>
+</div>
+
+    <span class="temporalextractorheader">
+       <a href="index.html" alt="">
+           <img src="http://www.conversational-technologies.com/nldemos/nlWordle.GIF" width="250" height="130" align="left" alt=""/>
+       </a>
+    </span>
+
+<span class="temporalextractortitle">Temporal Extractor</span>
+
+
+<div class="content">
+<div class="content-inside">
+
+<br/><br/><br/><br/>
+<div style="margin-left:50px;margin-bottom:-10px;">
+    <br/>
+</div>
+    <br/><br/><br/>
+<h1>About</h1>
+<p class="bio">
+    Temporal extractor API identifies and extracts temporal expressions such as time, date, time intervals, date intervals, durations, etc. from texts and html pages.
+    Below you can find API documentation:
+</p>
+
+<h1>API Request</h1>
+    <br>
+    <p class="bio">
+    <table class = "reference">
+
+        <tr>
+            <td >URL</td>
+            <td>http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate</td>
+        </tr>
+        <tr>
+            <td>Method</td>
+            <td>POST</td>
+        </tr>
+        <tr>
+            <td>Data Params</td>
+            <td>  <table style="width:100%" class = "reference">
+                      <tr>
+                           <td>id</td>
+                           <td>unique text identifier (integer)</td>
+                      </tr>
+                <tr>
+                    <td>text*</td>
+                    <td>Text to be annotated</td>
+                </tr>
+                <tr>
+                    <td>html</td>
+                    <td>Html page to be annotated</td>
+                </tr>
+                </table>
+
+            </td>
+        </tr>
+        <tr>
+            <td>Sample json params text</td>
+            <td><pre>var json = [
+                {"id":"2",
+                "text":"friday morning, saturday evening"
+                },
+                {"id":"3",
+                "text":"saturday"
+                }];</pre>
+
+            </td>
+        </tr>
+    <tr>
+            <td>Sample json params html</td>
+            <td><pre>var json = [ {	'html' : "&ltbody>2014-07-27 Monday &ltdiv>test saturday&lt/div>&lt/body>"} ];</pre>
+            </td>
+        </tr>
+    <tr>
+        <td>Sample call</td>
+        <td><pre>$.ajax({
+		type : "POST",
+		url : "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate",
+		data : JSON.stringify(json),
+		crossDomain : true,
+		contentType : "application/json",
+		dataType :  "json",
+                success : function(result) {
+                             console.log(result);
+                          }
+        });
+        </pre>
+
+        </td>
+    </tr>
+    </table>
+    * either 'text' or 'html' parameter should be specified, otherwise 404 Exception is thrown
+
+    <br>
+    <h1>API Response for Text</h1>
+
+    </p>
+
+<br/>
+    </div>
+    </div>
+    </div>
+    </div>
 
 </body>
 </html>

@@ -7,8 +7,8 @@ public class HtmlElement {
     private String tag;
     private String id;
     private String tagClass;
-    private int textFrom;
-    private int textTo;
+    private int htmlTagFrom;
+    private int htmlTagTo;
 
     public String getTag() {
         return tag;
@@ -35,19 +35,19 @@ public class HtmlElement {
     }
 
     public int getTextFrom() {
-        return textFrom;
+        return htmlTagFrom;
     }
 
     public void setTextFrom(int textFrom) {
-        this.textFrom = textFrom;
+        this.htmlTagFrom = textFrom;
     }
 
     public int getTextTo() {
-        return textTo;
+        return htmlTagTo;
     }
 
     public void setTextTo(int textTo) {
-        this.textTo = textTo;
+        this.htmlTagTo = textTo;
     }
 
     public String getFullTag() {
@@ -68,8 +68,8 @@ public class HtmlElement {
 
     @Override
     public String toString() {
-        return "HtmlElement [fullTag=" + fullTag + ", extractedText=" + extractedText + ", tag=" + tag + ", id=" + id + ", tagClass=" + tagClass + ", textFrom=" + textFrom + ", textTo=" + textTo
-                + "]";
+        return "HtmlElement [fullTag=" + fullTag + ", extractedText=" + extractedText + ", tag=" + tag + ", id=" + id + ", tagClass=" + tagClass + ", textFrom=" + htmlTagFrom + ", textTo="
+                + htmlTagTo + "]";
     }
 
 }

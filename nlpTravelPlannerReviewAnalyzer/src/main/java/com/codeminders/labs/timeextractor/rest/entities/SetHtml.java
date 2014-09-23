@@ -14,18 +14,14 @@ public class SetHtml implements HtmlTemporal {
 	private Frequency frequency;
 	private DaysOfRepetition daysOfRepetition;
 	private int interval;
-	private Locale locale;
-	private double confidence;
 
-	public SetHtml(Temporal temporal, Locale locale, double confidence) {
+	public SetHtml(Temporal temporal) {
 
 		this.startDateTime = temporal.getStartDate();
 		this.endDateTime = temporal.getEndDate();
 		frequency = temporal.getSet().getFrequency();
 		daysOfRepetition = temporal.getSet().getDaysOfRepetition();
 		interval = temporal.getSet().getInterval();
-		this.locale = locale;
-		this.confidence = confidence;
 	}
 
 	public TimeDate getStartDateTime() {
@@ -68,20 +64,5 @@ public class SetHtml implements HtmlTemporal {
 		this.interval = interval;
 	}
 
-	public Locale getLocale() {
-		return locale;
-	}
-
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
-
-	public double getConfidence() {
-		return confidence;
-	}
-
-	public void setConfidence(double confidence) {
-		this.confidence = confidence;
-	}
 
 }

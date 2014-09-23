@@ -49,7 +49,7 @@ public class DayOfWeekOrderRule2 extends BaseRule {
 
         return temporalList;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;

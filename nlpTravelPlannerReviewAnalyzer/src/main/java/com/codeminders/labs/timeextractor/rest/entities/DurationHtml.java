@@ -13,10 +13,8 @@ public class DurationHtml implements HtmlTemporal {
 	private int months;
 	private int years;
 
-	private Locale locale;
-	private double confidence;
 
-	public DurationHtml(Temporal temporal, Locale locale, double confidence) {
+	public DurationHtml(Temporal temporal) {
 		days = temporal.getDuration().getDays();
 		hours = temporal.getDuration().getHours();
 		minutes = temporal.getDuration().getMinutes();
@@ -24,8 +22,6 @@ public class DurationHtml implements HtmlTemporal {
 		years = temporal.getDuration().getYears();
 		weeks = temporal.getDuration().getWeeks();
 		months = temporal.getDuration().getMonths();
-		this.locale = locale;
-		this.confidence = confidence;
 	}
 
 	public int getDays() {
@@ -84,21 +80,6 @@ public class DurationHtml implements HtmlTemporal {
 		this.months = months;
 	}
 
-	public Locale getLocale() {
-		return locale;
-	}
-
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
-
-	public double getConfidence() {
-		return confidence;
-	}
-
-	public void setConfidence(double confidence) {
-		this.confidence = confidence;
-	}
 
 	@Override
 	public String toString() {

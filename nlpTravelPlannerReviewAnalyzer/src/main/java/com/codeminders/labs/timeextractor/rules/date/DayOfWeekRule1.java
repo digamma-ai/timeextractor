@@ -18,7 +18,7 @@ public class DayOfWeekRule1 extends BaseRule {
 
     private String dayOfWeek;
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.6;
 
     public DayOfWeekRule1(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;

@@ -98,7 +98,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
      priority:0,
      matchWithResults: TRUE,
-     pattern: (/in/? (/([12][0-9]\d\d)/)),
+     pattern: (/in/? (/([2][0]\d\d)/)),
      action: Annotate($0, ner, "YearRule"),
   	 result: YearRule($$1.matchResults[0].word.group(1)) 
   }

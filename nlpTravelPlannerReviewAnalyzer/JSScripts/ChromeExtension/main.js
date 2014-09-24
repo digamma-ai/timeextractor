@@ -1,3 +1,5 @@
+// local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/api/annotate"
+
 var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/api/annotate"
 var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"

@@ -176,9 +176,11 @@ public class SUTimeService {
 				AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
 				int from = element.getExtractedText().indexOf(
 						annotation.toString());
+				if (from == -1) {
+					from = 0;
+				}
 				int to = from + annotation.toString().length();
 				List<DTOTemporal> extracted = converter.convert(annotation);
-
 				List<Temporal> extractions = annotation.getTemporal();
 				if (extractions.get(0) != null
 						&& extractions.get(0).getType() != null) {

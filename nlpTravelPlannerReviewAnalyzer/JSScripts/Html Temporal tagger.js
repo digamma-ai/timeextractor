@@ -15,7 +15,7 @@
 
 // Constants
 
-var TEMPORAL_EXTRACTION_SERVICE_URL = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate"
+var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/api/annotate";
 var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
@@ -46,7 +46,10 @@ function annotate() {
 				window.scroll(0, 0);
 				// remove loader
 				$(".loader").fadeOut("slow");
-			});
+			}).fail(function(data, textStatus, jqXHR) {
+        								 $(".loader").fadeOut("slow");
+								 alert("An error occured on server: " + jqXHR);
+							});;
 }
 // get temporal data from text service
 
@@ -85,7 +88,9 @@ var highlight = function(html, data) {
 			var result = {
 				'tag' : tag,
 				'temporal' : temporal,
-				'extractedTemporal' : current_tag[0].extractedTemporal
+				'extractedTemporal' : current_tag[0].extractedTemporal,
+                'locale': current_tag[0].locale,
+                'confidence': current_tag[0].confidence
 			};
 			tags.push(result);
 		} else {
@@ -105,7 +110,9 @@ var highlight = function(html, data) {
 				var result = {
 					'tag' : tag,
 					'temporal' : temporal,
-					'extractedTemporal' : current_tag[j].extractedTemporal
+					'extractedTemporal' : current_tag[j].extractedTemporal,
+                    'locale': current_tag[0].locale,
+                    'confidence': current_tag[0].confidence
 				};
 				tags.push(result);
 			}
@@ -123,7 +130,12 @@ var highlight = function(html, data) {
 													+ JSON
 															.stringify(
 																	tags[j].extractedTemporal)
-															.replace(/"/g, '\'')
+                                        .replace(/"/g, '\'') + " "+ "locale: "+ JSON
+															.stringify(
+																	tags[j].locale)
+                                        .replace(/"/g, '\'') + " "+ "confidence: "+ JSON
+															.stringify(
+																	tags[j].confidence)
 													+ "\">"
 													+ tags[j].temporal
 													+ "</span>");

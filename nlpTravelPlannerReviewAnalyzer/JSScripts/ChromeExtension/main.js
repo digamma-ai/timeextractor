@@ -46,6 +46,8 @@ var temporalData = function(json) {
 
 // function to highlight text on html page from position
 
+//function to highlight text on html page from position
+
 var highlight = function(html, data) {
 	//iterate through object
 	var tags = [];
@@ -68,7 +70,9 @@ var highlight = function(html, data) {
 			var result = {
 				'tag' : tag,
 				'temporal' : temporal,
-				'extractedTemporal' : current_tag[0].extractedTemporal
+				'extractedTemporal' : current_tag[0].extractedTemporal,
+                'locale': current_tag[0].locale,
+                'confidence': current_tag[0].confidence
 			};
 			tags.push(result);
 		} else {
@@ -88,7 +92,9 @@ var highlight = function(html, data) {
 				var result = {
 					'tag' : tag,
 					'temporal' : temporal,
-					'extractedTemporal' : current_tag[j].extractedTemporal
+					'extractedTemporal' : current_tag[j].extractedTemporal,
+                    'locale': current_tag[0].locale,
+                    'confidence': current_tag[0].confidence
 				};
 				tags.push(result);
 			}
@@ -106,7 +112,12 @@ var highlight = function(html, data) {
 													+ JSON
 															.stringify(
 																	tags[j].extractedTemporal)
-															.replace(/"/g, '\'')
+                                        .replace(/"/g, '\'') + " "+ "locale: "+ JSON
+															.stringify(
+																	tags[j].locale)
+                                        .replace(/"/g, '\'') + " "+ "confidence: "+ JSON
+															.stringify(
+																	tags[j].confidence)
 													+ "\">"
 													+ tags[j].temporal
 													+ "</span>");
@@ -114,6 +125,7 @@ var highlight = function(html, data) {
 
 	}
 }
+
 
 jQuery.fn.textWalk = function(fn) {
 	this.contents().each(jwalk);

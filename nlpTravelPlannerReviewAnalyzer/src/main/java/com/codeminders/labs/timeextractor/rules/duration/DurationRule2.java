@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 

@@ -1,9 +1,12 @@
 package com.codeminders.labs.timeextractor.service;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
+import java.util.List;
 
+import com.codeminders.labs.timeextractor.rules.BaseRule;
+import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 import com.codeminders.labs.timeextractor.utils.RulesFactory;
+import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 import edu.stanford.nlp.ling.tokensregex.MatchedExpression;
 
@@ -24,7 +27,9 @@ public class AnnotationToObjectParser {
 			result = new TemporalExtraction();
 			result.setClassOfRuleType(type);
 			result.setTemporalExpression(expr.getText());
-			result.setTemporal(extracted.getTemporal());
+			List<Temporal> temporals = TemporalObjectGenerator.setTemporalType(
+					extracted.getTemporal(), extracted.getType());
+			result.setTemporal(temporals);
 			result.setConfidence(extracted.getConfidence());
 			result.setLocale(extracted.getLocale());
 		}

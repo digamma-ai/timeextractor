@@ -3,9 +3,9 @@ package com.codeminders.labs.timeextractor.rules.frequency;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 
 public class FrequencyTime extends BaseRule {

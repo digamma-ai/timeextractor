@@ -1,34 +1,34 @@
 package com.codeminders.labs.timeextractor.utils;
 
-import com.codeminders.labs.timeextractor.constants.DayOfWeek;
-import com.codeminders.labs.timeextractor.constants.MonthOfYear;
-import com.codeminders.labs.timeextractor.constants.WeekOfMonth;
+import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
+import com.codeminders.labs.timeextractor.temporal.entites.MonthOfYear;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeTag;
+import com.codeminders.labs.timeextractor.temporal.entites.WeekOfMonth;
 
 public class TemporalBasicCaseParser {
 
     public static DayOfWeek getDayOfWeek(String text) {
 
         if (text.equalsIgnoreCase("Monday") || text.equalsIgnoreCase("Mon") || text.equalsIgnoreCase("Mo") || text.equalsIgnoreCase("Mondays")) {
-            return DayOfWeek.MONDAY;
+            return DayOfWeek.MO;
         }
         if (text.equalsIgnoreCase("Tuesday") || text.equalsIgnoreCase("Tue") || text.equalsIgnoreCase("Tuesdays")) {
-            return DayOfWeek.TUESDAY;
+            return DayOfWeek.TU;
         }
         if (text.equalsIgnoreCase("Wednesday") || text.equalsIgnoreCase("Wed") || text.equalsIgnoreCase("Wednesdays")) {
-            return DayOfWeek.WEDNESDAY;
+            return DayOfWeek.WE;
         }
         if (text.equalsIgnoreCase("Thursday") || text.equalsIgnoreCase("Thur") || text.equalsIgnoreCase("Thursdays") || text.equalsIgnoreCase("Thu")) {
-            return DayOfWeek.THURSDAY;
+            return DayOfWeek.TH;
         }
         if (text.equalsIgnoreCase("Friday") || text.equalsIgnoreCase("Fri") || text.equalsIgnoreCase("Fridays")) {
-            return DayOfWeek.FRIDAY;
+            return DayOfWeek.FR;
         }
         if (text.equalsIgnoreCase("Saturday") || text.equalsIgnoreCase("Sat") || text.equalsIgnoreCase("Saturdays")) {
-            return DayOfWeek.SATURDAY;
+            return DayOfWeek.SA;
         }
         if (text.equalsIgnoreCase("Sunday") || text.equalsIgnoreCase("Sun") || text.equalsIgnoreCase("Sundays")) {
-            return DayOfWeek.SUNDAY;
+            return DayOfWeek.SU;
         }
         return null;
     }

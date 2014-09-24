@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.constants;
+package com.codeminders.labs.timeextractor.temporal.entites;
 
 public enum MonthOfYear {
 	JANUARY(1), FEBRUARY(2), MARCH(3), APRIL(4), MAY(5), JUNE(6), JULY(7), AUGUST(

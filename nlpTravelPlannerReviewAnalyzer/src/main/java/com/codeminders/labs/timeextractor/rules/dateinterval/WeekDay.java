@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.codeminders.labs.timeextractor.constants.DayOfWeek;
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Date;
+import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class WeekDay extends BaseRule {
@@ -30,8 +30,8 @@ public class WeekDay extends BaseRule {
         Date startDate = new Date();
         Date endDate = new Date();
 
-        startDate.setDayOfWeek(DayOfWeek.MONDAY);
-        endDate.setDayOfWeek(DayOfWeek.FRIDAY);
+        startDate.setDayOfWeek(DayOfWeek.MO);
+        endDate.setDayOfWeek(DayOfWeek.FR);
 
         start.setDate(startDate);
         end.setDate(endDate);

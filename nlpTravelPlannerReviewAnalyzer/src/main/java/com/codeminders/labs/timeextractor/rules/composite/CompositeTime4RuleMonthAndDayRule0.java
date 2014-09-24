@@ -3,11 +3,11 @@ package com.codeminders.labs.timeextractor.rules.composite;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 // 934 CET, September, 27, 2014; 934 CET, Sep 27 2014
 
@@ -28,7 +28,7 @@ public class CompositeTime4RuleMonthAndDayRule0 extends BaseRule {
 
     @Override
     public Type getType() {
-        return Type.TIMEDATE;
+        return Type.TIME_DATE;
     }
 
     @Override

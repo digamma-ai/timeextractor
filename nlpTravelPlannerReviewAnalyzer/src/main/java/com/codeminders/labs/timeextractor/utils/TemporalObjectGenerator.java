@@ -1,11 +1,13 @@
 package com.codeminders.labs.timeextractor.utils;
 
-import com.codeminders.labs.timeextractor.constants.Type;
+import java.util.List;
+
 import com.codeminders.labs.timeextractor.temporal.entites.Date;
 import com.codeminders.labs.timeextractor.temporal.entites.Duration;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.Time;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 public class TemporalObjectGenerator {
 
@@ -25,6 +27,16 @@ public class TemporalObjectGenerator {
 
 		return temporal;
 
+	}
+
+	public static List<Temporal> setTemporalType(List<Temporal> temporals,
+			Type type) {
+		for (Temporal temporal : temporals) {
+			if (temporal != null) {
+				temporal.setType(type);
+			}
+		}
+		return temporals;
 	}
 
 	public static Temporal generateTemporalTime(Type type, Time time) {

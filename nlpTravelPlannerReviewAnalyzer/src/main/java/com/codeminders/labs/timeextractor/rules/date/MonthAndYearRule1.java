@@ -6,10 +6,10 @@ import java.util.Locale;
 
 import static com.codeminders.labs.timeextractor.constants.Constants.*;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Date;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 

@@ -3,89 +3,83 @@ package com.codeminders.labs.timeextractor.entities;
 import java.util.List;
 import java.util.Locale;
 
-import com.codeminders.labs.timeextractor.constants.Type;
-import com.codeminders.labs.timeextractor.rest.entities.HtmlTemporal;
+import com.codeminders.labs.timeextractor.rest.entities.DTOTemporal;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 public class AnnotationIntervalHtml extends AnnotationInterval {
 
-    private int htmlTagFrom;
-    private int htmlTagTo;
-    private String extractedText;
-    private List<HtmlTemporal> extractedTemporal;
-    private String tag;
-    private Locale locale;
-    private double confidence;
-    private Type temporalType;
+	private int htmlTagFrom;
+	private int htmlTagTo;
+	private List<DTOTemporal> extractedTemporal;
+	private String tag;
+	private Locale locale;
+	private double confidence;
+	private Type temporalType;
 
-    public int getHtmlTagFrom() {
-        return htmlTagFrom;
-    }
+	public int getHtmlTagFrom() {
+		return htmlTagFrom;
+	}
 
-    public void setHtmlTagFrom(int htmlTagFrom) {
-        this.htmlTagFrom = htmlTagFrom;
-    }
+	public void setHtmlTagFrom(int htmlTagFrom) {
+		this.htmlTagFrom = htmlTagFrom;
+	}
 
-    public int getHtmlTagTo() {
-        return htmlTagTo;
-    }
+	public int getHtmlTagTo() {
+		return htmlTagTo;
+	}
 
-    public void setHtmlTagTo(int htmlTagTo) {
-        this.htmlTagTo = htmlTagTo;
-    }
+	public void setHtmlTagTo(int htmlTagTo) {
+		this.htmlTagTo = htmlTagTo;
+	}
 
-    public String getExtractedText() {
-        return extractedText;
-    }
+	public String getTag() {
+		return tag;
+	}
 
-    public void setExtractedText(String extractedText) {
-        this.extractedText = extractedText;
-    }
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
-    public String getTag() {
-        return tag;
-    }
+	public List<DTOTemporal> getExtractedTemporal() {
+		return extractedTemporal;
+	}
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+	public void setExtractedTemporal(List<DTOTemporal> extractedTemporal) {
+		this.extractedTemporal = extractedTemporal;
+	}
 
-    public List<HtmlTemporal> getExtractedTemporal() {
-        return extractedTemporal;
-    }
+	public Locale getLocale() {
+		return locale;
+	}
 
-    public void setExtractedTemporal(List<HtmlTemporal> extractedTemporal) {
-        this.extractedTemporal = extractedTemporal;
-    }
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
 
-    public Locale getLocale() {
-        return locale;
-    }
+	public double getConfidence() {
+		return confidence;
+	}
 
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
+	public void setConfidence(double confidence) {
+		this.confidence = confidence;
+	}
 
-    public double getConfidence() {
-        return confidence;
-    }
+	public Type getTemporalType() {
+		return temporalType;
+	}
 
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
-    }
+	public void setTemporalType(Type temporalType) {
+		this.temporalType = temporalType;
+	}
 
-    public Type getTemporalType() {
-        return temporalType;
-    }
-
-    public void setTemporalType(Type temporalType) {
-        this.temporalType = temporalType;
-    }
-
-    @Override
-    public String toString() {
-        return "AnnotationIntervalHtml [htmlTagFrom=" + htmlTagFrom + ", htmlTagTo=" + htmlTagTo + ", extractedText=" + extractedText + ", extractedTemporal=" + extractedTemporal + ", tag=" + tag
-                + ", locale=" + locale + ", confidence=" + confidence + ", temporalType=" + temporalType + "]";
-    }
+	@Override
+	public String toString() {
+		return "AnnotationIntervalHtml [htmlTagFrom=" + htmlTagFrom
+				+ ", htmlTagTo=" + htmlTagTo + " extractedTemporal="
+				+ extractedTemporal + ", tag=" + tag + ", locale=" + locale
+				+ ", confidence=" + confidence + ", temporalType="
+				+ temporalType + "]";
+	}
 
 }

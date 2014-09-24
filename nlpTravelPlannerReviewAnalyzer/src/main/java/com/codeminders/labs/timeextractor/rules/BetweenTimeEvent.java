@@ -2,8 +2,8 @@ package com.codeminders.labs.timeextractor.rules;
 
 import java.util.List;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 import edu.stanford.nlp.time.SUTime.TimexType;
 

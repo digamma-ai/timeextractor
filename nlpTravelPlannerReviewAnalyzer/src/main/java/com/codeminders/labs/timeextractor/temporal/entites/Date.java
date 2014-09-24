@@ -1,7 +1,5 @@
 package com.codeminders.labs.timeextractor.temporal.entites;
 
-import com.codeminders.labs.timeextractor.constants.DayOfWeek;
-import com.codeminders.labs.timeextractor.constants.WeekOfMonth;
 
 public class Date {
 

@@ -6,12 +6,12 @@ import java.util.Locale;
 
 import org.joda.time.LocalDate;
 
-import com.codeminders.labs.timeextractor.constants.MonthOfYear;
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.temporal.entites.Date;
+import com.codeminders.labs.timeextractor.temporal.entites.MonthOfYear;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 

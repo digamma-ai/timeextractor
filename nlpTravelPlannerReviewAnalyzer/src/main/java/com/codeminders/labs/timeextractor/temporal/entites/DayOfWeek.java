@@ -1,8 +1,7 @@
-package com.codeminders.labs.timeextractor.constants;
+package com.codeminders.labs.timeextractor.temporal.entites;
 
 public enum DayOfWeek {
-	SUNDAY(1), MONDAY(2), TUESDAY(3), WEDNESDAY(4), THURSDAY(5), FRIDAY(6), SATURDAY(
-			7);
+	SU(1), MO(2), TU(3), WE(4), TH(5), FR(6), SA(7);
 
 	private int value;
 

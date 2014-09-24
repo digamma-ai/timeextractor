@@ -3,8 +3,8 @@ package com.codeminders.labs.timeextractor.rules;
 import java.util.List;
 import java.util.Locale;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 public abstract class BaseRule {
 

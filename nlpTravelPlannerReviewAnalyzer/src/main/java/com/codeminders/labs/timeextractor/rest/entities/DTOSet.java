@@ -1,27 +1,30 @@
 package com.codeminders.labs.timeextractor.rest.entities;
 
-import java.util.Locale;
+import java.util.List;
 
-import com.codeminders.labs.timeextractor.constants.DaysOfRepetition;
-import com.codeminders.labs.timeextractor.constants.Frequency;
+import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
+import com.codeminders.labs.timeextractor.temporal.entites.DaysOfRepetition;
+import com.codeminders.labs.timeextractor.temporal.entites.Frequency;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
 
-public class SetHtml implements HtmlTemporal {
+public class DTOSet implements DTOTemporal {
 
 	private TimeDate startDateTime;
 	private TimeDate endDateTime;
 	private Frequency frequency;
 	private DaysOfRepetition daysOfRepetition;
+	private List<DayOfWeek> byDay;
 	private int interval;
 
-	public SetHtml(Temporal temporal) {
+	public DTOSet(Temporal temporal) {
 
 		this.startDateTime = temporal.getStartDate();
 		this.endDateTime = temporal.getEndDate();
 		frequency = temporal.getSet().getFrequency();
 		daysOfRepetition = temporal.getSet().getDaysOfRepetition();
 		interval = temporal.getSet().getInterval();
+		byDay = temporal.getSet().getByDay();
 	}
 
 	public TimeDate getStartDateTime() {
@@ -64,5 +67,12 @@ public class SetHtml implements HtmlTemporal {
 		this.interval = interval;
 	}
 
+	public List<DayOfWeek> getByDay() {
+		return byDay;
+	}
+
+	public void setByDay(List<DayOfWeek> byDay) {
+		this.byDay = byDay;
+	}
 
 }

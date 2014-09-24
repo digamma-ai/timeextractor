@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.codeminders.labs.timeextractor.constants.DayOfWeek;
 import com.codeminders.labs.timeextractor.rules.general.GeneralTest;
+import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
 public class DayOfWeekRule1Test extends GeneralTest {
@@ -19,7 +19,7 @@ public class DayOfWeekRule1Test extends GeneralTest {
 		List<TemporalExtraction> predicted = service
 				.extractDatesAndTimeFromText(toPredict, null);
 		assertEquals("Sunday", predicted.get(0).getTemporalExpression());
-		assertEquals(DayOfWeek.SUNDAY, predicted.get(0).getTemporal().get(0)
+		assertEquals(DayOfWeek.SU, predicted.get(0).getTemporal().get(0)
 				.getStartDate().getDate().getDayOfWeek());
 
 	}
@@ -31,7 +31,7 @@ public class DayOfWeekRule1Test extends GeneralTest {
 		List<TemporalExtraction> predicted = service
 				.extractDatesAndTimeFromText(toPredict, null);
 		assertEquals("Wed", predicted.get(0).getTemporalExpression());
-		assertEquals(DayOfWeek.WEDNESDAY, predicted.get(0).getTemporal().get(0)
+		assertEquals(DayOfWeek.WE, predicted.get(0).getTemporal().get(0)
 				.getStartDate().getDate().getDayOfWeek());
 
 	}

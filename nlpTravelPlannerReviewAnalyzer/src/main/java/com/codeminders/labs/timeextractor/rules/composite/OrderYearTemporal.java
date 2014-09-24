@@ -3,11 +3,11 @@ package com.codeminders.labs.timeextractor.rules.composite;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.BaseRule;
 import com.codeminders.labs.timeextractor.service.SUTimeService;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 public class OrderYearTemporal extends BaseRule {
 

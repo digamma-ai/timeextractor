@@ -1,10 +1,8 @@
 package com.codeminders.labs.timeextractor.rest.entities;
 
-import java.util.Locale;
-
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 
-public class DurationHtml implements HtmlTemporal {
+public class DTODuration implements DTOTemporal {
 	private int seconds;
 	private int minutes;
 	private int hours;
@@ -13,8 +11,7 @@ public class DurationHtml implements HtmlTemporal {
 	private int months;
 	private int years;
 
-
-	public DurationHtml(Temporal temporal) {
+	public DTODuration(Temporal temporal) {
 		days = temporal.getDuration().getDays();
 		hours = temporal.getDuration().getHours();
 		minutes = temporal.getDuration().getMinutes();
@@ -79,7 +76,6 @@ public class DurationHtml implements HtmlTemporal {
 	public void setMonths(int months) {
 		this.months = months;
 	}
-
 
 	@Override
 	public String toString() {

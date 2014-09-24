@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.codeminders.labs.timeextractor.constants.Type;
 import com.codeminders.labs.timeextractor.rules.general.GeneralTest;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
+import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 public class DurationRule2Test extends GeneralTest {
 

@@ -1,0 +1,15 @@
+{
+  "name": "temporal extractor",
+  "manifest_version": 2, 
+  "version": "1",
+  "description": "Extracts temporal information from html page",
+  "browser_action": {
+    "name": "Manipulate DOM",
+    "icons": ["icon.png"],
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [ {
+    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "main.js" ],
+    "matches": [ "http://*/*", "https://*/*"]
+  }]
+}

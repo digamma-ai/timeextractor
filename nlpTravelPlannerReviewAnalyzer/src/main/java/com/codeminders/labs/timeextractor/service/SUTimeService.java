@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.codeminders.labs.timeextractor.dto.Annotation2DTOTemporalConversion;
+import com.codeminders.labs.timeextractor.dto.DTOTemporal;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
-import com.codeminders.labs.timeextractor.rest.entities.Annotation2DTOTemporalConversion;
-import com.codeminders.labs.timeextractor.rest.entities.DTOTemporal;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtractionAnnotation;
@@ -174,12 +174,15 @@ public class SUTimeService {
 
 			for (TemporalExtraction annotation : annotations) {
 				AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
-				int from = element.getExtractedText().indexOf(
-						annotation.toString());
+				String extractedText = textCleaner.cleanText(element
+						.getExtractedText());
+
+				int from = extractedText.indexOf(annotation.toString());
 				if (from == -1) {
 					from = 0;
 				}
 				int to = from + annotation.toString().length();
+
 				List<DTOTemporal> extracted = converter.convert(annotation);
 				List<Temporal> extractions = annotation.getTemporal();
 				if (extractions.get(0) != null

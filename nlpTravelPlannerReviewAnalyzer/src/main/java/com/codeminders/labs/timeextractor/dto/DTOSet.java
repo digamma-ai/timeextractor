@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rest.entities;
+package com.codeminders.labs.timeextractor.dto;
 
 import java.util.List;
 

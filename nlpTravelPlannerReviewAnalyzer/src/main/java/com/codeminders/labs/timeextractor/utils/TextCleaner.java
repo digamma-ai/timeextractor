@@ -8,4 +8,5 @@ public class TextCleaner {
 		}
 		return text.replace("–", "-");
 	}
+
 }

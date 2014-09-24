@@ -11,10 +11,9 @@
   
      // holidays
   
-   { ruleType: "tokens", 
+   { ruleType: "text", 
      priority:1,
-     matchWithResults: TRUE,
-     pattern: (/st.?|saint/? /valentine|valentine's|valentines/ /day/?),
+     pattern: /((st[.]?|saint)[\s]*(valentine|valentine's|valentines)[\s]*(day)?)/,
   	 result: Holidays("St. Valentine day") 
   }
   

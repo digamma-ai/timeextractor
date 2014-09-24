@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rest.entities;
+package com.codeminders.labs.timeextractor.dto;
 
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;

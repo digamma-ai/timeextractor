@@ -12,7 +12,7 @@ public class TrainingMain {
 		SUTimeService service = new SUTimeService();
 
 		String date = "2014-09-01";
-		String toPredict = "evening";
+		String toPredict = " Sat–Sun";
 		List<TemporalExtraction> predicted = service
 				.extractDatesAndTimeFromText(toPredict, date);
 		for (TemporalExtraction cm : predicted) {

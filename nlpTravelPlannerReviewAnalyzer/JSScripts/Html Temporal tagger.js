@@ -84,7 +84,7 @@ var highlight = function(html, data) {
 					function() {
 						return $(this).text().toLowerCase() === $(base_tag)
 								.text().toLowerCase();
-					})
+			})
 			var result = {
 				'tag' : tag,
 				'temporal' : temporal,
@@ -104,7 +104,7 @@ var highlight = function(html, data) {
 						function() {
 							return $(this).text().toLowerCase() === $(base_tag)
 									.text().toLowerCase();
-						})
+						});
 				var temporal = (text.substring(current_tag[j].from,
 						current_tag[j].to));
 				var result = {
@@ -119,29 +119,50 @@ var highlight = function(html, data) {
 		}
 	}
 
-	for (var j = 0; j < tags.length; j++) {
-		$(tags[j].tag)
+    // same tag name, same text
+	 for (var j = 0; j < tags.length; j++) {
+        
+       if($(tags[j].tag).length>1) {
+         var tagss = $(tags[j].tag);
+         for(var k =0; k<tagss.length;k++){
+             console.log($(tagss[k]).html())
+              if($(tagss[k]).html().search("tooltip") !=-1){
+                  console.log('here');
+                  continue;
+              }
+             
+             else{
+                 replace(tags[j]);
+             }
+       		}
+       }
+         else{
+        replace(tags[j]);
+         }
+     }
+}
+
+var replace = function(tags){
+		$(tags.tag)
 				.html(
 						function(i, v) {
 							return v
 									.replace(
-											tags[j].temporal,
+											tags.temporal,
 											"<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
 													+ JSON
 															.stringify(
-																	tags[j].extractedTemporal)
+																	tags.extractedTemporal)
                                         .replace(/"/g, '\'') + " "+ "locale: "+ JSON
 															.stringify(
-																	tags[j].locale)
+																	tags.locale)
                                         .replace(/"/g, '\'') + " "+ "confidence: "+ JSON
 															.stringify(
-																	tags[j].confidence)
+																	tags.confidence)
 													+ "\">"
-													+ tags[j].temporal
+													+ tags.temporal
 													+ "</span>");
 						});
-
-	}
 }
 
 jQuery.fn.textWalk = function(fn) {

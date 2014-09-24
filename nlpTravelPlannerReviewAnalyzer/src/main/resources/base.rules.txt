@@ -98,7 +98,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
      priority:0,
      matchWithResults: TRUE,
-     pattern: (/in/? (/([2][0]\d\d)/)),
+     pattern: (/in/? (/([12][0-9]\d\d)/)),
      action: Annotate($0, ner, "YearRule"),
   	 result: YearRule($$1.matchResults[0].word.group(1)) 
   }
@@ -179,7 +179,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
      priority:1,
      matchWithResults: TRUE,
-     pattern: (/thru|through/? (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)([.])?/) /[,;.]/? (/([2][0]\d\d)/) ),
+     pattern: (/thru|through/? (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)([.])?/) /[,;.]/? (/([12][0-9]\d\d)/) ),
      action: Annotate($0, ner, "MonthAndYearRule1"),
   	 result: MonthAndYearRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1)) 
   }
@@ -189,7 +189,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
     priority:2,
     matchWithResults: TRUE,
-    pattern: ( (/(($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY))/)/[,;.]/?(/([1-2][0-9]|[3][0-1]|[1-9])/) /,/? (/([2][0-9]\d\d)/)? ),
+    pattern: ( (/(($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY))/)/[,;.]/?(/([1-2][0-9]|[3][0-1]|[1-9])/) /,/? (/([12][0-9]\d\d)/)? ),
     action: Annotate($0, ner, "MonthAndDayRule0"),
   	result: MonthAndDayRule0($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1), $$3.matchResults[0].word.group(1)) 
   }
@@ -199,7 +199,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   {  ruleType: "tokens", 
      priority:1,
      matchWithResults: TRUE,
-     pattern: ( (/($MONTH_OF_YEAR_EASY)[-](2[0-9]\d\d)/) ), 
+     pattern: ( (/($MONTH_OF_YEAR_EASY)[-]([12][0-9]\d\d)/) ), 
      result: MonthAndDayRule0($$1.matchResults[0].word.group(1), $$1.matchResults[0].word.group(2)) 
   }
   
@@ -209,7 +209,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     priority:3,
      matchWithResults: TRUE,
      action: Annotate($0, ner, "MonthAndDayRule1"),
-    pattern: ( (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)/)/,/?/the/?(/([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd)?/)/,/? /of/? (/([2][0-9]\d\d)/)? ),
+    pattern: ( (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)/)/,/?/the/?(/([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd)?/)/,/? /of/? (/([12][0-9]\d\d)/)? ),
   	result: MonthAndDayRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
   
@@ -219,7 +219,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     priority:2,
     matchWithResults: TRUE,
     action: Annotate($0, ner, "MonthAndDayRule2"),
-    pattern: ( /until/? /the/? (/([1-2][0-9]|[3][0-1]|[1-9])(th|st|rd|nd)?/) /(of|[,])/? (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)/) /[,]/? /(of|[,])/? (/([2][0-9]\d\d)/)? ),
+    pattern: ( /until/? /the/? (/([1-2][0-9]|[3][0-1]|[1-9])(th|st|rd|nd)?/) /(of|[,])/? (/($MONTH_OF_YEAR|$MONTH_OF_YEAR_EASY)/) /[,]/? /(of|[,])/? (/([12][0-9]\d\d)/)? ),
   	result: MonthAndDayRule2($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
   
@@ -249,7 +249,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
     priority:3,
     matchWithResults: TRUE,
-    pattern: ( ( /($DAY_OF_WEEK|$DAYOFWEEK_EASY)[s]?/) /[,]/? (/(\b[1-2][0-9]\b|\b[3][0-1]\b|\b[1-9]\b)/) /[,]/? (/([2][0-9]\d\d)/) ),
+    pattern: ( ( /($DAY_OF_WEEK|$DAYOFWEEK_EASY)[s]?/) /[,]/? (/(\b[1-2][0-9]\b|\b[3][0-1]\b|\b[1-9]\b)/) /[,]/? (/([12][0-9]\d\d)/) ),
   	action: Annotate($0, ner, "DayOfWeekRule3"),
   	result: DayOfWeekRule3($$1.matchResults[0].word.group(1), $$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
@@ -279,7 +279,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     ruleType: "tokens", 
     priority:1,
     matchWithResults: TRUE,
-    pattern: ((/(0?[1-9]|[12][0-9]|3[01])[.\/](0?[1-9]|1[012])[.\/](([2][0-9])?\d\d)/) ),
+    pattern: ((/(0?[1-9]|[12][0-9]|3[01])[.\/](0?[1-9]|1[012])[.\/](([12][0-9])?\d\d)/) ),
     result: MonthDayYearRule1($$1.matchResults[0].word.group(1),$$1.matchResults[0].word.group(2),$$1.matchResults[0].word.group(3)) 
   }
   
@@ -295,7 +295,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     // 3/14/11
      
   { ruleType: "text", 
-    pattern: /\b((in|on|by|until)[\s]*)?((1[012]|0?[1-9]))[-.\/]((3[01]|[12][0-9]|0[1-9]))[-.\/]((([2][0-9])\d\d)|\d\d)\b/,
+    pattern: /\b((in|on|by|until)[\s]*)?((1[012]|0?[1-9]))[-.\/]((3[01]|[12][0-9]|0[1-9]))[-.\/]((([12][0-9])\d\d)|\d\d)\b/,
     priority:6,
    result: MonthDayYearRule1($3,$5,$7)
   } 
@@ -315,7 +315,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
     priority:0,
     matchWithResults: TRUE,    
-    pattern: ( /the[\s]*/? (/($BasicOrdTerm)/) /(of[\s]*)/? (/($MONTH_OF_YEAR)/) /[,;]/? (/([2][0-9]\d\d)/)? ),
+    pattern: ( /the[\s]*/? (/($BasicOrdTerm)/) /(of[\s]*)/? (/($MONTH_OF_YEAR)/) /[,;]/? (/([12][0-9]\d\d)/)? ),
   	result: DayOrderAndMonthRule1($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
     
@@ -330,7 +330,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
     // Fri, 6/27
   
   {  ruleType: "text", 
-     pattern: /\b($DAY_OF_WEEK|$DAYOFWEEK_EASY)[,][\s]*((\b[1-9]\b)|(\b[1][0-2]\b))\/((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*([,])?([2][0-9]\d\d)?/,
+     pattern: /\b($DAY_OF_WEEK|$DAYOFWEEK_EASY)[,][\s]*((\b[1-9]\b)|(\b[1][0-2]\b))\/((\b[1-9]\b)|(\b[1-2][0-9]\b)|(\b[3][0-1]\b))[\s]*([,])?([12][0-9]\d\d)?/,
   	 result: MonthAndDayRule6($1,$2,$5,$10) 
   }
          
@@ -338,7 +338,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    
   {  ruleType: "text", 
      priority:3,
-     pattern: /\b($MONTH_OF_YEAR)[\s]*(the)?[\s]*($BasicOrdTerm)[,]?([\s]*of)?[\s]*((20)\d\d)\b/, 
+     pattern: /\b($MONTH_OF_YEAR)[\s]*(the)?[\s]*($BasicOrdTerm)[,]?([\s]*of)?[\s]*(([12][0-9]])\d\d)\b/, 
      result: MonthAndDayOrderRule6($1,$3,$5) 
   }
                 
@@ -356,7 +356,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
    { ruleType: "tokens", 
     priority:0,
     matchWithResults: TRUE, 
-    pattern: ( (/($MONTH_OF_YEAR_EASY)[.]?/) (/([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd|rd)?/)/[,]/? (/([2][0-9]\d\d)/)? ),
+    pattern: ( (/($MONTH_OF_YEAR_EASY)[.]?/) (/([1-2][0-9]|[3][0-1]|[1-9])(th|st|nd|rd)?/)/[,]/? (/([12][0-9]\d\d)/)? ),
   	result: MonthAndDayRule4($$1.matchResults[0].word.group(1),$$2.matchResults[0].word.group(1),$$3.matchResults[0].word.group(1)) 
   }
 
@@ -607,7 +607,7 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   { ruleType: "tokens", 
     priority:5,
     matchWithResults: TRUE,
-    pattern: ( (/($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?([-\s])*($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?/) ),
+    pattern: ( (/($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?([-–\s])*($DAY_OF_WEEK|$DAYOFWEEK_EASY)([.])?/) ),
   	result: DayOfWeekIntervalRule1($$1.matchResults[0].word.group(1),$$0.matchResults[0].word.group(4)) 
   }
   
@@ -756,8 +756,6 @@ ner = { type: "CLASS", value: "edu.stanford.nlp.ling.CoreAnnotations$NamedEntity
   	 result: CompositeDateIntervals($1.word, $2.word)
   }
   
-
- 
     
   
   ############OWN COMPOSITE##################

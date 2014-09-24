@@ -3,7 +3,7 @@ package com.codeminders.labs.timeextractor.entities;
 import java.util.List;
 import java.util.Locale;
 
-import com.codeminders.labs.timeextractor.rest.entities.DTOTemporal;
+import com.codeminders.labs.timeextractor.dto.DTOTemporal;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.Type;
 

@@ -20,7 +20,7 @@ public class MonthAndDayRule1 extends BaseRule {
     private String year;
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.8;
 
     public MonthAndDayRule1(String month, String day, String year) {
         this.month = month;

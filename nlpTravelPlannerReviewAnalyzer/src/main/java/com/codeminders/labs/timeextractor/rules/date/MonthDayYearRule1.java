@@ -15,6 +15,7 @@ public class MonthDayYearRule1 extends BaseRule {
     private String month;
     private String day;
     private String year;
+    private double confidence = 0.8;
 
     public MonthDayYearRule1(String day, String month, String year) {
         this.month = month;

@@ -20,7 +20,7 @@ import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
-import com.codeminders.labs.timeextractor.service.SUTimeService;
+import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 
 /* Rest service to extract temporal date either from array of texts or from html page*/
@@ -28,55 +28,50 @@ import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 @Path("/")
 public class TimeExtractorRestService {
 
-	private static SUTimeService sutimeService = new SUTimeService();
+    private TemporalExtractionService sutimeService = new TemporalExtractionService();
 
-	@POST
-	@Path("/annotate")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray)
-			throws JSONException {
+    @POST
+    @Path("/annotate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
 
-		JSONObject object = jsonArray.getJSONObject(0);
-		String html = object.optString(RestParameters.HTML);
-		String text = object.optString(RestParameters.TEXT);
+        JSONObject object = jsonArray.getJSONObject(0);
+        String html = object.optString(RestParameters.HTML);
+        String text = object.optString(RestParameters.TEXT);
 
-		if ((html == null) && (text == null)) {
-			return Response.status(400)
-					.entity(ExceptionMessages.FILLED_FIELEDS).build();
-		}
+        if ((html == null) && (text == null)) {
+            return Response.status(400).entity(ExceptionMessages.FILLED_FIELEDS).build();
+        }
 
-		// html case
-		if (html != null & !html.isEmpty()) {
-			Map<String, List<AnnotationIntervalHtml>> result = sutimeService
-					.extractDatesAndTimeFromHtml(html);
-			return Response.status(200).entity(result).build();
+        // html case
+        if (html != null & !html.isEmpty()) {
+            Map<String, List<AnnotationIntervalHtml>> result = sutimeService.extractDatesAndTimeFromHtml(html);
+            return Response.status(200).entity(result).build();
 
-		}
-		// text case
-		else {
-			List<BaseText> baseTexts = new ArrayList<BaseText>();
-			for (int i = 0; i < jsonArray.length(); i++) {
-				BaseText baseText = new BaseText();
-				object = jsonArray.getJSONObject(i);
-				baseText.setId(object.optString(RestParameters.ID));
-				baseText.setText(object.optString(RestParameters.TEXT));
-				try {
-					baseText.setDate(object.optString(RestParameters.DATE));
-				} catch (Exception ex) {
+        }
+        // text case
+        else {
+            List<BaseText> baseTexts = new ArrayList<BaseText>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                BaseText baseText = new BaseText();
+                object = jsonArray.getJSONObject(i);
+                baseText.setId(object.optString(RestParameters.ID));
+                baseText.setText(object.optString(RestParameters.TEXT));
+                try {
+                    baseText.setDate(object.optString(RestParameters.DATE));
+                } catch (Exception ex) {
 
-				}
-				baseTexts.add(baseText);
-			}
+                }
+                baseTexts.add(baseText);
+            }
 
-			Map<String, List<TemporalExtraction>> extractDates = sutimeService
-					.extractDatesAndTimeFromMultipleText(baseTexts);
-			Map<String, List<AnnotationInterval>> annotatedIntervals = sutimeService
-					.getAllAnnotations(extractDates);
+            Map<String, List<TemporalExtraction>> extractDates = sutimeService.extractDatesAndTimeFromMultipleText(baseTexts);
+            Map<String, List<AnnotationInterval>> annotatedIntervals = sutimeService.getAllAnnotations(extractDates);
 
-			return Response.status(200).entity(annotatedIntervals).build();
+            return Response.status(200).entity(annotatedIntervals).build();
 
-		}
-	}
+        }
+    }
 
 }

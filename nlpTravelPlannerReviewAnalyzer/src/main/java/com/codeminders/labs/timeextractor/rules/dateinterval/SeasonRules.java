@@ -14,7 +14,7 @@ public class SeasonRules extends BaseRule {
     private TemporalParser parser;
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.5;
     private String season;
 
     public SeasonRules(String season) {

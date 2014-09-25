@@ -14,6 +14,8 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class WeekDay extends BaseRule {
 
+    private double confidence = 0.9;
+
     public WeekDay() {
     }
 
@@ -42,7 +44,7 @@ public class WeekDay extends BaseRule {
 
         return temporalList;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;

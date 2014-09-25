@@ -17,7 +17,7 @@ public class TimeIntervalRule5 extends BaseRule {
     private TemporalBasicCaseParser parser;
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.9;
     private String fromHours;
     private String fromMinutes;
     private String fromPmAm;

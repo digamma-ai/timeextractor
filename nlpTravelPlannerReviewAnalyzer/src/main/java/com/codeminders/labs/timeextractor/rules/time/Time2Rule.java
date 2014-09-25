@@ -15,7 +15,7 @@ public class Time2Rule extends BaseRule {
 
 	private TemporalBasicCaseParser parser;
 	protected Locale locale = Locale.US;
-	protected double confidence = 0.83;
+	protected double confidence = 0.8;
 	private String hours;
 	private String minutes;
 	private String timezone;

@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.service.SUTimeService;
+import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 public class CompositeDateIntervals extends BaseRule {
-    private SUTimeService service;
+    private TemporalExtractionService service;
     private Temporal temporal;
+    private double confidence = 0.9;
+
 
     {
-        service = new SUTimeService();
+        service = new TemporalExtractionService();
     }
 
     public CompositeDateIntervals(ArrayList<String> date1, ArrayList<String> date2) {
@@ -53,6 +55,15 @@ public class CompositeDateIntervals extends BaseRule {
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
 }

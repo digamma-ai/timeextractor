@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.service.SUTimeService;
+import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
 import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
 import com.codeminders.labs.timeextractor.temporal.entites.Type;
 
 public class OrderYearTemporal extends BaseRule {
 
-    private SUTimeService service = new SUTimeService();
+    private TemporalExtractionService service = new TemporalExtractionService();
     private Temporal temporal;
+    private double confidence = 0.9;
 
     @Override
     public Type getType() {
@@ -34,6 +35,15 @@ public class OrderYearTemporal extends BaseRule {
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
 }

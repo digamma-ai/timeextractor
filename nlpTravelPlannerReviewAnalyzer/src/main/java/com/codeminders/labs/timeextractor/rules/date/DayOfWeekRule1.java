@@ -18,7 +18,7 @@ public class DayOfWeekRule1 extends BaseRule {
 
     private String dayOfWeek;
     protected Locale locale = Locale.US;
-    protected double confidence = 0.6;
+    protected double confidence = 0.362;
 
     public DayOfWeekRule1(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
@@ -47,7 +47,7 @@ public class DayOfWeekRule1 extends BaseRule {
 
         return temporalList;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;

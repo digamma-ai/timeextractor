@@ -16,7 +16,7 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 public class DayOfWeekRule3 extends BaseRule {
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.8;
     private String dayOfWeek;
     private String dayOfMonth;
     private String year;
@@ -55,7 +55,7 @@ public class DayOfWeekRule3 extends BaseRule {
 
         return temporalList;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;

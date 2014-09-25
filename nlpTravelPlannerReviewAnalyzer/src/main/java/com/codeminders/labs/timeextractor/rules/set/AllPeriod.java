@@ -11,6 +11,8 @@ import com.codeminders.labs.timeextractor.utils.TemporalParser;
 public class AllPeriod extends BaseRule {
     private String period;
     private TemporalParser parser;
+    private double confidence = 0.9;
+
     {
         parser = new TemporalParser();
     }
@@ -30,5 +32,14 @@ public class AllPeriod extends BaseRule {
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 }

@@ -18,6 +18,8 @@ public class DateInterval3 extends BaseRule {
     private String month;
     private String year;
 
+    private double confidence = 0.8;
+
     public DateInterval3(String startDay, String endDay, String month, String year) {
         this.startDay = startDay;
         this.endDay = endDay;
@@ -70,6 +72,15 @@ public class DateInterval3 extends BaseRule {
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
 }

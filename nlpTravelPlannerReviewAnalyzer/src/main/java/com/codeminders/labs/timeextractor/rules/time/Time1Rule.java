@@ -15,7 +15,7 @@ import com.codeminders.labs.timeextractor.utils.TimeConvertor;
 public class Time1Rule extends BaseRule {
     private TemporalBasicCaseParser parser;
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.8;
     private String hours;
     private String aMPm;
     private String timezone;

@@ -16,7 +16,7 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 // the first Tuesday (of the month)
 public class DayOfWeekOrderRule1 extends BaseRule {
 
-    protected double confidence = 0.99;
+    protected double confidence = 0.9;
     private String dayOfWeek;
     private String weekOfMonth;
 

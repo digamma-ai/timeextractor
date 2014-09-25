@@ -17,7 +17,7 @@ public class MonthOfYear1 extends BaseRule {
 
     private String text;
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.537;
 
     public MonthOfYear1(String text) {
         this.text = text;

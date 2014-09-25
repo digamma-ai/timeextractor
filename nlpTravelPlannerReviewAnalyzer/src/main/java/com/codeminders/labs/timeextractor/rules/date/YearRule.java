@@ -16,7 +16,7 @@ public class YearRule extends BaseRule {
 
     String year;
 
-    protected double confidence = 0.7;
+    protected double confidence = 0.6;
 
     public YearRule(String year) {
         this.year = year;

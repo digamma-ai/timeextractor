@@ -19,6 +19,8 @@ public class Dateinterval2 extends BaseRule {
     private String monthTo;
     private String year;
 
+    private double confidence = 0.9;
+
     public Dateinterval2(String dateFrom, String monthFrom, String dateTo, String monthTo, String year) {
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
@@ -71,6 +73,15 @@ public class Dateinterval2 extends BaseRule {
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
 }

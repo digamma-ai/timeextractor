@@ -14,6 +14,8 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class WeekEnd extends BaseRule {
 
+    private double confidence = 0.9;
+
     public WeekEnd() {
     }
 

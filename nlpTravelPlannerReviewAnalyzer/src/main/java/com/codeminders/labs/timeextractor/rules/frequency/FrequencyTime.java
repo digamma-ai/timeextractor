@@ -11,6 +11,7 @@ import com.codeminders.labs.timeextractor.utils.TemporalParser;
 public class FrequencyTime extends BaseRule {
 
     private String frequencyTime;
+    private double confidence = 0.9;
     private TemporalParser parser;
     {
         parser = new TemporalParser();
@@ -31,6 +32,15 @@ public class FrequencyTime extends BaseRule {
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
 }

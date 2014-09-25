@@ -13,7 +13,7 @@ public class TimeIntervalRule2 extends BaseRule {
     private String timeOfDay1;
     private String timeOfDay2;
     private TemporalParser parser;
-    private double confidence = 0.99;
+    private double confidence = 0.9;
 
     {
         parser = new TemporalParser();

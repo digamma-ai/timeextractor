@@ -11,13 +11,11 @@ import com.codeminders.labs.timeextractor.temporal.entites.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
-import edu.stanford.nlp.ling.tokensregex.SequenceMatchResult.MatchedGroupInfo;
-
 public class Time4Rule extends BaseRule {
 
     private TemporalBasicCaseParser parser;
     protected Locale locale = Locale.US;
-    protected double confidence = 0.99;
+    protected double confidence = 0.63;
     private String hours;
     private String minutes;
     private String timezone;

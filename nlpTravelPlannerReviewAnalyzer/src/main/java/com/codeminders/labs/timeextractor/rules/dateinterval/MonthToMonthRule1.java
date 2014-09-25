@@ -16,7 +16,7 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 public class MonthToMonthRule1 extends BaseRule {
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.83;
+    protected double confidence = 0.9;
     private String month1;
     private String month2;
     private String year;

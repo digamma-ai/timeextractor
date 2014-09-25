@@ -5,33 +5,33 @@ var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
 
-	$(document)
-		.ready(
-				function() {
-					// added styles for loader and highlight   
-					addGlobalStyle('.loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999;  background: url(http://www.ooyyo.bg/images/loading.gif) 50% 50% no-repeat rgb(249,249,249) }');
-					addGlobalStyle('.highlight { background-color: yellow  }');
-					
-					var html = $("html").html();
-					$('body').prepend('<div class="loader"></div>');
-					// wait until text is cleaned
-					var json_to_get_temporal = [ {
-						'id' : '1',
-						'html' : html,
-						date : "2014-07-27"
-					} ];
-					$.when(temporalData(json_to_get_temporal)).then(
-							function(data, textStatus, jqXHR) {
-								highlight(html, data);
-								// return to the top of page
-								window.scroll(0, 0);
-								// remove loader
-								$(".loader").fadeOut("slow");
-							}).fail(function(data, textStatus, jqXHR) {
-								 alert("An error occured on server: " + jqXHR);
-								 $(".loader").fadeOut("slow");
-							});;
-				});
+$(document).ready(
+		function() {
+			// added styles for loader and highlight   
+			//addGlobalStyle('.loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999;  background: url(http://www.ooyyo.bg/images/loading.gif) 50% 50% no-repeat rgb(249,249,249) }');
+			addGlobalStyle('.highlight { background-color: yellow  }');
+
+			var html = $("html").html();
+			$('body').prepend('<div class="loader"></div>');
+			// wait until text is cleaned
+			var json_to_get_temporal = [ {
+				'id' : '1',
+				'html' : html,
+				date : "2014-07-27"
+			} ];
+			$.when(temporalData(json_to_get_temporal)).then(
+					function(data, textStatus, jqXHR) {
+						highlight(html, data);
+						// return to the top of page
+						window.scroll(0, 0);
+						// remove loader
+						//$(".loader").fadeOut("slow");
+					}).fail(function(data, textStatus, jqXHR) {
+				alert("An error occured on server: " + jqXHR);
+				// $(".loader").fadeOut("slow");
+			});
+			;
+		});
 
 // get temporal data from text service
 
@@ -49,7 +49,6 @@ var temporalData = function(json) {
 // function to highlight text on html page from position
 
 //function to highlight text on html page from position
-
 
 var highlight = function(html, data) {
 	//iterate through object
@@ -69,13 +68,13 @@ var highlight = function(html, data) {
 					function() {
 						return $(this).text().toLowerCase() === $(base_tag)
 								.text().toLowerCase();
-			})
+					})
 			var result = {
 				'tag' : tag,
 				'temporal' : temporal,
 				'extractedTemporal' : current_tag[0].extractedTemporal,
-                'locale': current_tag[0].locale,
-                'confidence': current_tag[0].confidence
+				'locale' : current_tag[0].locale,
+				'confidence' : current_tag[0].confidence
 			};
 			tags.push(result);
 		} else {
@@ -96,58 +95,58 @@ var highlight = function(html, data) {
 					'tag' : tag,
 					'temporal' : temporal,
 					'extractedTemporal' : current_tag[j].extractedTemporal,
-                    'locale': current_tag[0].locale,
-                    'confidence': current_tag[0].confidence
+					'locale' : current_tag[0].locale,
+					'confidence' : current_tag[0].confidence
 				};
 				tags.push(result);
 			}
 		}
 	}
 
-    // same tag name, same text
-	 for (var j = 0; j < tags.length; j++) {
-        
-       if($(tags[j].tag).length>1) {
-         var tagss = $(tags[j].tag);
-         for(var k =0; k<tagss.length;k++){
-             console.log($(tagss[k]).html())
-              if($(tagss[k]).html().search("tooltip") !=-1){
-                  console.log('here');
-                  continue;
-              }
-             
-             else{
-                 replace(tags[j]);
-             }
-       		}
-       }
-         else{
-        replace(tags[j]);
-         }
-     }
+	// same tag name, same text
+	for (var j = 0; j < tags.length; j++) {
+
+		if ($(tags[j].tag).length > 1) {
+			var tagss = $(tags[j].tag);
+			for (var k = 0; k < tagss.length; k++) {
+				console.log($(tagss[k]).html())
+				if ($(tagss[k]).html().search("tooltip") != -1) {
+					continue;
+				}
+
+				else {
+					replace(tags[j]);
+				}
+			}
+		} else {
+			replace(tags[j]);
+		}
+	}
 }
 
-var replace = function(tags){
-		$(tags.tag)
-				.html(
-						function(i, v) {
-							return v
-									.replace(
-											tags.temporal,
-											"<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
-													+ JSON
-															.stringify(
-																	tags.extractedTemporal)
-                                        .replace(/"/g, '\'') + " "+ "locale: "+ JSON
-															.stringify(
-																	tags.locale)
-                                        .replace(/"/g, '\'') + " "+ "confidence: "+ JSON
-															.stringify(
-																	tags.confidence)
-													+ "\">"
-													+ tags.temporal
-													+ "</span>");
-						});
+var replace = function(tags) {
+	$(tags.tag)
+			.html(
+					function(i, v) {
+						return v
+								.replace(
+										tags.temporal,
+										"<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
+												+ JSON.stringify(
+														tags.extractedTemporal)
+														.replace(/"/g, '\'')
+												+ " "
+												+ "locale: "
+												+ JSON.stringify(tags.locale)
+														.replace(/"/g, '\'')
+												+ " "
+												+ "confidence: "
+												+ JSON
+														.stringify(tags.confidence)
+												+ "\">"
+												+ tags.temporal
+												+ "</span>");
+					});
 }
 
 jQuery.fn.textWalk = function(fn) {
@@ -164,7 +163,6 @@ jQuery.fn.textWalk = function(fn) {
 	}
 	return this;
 };
-
 
 // add custom css style to page
 function addGlobalStyle(css) {

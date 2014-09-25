@@ -17,6 +17,7 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
 public class MidLateMonthRule extends BaseRule {
     private String month;
+    private double confidence = 0.9;
 
     public MidLateMonthRule(String month) {
         this.month = month;
@@ -62,7 +63,7 @@ public class MidLateMonthRule extends BaseRule {
 
         return temporalList;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;

@@ -3,26 +3,30 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Date;
-import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class DayOfWeekIntervalRule1 extends BaseRule {
+// Monday to Tuesday
+
+public class DayOfWeekIntervalRule1 extends Rule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.7;
-    private String dayOfWeek1;
-    private String dayOfWeek2;
+    private String rule = "((from[\\s]*)?((" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")([.])?)[\\s]*(-|to|thru|through|–)[\\s]*(" + TemporalConstants.DAY_OF_WEEK
+            + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")([.])?)";
+    private int priority = 4;
 
-    public DayOfWeekIntervalRule1(String dayOfWeek1, String dayOfWeek2) {
-        this.dayOfWeek1 = dayOfWeek1;
-        this.dayOfWeek2 = dayOfWeek2;
+    public DayOfWeekIntervalRule1() {
     }
 
     @Override
@@ -31,15 +35,17 @@ public class DayOfWeekIntervalRule1 extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
+
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
 
         Date startDate = new Date();
         Date endDate = new Date();
 
-        DayOfWeek startDayOfWeek = TemporalBasicCaseParser.getDayOfWeek((this.dayOfWeek1));
-        DayOfWeek endDayOfWeek = TemporalBasicCaseParser.getDayOfWeek((this.dayOfWeek2));
+        DayOfWeek startDayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(4));
+        DayOfWeek endDayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(9));
 
         if (startDayOfWeek != null && endDayOfWeek != null) {
             startDate.setDayOfWeek(startDayOfWeek);
@@ -72,4 +78,26 @@ public class DayOfWeekIntervalRule1 extends BaseRule {
     public void setConfidence(double confidence) {
         this.confidence = confidence;
     }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
 }

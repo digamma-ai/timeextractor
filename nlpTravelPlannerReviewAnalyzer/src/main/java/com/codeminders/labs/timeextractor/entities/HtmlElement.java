@@ -10,6 +10,10 @@ public class HtmlElement {
     private int htmlTagFrom;
     private int htmlTagTo;
 
+    public HtmlElement() {
+
+    }
+
     public String getTag() {
         return tag;
     }

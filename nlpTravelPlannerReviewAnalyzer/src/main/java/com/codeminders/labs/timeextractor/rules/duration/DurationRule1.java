@@ -3,22 +3,23 @@ package com.codeminders.labs.timeextractor.rules.duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class DurationRule1 extends BaseRule {
+public class DurationRule1 extends Rule {
     private TemporalParser parser;
-    private String duration;
-    private String durationPeriod;
-    private double confidence = 0.9;
+    private double confidence = 0.8;
+    private int priority = 3;
+    private String rule = "((lasts|about|past|at least|up to|more than|less than|last|after)[\\s]*)?(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))" + "([\\s]*" + TemporalConstants.DURATION + ")";
 
-    public DurationRule1(String duration, String durationPeriod) {
+    public DurationRule1() {
         parser = new TemporalParser();
-        this.duration = duration;
-        this.durationPeriod = durationPeriod;
     }
 
     @Override
@@ -27,12 +28,13 @@ public class DurationRule1 extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
         int duration = 0;
-        if (this.duration != null) {
-            duration = Integer.parseInt(this.duration);
+        if (m.group(3) != null) {
+            duration = Integer.parseInt(m.group(3));
         }
-        Temporal temporal = parser.getDuration(durationPeriod, duration);
+        Temporal temporal = parser.getDuration(m.group(8), duration);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
@@ -54,5 +56,26 @@ public class DurationRule1 extends BaseRule {
 
     public void setConfidence(double confidence) {
         this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

@@ -15,7 +15,7 @@
 
 // Constants
 
-var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/api/annotate";
+var TEMPORAL_EXTRACTION_SERVICE_URL = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/api/annotate";
 var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'

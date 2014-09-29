@@ -1,8 +1,8 @@
 package com.codeminders.labs.timeextractor.dto;
 
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
 public class DTOTimeDate implements DTOTemporal {
 

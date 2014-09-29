@@ -2,29 +2,27 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Date;
-import com.codeminders.labs.timeextractor.temporal.entites.MonthOfYear;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.MonthOfYear;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class DateInterval3 extends BaseRule {
-    private String startDay;
-    private String endDay;
-    private String month;
-    private String year;
-
+public class DateInterval3 extends Rule {
+    private String rule = "\\b(from)[\\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\\s]*(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
+            + ")[\\s]*([-]|(to)|(until))[\\s]*(([1-9])|([1-2][0-9])|([3][0-1]))(th)?[\\s]*(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
+            + ")[\\s]*(([12][0-9])\\d\\d)?\\b";
     private double confidence = 0.8;
+    private int priority = 5;
 
-    public DateInterval3(String startDay, String endDay, String month, String year) {
-        this.startDay = startDay;
-        this.endDay = endDay;
-        this.month = month;
-        this.year = year;
+    public DateInterval3() {
 
     }
 
@@ -34,23 +32,24 @@ public class DateInterval3 extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
-        int startDay = Integer.parseInt(this.startDay);
-        int endDay = Integer.parseInt(this.endDay);
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
+        int startDay = Integer.parseInt(m.group(2));
+        int endDay = Integer.parseInt(m.group(13));
         int monthFrom = 0;
         int monthTo = 0;
 
         int year = 0;
-        MonthOfYear monthEnumFrom = TemporalBasicCaseParser.getMonthOfYear(this.month);
+        MonthOfYear monthEnumFrom = TemporalBasicCaseParser.getMonthOfYear(m.group(7));
         if (monthEnumFrom != null) {
             monthFrom = monthEnumFrom.getValue();
         }
-        MonthOfYear monthEnumTo = TemporalBasicCaseParser.getMonthOfYear(this.month);
+        MonthOfYear monthEnumTo = TemporalBasicCaseParser.getMonthOfYear(m.group(18));
         if (monthEnumTo != null) {
             monthTo = monthEnumTo.getValue();
         }
-        if (this.year != null) {
-            year = Integer.parseInt(this.year);
+        if (m.group(21) != null) {
+            year = Integer.parseInt(m.group(21));
         }
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
@@ -81,6 +80,27 @@ public class DateInterval3 extends BaseRule {
 
     public void setConfidence(double confidence) {
         this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
 }

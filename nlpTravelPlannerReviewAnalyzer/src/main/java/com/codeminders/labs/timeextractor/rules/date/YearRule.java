@@ -3,52 +3,42 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Date;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-// 20XX year rule
+// year rule
 
-public class YearRule extends BaseRule {
+public class YearRule extends Rule {
 
-    String year;
-
+    private int year;
     protected double confidence = 0.6;
+    protected String rule = "\\b(in[\\s]*)?\\b((([1][8-9])|([2][01]))\\d\\d)\\b";
+    protected int priority = 1;
 
-    public YearRule(String year) {
-        this.year = year;
+    public YearRule() {
     }
 
-    public List<Temporal> getTemporal() {
-
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
         Date date = new Date();
-
-        date.setYear(Integer.parseInt(year));
+        year = Integer.parseInt(m.group(2));
+        date.setYear(year);
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
-
         return temporalList;
     }
 
-    @Override
     public Type getType() {
-        return Type.DATE;
+        return Type.YEAR;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    @Override
     public Locale getLocale() {
         return locale;
     }
@@ -64,6 +54,27 @@ public class YearRule extends BaseRule {
 
     public void setConfidence(double confidence) {
         this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
 }

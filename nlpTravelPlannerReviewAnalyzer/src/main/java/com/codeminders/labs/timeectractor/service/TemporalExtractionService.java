@@ -1,0 +1,122 @@
+package com.codeminders.labs.timeectractor.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+
+import com.codeminders.labs.timeextractor.dto.Annotation2DTOTemporalConversion;
+import com.codeminders.labs.timeextractor.dto.DTOTemporal;
+import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
+import com.codeminders.labs.timeextractor.entities.HtmlElement;
+import com.codeminders.labs.timeextractor.entities.RegexResult;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
+import com.codeminders.labs.timeextractor.rules.combine.CombineRules;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
+import com.codeminders.labs.timeextractor.utils.RulesFactory;
+
+public class TemporalExtractionService {
+    private GetHtmlText htmlService = new GetHtmlText();
+    private RulesFactory factory = new RulesFactory();
+    private Annotation2DTOTemporalConversion converter = new Annotation2DTOTemporalConversion();
+    private CombineRules combineRulesService = new CombineRules();
+    private static MultipleExtractionService service = new MultipleExtractionService(null);
+
+    public Map<String, TreeSet<AnnotationIntervalHtml>> extractDatesAndTimeFromHtml(String html) {
+        List<HtmlElement> htmlElements = htmlService.getElements(html);
+        Map<HtmlElement, TreeSet<TemporalExtraction>> map = new HashMap<HtmlElement, TreeSet<TemporalExtraction>>();
+        for (HtmlElement htmlElement : htmlElements) {
+            TreeSet<TemporalExtraction> results = extractDatesAndTimeFromText(htmlElement.getExtractedText());
+            if (results.size() > 0) {
+                map.put(htmlElement, results);
+            }
+        }
+
+        Map<String, TreeSet<AnnotationIntervalHtml>> result = getAnnotationIntervalsForHtml(map);
+        return result;
+    }
+
+    public TreeSet<TemporalExtraction> extractDatesAndTimeFromText(String text) {
+        if (text == null) {
+            return null;
+        }
+        TreeSet<TemporalExtraction> temporals = new TreeSet<TemporalExtraction>();
+        List<RegexResult> results = service.getTemporals(text);
+        for (RegexResult result : results) {
+            String name = result.getRuleName();
+            Rule rule = factory.getBaseRule(result.getRule(), name);
+            TemporalExtraction temporal = new TemporalExtraction();
+            temporal.setFromPosition(result.getStart());
+            temporal.setToPosition(result.getEnd());
+            if (rule != null) {
+                temporal.setConfidence(rule.getConfidence());
+                temporal.setLocale(rule.getLocale());
+                temporal.setTemporal(rule.getTemporal(result.getText()));
+                if (rule.getType() != null && temporal.getTemporal() != null && temporal.getTemporal().get(0) != null) {
+                    temporal.getTemporal().get(0).setType(rule.getType());
+                }
+
+            }
+            temporal.setTemporalExpression(result.getText());
+            temporal.setClassOfRuleType(result.getRuleName());
+            temporals.add(temporal);
+        }
+
+        // composite rules service
+        temporals = combineRulesService.combinationRule(temporals, text);
+        return temporals;
+    }
+
+    private Map<String, TreeSet<AnnotationIntervalHtml>> getAnnotationIntervalsForHtml(Map<HtmlElement, TreeSet<TemporalExtraction>> map) {
+        Map<String, TreeSet<AnnotationIntervalHtml>> resultMap = new HashMap<String, TreeSet<AnnotationIntervalHtml>>();
+        int count = 1;
+        for (Map.Entry<HtmlElement, TreeSet<TemporalExtraction>> entry : map.entrySet()) {
+            TreeSet<AnnotationIntervalHtml> list = new TreeSet<AnnotationIntervalHtml>();
+            HtmlElement element = entry.getKey();
+            TreeSet<TemporalExtraction> annotations = entry.getValue();
+
+            for (TemporalExtraction extraction : annotations) {
+                AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
+                String extractedText = (element.getExtractedText());
+
+                int from = extractedText.indexOf(extraction.getTemporalExpression());
+                if (from == -1) {
+                    from = 0;
+                }
+                int to = from + extraction.getTemporalExpression().length();
+
+                List<DTOTemporal> extracted = converter.convert(extraction);
+                List<Temporal> extractions = extraction.getTemporal();
+                if (extractions != null) {
+                    if (extractions.get(0) != null && extractions.get(0).getType() != null) {
+                        Type type = converter.getGeneralType(extractions.get(0).getType());
+                        interval.setTemporalType(type);
+                    }
+                }
+
+                interval.setFrom(from);
+                interval.setTo(to);
+                interval.setHtmlTagFrom(element.getTextFrom());
+                interval.setHtmlTagTo(element.getTextTo());
+                interval.setTag(element.getTag());
+                interval.setExtractedTemporal(extracted);
+                interval.setTo(to);
+                interval.setConfidence(extraction.getConfidence());
+                interval.setLocale(extraction.getLocale());
+                list.add(interval);
+            }
+
+            resultMap.put(Integer.valueOf(count).toString(), list);
+            count++;
+        }
+        return resultMap;
+    }
+
+    public static void main(String[] args) {
+        TemporalExtractionService service = new TemporalExtractionService();
+        System.out.println(service.extractDatesAndTimeFromText("daily"));
+
+    }
+}

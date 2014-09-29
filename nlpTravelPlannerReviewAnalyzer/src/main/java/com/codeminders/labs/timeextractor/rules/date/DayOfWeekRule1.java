@@ -3,37 +3,38 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Date;
-import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-// Sunday, Sundays, Sun
+public class DayOfWeekRule1 extends Rule {
 
-public class DayOfWeekRule1 extends BaseRule {
-
-    private String dayOfWeek;
-    protected Locale locale = Locale.US;
+    private String rule = "\\b(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")" + "[.]?[s]?\\b";
     protected double confidence = 0.362;
+    protected int priority = 1;
 
-    public DayOfWeekRule1(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public DayOfWeekRule1() {
     }
 
     @Override
     public Type getType() {
-        return Type.DATE;
+        return Type.DAY_OF_WEEK;
     }
 
     @Override
-    public List<Temporal> getTemporal() {
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
         DayOfWeek dayOfWeek = null;
 
-        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(this.dayOfWeek);
+        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(1));
         Date date = new Date();
 
         if (dayOfWeek != null) {
@@ -41,7 +42,6 @@ public class DayOfWeekRule1 extends BaseRule {
 
         }
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
 
@@ -57,7 +57,6 @@ public class DayOfWeekRule1 extends BaseRule {
         this.locale = locale;
     }
 
-    @Override
     public double getConfidence() {
         return confidence;
     }
@@ -65,4 +64,26 @@ public class DayOfWeekRule1 extends BaseRule {
     public void setConfidence(double confidence) {
         this.confidence = confidence;
     }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
 }

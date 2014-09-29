@@ -1,12 +1,13 @@
 package com.codeminders.labs.timeextractor.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.codeminders.labs.timeectractor.service.GetHtmlText;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
 
 public class GetHtmlTextTest {

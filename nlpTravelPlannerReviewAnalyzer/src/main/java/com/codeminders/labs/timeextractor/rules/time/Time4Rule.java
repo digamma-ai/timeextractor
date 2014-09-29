@@ -3,36 +3,26 @@ package com.codeminders.labs.timeextractor.rules.time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.Time;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.Time;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class Time4Rule extends BaseRule {
-
-    private TemporalBasicCaseParser parser;
+// at 5 CET
+public class Time4Rule extends Rule {
+    private TemporalBasicCaseParser parser = new TemporalBasicCaseParser();
     protected Locale locale = Locale.US;
-    protected double confidence = 0.63;
-    private String hours;
-    private String minutes;
-    private String timezone;
+    protected double confidence = 0.8;
+    private int priority = 2;
+    private String rule = "\\b(\\b(at about|at|around)[\\s]*(\\b[01]?[0-9]|2[0-3]\\b)([\\s]*|$)" + TemporalConstants.TIME_ZONE + "?)\\b";
 
-    {
-        parser = new TemporalBasicCaseParser();
-    }
-
-    public Time4Rule(String hours, String minutes, String timezone) {
-        this.hours = hours;
-        this.minutes = minutes;
-        this.timezone = timezone;
-    }
-
-    public Time4Rule(String hours, String timezone) {
-        this.hours = hours;
-        this.timezone = timezone;
+    public Time4Rule() {
     }
 
     @Override
@@ -41,16 +31,14 @@ public class Time4Rule extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
         Time time = new Time();
-        int hours = Integer.parseInt(this.hours);
-        if (this.minutes != null) {
-            int minutes = Integer.parseInt(this.minutes);
-            time.setMinutes(minutes);
-        }
+        int hours = Integer.parseInt(m.group(3));
+
         int timezone = 0;
-        if (this.timezone != null) {
-            timezone = parser.getTimeZone(this.timezone);
+        if (m.group(4) != null) {
+            timezone = parser.getTimeZone(m.group(4));
             time.setTimezone(timezone);
         }
         time.setHours(hours);
@@ -59,4 +47,44 @@ public class Time4Rule extends BaseRule {
         temporalList.add(temporal);
         return temporalList;
     }
+
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
 }

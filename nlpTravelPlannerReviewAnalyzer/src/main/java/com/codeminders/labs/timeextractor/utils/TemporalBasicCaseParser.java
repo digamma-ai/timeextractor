@@ -1,9 +1,9 @@
 package com.codeminders.labs.timeextractor.utils;
 
-import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
-import com.codeminders.labs.timeextractor.temporal.entites.MonthOfYear;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeTag;
-import com.codeminders.labs.timeextractor.temporal.entites.WeekOfMonth;
+import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
+import com.codeminders.labs.timeextractor.temporal.entities.MonthOfYear;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeTag;
+import com.codeminders.labs.timeextractor.temporal.entities.WeekOfMonth;
 
 public class TemporalBasicCaseParser {
 
@@ -351,7 +351,7 @@ public class TemporalBasicCaseParser {
         if (zone.equalsIgnoreCase("CST")) {
             return -6;
         }
-        if (zone.equalsIgnoreCase("CET")) {
+        if (zone.equalsIgnoreCase("CET") || zone.equalsIgnoreCase("Central European Time")) {
             return +1;
         }
 
@@ -363,7 +363,7 @@ public class TemporalBasicCaseParser {
             return +1;
         }
 
-        if (zone.equalsIgnoreCase("EEST")) {
+        if (zone.equalsIgnoreCase("EEST") || zone.equalsIgnoreCase("Eastern Europe Summer Time")) {
             return +3;
         }
 

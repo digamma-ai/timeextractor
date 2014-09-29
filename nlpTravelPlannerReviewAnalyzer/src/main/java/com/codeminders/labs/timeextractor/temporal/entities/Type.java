@@ -1,0 +1,5 @@
+package com.codeminders.labs.timeextractor.temporal.entities;
+
+public enum Type {
+    YEAR, DAY_OF_WEEK, DATE, TIME, TIME_DATE, TIME_INTERVAL, DATE_INTERVAL, TIME_DATE_INTERVAl, DATE_TIME_INTERVAL, DATE_INTERVAL_TIME_INTERVAL, DURATION, FREQUENCY, SET;
+}

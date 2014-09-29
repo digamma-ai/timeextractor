@@ -3,30 +3,30 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Date;
-import com.codeminders.labs.timeextractor.temporal.entites.MonthOfYear;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.MonthOfYear;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class MonthDaysIntervalRule1 extends BaseRule {
+//July 28th-31st (date period ), Jul 28th-31st 2014
+public class MonthDaysIntervalRule1 extends Rule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.9;
-    private String month;
-    private String startDay;
-    private String endDay;
-    private String year;
+    private String rule = "\\b((" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
+            + ")[.]?)[\\s]*(([3][0-1]|[1-2][0-9]|[1-9])[\\s]*(th|st|rd|nd)?[\\s]*[-][\\s]*([3][0-1]|[1-2][0-9]|[1-9])(th|st|rd|nd)?)([\\s]*[,]?[\\s]*([2][0-9]\\d\\d))?";
+    protected int priority = 6;
 
-    public MonthDaysIntervalRule1(String month, String startDay, String endDay, String year) {
-        this.month = month;
-        this.startDay = startDay;
-        this.endDay = endDay;
-        this.year = year;
+    public MonthDaysIntervalRule1() {
+
     }
 
     @Override
@@ -35,17 +35,19 @@ public class MonthDaysIntervalRule1 extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
-        int startDay = Integer.parseInt(this.startDay);
-        int endDay = Integer.parseInt(this.endDay);
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
+
+        int startDay = Integer.parseInt(m.group(6));
+        int endDay = Integer.parseInt(m.group(8));
         int month = 0;
         int year = 0;
-        MonthOfYear monthEnum = TemporalBasicCaseParser.getMonthOfYear(this.month);
+        MonthOfYear monthEnum = TemporalBasicCaseParser.getMonthOfYear(m.group(1));
         if (monthEnum != null) {
             month = monthEnum.getValue();
         }
-        if (this.year != null) {
-            year = Integer.parseInt(this.year);
+        if (m.group(11) != null) {
+            year = Integer.parseInt(m.group(11));
         }
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
@@ -68,7 +70,7 @@ public class MonthDaysIntervalRule1 extends BaseRule {
         temporalList.add(temporal);
         return temporalList;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;
@@ -86,4 +88,26 @@ public class MonthDaysIntervalRule1 extends BaseRule {
     public void setConfidence(double confidence) {
         this.confidence = confidence;
     }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
 }

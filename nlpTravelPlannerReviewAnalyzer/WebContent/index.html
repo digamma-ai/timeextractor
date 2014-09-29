@@ -1,132 +1,136 @@
 <html>
 <head>
-    <title>Codeminders - Temporal Extractor</title>
-    <meta name="copyright" content="Copyright 2004-2014 &quot;codeminders&quot;">
-    <meta name="keywords" content="codeminders, machine learning, nlp, time extraction, temporal extraction">
-    <meta name="robots" content="all">
+<title>Codeminders - Temporal Extractor</title>
+<meta name="copyright"
+	content="Copyright 2004-2014 &quot;codeminders&quot;">
+<meta name="keywords"
+	content="codeminders, machine learning, nlp, time extraction, temporal extraction">
+<meta name="robots" content="all">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="http://www.codeminders.com/css/codeminders.css" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="http://www.codeminders.com/favicon.ico">
 
-    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="http://www.codeminders.com/css/codeminders.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="http://www.codeminders.com/favicon.ico">
+<style type="text/css">
+.temporalextractorheader {
+	top: 173px;
+	left: 245px;
+	z-index: 100;
+	position: absolute;
+}
 
-    <style type="text/css">
-        .temporalextractorheader
-        {
-            top: 173px;
-            left: 245px;
-            z-index: 100;
-            position: absolute;
-        }
+.temporalextractortitle {
+	font-size: 18pt;
+	font-weight: bold;
+	top: 190px;
+	left: 550px;
+	z-index: 100;
+	position: absolute;
+}
 
-        .temporalextractortitle
-        {
-            font-size: 18pt;
-            font-weight: bold;
-            top: 190px;
-            left: 550px;
-            z-index: 100;
-            position: absolute;
-        }
-
-        .reference td {
-            border: 1px solid #d4d4d4;
-            padding: 5px;
-            padding-top: 7px;
-            padding-bottom: 7px;
-            vertical-align: top;
-        }
-
-    </style>
+.reference td {
+	border: 1px solid #d4d4d4;
+	padding: 5px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	vertical-align: top;
+}
+</style>
 </head>
 
 <body>
-<div id="container" class="pages">
+	<div id="container" class="pages">
 
-<div id="intro">
-<div class="codeminders-big">
-    <a href="http://codeminders.com/" alt=""><img src="http://www.codeminders.com/images/codeminders-big.png" alt=""/></a>
-</div>
+		<div id="intro">
+			<div class="codeminders-big">
+				<a href="http://codeminders.com/" alt=""><img
+					src="http://www.codeminders.com/images/codeminders-big.png" alt="" /></a>
+			</div>
 
-<div class="CodemindersMottoPage">
-    <h2>from ideas. to reality.</h2>
-</div>
+			<div class="CodemindersMottoPage">
+				<h2>from ideas. to reality.</h2>
+			</div>
 
-    <span class="temporalextractorheader">
-       <a href="index.html" alt="">
-           <img src="http://www.conversational-technologies.com/nldemos/nlWordle.GIF" width="250" height="130" align="left" alt=""/>
-       </a>
-    </span>
+			<span class="temporalextractorheader"> <a href="index.html"
+				alt=""> <img
+					src="http://www.conversational-technologies.com/nldemos/nlWordle.GIF"
+					width="250" height="130" align="left" alt="" />
+			</a>
+			</span> <span class="temporalextractortitle">Temporal Extractor</span>
 
-<span class="temporalextractortitle">Temporal Extractor</span>
 
+			<div class="content">
+				<div class="content-inside">
 
-<div class="content">
-<div class="content-inside">
+					<br /> <br /> <br /> <br />
+					<div style="margin-left: 50px; margin-bottom: -10px;">
+						<br />
+					</div>
+					<br /> <br /> <br />
+					<h1>About</h1>
+					<p class="bio">
+						Temporal extractor API identifies and extracts temporal
+						expressions such as time, date, time intervals, date intervals,
+						durations, etc. from texts and html pages. <br>Below you can
+						find API documentation:
+					</p>
 
-<br/><br/><br/><br/>
-<div style="margin-left:50px;margin-bottom:-10px;">
-    <br/>
-</div>
-    <br/><br/><br/>
-<h1>About</h1>
-<p class="bio">
-    Temporal extractor API identifies and extracts temporal expressions such as time, date, time intervals, date intervals, durations, etc. from texts and html pages.
-    Below you can find API documentation:
-</p>
+					<h1>Chrome extension</h1>
+					<p class="bio">
+						<a href="ChromeExtension.zip">Here you can download Chrome
+							Extension archive</a><br>
+					</p>
 
-<h1>API Request</h1>
-    <br>
-    <p class="bio">
-    <table class = "reference">
+					<h1>API Request</h1>
+					<br>
+					<p class="bio">
+					<table class="reference">
 
-        <tr>
-            <td >URL</td>
-            <td>http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate</td>
-        </tr>
-        <tr>
-            <td>Method</td>
-            <td>POST</td>
-        </tr>
-        <tr>
-            <td>Data Params</td>
-            <td>  <table style="width:100%" class = "reference">
-                      <tr>
-                           <td>id</td>
-                           <td>unique text identifier (integer)</td>
-                      </tr>
-                <tr>
-                    <td>text*</td>
-                    <td>Text to be annotated</td>
-                </tr>
-                <tr>
-                    <td>html</td>
-                    <td>Html page to be annotated</td>
-                </tr>
-                </table>
+						<tr>
+							<td>URL</td>
+							<td>http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate</td>
+						</tr>
+						<tr>
+							<td>Method</td>
+							<td>POST</td>
+						</tr>
+						<tr>
+							<td>Data Params</td>
+							<td>
+								<table style="width: 100%" class="reference">
+									<tr>
+										<td>id</td>
+										<td>unique text identifier (integer)</td>
+									</tr>
+									<tr>
+										<td>text*</td>
+										<td>Text to be annotated</td>
+									</tr>
+									<tr>
+										<td>html</td>
+										<td>Html page to be annotated</td>
+									</tr>
+								</table>
 
-            </td>
-        </tr>
-        <tr>
-            <td>Sample json params text</td>
-            <td><pre>[
-                {"id":"2",
-                "text":"friday morning, saturday evening"
-                },
-                {"id":"3",
-                "text":"saturday"
-                }];</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>Sample json params text</td>
+							<td><pre>[ {"id":"2",'text':" monday " },{"id":"3",'text':" tuesday " }];</pre>
 
-            </td>
-        </tr>
-    <tr>
-            <td>Sample json params html</td>
-            <td><pre>[ {	'html' : "&ltbody>2014-07-27 Monday &ltdiv>test saturday&lt/div>&lt/body>"} ];</pre>
-            </td>
-        </tr>
-    <tr>
-        <td>Sample call</td>
-        <td><pre>
-        var json = [ {	'html' : "&ltbody>2014-07-27 Monday &ltdiv>test saturday&lt/div>&lt/body>"} ];
+							</td>
+						</tr>
+						<tr>
+							<td>Sample json params html</td>
+							<td><pre>[ {'html' : "<body>24/02/2014</body>"} ];</pre></td>
+						</tr>
+						<tr>
+							<td>Sample call</td>
+							<td><pre>
+        var json = [ {	'html' : "<body>24/02/2014</body>"} ];
         $.ajax({
 		type : "POST",
 		url : "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate",
@@ -138,570 +142,569 @@
                              console.log(result);
                           }
         });
-        </pre>
+        </pre></td>
+						</tr>
+					</table>
+					* either 'text' or 'html' parameter should be specified, otherwise
+					400 Exception Missing parameter is thrown
 
-        </td>
-    </tr>
-    </table>
-    * either 'text' or 'html' parameter should be specified, otherwise 400 Exception Missing parameter is thrown
+					</p>
 
-   </p>
+					<h1>API Response for Text</h1>
+					<br>
+					<p class="bio">
+						Response comes as object: <br> key - uniqueId <br> value
+						- array of JsonObjects <br> <br> Json Object’s fields
+					<table class="reference">
+						<tr>
+							<td>from</td>
+							<td>Start position of annotation</td>
+						</tr>
+						<tr>
+							<td>to</td>
+							<td>End position of annotation</td>
+						</tr>
+						<tr>
+							<td>locale</td>
+							<td>Locale of annotated temporal expression</td>
+						</tr>
+						<tr>
+							<td>confidence</td>
+							<td>Parameter that shows level of confidence of appearance
+								exact word in the sentence (range: 0 to 1)</td>
+						</tr>
+						<tr>
+							<td>temporalType</td>
+							<td>Type of extracted temporal object, one of four: <br>
+								1. TIME_DATE<br> 2. DATE_INTERVAL_TIME_INTERVAL<br> 3.
+								DURATION<br> 4. SET
+							</td>
+						</tr>
+						<tr>
+							<td>extractedTemporal</td>
+							<td>Array of extarcted temporal object, can be one of 4
+								temporalTypes<br> look further under 'Extracted temporal
+								object' table
+							</td>
+						</tr>
+					</table>
+					</p>
 
-    <h1>API Response for Text</h1>
-    <br>
-    <p class="bio">
-    Response comes as object:
-    <br>
-    key - uniqueId
-    <br>
-    value - array of JsonObjects
-    <br><br>
-	Json Object’s fields
-   <table class = "reference">
-    <tr>
-            <td>from</td>
-            <td>Start position of annotation</td>
-        </tr>
-           <tr>
-            <td>to</td>
-            <td>End position of annotation</td>
-        </tr>
-                 <tr>
-            <td>locale</td>
-            <td>Locale of annotated temporal expression</td>
-        </tr>
-           <tr>
-            <td>confidence</td>
-            <td>Parameter that shows level of confidence of appearance exact word in the sentence (range: 0 to 1)</td>
-        </tr>
-    <tr>
-        <td>temporalType</td>
-        <td>Type of extracted temporal object, one of four: <br>
-            1. TIME_DATE<br>
-            2. DATE_INTERVAL_TIME_INTERVAL<br>
-            3. DURATION<br>
-            4. SET
-        </td>
-    </tr>
-             <tr>
-            <td>extractedTemporal</td>
-            <td>Array of extarcted temporal object, can be one of 4 temporalTypes<br>
-            look further under 'Extracted temporal object' table
-            </td>
-        </tr>
-    </table>
-    </p>
+					<h1>API Response for Html</h1>
+					<br>
+					<p class="bio">
+						Response comes as object: <br> key - raw count of tags <br>
+						value - array of JsonObjects <br> <br> Json Object’s
+						fields
+					<table class="reference">
 
-    <h1>API Response for Html</h1>
-    <br>
-    <p class="bio">
-        Response comes as object:
-        <br>
-        key - raw count of tags
-        <br>
-        value - array of JsonObjects
-        <br><br>
-        Json Object’s fields
-    <table class = "reference">
+						<tr>
+							<td>from</td>
+							<td>Start position of annotation</td>
+						</tr>
+						<tr>
+							<td>to</td>
+							<td>End position of annotation</td>
+						</tr>
+						<tr>
+							<td>htmlFrom</td>
+							<td>Start tag position in the html document</td>
+						</tr>
+						<tr>
+							<td>htmlTo</td>
+							<td>End tag position in the html document</td>
+						</tr>
 
-        <tr>
-            <td>from</td>
-            <td>Start position of annotation</td>
-        </tr>
-        <tr>
-            <td>to</td>
-            <td>End position of annotation</td>
-        </tr>
-    <tr>
-        <td>htmlFrom</td>
-        <td>Start tag position in the html document</td>
-    </tr>
-    <tr>
-    <td>htmlTo</td>
-    <td>End tag position in the html document</td>
-</tr>
+						<tr>
+							<td>locale</td>
+							<td>Locale of annotated temporal expression</td>
+						</tr>
+						<tr>
+							<td>confidence</td>
+							<td>Parameter that shows level of confidence of appearance
+								exact word in the sentence (range: 0 to 1)</td>
+						</tr>
 
-        <tr>
-            <td>locale</td>
-            <td>Locale of annotated temporal expression</td>
-        </tr>
-        <tr>
-            <td>confidence</td>
-            <td>Parameter that shows level of confidence of appearance exact word in the sentence (range: 0 to 1)</td>
-        </tr>
+						<tr>
+							<td>tag</td>
+							<td>Html tag for further search of result in html document</td>
+						</tr>
 
-    <tr>
-        <td>tag</td>
-        <td>Html tag for further search of result in html document</td>
-    </tr>
+						<tr>
+							<td>temporalType</td>
+							<td>Type of extracted temporal object, one of four: <br>
+								1. TIME_DATE<br> 2. DATE_INTERVAL_TIME_INTERVAL<br> 3.
+								DURATION<br> 4. SET
+							</td>
+						</tr>
+						<tr>
+							<td>extractedTemporal</td>
+							<td>Array of extarcted temporal object, can be one of 4
+								temporalTypes<br> look further under 'Extracted temporal
+								object' table
+							</td>
+						</tr>
+					</table>
+					</p>
 
-    <tr>
-        <td>temporalType</td>
-        <td>Type of extracted temporal object, one of four: <br>
-            1. TIME_DATE<br>
-            2. DATE_INTERVAL_TIME_INTERVAL<br>
-            3. DURATION<br>
-            4. SET
-        </td>
-    </tr>
-        <tr>
-            <td>extractedTemporal</td>
-            <td>Array of extarcted temporal object, can be one of 4 temporalTypes<br>
-                look further under 'Extracted temporal object' table
-            </td>
-        </tr>
-    </table>
-    </p>
+					<h1>Extracted temporal object</h1>
+					<br> <br>
+					<h2>"TIME_DATE":</h2>
+					<br> <br>
+					<table class="reference">
+						<tr>
+							<td>startDateTime (Object)</td>
+							<td>
+								<table>
+									<tr>
+										<td>date (Object), can be null</td>
+										<td>
+											<table>
+												<tr>
+													<td>year</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>month</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>day</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>dayOfWeek</td>
+													<td>SU,MO,TU,WE,TH,FR,SA</td>
+												</tr>
+												<tr>
+													<td>weekOfMonth</td>
+													<td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td>time (Object), can be null</td>
+										<td><table>
+												<tr>
+													<td>hours</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>minutes</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>seconds</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>timezone</td>
+													<td>integer(0,+1 etc.)</td>
+												</tr>
+											</table></td>
+									</tr>
+									<tr>
+										<td>relative</td>
+										<td>(boolean) in case, for ex. 'today', relative will be
+											true, and date will be today's date</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td>endDateTime (Object)</td>
+							<td><table>
+									<tr>
+										<td>date (Object), can be null</td>
+										<td>
+											<table>
+												<tr>
+													<td>year</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>month</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>day</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>dayOfWeek</td>
+													<td>SU,MO,TU,WE,TH,FR,SA</td>
+												</tr>
+												<tr>
+													<td>weekOfMonth</td>
+													<td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td>time (Object), can be null</td>
+										<td><table>
+												<tr>
+													<td>hours</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>minutes</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>seconds</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>timezone</td>
+													<td>integer(0,+1 etc.)</td>
+												</tr>
+											</table></td>
+									</tr>
+									<tr>
+										<td>relative</td>
+										<td>(boolean) in case, for ex. 'today', relative will be
+											true, and date will be today's date</td>
+									</tr>
+								</table></td>
+						</tr>
+						<tr>
+							<td>type (String)</td>
+							<td>
+								<table>
+									<tr>
+										<td>TIME</td>
+										<td>only field “time” is set, same values for
+											startDateTime and endDateTime</td>
+									</tr>
+									<tr>
+										<td>DATE</td>
+										<td>only field “date” is set, same values for
+											startDateTime and endDateTime</td>
+									</tr>
+									<tr>
+										<td>TIME_DATE</td>
+										<td>both fields time and date are set, same values for
+											startDateTime and endDateTime</td>
+									</tr>
+									<tr>
+										<td>DATE_INTERVAL</td>
+										<td>only field date is set as interval with startDateTime
+											and endDateTime</td>
+									</tr>
+									<tr>
+										<td>TIME_INTERVAL</td>
+										<td>only field time is set as interval with startDateTime
+											and endDateTime</td>
+									</tr>
+									<tr>
+										<td>TIME_INTERVAL_OPEN</td>
+										<td>either startDateTime or endDateTime can be null</td>
+									</tr>
+									<tr>
+										<td>DATE_TIME_INTERVAL</td>
+										<td>date is the same for start and end, time differs</td>
+									</tr>
+									<tr>
+										<td>TIME_DATE_INTERVAL</td>
+										<td>time is the same for start and end, date differs</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
 
-<h1>Extracted temporal object</h1>
-<br>
+					<br> <br>
+					<h2>"DATE_INTERVAL_TIME_INTERVAL":</h2>
+					<br> <br> for cases like Mon-Fri 10.00-11.00, or
+					winter-summer 12.30-14.45)<br> <br>
 
-<br>  <h2>"TIME_DATE":</h2><br><br>
-<table class = "reference">
-    <tr>
-        <td>startDateTime (Object)</td>
-        <td>
-            <table>
-                <tr>
-                    <td>date (Object), can be null</td>
-                    <td>  <table>
-                        <tr>
-                            <td>year</td>
-                            <td>integer</td>
-                        </tr>
-                        <tr>
-                            <td>month</td>
-                            <td>integer</td>
-                        </tr>
-                        <tr>
-                            <td>day</td>
-                            <td>integer</td>
-                        </tr>
-                        <tr>
-                            <td>dayOfWeek</td>
-                            <td>SU,MO,TU,WE,TH,FR,SA</td>
-                        </tr>
-                        <tr>
-                            <td>weekOfMonth</td>
-                            <td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
-                        </tr>
-                    </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>time (Object), can be null</td>
-                    <td><table>
-                        <tr>
-                            <td>hours</td>
-                            <td>integer</td>
-                        </tr>
-                        <tr>
-                            <td>minutes</td>
-                            <td>integer</td>
-                        </tr>
-                        <tr>
-                            <td>seconds</td>
-                            <td>integer</td>
-                        </tr>
-                        <tr>
-                            <td>timezone</td>
-                            <td>integer(0,+1,-1, etc.)</td>
-                        </tr>
-                    </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>relative </td>
-                    <td>(boolean) in case, for ex. 'today', relative will be true, and date will be today's date </td>
-                </tr>
-            </table></td>
-    </tr>
-    <tr>
-        <td>endDateTime (Object)</td>
-        <td><table>
-            <tr>
-                <td>date (Object), can be null</td>
-                <td>  <table>
-                    <tr>
-                        <td>year</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>month</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>day</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>dayOfWeek</td>
-                        <td>SU,MO,TU,WE,TH,FR,SA</td>
-                    </tr>
-                    <tr>
-                        <td>weekOfMonth</td>
-                        <td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
-                    </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td>time (Object), can be null</td>
-                <td><table>
-                    <tr>
-                        <td>hours</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>minutes</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>seconds</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>timezone</td>
-                        <td>integer(0,+1,-1, etc.)</td>
-                    </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td>relative </td>
-                <td>(boolean) in case, for ex. 'today', relative will be true, and date will be today's date </td>
-            </tr>
-        </table></td>
-    </tr>
-    <tr>
-        <td>type (String)</td>
-        <td>
-            <table>
-                <tr>
-                    <td>TIME</td>
-                    <td>only field  “time” is set, same values for startDateTime and endDateTime</td>
-                </tr>
-                <tr>
-                    <td>DATE</td>
-                    <td>only field  “date” is set, same values for startDateTime and endDateTime</td>
-                </tr>
-                <tr>
-                    <td>TIME_DATE</td>
-                    <td>both fields time and date are set, same values for startDateTime and endDateTime</td>
-                </tr>
-                <tr>
-                    <td>DATE_INTERVAL</td>
-                    <td>only field date is set as interval with startDateTime  and endDateTime</td>
-                </tr>
-                <tr>
-                    <td>TIME_INTERVAL</td>
-                    <td>only field time is set as interval with startDateTime  and endDateTime</td>
-                </tr>
-                <tr>
-                    <td>TIME_INTERVAL_OPEN</td>
-                    <td>either startDateTime or endDateTime can be null</td>
-                </tr>
-                <tr>
-                    <td>DATE_TIME_INTERVAL</td>
-                    <td>date is the same for start and end, time differs</td>
-                </tr>
-                <tr>
-                    <td>TIME_DATE_INTERVAL</td>
-                    <td>time is the same for start and end, date differs</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+					<table class="reference">
+						<tr>
+							<td>startDate (Object)</td>
+							<td>
+								<table>
+									<tr>
+										<td>year</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>month</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>day</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>dayOfWeek</td>
+										<td>SU,MO,TU,WE,TH,FR,SA</td>
+									</tr>
+									<tr>
+										<td>weekOfMonth</td>
+										<td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td>endDate (Object)</td>
+							<td><table>
+									<tr>
+										<td>year</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>month</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>day</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>dayOfWeek</td>
+										<td>SU,MO,TU,WE,TH,FR,SA</td>
+									</tr>
+									<tr>
+										<td>weekOfMonth</td>
+										<td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
+									</tr>
+								</table></td>
+						</tr>
+						<tr>
+							<td>startTime (Object)</td>
+							<td><table>
+									<tr>
+										<td>hours</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>minutes</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>seconds</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>timezone</td>
+										<td>integer(0,+1 etc.)</td>
+									</tr>
+								</table></td>
+						</tr>
+						<tr>
+							<td>endTime (Object)</td>
+							<td><table>
+									<tr>
+										<td>hours</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>minutes</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>seconds</td>
+										<td>integer</td>
+									</tr>
+									<tr>
+										<td>timezone</td>
+										<td>integer(0,+1 etc.)</td>
+									</tr>
+								</table></td>
+						</tr>
+					</table>
 
-<br><br>
-<h2>"DATE_INTERVAL_TIME_INTERVAL":</h2><br><br>
-for cases like Mon-Fri 10.00-11.00, or winter-summer 12.30-14.45)<br><br>
+					<br> <br>
+					<h2>"DURATION":</h2>
+					<br> <br>
 
-<table class = "reference">
-    <tr>
-        <td>startDate (Object)
-        </td>
-        <td>
-            <table>
-                <tr>
-                    <td>year</td>
-                    <td>integer</td>
-                </tr>
-                <tr>
-                    <td>month</td>
-                    <td>integer</td>
-                </tr>
-                <tr>
-                    <td>day</td>
-                    <td>integer</td>
-                </tr>
-                <tr>
-                    <td>dayOfWeek</td>
-                    <td>SU,MO,TU,WE,TH,FR,SA</td>
-                </tr>
-                <tr>
-                    <td>weekOfMonth</td>
-                    <td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>endDate (Object)
-        </td>
-        <td><table>
-            <tr>
-                <td>year</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>month</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>day</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>dayOfWeek</td>
-                <td>SU,MO,TU,WE,TH,FR,SA</td>
-            </tr>
-            <tr>
-                <td>weekOfMonth</td>
-                <td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
-            </tr>
-        </table>
-        </td>
-    </tr>
-    <tr>
-        <td>startTime (Object)
-        </td>
-        <td><table>
-            <tr>
-                <td>hours</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>minutes</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>seconds</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>timezone</td>
-                <td>integer(0,+1,-1, etc.)</td>
-            </tr>
-        </table>
-        </td>
-    </tr>
-    <tr>
-        <td>endTime (Object)
-        </td>
-        <td><table>
-            <tr>
-                <td>hours</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>minutes</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>seconds</td>
-                <td>integer</td>
-            </tr>
-            <tr>
-                <td>timezone</td>
-                <td>integer(0,+1,-1, etc.)</td>
-            </tr>
-        </table>
-        </td>
-    </tr>
-</table>
+					<table class="reference">
+						<tr>
+							<td>seconds</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>minutes</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>days</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>weeks</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>months</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>years</td>
+							<td>integer (0 if not set)</td>
+						</tr>
 
-<br>
-<br>
-<h2>"DURATION":</h2><br><br>
+					</table>
+					<br> <br>
+					<h2>"SET":</h2>
+					<br> <br>
+					<table class="reference">
+						<tr>
+							<td>startDateTime</td>
+							<td>
+								<table>
+									<tr>
+										<td>date (Object), can be null</td>
+										<td>
+											<table>
+												<tr>
+													<td>year</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>month</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>day</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>dayOfWeek</td>
+													<td>SU,MO,TU,WE,TH,FR,SA</td>
+												</tr>
+												<tr>
+													<td>weekOfMonth</td>
+													<td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td>time (Object), can be null</td>
+										<td><table>
+												<tr>
+													<td>hours</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>minutes</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>seconds</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>timezone</td>
+													<td>integer((0,+1 etc.))</td>
+												</tr>
+											</table></td>
+									</tr>
+									<tr>
+										<td>relative</td>
+										<td>(boolean) in case, for ex. 'today', relative will be
+											true, and date will be today's date</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td>endDateTime</td>
+							<td>
+								<table>
+									<tr>
+										<td>date (Object), can be null</td>
+										<td>
+											<table>
+												<tr>
+													<td>year</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>month</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>day</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>dayOfWeek</td>
+													<td>SU,MO,TU,WE,TH,FR,SA</td>
+												</tr>
+												<tr>
+													<td>weekOfMonth</td>
+													<td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td>time (Object), can be null</td>
+										<td><table>
+												<tr>
+													<td>hours</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>minutes</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>seconds</td>
+													<td>integer</td>
+												</tr>
+												<tr>
+													<td>timezone</td>
+													<td>integer(0,+1 etc.)</td>
+												</tr>
+											</table></td>
+									</tr>
+									<tr>
+										<td>relative</td>
+										<td>(boolean) in case, for ex. 'today', relative will be
+											true, and date will be today's date</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td>frequency</td>
+							<td>HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY</td>
+						</tr>
+						<tr>
+							<td>byDay (String of multiple values)</td>
+							<td>SU,MO,TU,WE,TH,FR,SA</td>
+						</tr>
+						<tr>
+							<td>daysOfRepetition</td>
+							<td>DAYS_OF_WEEK, DAYS_OF_MONTH</td>
+						</tr>
+						<tr>
+							<td>interval</td>
+							<td>integer</td>
+						</tr>
+					</table>
 
-<table class = "reference">
-    <tr>
-        <td>seconds</td>
-        <td>integer (0 if not set)</td>
-    </tr>
-    <tr>
-        <td>minutes</td>
-        <td>integer (0 if not set)</td>
-    </tr>
-    <tr>
-        <td>days</td>
-        <td>integer (0 if not set)</td>
-    </tr>
-    <tr>
-        <td>weeks</td>
-        <td>integer (0 if not set)</td>
-    </tr>
-    <tr>
-        <td>months</td>
-        <td>integer (0 if not set)</td>
-    </tr>
-    <tr>
-        <td>years</td>
-        <td>integer (0 if not set)</td>
-    </tr>
-
-</table>
-<br><br>
-<h2>"SET":</h2><br><br>
-<table class = "reference">
-    <tr>
-        <td>startDateTime</td>
-        <td> <table>
-            <tr>
-                <td>date (Object), can be null</td>
-                <td>  <table>
-                    <tr>
-                        <td>year</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>month</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>day</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>dayOfWeek</td>
-                        <td>SU,MO,TU,WE,TH,FR,SA</td>
-                    </tr>
-                    <tr>
-                        <td>weekOfMonth</td>
-                        <td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
-                    </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td>time (Object), can be null</td>
-                <td><table>
-                    <tr>
-                        <td>hours</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>minutes</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>seconds</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>timezone</td>
-                        <td>integer(0,+1,-1, etc.)</td>
-                    </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td>relative </td>
-                <td>(boolean) in case, for ex. 'today', relative will be true, and date will be today's date </td>
-            </tr>
-        </table></td>
-    </tr>
-    <tr>
-        <td>endDateTime</td>
-        <td> <table>
-            <tr>
-                <td>date (Object), can be null</td>
-                <td>  <table>
-                    <tr>
-                        <td>year</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>month</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>day</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>dayOfWeek</td>
-                        <td>SU,MO,TU,WE,TH,FR,SA</td>
-                    </tr>
-                    <tr>
-                        <td>weekOfMonth</td>
-                        <td>(FIRST,SECOND,THIRD,FOURTH,FIFTH,LAST)</td>
-                    </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td>time (Object), can be null</td>
-                <td><table>
-                    <tr>
-                        <td>hours</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>minutes</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>seconds</td>
-                        <td>integer</td>
-                    </tr>
-                    <tr>
-                        <td>timezone</td>
-                        <td>integer(0,+1,-1, etc.)</td>
-                    </tr>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                <td>relative </td>
-                <td>(boolean) in case, for ex. 'today', relative will be true, and date will be today's date </td>
-            </tr>
-        </table></td>
-    </tr>
-    <tr>
-        <td>frequency</td>
-        <td>HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY</td>
-    </tr>
-    <tr>
-        <td>byDay (String of multiple values)</td>
-        <td>SU,MO,TU,WE,TH,FR,SA</td>
-    </tr>
-    <tr>
-        <td>daysOfRepetition</td>
-        <td>DAYS_OF_WEEK, DAYS_OF_MONTH</td>
-    </tr>
-    <tr>
-        <td>interval</td>
-        <td>integer</td>
-    </tr>
-</table>
-
-    </p>
+					</p>
 
 
-<h1>Example</h1>
-<br>
-<p class="bio">
-<table class = "reference">
-    <tr>
-        <td>Request</td>
-        <td>Response</td>
-    </tr>
-    <tr>
-        <td><pre>[ {	'html' : "&ltbody>24/02/2014&lt/body>"} ]</pre></td>
-        <td><pre>{
+					<h1>Example</h1>
+					<br>
+					<p class="bio">
+					<table class="reference">
+						<tr>
+							<td>Request</td>
+							<td>Response</td>
+						</tr>
+						<tr>
+							<td><pre>[ {	'html' : "&ltbody>24/02/2014&lt/body>"} ]</pre></td>
+							<td><pre>{
     "1": [
         {
             "from": 0,
@@ -742,15 +745,15 @@ for cases like Mon-Fri 10.00-11.00, or winter-summer 12.30-14.45)<br><br>
         }
     ]
 }</pre></td>
-    </tr>
-</table>
-</p>
+						</tr>
+					</table>
+					</p>
 
-<br/>
-    </div>
-    </div>
-    </div>
-    </div>
+					<br />
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

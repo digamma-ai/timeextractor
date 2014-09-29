@@ -3,24 +3,27 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
 import org.joda.time.LocalDate;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Date;
-import com.codeminders.labs.timeextractor.temporal.entites.MonthOfYear;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.MonthOfYear;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class MidLateMonthRule extends BaseRule {
-    private String month;
+public class MidLateMonthRule extends Rule {
     private double confidence = 0.9;
+    private String rule = "(mid|mid-late)[-\\s]*((" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[s]?([.])?)";
+    protected int priority = 3;
 
-    public MidLateMonthRule(String month) {
-        this.month = month;
+    public MidLateMonthRule() {
     }
 
     @Override
@@ -29,8 +32,9 @@ public class MidLateMonthRule extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
-        MonthOfYear currentMonth = TemporalBasicCaseParser.getMonthOfYear(this.month);
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
+        MonthOfYear currentMonth = TemporalBasicCaseParser.getMonthOfYear(m.group(2));
         int maxDay = 0;
         int month = 0;
 
@@ -80,6 +84,27 @@ public class MidLateMonthRule extends BaseRule {
 
     public void setConfidence(double confidence) {
         this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
 }

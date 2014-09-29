@@ -10,7 +10,6 @@ public class Tip {
     private String type;
     private String userFirstName;
     private String userLastname;
-    private Gender gender;
 
     public String getId() {
         return id;
@@ -76,18 +75,9 @@ public class Tip {
         this.userLastname = userLastname;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
     @Override
     public String toString() {
-        return "Tip [venueId=" + venueId + ", tipText=" + tipText + ", createdAt=" + createdAt
-                + "]";
+        return "Tip [venueId=" + venueId + ", tipText=" + tipText + ", createdAt=" + createdAt + "]";
     }
 
 }

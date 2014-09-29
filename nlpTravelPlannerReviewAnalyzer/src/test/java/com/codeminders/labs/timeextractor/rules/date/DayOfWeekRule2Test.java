@@ -2,13 +2,14 @@ package com.codeminders.labs.timeextractor.rules.date;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
+import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.rules.general.GeneralTest;
-import com.codeminders.labs.timeextractor.temporal.entites.DayOfWeek;
-import com.codeminders.labs.timeextractor.temporal.entites.TemporalExtraction;
+import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 
 public class DayOfWeekRule2Test extends GeneralTest {
 
@@ -16,7 +17,7 @@ public class DayOfWeekRule2Test extends GeneralTest {
     public void DayOfWeekRule2Test1() {
 
         String toPredict = "Sunday 16";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
         assertEquals("Sunday 16", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.SU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(16, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -27,7 +28,7 @@ public class DayOfWeekRule2Test extends GeneralTest {
     public void DayOfWeekRule2Test2() {
 
         String toPredict = "Wed 14";
-        List<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(toPredict, null);
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
         assertEquals("Wed 14", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.WE, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());

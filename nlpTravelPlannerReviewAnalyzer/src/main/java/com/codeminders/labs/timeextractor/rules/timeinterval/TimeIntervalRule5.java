@@ -3,41 +3,34 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.Time;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.Time;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeTag;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
-import com.codeminders.labs.timeextractor.utils.TimeConvertor;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class TimeIntervalRule5 extends BaseRule {
+// until 5.33 am, after 5pm 
+
+public class TimeIntervalRule5 extends Rule {
     private TemporalBasicCaseParser parser;
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.9;
-    private String fromHours;
-    private String fromMinutes;
-    private String fromPmAm;
-    private String toHours;
-    private String toMinutes;
-    private String toPmAm;
-    private String timezone;
-
+    protected double confidence = 0.8;
+    private int priority = 4;
+    private String rule = "((after|before|until|till|til|by)[\\s]*([01]?[0-9]|2[0-3])(([.|:])([0-5][0-9]))?[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))" + "([\\s]*" + TemporalConstants.TIME_ZONE
+            + ")?)";
     {
         parser = new TemporalBasicCaseParser();
     }
 
-    public TimeIntervalRule5(String fromHours, String fromMinutes, String fromPmAm, String toHours, String toMinutes, String toPmAm, String timezone) {
-        this.fromHours = fromHours;
-        this.fromMinutes = fromMinutes;
-        this.fromPmAm = fromPmAm;
-        this.toHours = toHours;
-        this.toMinutes = toMinutes;
-        this.toPmAm = toPmAm;
-        this.timezone = timezone;
+    public TimeIntervalRule5() {
 
     }
 
@@ -48,50 +41,58 @@ public class TimeIntervalRule5 extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
-
-        Time timeFrom = new Time();
-        Time timeTo = new Time();
-
+        Time time = new Time();
         Temporal temporal = null;
         int timezone = 0;
 
-        if (this.fromHours != null) {
-            timeFrom.setHours(Integer.parseInt(this.fromHours));
-            if (this.fromPmAm != null) {
-                timeFrom.setHours(TimeConvertor.convertTime(timeFrom.getHours(), fromPmAm));
-            }
+        if (m.group(11) != null) {
+            timezone = parser.getTimeZone(m.group(11));
+            time.setTimezone(timezone);
         }
-        if (this.fromMinutes != null) {
-            timeFrom.setMinutes(Integer.parseInt(this.fromMinutes));
+        if (m.group(3) != null) {
+            int hours = Integer.parseInt(m.group(3));
+            hours = Utils.convertTime(hours, m.group(7));
+            time.setHours(hours);
         }
-
-        if (this.toHours != null) {
-            timeTo.setHours(Integer.parseInt(this.toHours));
-            if (this.toPmAm != null) {
-                timeTo.setHours(TimeConvertor.convertTime(timeTo.getHours(), toPmAm));
-            }
+        if (m.group(6) != null) {
+            time.setMinutes(Integer.parseInt(m.group(6)));
         }
-
-        if (this.toMinutes != null) {
-            timeTo.setMinutes(Integer.parseInt(this.toMinutes));
+        TimeTag tag = TemporalBasicCaseParser.getTimeTag(m.group(2));
+        if (tag == TimeTag.AFTER) {
+            start.setTime(time);
+            temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, start, null);
+        } else {
+            end.setTime(time);
+            temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, null, end);
         }
-
-        if (this.timezone != null) {
-            timezone = parser.getTimeZone(this.timezone);
-            timeTo.setTimezone(timezone);
-            timeFrom.setTimezone(timezone);
-        }
-
-        start.setTime(timeFrom);
-        end.setTime(timeTo);
-
-        temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, start, end);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
     }
 
 }

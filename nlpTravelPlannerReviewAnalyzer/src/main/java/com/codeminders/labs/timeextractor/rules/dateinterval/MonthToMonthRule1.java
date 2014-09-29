@@ -3,28 +3,28 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.rules.BaseRule;
-import com.codeminders.labs.timeextractor.temporal.entites.Date;
-import com.codeminders.labs.timeextractor.temporal.entites.MonthOfYear;
-import com.codeminders.labs.timeextractor.temporal.entites.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entites.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entites.Type;
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
+import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.MonthOfYear;
+import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class MonthToMonthRule1 extends BaseRule {
+public class MonthToMonthRule1 extends Rule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.9;
-    private String month1;
-    private String month2;
-    private String year;
+    private String rule = "(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")([.]?)[\\s]*(through|thru|to|-)[\\s]*(" + TemporalConstants.MONTH_OF_YEAR + "|"
+            + TemporalConstants.MONTH_OF_YEAR_EASY + ")([.]?)[\\s]*[,]?[\\s]*([2][0-9]\\d\\d)?";
+    protected int priority = 3;
 
-    public MonthToMonthRule1(String month1, String month2, String year) {
-        this.month1 = month1;
-        this.month2 = month2;
-        this.year = year;
+    public MonthToMonthRule1() {
     }
 
     @Override
@@ -33,12 +33,14 @@ public class MonthToMonthRule1 extends BaseRule {
     }
 
     @Override
-    public List<Temporal> getTemporal() {
+    public List<Temporal> getTemporal(String text) {
+        Matcher m = Utils.getMatch(rule, text);
+
         int month1 = 0;
         int month2 = 0;
         int year = 0;
-        MonthOfYear monthEnum1 = TemporalBasicCaseParser.getMonthOfYear(this.month1);
-        MonthOfYear monthEnum2 = TemporalBasicCaseParser.getMonthOfYear(this.month2);
+        MonthOfYear monthEnum1 = TemporalBasicCaseParser.getMonthOfYear(m.group(1));
+        MonthOfYear monthEnum2 = TemporalBasicCaseParser.getMonthOfYear(m.group(6));
 
         if (monthEnum1 != null) {
             month1 = monthEnum1.getValue();
@@ -46,8 +48,8 @@ public class MonthToMonthRule1 extends BaseRule {
         if (monthEnum2 != null) {
             month2 = monthEnum2.getValue();
         }
-        if (this.year != null) {
-            year = Integer.parseInt(this.year);
+        if (m.group(10) != null) {
+            year = Integer.parseInt(m.group(10));
         }
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
@@ -63,12 +65,12 @@ public class MonthToMonthRule1 extends BaseRule {
         start.setDate(startDate);
         end.setDate(endDate);
 
-        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE_INTERVAL,start, end);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE_INTERVAL, start, end);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;
@@ -85,5 +87,26 @@ public class MonthToMonthRule1 extends BaseRule {
 
     public void setConfidence(double confidence) {
         this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

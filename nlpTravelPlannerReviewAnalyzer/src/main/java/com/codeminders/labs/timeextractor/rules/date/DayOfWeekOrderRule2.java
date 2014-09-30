@@ -29,7 +29,7 @@ public class DayOfWeekOrderRule2 extends Rule {
     }
 
     public Type getType() {
-        return Type.DATE;
+        return Type.DAY_OF_WEEK;
     }
 
     @Override

@@ -5,26 +5,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
-import com.codeminders.labs.timeextractor.temporal.entities.MonthOfYear;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// the second of December
-public class DayOrderAndMonthRule1 extends Rule {
+//  2014-09-29
 
-    protected double confidence = 0.99;
-    private int priority = 2;
-    private String rule = "\\b((the)?[\\s]*)" + TemporalConstants.BASIC_ORDER + "([\\s]*(of)?[\\s]*(the)?[\\s]*)?(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
-            + ")[,;\\s]?(([12][0-9]\\d\\d))?\\b";
+public class MonthDayYearRule3 extends Rule {
 
-    public DayOrderAndMonthRule1() {
+    private double confidence = 0.8;
+    private int priority = 3;
+    protected String rule = "\\b((in|on|by|until)[\\s]*)?((([12][0-9])\\d\\d)[-.\\/]((1[012]|0?[1-9]))[-.\\/]((3[01]|[12][0-9]|0[1-9])))\\b";
 
+    public MonthDayYearRule3() {
     }
 
     public Type getType() {
@@ -35,27 +31,28 @@ public class DayOrderAndMonthRule1 extends Rule {
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
 
-        int dayOfMonth = 0;
-        MonthOfYear monthOfYear = null;
-        int year = 0;
+        String yearString = m.group(3);
+        String dayString = m.group(7);
+        String monthString = m.group(5);
 
-        monthOfYear = TemporalBasicCaseParser.getMonthOfYear((m.group(7)));
-        dayOfMonth = TemporalBasicCaseParser.getDayOfWeekFromOrder((m.group(3)));
-        if (m.group(10) != null) {
-            year = Integer.parseInt(m.group(10).trim());
+        int day = Integer.parseInt(dayString);
+        int month = Integer.parseInt(monthString);
+        int year = 0;
+        if (yearString.length() == 4) {
+            year = Integer.parseInt(yearString);
+        }
+        if (yearString.length() == 2) {
+            year = Integer.parseInt("20" + yearString);
         }
         Date date = new Date();
-        if (monthOfYear != null) {
-            date.setMonth(monthOfYear.getValue());
-        }
-        date.setDay(dayOfMonth);
+        date.setDay(day);
+        date.setMonth(month);
         date.setYear(year);
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
 
-        List<Temporal> temporalList = new ArrayList<Temporal>();
-        temporalList.add(temporal);
-
-        return temporalList;
+        List<Temporal> result = new ArrayList<Temporal>();
+        result.add(temporal);
+        return result;
     }
 
     @Override
@@ -67,7 +64,6 @@ public class DayOrderAndMonthRule1 extends Rule {
         this.locale = locale;
     }
 
-    @Override
     public double getConfidence() {
         return confidence;
     }
@@ -81,20 +77,20 @@ public class DayOrderAndMonthRule1 extends Rule {
         return super.compare(this, o);
     }
 
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public String getRule() {
         return rule;
     }
 
     public void setRule(String rule) {
         this.rule = rule;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
 }

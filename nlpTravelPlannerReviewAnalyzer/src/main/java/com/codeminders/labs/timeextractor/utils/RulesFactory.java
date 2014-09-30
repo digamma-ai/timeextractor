@@ -17,6 +17,7 @@ import com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule6;
 import com.codeminders.labs.timeextractor.rules.date.MonthAndYearRule1;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule1;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule2;
+import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule3;
 import com.codeminders.labs.timeextractor.rules.date.MonthOfYear1;
 import com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc;
 import com.codeminders.labs.timeextractor.rules.date.YearRule;
@@ -34,6 +35,8 @@ import com.codeminders.labs.timeextractor.rules.dateinterval.WeekEnd;
 import com.codeminders.labs.timeextractor.rules.duration.DurationRule1;
 import com.codeminders.labs.timeextractor.rules.duration.DurationRule2;
 import com.codeminders.labs.timeextractor.rules.duration.DurationRule3;
+import com.codeminders.labs.timeextractor.rules.duration.DurationRule4;
+import com.codeminders.labs.timeextractor.rules.duration.DurationRule5;
 import com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime;
 import com.codeminders.labs.timeextractor.rules.set.AllPeriod;
 import com.codeminders.labs.timeextractor.rules.set.EveryPeriod;
@@ -171,8 +174,15 @@ public class RulesFactory {
             return (DurationRule2) obj;
         case ("DurationRule3"):
             return (DurationRule3) obj;
+        case ("DurationRule4"):
+            return (DurationRule4) obj;
+        case ("DurationRule5"):
+            return (DurationRule5) obj;
+
         case ("DateInterval4"):
             return (DateInterval4) obj;
+        case ("MonthDayYearRule3"):
+            return (MonthDayYearRule3) obj;
 
         }
         return null;

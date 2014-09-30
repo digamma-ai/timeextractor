@@ -9,7 +9,14 @@
     "default_icon": "icon.png"
   },
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "main.js" ],
+    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js",  "main.js" ],
     "matches": [ "http://*/*", "https://*/*"]
-  }]
+  }],
+     "background": {
+    "scripts": ["background.js" ],
+    "persistent": false
+  },
+  "permissions": [
+    "tabs", "http://*/*", "https://*/*"]
+  
 }

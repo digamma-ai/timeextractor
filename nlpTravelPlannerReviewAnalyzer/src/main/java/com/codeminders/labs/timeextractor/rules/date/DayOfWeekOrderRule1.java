@@ -20,15 +20,15 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class DayOfWeekOrderRule1 extends Rule {
 
     protected double confidence = 0.9;
-    private String rule = "((the[\\s]*)?(" + TemporalConstants.BASIC_ORDER + ")[\\s]*(" + "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")"
-            + "[s]?)([\\s]*(of)[\\s]*(the[\\s]*)?(month))?)";
+    private String rule = "\\b((the[\\s]*)?(" + TemporalConstants.BASIC_ORDER + ")[\\s]*(" + "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")"
+            + "[s]?)([\\s]*(of)[\\s]*(the[\\s]*)?(month))?)\\b";
     private int priority = 3;
 
     public DayOfWeekOrderRule1() {
     }
 
     public Type getType() {
-        return Type.DATE;
+        return Type.DAY_OF_WEEK;
     }
 
     @Override

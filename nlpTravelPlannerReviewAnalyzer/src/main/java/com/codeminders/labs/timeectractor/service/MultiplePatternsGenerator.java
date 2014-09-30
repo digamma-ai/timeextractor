@@ -20,6 +20,7 @@ import com.codeminders.labs.timeextractor.rules.date.MonthAndDayRule6;
 import com.codeminders.labs.timeextractor.rules.date.MonthAndYearRule1;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule1;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule2;
+import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule3;
 import com.codeminders.labs.timeextractor.rules.date.MonthOfYear1;
 import com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc;
 import com.codeminders.labs.timeextractor.rules.date.YearRule;
@@ -37,6 +38,8 @@ import com.codeminders.labs.timeextractor.rules.dateinterval.WeekEnd;
 import com.codeminders.labs.timeextractor.rules.duration.DurationRule1;
 import com.codeminders.labs.timeextractor.rules.duration.DurationRule2;
 import com.codeminders.labs.timeextractor.rules.duration.DurationRule3;
+import com.codeminders.labs.timeextractor.rules.duration.DurationRule4;
+import com.codeminders.labs.timeextractor.rules.duration.DurationRule5;
 import com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime;
 import com.codeminders.labs.timeextractor.rules.set.AllPeriod;
 import com.codeminders.labs.timeextractor.rules.set.EveryPeriod;
@@ -126,6 +129,9 @@ public class MultiplePatternsGenerator {
         Rule rule54 = new Time7Rule();
         Rule rule55 = new TimeIntervalRule10();
         Rule rule56 = new Time8Rule();
+        Rule rule57 = new MonthDayYearRule3();
+        Rule rule58 = new DurationRule4();
+        Rule rule59 = new DurationRule5();
 
         rules.add(rule1);
         rules.add(rule2);
@@ -183,6 +189,9 @@ public class MultiplePatternsGenerator {
         rules.add(rule54);
         rules.add(rule55);
         rules.add(rule56);
+        rules.add(rule57);
+        rules.add(rule58);
+        rules.add(rule59);
 
         return rules;
 

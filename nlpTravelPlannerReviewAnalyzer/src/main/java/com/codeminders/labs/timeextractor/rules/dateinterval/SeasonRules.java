@@ -17,7 +17,7 @@ public class SeasonRules extends Rule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.5;
-    private String rule = "\\b(((in)|(in the|throughout)([\\s]the)?)[\\s]*)?(fall|winter|summer|spring|autumn)[s]?([\\s]*(month|months|hours))?\\b";
+    private String rule = "(((in)|(in the|throughout)([\\s]the)?)[\\s]*)?(fall|winter|summer|spring|autumn)[s]?([\\s]*(month|months|hours))?\\b";
     protected int priority = 1;
 
     public SeasonRules() {

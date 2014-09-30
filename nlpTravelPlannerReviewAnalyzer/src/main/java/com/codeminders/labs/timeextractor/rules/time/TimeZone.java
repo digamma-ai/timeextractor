@@ -26,7 +26,7 @@ public class TimeZone extends Rule {
 
     @Override
     public Type getType() {
-        return Type.TIME;
+        return Type.TIMEZONE;
     }
 
     @Override

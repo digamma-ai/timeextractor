@@ -1,52 +1,50 @@
-package com.codeminders.labs.timeextractor.rules.time;
+package com.codeminders.labs.timeextractor.rules.duration;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
+import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// at 5:30 CET
-public class Time2Rule extends Rule {
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.8;
-    private int priority = 2;
-    private String rule = "(\\b(at[\\s]*|about[\\s]*)?(([01]?[0-9]|2[0-3])[:]([0-5][0-9])([:]([0-5][0-9]))?)" + ")";
+public class DurationRule5 extends Rule {
+    private TemporalParser parser;
+    private double confidence = 0.9;
+    private String rule = "((lasts|about|past|at least|up to|more than|less than|last)[\\s]*)?" + "(" + TemporalConstants.BASIC_NUMBER_TWENTY_HUNDRED + ")[-\\s]("
+            + TemporalConstants.BASIC_NUMBER_ONE_TEN + ")" + "([\\s]*" + TemporalConstants.DURATION + ")";
+    private int priority = 4;
 
-    public Time2Rule() {
+    public DurationRule5() {
+        parser = new TemporalParser();
     }
 
     @Override
     public Type getType() {
-        return Type.TIME;
+        return Type.DURATION;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Time time = new Time();
-        int hours = Integer.parseInt(m.group(4));
-        if (m.group(5) != null) {
-            int minutes = Integer.parseInt(m.group(5));
-            time.setMinutes(minutes);
-        }
+        int durationLength = 0;
+        if ((m.group(3)) != null) {
+            int durationLength1 = TemporalBasicCaseParser.getIntFromBasicTerm(m.group(3).trim());
+            int durationLength2 = TemporalBasicCaseParser.getIntFromBasicTerm(m.group(5).trim());
+            durationLength = durationLength1 + durationLength2;
 
-        if (m.group(7) != null) {
-            int seconds = Integer.parseInt(m.group(7));
-            time.setSeconds(seconds);
         }
+        Temporal temporal = parser.getDuration(m.group(8), durationLength);
 
-        time.setHours(hours);
-        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type, time);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+
     }
 
     @Override
@@ -67,6 +65,11 @@ public class Time2Rule extends Rule {
         this.confidence = confidence;
     }
 
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public String getRule() {
         return rule;
     }
@@ -82,10 +85,4 @@ public class Time2Rule extends Rule {
     public void setPriority(int priority) {
         this.priority = priority;
     }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
-    }
-
 }

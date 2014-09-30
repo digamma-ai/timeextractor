@@ -84,15 +84,14 @@ public class TemporalParser {
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
 
-        if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR)) {
+        if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR2) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR3)) {
             Date startDate = new Date(0, 1, 1);
             Date endDate = new Date(0, 1, 1);
             start.setDate(startDate);
             end.setDate(endDate);
             temporal = new Temporal(start, end);
 
-        }
-        if (holidayName.equalsIgnoreCase(Holidays.HALLOWEEN)) {
+        } else if (holidayName.equalsIgnoreCase(Holidays.HALLOWEEN)) {
             Date startDate = new Date(0, 10, 31);
             Date endDate = new Date(0, 10, 31);
             start.setDate(startDate);
@@ -100,7 +99,7 @@ public class TemporalParser {
             temporal = new Temporal(start, end);
         }
 
-        if (holidayName.contains("Valentine")) {
+        else if (holidayName.contains("Valentine")) {
             Date startDate = new Date(0, 2, 14);
             Date endDate = new Date(0, 2, 14);
             start.setDate(startDate);
@@ -108,7 +107,7 @@ public class TemporalParser {
             temporal = new Temporal(start, end);
         }
 
-        if (holidayName.equalsIgnoreCase(Holidays.CHRISTMAS)) {
+        else if (holidayName.equalsIgnoreCase(Holidays.CHRISTMAS) || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS2) || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS3)) {
             Date startDate = new Date(0, 12, 25);
             Date endDate = new Date(0, 12, 25);
             start.setDate(startDate);
@@ -116,7 +115,7 @@ public class TemporalParser {
             temporal = new Temporal(start, end);
         }
 
-        if (holidayName.equalsIgnoreCase(Holidays.THANKSGIVING)) {
+        else if (holidayName.equalsIgnoreCase(Holidays.THANKSGIVING)) {
             Date startDate = new Date(0, 11, 0);
             startDate.setWeekOfMonth(WeekOfMonth.FOURTH);
             Date endDate = new Date(0, 11, 0);
@@ -126,7 +125,7 @@ public class TemporalParser {
             temporal = new Temporal(start, end);
         }
 
-        if (holidayName.equalsIgnoreCase(Holidays.INDEPENDENCE_DAY)) {
+        else if (holidayName.equalsIgnoreCase(Holidays.INDEPENDENCE_DAY)) {
             Date startDate = new Date(0, 7, 4);
             Date endDate = new Date(0, 7, 4);
             start.setDate(startDate);
@@ -134,6 +133,103 @@ public class TemporalParser {
             temporal = new Temporal(start, end);
 
         }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.INAUGURATION_DAY)) {
+            Date startDate = new Date(0, 1, 20);
+            Date endDate = new Date(0, 1, 20);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.MLK_DAY1) || holidayName.equalsIgnoreCase(Holidays.MLK_DAY2)) {
+            Date startDate = new Date(0, 1, 0);
+            startDate.setWeekOfMonth(WeekOfMonth.THIRD);
+            startDate.setDayOfWeek(DayOfWeek.MO);
+            Date endDate = new Date(0, 1, 0);
+            endDate.setWeekOfMonth(WeekOfMonth.THIRD);
+            endDate.setDayOfWeek(DayOfWeek.MO);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.MLK_DAY1) || holidayName.equalsIgnoreCase(Holidays.MLK_DAY2)) {
+            Date startDate = new Date(0, 1, 0);
+            startDate.setWeekOfMonth(WeekOfMonth.THIRD);
+            startDate.setDayOfWeek(DayOfWeek.MO);
+            Date endDate = new Date(0, 1, 0);
+            endDate.setWeekOfMonth(WeekOfMonth.THIRD);
+            endDate.setDayOfWeek(DayOfWeek.MO);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.WASHINGTON_DAY)) {
+            Date startDate = new Date(0, 2, 0);
+            startDate.setWeekOfMonth(WeekOfMonth.THIRD);
+            startDate.setDayOfWeek(DayOfWeek.MO);
+            Date endDate = new Date(0, 2, 0);
+            endDate.setWeekOfMonth(WeekOfMonth.THIRD);
+            endDate.setDayOfWeek(DayOfWeek.MO);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.MEMORIAL)) {
+            Date startDate = new Date(0, 5, 0);
+            startDate.setWeekOfMonth(WeekOfMonth.LAST);
+            startDate.setDayOfWeek(DayOfWeek.MO);
+            Date endDate = new Date(0, 5, 0);
+            endDate.setWeekOfMonth(WeekOfMonth.LAST);
+            endDate.setDayOfWeek(DayOfWeek.MO);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.LABOR)) {
+            Date startDate = new Date(0, 9, 0);
+            startDate.setWeekOfMonth(WeekOfMonth.FIRST);
+            startDate.setDayOfWeek(DayOfWeek.MO);
+            Date endDate = new Date(0, 9, 0);
+            endDate.setWeekOfMonth(WeekOfMonth.FIRST);
+            endDate.setDayOfWeek(DayOfWeek.MO);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.COLUMBUS_DAY)) {
+            Date startDate = new Date(0, 10, 0);
+            startDate.setWeekOfMonth(WeekOfMonth.SECOND);
+            startDate.setDayOfWeek(DayOfWeek.MO);
+            Date endDate = new Date(0, 10, 0);
+            endDate.setWeekOfMonth(WeekOfMonth.SECOND);
+            endDate.setDayOfWeek(DayOfWeek.MO);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
+        else if (holidayName.equalsIgnoreCase(Holidays.VETERANS_DAY)) {
+            Date startDate = new Date(0, 11, 1);
+            Date endDate = new Date(0, 11, 11);
+            start.setDate(startDate);
+            end.setDate(endDate);
+            temporal = new Temporal(start, end);
+
+        }
+
         if (temporal != null) {
             temporal.setType(Type.DATE);
         }

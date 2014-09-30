@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.time;
+package com.codeminders.labs.timeextractor.rules.duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,47 +6,37 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Duration;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// at 5:30 CET
-public class Time2Rule extends Rule {
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.8;
-    private int priority = 2;
-    private String rule = "(\\b(at[\\s]*|about[\\s]*)?(([01]?[0-9]|2[0-3])[:]([0-5][0-9])([:]([0-5][0-9]))?)" + ")";
+public class DurationRule4 extends Rule {
+    private double confidence = 0.9;
+    private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last)[\\s]*)?" + "([\\d]{1,})[\\s]*(hr|h)[\\s]*([\\d]{1,})[\\s]*(mins|min|mn|m)" + "\\b";
+    private int priority = 4;
 
-    public Time2Rule() {
+    public DurationRule4() {
     }
 
     @Override
     public Type getType() {
-        return Type.TIME;
+        return Type.DURATION;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Time time = new Time();
-        int hours = Integer.parseInt(m.group(4));
-        if (m.group(5) != null) {
-            int minutes = Integer.parseInt(m.group(5));
-            time.setMinutes(minutes);
-        }
 
-        if (m.group(7) != null) {
-            int seconds = Integer.parseInt(m.group(7));
-            time.setSeconds(seconds);
-        }
-
-        time.setHours(hours);
-        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type, time);
+        Duration duration = new Duration();
+        duration.setHours(Integer.parseInt(m.group(3)));
+        duration.setMinutes(Integer.parseInt(m.group(5)));
+        Temporal temporal = new Temporal();
+        temporal.setDuration(duration);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+
     }
 
     @Override
@@ -67,6 +57,11 @@ public class Time2Rule extends Rule {
         this.confidence = confidence;
     }
 
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public String getRule() {
         return rule;
     }
@@ -82,10 +77,4 @@ public class Time2Rule extends Rule {
     public void setPriority(int priority) {
         this.priority = priority;
     }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
-    }
-
 }

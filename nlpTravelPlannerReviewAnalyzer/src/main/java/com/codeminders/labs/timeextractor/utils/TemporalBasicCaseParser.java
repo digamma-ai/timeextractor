@@ -227,7 +227,7 @@ public class TemporalBasicCaseParser {
             return 5;
         }
 
-        if (text.equalsIgnoreCase("six")) {
+        if (text.equalsIgnoreCase("six") || text.equalsIgnoreCase("sixth")) {
             return 6;
         }
 
@@ -340,67 +340,59 @@ public class TemporalBasicCaseParser {
             return -8;
         }
 
-        if (zone.equalsIgnoreCase("EST") || zone.equalsIgnoreCase("ET")) {
+        else if (zone.equalsIgnoreCase("PDT") || zone.equalsIgnoreCase("PT")) {
+            return -7;
+        }
+
+        else if (zone.equalsIgnoreCase("EST")) {
             return -5;
         }
 
-        if (zone.equalsIgnoreCase("EDT")) {
+        else if (zone.equalsIgnoreCase("EDT") || zone.equalsIgnoreCase("ET") || zone.equalsIgnoreCase("Eastern Daylight Time")) {
             return -4;
         }
 
-        if (zone.equalsIgnoreCase("CST")) {
+        else if (zone.equalsIgnoreCase("CST")) {
             return -6;
-        }
-        if (zone.equalsIgnoreCase("CET") || zone.equalsIgnoreCase("Central European Time")) {
+        } else if (zone.equalsIgnoreCase("CET") || zone.equalsIgnoreCase("Central European Time")) {
             return +1;
         }
 
-        if (zone.equalsIgnoreCase("CEST")) {
+        else if (zone.equalsIgnoreCase("CEST")) {
             return +2;
         }
 
-        if (zone.equalsIgnoreCase("BST")) {
+        else if (zone.equalsIgnoreCase("BST")) {
             return +1;
         }
 
-        if (zone.equalsIgnoreCase("EEST") || zone.equalsIgnoreCase("Eastern Europe Summer Time")) {
+        else if (zone.equalsIgnoreCase("EEST") || zone.equalsIgnoreCase("Eastern Europe Summer Time")) {
             return +3;
         }
 
-        if (zone.equalsIgnoreCase("GMT")) {
+        else if (zone.equalsIgnoreCase("GMT")) {
             return 0;
-        }
-        if (zone.equalsIgnoreCase("IST")) {
+        } else if (zone.equalsIgnoreCase("IST")) {
             return +1;
-        }
-        if (zone.equalsIgnoreCase("MSD")) {
+        } else if (zone.equalsIgnoreCase("MSD")) {
             return +4;
-        }
-        if (zone.equalsIgnoreCase("MSK")) {
+        } else if (zone.equalsIgnoreCase("MSK")) {
             return +4;
-        }
-        if (zone.equalsIgnoreCase("WEST")) {
+        } else if (zone.equalsIgnoreCase("WEST")) {
             return +1;
-        }
-        if (zone.equalsIgnoreCase("WET")) {
+        } else if (zone.equalsIgnoreCase("WET")) {
             return 0;
-        }
-        if (zone.equalsIgnoreCase("CST")) {
+        } else if (zone.equalsIgnoreCase("CST")) {
             return +8;
-        }
-        if (zone.equalsIgnoreCase("HKT")) {
+        } else if (zone.equalsIgnoreCase("HKT")) {
             return +8;
-        }
-        if (zone.equalsIgnoreCase("IDT")) {
+        } else if (zone.equalsIgnoreCase("IDT")) {
             return +3;
-        }
-        if (zone.equalsIgnoreCase("JST")) {
+        } else if (zone.equalsIgnoreCase("JST")) {
             return +9;
-        }
-        if (zone.equalsIgnoreCase("CST")) {
+        } else if (zone.equalsIgnoreCase("CST")) {
             return -6;
-        }
-        if (zone.equalsIgnoreCase("EST")) {
+        } else if (zone.equalsIgnoreCase("EST")) {
             return -5;
         }
         return 0;

@@ -19,7 +19,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class MonthOfYear1 extends Rule {
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.537;
+    protected double confidence = 0.3;
     private int priority = 2;
     protected String rule = "\\b((through[\\s]*|thru[\\s]*|in[\\s]*)?(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[.]?)\\b";
 

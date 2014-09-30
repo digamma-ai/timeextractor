@@ -16,9 +16,9 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class Time8Rule extends Rule {
     protected Locale locale = Locale.US;
-    protected double confidence = 0.8;
+    protected double confidence = 0.3;
     private int priority = 2;
-    private String rule = "\\b(((at about|at|about)[\\s]*)(([0-9]|0[0-9]|1[0-9]|2[0-3]))([0-5][0-9]))\\b";
+    private String rule = "\\b(((at about|at|about)[\\s]*)(([0-9]|0[0-9]|1[0-9]|2[0-3]))([0-5][0-9]))\\b($|[\\s])";
 
     public Time8Rule() {
     }

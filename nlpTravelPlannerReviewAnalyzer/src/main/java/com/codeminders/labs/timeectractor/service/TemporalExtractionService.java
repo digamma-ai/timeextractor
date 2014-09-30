@@ -116,7 +116,7 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText("daily"));
+        System.out.println(service.extractDatesAndTimeFromText("5 days 3 hours"));
 
     }
 }

@@ -24,7 +24,7 @@ public class TimeIntervalRule9 extends Rule {
     protected double confidence = 0.8;
     private int priority = 5;
     private String rule = "\\b((from|between)[\\s]*)?(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\\s]*(to|till|until|before|-)[\\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))"
-            + "([\\s]*" + TemporalConstants.TIME_ZONE + ")?\\b";
+            + "([\\s]*" + TemporalConstants.TIME_ZONE + ")?";
     {
         parser = new TemporalBasicCaseParser();
     }

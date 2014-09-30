@@ -17,7 +17,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class YearRule extends Rule {
 
     private int year;
-    protected double confidence = 0.6;
+    protected double confidence = 0.3;
     protected String rule = "\\b(in[\\s]*)?\\b((([1][8-9])|([2][01]))\\d\\d)\\b";
     protected int priority = 1;
 

@@ -20,9 +20,9 @@ public class MonthAndDayRule1 extends Rule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
-    private int priority = 3;
+    private int priority = 4;
     private String rule = "(\\b(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
-            + "))[.]?[\\s]*[,]?[\\s]*(the[\\s]*)?((([1-2][0-9]|[3][0-1]|[1-9]))(th|st|nd)?)(of[\\s]*)?([\\s]*[,]?[\\s]*\\b([12][0-9]\\d\\d)\\b)?\\b";
+            + "))[.]?[\\s]*[,]?[\\s]*(the[\\s]*)?((([1-2][0-9]|[3][0-1]|[0]?[1-9]))(th|st|nd)?)(of[\\s]*)?([\\s]*[,]?[\\s]*\\b([12][0-9]\\d\\d)\\b)?\\b";
 
     public MonthAndDayRule1() {
 

@@ -20,7 +20,7 @@ public class TimeIntervalRule3 extends Rule {
     private TemporalBasicCaseParser parser;
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.6;
+    protected double confidence = 0.3;
     private int priority = 2;
     private String rule = "\\b((after|before|until|till|til|by)[\\s]*([01]?[0-9]|2[0-3])[\\s]*([.|:]([0-5][0-9]))?[\\s]*" + TemporalConstants.TIME_ZONE + "?)\\b";
     {

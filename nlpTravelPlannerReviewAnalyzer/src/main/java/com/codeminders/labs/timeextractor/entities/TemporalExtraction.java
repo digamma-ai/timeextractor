@@ -77,7 +77,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
 
     @Override
     public String toString() {
-        return temporalExpression;
+        return temporalExpression + ", " + classOfRuleType+" "+confidence;
     }
 
     public double getConfidence() {

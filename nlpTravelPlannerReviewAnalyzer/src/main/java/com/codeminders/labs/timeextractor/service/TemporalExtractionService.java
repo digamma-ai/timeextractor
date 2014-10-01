@@ -1,13 +1,16 @@
-package com.codeminders.labs.timeectractor.service;
+package com.codeminders.labs.timeextractor.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeSet;
 
 import com.codeminders.labs.timeextractor.dto.Annotation2DTOTemporalConversion;
 import com.codeminders.labs.timeextractor.dto.DTOTemporal;
+import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
+import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
 import com.codeminders.labs.timeextractor.entities.RegexResult;
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -18,6 +21,7 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.RulesFactory;
 
 public class TemporalExtractionService {
+
     private GetHtmlText htmlService = new GetHtmlText();
     private RulesFactory factory = new RulesFactory();
     private Annotation2DTOTemporalConversion converter = new Annotation2DTOTemporalConversion();
@@ -28,8 +32,13 @@ public class TemporalExtractionService {
         List<HtmlElement> htmlElements = htmlService.getElements(html);
         Map<HtmlElement, TreeSet<TemporalExtraction>> map = new HashMap<HtmlElement, TreeSet<TemporalExtraction>>();
         for (HtmlElement htmlElement : htmlElements) {
-            TreeSet<TemporalExtraction> results = extractDatesAndTimeFromText(htmlElement.getExtractedText());
-            if (results.size() > 0) {
+            TreeSet<TemporalExtraction> results = null;
+            try {
+                results = extractDatesAndTimeFromText(htmlElement.getExtractedText());
+            } catch (Exception ex) {
+                System.out.println("Exception logger here... " + ex);
+            }
+            if (results != null && results.size() > 0) {
                 map.put(htmlElement, results);
             }
         }
@@ -114,9 +123,52 @@ public class TemporalExtractionService {
         return resultMap;
     }
 
+    public Map<String, TreeSet<TemporalExtraction>> extractDatesAndTimeFromMultipleText(List<BaseText> baseTexts) {
+        Map<String, TreeSet<TemporalExtraction>> extractions = new HashMap<>();
+        for (BaseText text : baseTexts) {
+            TreeSet<TemporalExtraction> extracted = extractDatesAndTimeFromText(text.getText());
+            extractions.put(text.getId(), extracted);
+        }
+        return extractions;
+    }
+
+    public Map<String, TreeSet<AnnotationInterval>> getAllAnnotations(Map<String, TreeSet<TemporalExtraction>> extractedTemporal) {
+        Map<String, TreeSet<AnnotationInterval>> result = new HashMap<String, TreeSet<AnnotationInterval>>();
+        for (String key : extractedTemporal.keySet()) {
+            TreeSet<TemporalExtraction> annotated = extractedTemporal.get(key);
+            TreeSet<AnnotationInterval> annotations = getAllAnotations(annotated);
+            result.put(key, annotations);
+        }
+        return result;
+    }
+
+    private TreeSet<AnnotationInterval> getAllAnotations(TreeSet<TemporalExtraction> annotated) {
+        TreeSet<AnnotationInterval> intervals = new TreeSet<AnnotationInterval>();
+        if (annotated == null) {
+            return intervals;
+        }
+        for (TemporalExtraction temporal : annotated) {
+            AnnotationInterval interval = new AnnotationInterval();
+            List<DTOTemporal> temporals = converter.convert(temporal);
+            int from = temporal.getFromPosition();
+            int to = temporal.getToPosition();
+            interval.setFrom(from);
+            interval.setTo(to);
+            Locale locale = temporal.getLocale();
+            interval.setLocale(locale);
+            interval.setExtractedTemporal(temporals);
+            if (temporal.getTemporal() != null && temporal.getTemporal().get(0) != null && temporal.getTemporal().get(0).getType() != null) {
+                Type type = converter.getGeneralType(temporal.getTemporal().get(0).getType());
+                interval.setTemporalType(type);
+            }
+            intervals.add(interval);
+        }
+        return intervals;
+    }
+
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText("5 days 3 hours"));
+        System.out.println(service.extractDatesAndTimeFromText("Friday at 11"));
 
     }
 }

@@ -21,7 +21,7 @@ public class Time5Rule extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 2;
-    private String rule = "(at[\\s]*|about[\\s]*|at about[\\s]*)?(([0-9]|0[0-9]|1[0-9]|2[0-3])([0-5][0-9])[\\s]*" + TemporalConstants.TIME_ZONE + ")";
+    private String rule = "\\b(at[\\s]*|about[\\s]*|at about[\\s]*)?(([0-9]|0[0-9]|1[0-9]|2[0-3])([0-5][0-9])[\\s]*" + TemporalConstants.TIME_ZONE + ")\\b";
 
     public Time5Rule() {
     }

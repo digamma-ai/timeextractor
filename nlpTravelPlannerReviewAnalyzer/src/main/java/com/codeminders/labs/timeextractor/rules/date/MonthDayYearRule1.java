@@ -15,7 +15,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class MonthDayYearRule1 extends Rule {
 
     private double confidence = 0.8;
-    private int priority = 2;
+    private int priority = 3;
     protected String rule = "\\b((in|on|by|until)[\\s]*)?((1[012]|0?[1-9]))[-.\\/]((3[01]|[12][0-9]|0[1-9]))[-.\\/]((([12][0-9])\\d\\d)|\\d\\d)\\b";
 
     public MonthDayYearRule1() {

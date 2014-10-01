@@ -5,12 +5,12 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.codeminders.labs.timeectractor.service.TemporalExtractionService;
 import com.codeminders.labs.timeextractor.business.CsvReader;
 import com.codeminders.labs.timeextractor.business.CsvWriter;
 import com.codeminders.labs.timeextractor.business.FScore;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.entities.Tip;
+import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
 
 public class MainTestingClass {
     private static String TRAINING_DATA = "/training.csv";
@@ -69,7 +69,7 @@ public class MainTestingClass {
             }
             HashSet<String> predictions = new HashSet<String>();
             for (TemporalExtraction cm : predicted) {
-                predictions.add(cm.toString().trim());
+                predictions.add(cm.getTemporalExpression().trim());
             }
 
             for (String annotation : annotated) {

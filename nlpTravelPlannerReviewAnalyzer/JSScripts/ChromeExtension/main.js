@@ -1,6 +1,6 @@
 // local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/api/annotate"
 
-var TEMPORAL_EXTRACTION_URL = "http://localhost:8080/timeextractor/";
+var TEMPORAL_EXTRACTION_URL = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/";
 var	TEMPORAL_EXTRACTION_SERVICE_URL=TEMPORAL_EXTRACTION_URL+"api/annotate"
 var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL+"images/loading.gif";
 var METHOD_POST = "POST";
@@ -13,11 +13,11 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 
 var start = function() {
 	// added styles for loader and highlight   
-	addGlobalStyle('.loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999;  background: url('+LOADING_BAR_IMAGE_URL+') 50% 50% no-repeat rgb(249,249,249) }');
+	//addGlobalStyle('.loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999;  background: url('+LOADING_BAR_IMAGE_URL+') 50% 50% no-repeat rgb(249,249,249) }');
 	addGlobalStyle('.highlight { background-color: yellow  }');
 
 	var html = $("html").html();
-	$('body').prepend('<div class="loader"></div>');
+	//$('body').prepend('<div class="loader"></div>');
 	// wait until text is cleaned
 	var json_to_get_temporal = [ {
 		'id' : '1',
@@ -30,10 +30,10 @@ var start = function() {
 				// return to the top of page
 				//window.scroll(0, 0);
 				// remove loader
-				$(".loader").fadeOut("slow");
+			//	$(".loader").fadeOut("slow");
 			}).fail(function(data, textStatus, jqXHR) {
 		alert("An error occured on server: " + jqXHR);
-		$(".loader").fadeOut("slow");
+	//	$(".loader").fadeOut("slow");
 	});
 	;
 };
@@ -100,8 +100,8 @@ var highlight = function(html, data) {
 					'tag' : tag,
 					'temporal' : temporal,
 					'extractedTemporal' : current_tag[j].extractedTemporal,
-					'locale' : current_tag[0].locale,
-					'confidence' : current_tag[0].confidence
+					'locale' : current_tag[j].locale,
+					'confidence' : current_tag[j].confidence
 				};
 				tags.push(result);
 			}

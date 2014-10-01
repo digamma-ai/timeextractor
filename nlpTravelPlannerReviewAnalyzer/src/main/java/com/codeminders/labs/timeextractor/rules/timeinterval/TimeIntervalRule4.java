@@ -24,7 +24,7 @@ public class TimeIntervalRule4 extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 4;
-    private String rule = "((after|before|until|till|til|by)[\\s]*(2[0-3]|1[0-9]|0[0-9]|[0-9])([0-5][0-9])[\\s]*" + TemporalConstants.TIME_ZONE + "?)";
+    private String rule = "\\b((after|before|until|till|til|by)[\\s]*(2[0-3]|1[0-9]|0[0-9]|[0-9])([0-5][0-9])" + "([\\s]*" + TemporalConstants.TIME_ZONE + "?))\\b";
     {
         parser = new TemporalBasicCaseParser();
     }
@@ -47,8 +47,8 @@ public class TimeIntervalRule4 extends Rule {
         Time time = new Time();
         Temporal temporal = null;
         int timezone = 0;
-        if (m.group(5) != null) {
-            timezone = parser.getTimeZone(m.group(5));
+        if (m.group(6) != null) {
+            timezone = parser.getTimeZone(m.group(6));
             time.setTimezone(timezone);
         }
         if (m.group(3) != null) {

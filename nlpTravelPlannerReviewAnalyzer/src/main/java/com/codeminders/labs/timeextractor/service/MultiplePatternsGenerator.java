@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeectractor.service;
+package com.codeminders.labs.timeextractor.service;
 
 import java.util.Collections;
 import java.util.TreeSet;
@@ -22,6 +22,7 @@ import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule1;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule2;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule3;
 import com.codeminders.labs.timeextractor.rules.date.MonthOfYear1;
+import com.codeminders.labs.timeextractor.rules.date.NTimeAgoRule;
 import com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc;
 import com.codeminders.labs.timeextractor.rules.date.YearRule;
 import com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval2;
@@ -132,6 +133,7 @@ public class MultiplePatternsGenerator {
         Rule rule57 = new MonthDayYearRule3();
         Rule rule58 = new DurationRule4();
         Rule rule59 = new DurationRule5();
+        Rule rule60 = new NTimeAgoRule();
 
         rules.add(rule1);
         rules.add(rule2);
@@ -192,6 +194,7 @@ public class MultiplePatternsGenerator {
         rules.add(rule57);
         rules.add(rule58);
         rules.add(rule59);
+        rules.add(rule60);
 
         return rules;
 

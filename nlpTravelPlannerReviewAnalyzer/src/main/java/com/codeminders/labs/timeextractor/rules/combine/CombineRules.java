@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
 public class CombineRules {
@@ -18,7 +19,7 @@ public class CombineRules {
         for (int i = 1; i < list.size(); i++) {
             TemporalExtraction next = list.get(i);
             String midText = text.substring(start.getToPosition(), next.getFromPosition());
-            if (next.getFromPosition() - start.getToPosition() <= 4 && !midText.contains(".")) {
+            if (next.getFromPosition() - start.getToPosition() <= 5 && !midText.contains(".") && !midText.contains("&")) {
 
                 TemporalExtraction temporal = joinRules(start, next, midText);
                 if (temporal != null) {
@@ -29,6 +30,7 @@ public class CombineRules {
                     i = i - 1;
                     continue;
                 }
+                start = list.get(i);
 
             } else {
                 start = list.get(i);
@@ -153,7 +155,7 @@ public class CombineRules {
         else if ((typeA == Type.TIME_INTERVAL || typeA == Type.TIME) && typeB == Type.DAY_OF_WEEK) {
             temporal = joinDayOfWeekAndTimeInterval(temporalB, temporalA);
             temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.TIME_INTERVAL);
+            temporal.getTemporal().get(0).setType(Type.DATE_TIME_INTERVAL);
             temporal.setFromPosition(temporalA.getFromPosition());
             temporal.setToPosition(temporalB.getToPosition());
 
@@ -224,11 +226,19 @@ public class CombineRules {
     }
 
     private TemporalExtraction joinDayOfWeekAndTimeInterval(TemporalExtraction temporalA, TemporalExtraction temporalB) {
-        temporalB.getTemporal().get(0).setStartDate(temporalA.getTemporal().get(0).getStartDate());
-        temporalB.getTemporal().get(0).setEndDate((temporalA.getTemporal().get(0).getEndDate()));
+        TimeDate temporalBStartDate = temporalB.getTemporal().get(0).getStartDate();
+        TimeDate temporalAStartDate = temporalA.getTemporal().get(0).getStartDate();
+        TimeDate temporalAEndDate = temporalB.getTemporal().get(0).getEndDate();
+        TimeDate temporalBEndDate = temporalA.getTemporal().get(0).getEndDate();
+
+        if (temporalAStartDate != null && temporalBStartDate != null) {
+            temporalB.getTemporal().get(0).getStartDate().setDate(temporalA.getTemporal().get(0).getStartDate().getDate());
+        }
+        if (temporalAEndDate != null && temporalBEndDate != null) {
+            temporalB.getTemporal().get(0).getEndDate().setDate(temporalA.getTemporal().get(0).getEndDate().getDate());
+        }
         temporalB.getTemporal().get(0).setType(Type.TIME_INTERVAL);
         temporalB.setConfidence(0.8);
-
         return temporalB;
 
     }

@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeectractor.service;
+package com.codeminders.labs.timeextractor.service;
 
 import java.util.ArrayList;
 import java.util.List;

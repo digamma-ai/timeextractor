@@ -3,7 +3,7 @@ package com.codeminders.labs.timeextractor.utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
@@ -84,7 +84,8 @@ public class TemporalParser {
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
 
-        if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR2) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR3)) {
+        if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR2) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR3)
+                || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR4)) {
             Date startDate = new Date(0, 1, 1);
             Date endDate = new Date(0, 1, 1);
             start.setDate(startDate);
@@ -236,7 +237,7 @@ public class TemporalParser {
         return temporal;
     }
 
-    public Temporal getRelativeTemporalObjectByProperty(String property, LocalDate localDate) {
+    public Temporal getRelativeTemporalObjectByProperty(String property, LocalDateTime localDate) {
 
         if (property.equalsIgnoreCase("today")) {
             TimeDate timeDate = getTimeDate(localDate);
@@ -246,6 +247,14 @@ public class TemporalParser {
         if (property.equalsIgnoreCase("tomorrow")) {
             localDate = localDate.plusDays(1);
             TimeDate timeDate = getTimeDate(localDate);
+            return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
+        }
+
+        if (property.equalsIgnoreCase("tonight")) {
+            localDate = localDate.plusDays(1);
+            TimeDate timeDate = getTimeDate(localDate);
+            Time time = new Time(19, 0, 0);
+            timeDate.setTime(time);
             return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         }
 
@@ -266,14 +275,20 @@ public class TemporalParser {
 
     // Method returns TimeDate from localDate
 
-    private TimeDate getTimeDate(LocalDate localDate) {
+    private TimeDate getTimeDate(LocalDateTime localDate) {
         TimeDate timeDate = new TimeDate();
         int day = localDate.getDayOfMonth();
         int month = localDate.getMonthOfYear();
         int year = localDate.getYear();
         timeDate.setRelative(true);
         Date date = new Date(year, month, day);
+        int hours = localDate.getHourOfDay();
+        int minutes = localDate.getMinuteOfHour();
+        int seconds = localDate.getSecondOfMinute();
+        Time time = new Time(hours, minutes, seconds);
         timeDate.setDate(date);
+        timeDate.setTime(time);
+
         return timeDate;
 
     }
@@ -289,7 +304,7 @@ public class TemporalParser {
             duration.setMinutes(durationLength);
         }
 
-        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs")) {
+        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs") || durationType.equalsIgnoreCase("hr")) {
             duration = new Duration();
             duration.setHours(durationLength);
         }
@@ -320,6 +335,55 @@ public class TemporalParser {
         }
 
         return TemporalObjectGenerator.generateTemporalDuration(Type.DURATION, duration);
+
+    }
+
+    public Temporal getRelativeDurationDate(String durationType, int durationLength, Temporal temporal) {
+        LocalDateTime localDateTime = null;
+        if (temporal == null) {
+            localDateTime = LocalDateTime.now();
+        }
+        if (durationType == null) {
+            return null;
+        }
+        if (durationType.equalsIgnoreCase("minutes") || durationType.equalsIgnoreCase("minute") || durationType.equalsIgnoreCase("mins") || durationType.equalsIgnoreCase("min")
+                || durationType.equalsIgnoreCase("mns") || durationType.equalsIgnoreCase("mn")) {
+            localDateTime = localDateTime.minusMinutes(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs") || durationType.equalsIgnoreCase("hr")) {
+            localDateTime = localDateTime.minusHours(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("weeks") || durationType.equalsIgnoreCase("week")) {
+            localDateTime = localDateTime.minusWeeks(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("months") || durationType.equalsIgnoreCase("month")) {
+            localDateTime = localDateTime.minusMonths(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("years") || durationType.equalsIgnoreCase("year")) {
+            localDateTime = localDateTime.minusYears(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("days") || durationType.equalsIgnoreCase("day")) {
+            localDateTime = localDateTime.minusDays(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("seconds") || durationType.equalsIgnoreCase("secs") || durationType.equalsIgnoreCase("sec")) {
+            localDateTime = localDateTime.minusSeconds(durationLength);
+
+        }
+        TimeDate timeDate = getTimeDate(localDateTime);
+        temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
+        return temporal;
 
     }
 

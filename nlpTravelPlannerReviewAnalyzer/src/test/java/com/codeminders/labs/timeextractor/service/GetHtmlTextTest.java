@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.codeminders.labs.timeectractor.service.GetHtmlText;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
+import com.codeminders.labs.timeextractor.service.GetHtmlText;
 
 public class GetHtmlTextTest {
     private GetHtmlText service;

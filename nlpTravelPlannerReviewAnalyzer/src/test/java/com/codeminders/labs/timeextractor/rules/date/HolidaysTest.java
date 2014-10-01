@@ -17,7 +17,7 @@ public class HolidaysTest extends GeneralTest {
 
         String toPredict = "New Year Day";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
-        assertEquals("New Year", predicted.get(0).getTemporalExpression());
+        assertEquals("New Year Day", predicted.get(0).getTemporalExpression());
         assertEquals(1, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
         assertEquals(1, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
 
@@ -28,7 +28,7 @@ public class HolidaysTest extends GeneralTest {
 
         String toPredict = "Christmas eve";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
-        assertEquals("Christmas", predicted.get(0).getTemporalExpression());
+        assertEquals("Christmas eve", predicted.get(0).getTemporalExpression());
         assertEquals(25, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
         assertEquals(12, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
 

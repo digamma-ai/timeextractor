@@ -17,7 +17,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class DayOfWeekRule1 extends Rule {
 
-    private String rule = "\\b(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")" + "[.]?[s]?\\b";
+    private String rule = "\\b(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")[s]?\\b" + "[.]?";
     protected double confidence = 0.362;
     protected int priority = 1;
 

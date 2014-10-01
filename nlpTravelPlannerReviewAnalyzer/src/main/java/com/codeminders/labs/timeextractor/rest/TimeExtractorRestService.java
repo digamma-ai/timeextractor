@@ -16,18 +16,20 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.codeminders.labs.timeectractor.service.TemporalExtractionService;
 import com.codeminders.labs.timeextractor.constants.RestParameters;
+import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
+import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
+import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
 
 /* Rest service to extract temporal date either from array of texts or from html page*/
 
 @Path("/")
 public class TimeExtractorRestService {
 
-    private TemporalExtractionService sutimeService = new TemporalExtractionService();
+    private TemporalExtractionService service = new TemporalExtractionService();
 
     @POST
     @Path("/annotate")
@@ -46,7 +48,7 @@ public class TimeExtractorRestService {
         // html case
         if (html != null & !html.isEmpty()) {
             long currentTime = System.currentTimeMillis();
-            Map<String, TreeSet<AnnotationIntervalHtml>> result = sutimeService.extractDatesAndTimeFromHtml(html);
+            Map<String, TreeSet<AnnotationIntervalHtml>> result = service.extractDatesAndTimeFromHtml(html);
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - currentTime;
             System.out.println(totalTime);
@@ -69,17 +71,11 @@ public class TimeExtractorRestService {
                 baseTexts.add(baseText);
             }
 
-            // Map<String, List<TemporalExtraction>> extractDates =
-            // sutimeService
-            // .extractDatesAndTimeFromMultipleText(baseTexts);
-            // Map<String, List<AnnotationInterval>> annotatedIntervals =
-            // sutimeService
-            // .getAllAnnotations(extractDates);
-
-            // return Response.status(200).entity(annotatedIntervals).build();
+            Map<String, TreeSet<TemporalExtraction>> extractDates = service.extractDatesAndTimeFromMultipleText(baseTexts);
+            Map<String, TreeSet<AnnotationInterval>> annotatedIntervals = service.getAllAnnotations(extractDates);
+            return Response.status(200).entity(annotatedIntervals).build();
 
         }
-        return Response.status(200).build();
     }
 
 }

@@ -5,38 +5,38 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
-import org.joda.time.LocalDateTime;
-
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class TodayTomorrowEtc extends Rule {
-    private TemporalParser parser;
-    private double confidence = 0.9;
-    private int priority = 2;
-    protected String rule = "\\b((today)|(yesterday)|(tomorrow)|(the day before yesterday)|(tonight))\\b";
+public class NTimeAgoRule extends Rule {
 
-    public TodayTomorrowEtc() {
+    protected Locale locale = Locale.US;
+    protected double confidence = 0.7;
+    private int priority = 5;
+    protected String rule = "\\b([\\d]{1,})[\\s]*(" + TemporalConstants.DURATION + ")[\\s]*(ago)\\b";
+    private TemporalParser parser;
+
+    public NTimeAgoRule() {
         parser = new TemporalParser();
     }
 
     @Override
     public Type getType() {
-        return Type.DATE;
+        return Type.RELATIVE_DATE;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-
-        LocalDateTime currentDate = new LocalDateTime();
-        Temporal temporal = parser.getRelativeTemporalObjectByProperty(m.group(), currentDate);
-        List<Temporal> result = new ArrayList<Temporal>();
-        result.add(temporal);
-        return result;
+        int length = Integer.parseInt(m.group(1));
+        Temporal temporal = parser.getRelativeDurationDate(m.group(2), length, null);
+        List<Temporal> temporalList = new ArrayList<Temporal>();
+        temporalList.add(temporal);
+        return temporalList;
     }
 
     @Override

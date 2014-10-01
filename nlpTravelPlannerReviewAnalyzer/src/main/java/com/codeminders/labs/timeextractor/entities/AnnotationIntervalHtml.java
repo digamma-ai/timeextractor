@@ -6,7 +6,7 @@ import java.util.Locale;
 import com.codeminders.labs.timeextractor.dto.DTOTemporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
-public class AnnotationIntervalHtml extends AnnotationInterval implements Comparable<AnnotationIntervalHtml> {
+public class AnnotationIntervalHtml extends AnnotationInterval {
 
     private int htmlTagFrom;
     private int htmlTagTo;
@@ -140,11 +140,6 @@ public class AnnotationIntervalHtml extends AnnotationInterval implements Compar
             return 1;
         }
         return cmp;
-    }
-
-    @Override
-    public int compareTo(AnnotationIntervalHtml o) {
-        return compare(this, o);
     }
 
 }

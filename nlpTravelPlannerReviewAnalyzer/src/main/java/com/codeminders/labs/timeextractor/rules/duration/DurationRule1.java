@@ -15,7 +15,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class DurationRule1 extends Rule {
     private TemporalParser parser;
     private double confidence = 0.8;
-    private int priority = 3;
+    private int priority = 4;
     private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last|after)[\\s]*)?(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))" + "([\\s]*[-]?" + TemporalConstants.DURATION + ")\\b";
 
     public DurationRule1() {

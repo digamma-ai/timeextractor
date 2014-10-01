@@ -20,7 +20,7 @@ public class TimeIntervalRule6 extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 5;
-    private String rule = "\\b(from[\\s]*)?(([01]?[0-9]|2[0-3]|1[0-9])[-]([01]?[0-9]|2[0-3]|1[0-9])(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)))\\b";
+    private String rule = "\\b(from[\\s]*)?(([01]?[0-9]|2[0-3]|1[0-9])[-]([01]?[0-9]|2[0-3]|1[0-9])(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)\\b))";
 
     public TimeIntervalRule6() {
 

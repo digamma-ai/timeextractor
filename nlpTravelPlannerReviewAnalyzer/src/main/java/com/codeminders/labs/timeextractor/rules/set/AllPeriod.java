@@ -3,7 +3,6 @@ package com.codeminders.labs.timeextractor.rules.set;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
@@ -14,7 +13,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class AllPeriod extends Rule {
     private TemporalParser parser;
     private double confidence = 0.9;
-    private String rule = "\\b((whole|all|entire)[\\s]*(day|week|month|year))\\b";
+    private String rule = "\\b((whole|all|entire|full)[\\s]*(day|week|month|year))\\b";
     private int priority = 2;
     {
         parser = new TemporalParser();

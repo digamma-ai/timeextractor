@@ -23,6 +23,7 @@ import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule2;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule3;
 import com.codeminders.labs.timeextractor.rules.date.MonthOfYear1;
 import com.codeminders.labs.timeextractor.rules.date.NTimeAgoRule;
+import com.codeminders.labs.timeextractor.rules.date.NTimeAgoRule2;
 import com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc;
 import com.codeminders.labs.timeextractor.rules.date.YearRule;
 import com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval2;
@@ -134,6 +135,7 @@ public class MultiplePatternsGenerator {
         Rule rule58 = new DurationRule4();
         Rule rule59 = new DurationRule5();
         Rule rule60 = new NTimeAgoRule();
+        Rule rule61 = new NTimeAgoRule2();
 
         rules.add(rule1);
         rules.add(rule2);
@@ -195,6 +197,7 @@ public class MultiplePatternsGenerator {
         rules.add(rule58);
         rules.add(rule59);
         rules.add(rule60);
+        rules.add(rule61);
 
         return rules;
 

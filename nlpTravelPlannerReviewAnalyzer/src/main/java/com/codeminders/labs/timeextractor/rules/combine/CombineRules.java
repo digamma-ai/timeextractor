@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
+import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
@@ -124,6 +125,14 @@ public class CombineRules {
             return temporal;
         }
 
+        else if (typeA == Type.TIME && typeB == Type.TIME && (midText.contains("to") || midText.contains("-") || midText.contains("–") || midText.contains("—"))) {
+            temporal = joinTimeAndTime(temporalA, temporalB);
+            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
+            temporal.setFromPosition(temporalA.getFromPosition());
+            temporal.setToPosition(temporalB.getToPosition());
+            return temporal;
+        }
+
         else if (typeA == Type.DAY_OF_WEEK && typeB == Type.DATE) {
             temporal = joinDayOfWeekAndDate(temporalA, temporalB);
             temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
@@ -186,6 +195,18 @@ public class CombineRules {
             return null;
         }
 
+    }
+
+    private TemporalExtraction joinTimeAndTime(TemporalExtraction temporalA, TemporalExtraction temporalB) {
+        Time endTime = temporalB.getTemporal().get(0).getStartDate().getTime();
+
+        if (endTime != null) {
+            temporalA.getTemporal().get(0).getEndDate().setTime(endTime);
+
+        }
+        temporalA.setConfidence(0.8);
+        temporalA.getTemporal().get(0).setType(Type.TIME_INTERVAL);
+        return temporalA;
     }
 
     private TemporalExtraction joinTimeZoneAndDate(TemporalExtraction temporalA, TemporalExtraction temporalB) {

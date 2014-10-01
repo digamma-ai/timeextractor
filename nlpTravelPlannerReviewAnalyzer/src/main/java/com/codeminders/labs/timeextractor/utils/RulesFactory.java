@@ -20,6 +20,7 @@ import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule2;
 import com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule3;
 import com.codeminders.labs.timeextractor.rules.date.MonthOfYear1;
 import com.codeminders.labs.timeextractor.rules.date.NTimeAgoRule;
+import com.codeminders.labs.timeextractor.rules.date.NTimeAgoRule2;
 import com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc;
 import com.codeminders.labs.timeextractor.rules.date.YearRule;
 import com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval2;
@@ -185,6 +186,8 @@ public class RulesFactory {
             return (MonthDayYearRule3) obj;
         case ("NTimeAgoRule"):
             return (NTimeAgoRule) obj;
+        case ("NTimeAgoRule2"):
+            return (NTimeAgoRule2) obj;
 
         }
         return null;

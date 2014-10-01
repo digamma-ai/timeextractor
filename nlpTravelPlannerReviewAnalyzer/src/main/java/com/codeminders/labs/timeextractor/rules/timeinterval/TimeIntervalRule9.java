@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
@@ -23,8 +22,7 @@ public class TimeIntervalRule9 extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 5;
-    private String rule = "\\b((from|between)[\\s]*)?(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\\s]*(to|till|until|before|-)[\\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?)\\b)"
-            + "([\\s]*" + TemporalConstants.TIME_ZONE + ")?";
+    private String rule = "\\b((from|between)[\\s]*)?(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\\s]*(to|till|until|before|-)[\\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))\\b";
     {
         parser = new TemporalBasicCaseParser();
     }
@@ -64,12 +62,6 @@ public class TimeIntervalRule9 extends Rule {
                 timeTo.setHours(Utils.convertTime(timeTo.getHours(), m.group(11)));
             }
 
-        }
-
-        if (m.group(15) != null) {
-            timezone = parser.getTimeZone(m.group(15));
-            timeTo.setTimezone(timezone);
-            timeFrom.setTimezone(timezone);
         }
 
         start.setTime(timeFrom);

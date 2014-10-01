@@ -18,7 +18,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class Time4Rule extends Rule {
     private TemporalBasicCaseParser parser = new TemporalBasicCaseParser();
     protected Locale locale = Locale.US;
-    protected double confidence = 0.8;
+    protected double confidence = 0.4;
     private int priority = 2;
     private String rule = "\\b(\\b(at about|at|around)[\\s]*(\\b[01]?[0-9]|2[0-3]\\b)([\\s]*|$)" + TemporalConstants.TIME_ZONE + "?)\\b";
 

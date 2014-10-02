@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
@@ -17,7 +18,7 @@ public class SeasonRules extends Rule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.5;
-    private String rule = "\\b(((in)[\\s]*|(in the|throughout)[\\s]([\\s]the)?)[\\s]*)?(fall|winter|summer|spring|autumn)[s]?([\\s]*(month|months|hours))?\\b";
+    private String rule = "\\b(((in)[\\s]*|(in the|throughout)[\\s]([\\s]the)?)[\\s]*)?" + TemporalConstants.SEASON + "[s]?([\\s]*(month|months|hours))?\\b";
     protected int priority = 1;
 
     public SeasonRules() {

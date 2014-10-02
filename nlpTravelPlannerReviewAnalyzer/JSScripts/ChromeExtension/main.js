@@ -1,8 +1,8 @@
 // local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/api/annotate"
 
 var TEMPORAL_EXTRACTION_URL = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/";
-var	TEMPORAL_EXTRACTION_SERVICE_URL=TEMPORAL_EXTRACTION_URL+"api/annotate"
-var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL+"images/loading.gif";
+var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/annotate"
+var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL + "images/loading.gif";
 var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
@@ -12,12 +12,14 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 });
 
 var start = function() {
-	// added styles for loader and highlight   
-	//addGlobalStyle('.loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999;  background: url('+LOADING_BAR_IMAGE_URL+') 50% 50% no-repeat rgb(249,249,249) }');
+	// added styles for loader and highlight
+	// addGlobalStyle('.loader { position: fixed; left: 0px; top: 0px; width:
+	// 100%; height: 100%; z-index: 9999; background:
+	// url('+LOADING_BAR_IMAGE_URL+') 50% 50% no-repeat rgb(249,249,249) }');
 	addGlobalStyle('.highlight { background-color: yellow  }');
 
 	var html = $("html").html();
-	//$('body').prepend('<div class="loader"></div>');
+	// $('body').prepend('<div class="loader"></div>');
 	// wait until text is cleaned
 	var json_to_get_temporal = [ {
 		'id' : '1',
@@ -28,12 +30,12 @@ var start = function() {
 			function(data, textStatus, jqXHR) {
 				highlight(html, data);
 				// return to the top of page
-				//window.scroll(0, 0);
+				// window.scroll(0, 0);
 				// remove loader
-			//	$(".loader").fadeOut("slow");
+				// $(".loader").fadeOut("slow");
 			}).fail(function(data, textStatus, jqXHR) {
 		alert("An error occured on server: " + jqXHR);
-	//	$(".loader").fadeOut("slow");
+		// $(".loader").fadeOut("slow");
 	});
 	;
 };
@@ -51,12 +53,11 @@ var temporalData = function(json) {
 	});
 }
 
+
 // function to highlight text on html page from position
 
-//function to highlight text on html page from position
-
 var highlight = function(html, data) {
-	//iterate through object
+	// iterate through object
 	var tags = [];
 	var selected = [];
 	for ( var property in data) {
@@ -64,8 +65,7 @@ var highlight = function(html, data) {
 		if (current_tag.length == 1) {
 			var base_tag = $(html.substring(current_tag[0].htmlTagFrom,
 					current_tag[0].htmlTagTo));
-			var text = $.trim($(base_tag).clone().children().remove().end()
-					.text());
+			var text = $.trim($(base_tag).text());
 			text = text.replace(/\s+/g, " ");
 			var temporal = (text.substring(current_tag[0].from,
 					current_tag[0].to));
@@ -86,8 +86,7 @@ var highlight = function(html, data) {
 			for (var j = 0; j < current_tag.length; j++) {
 				var base_tag = $(html.substring(current_tag[j].htmlTagFrom,
 						current_tag[j].htmlTagTo));
-				var text = $.trim($(base_tag).clone().children().remove().end()
-						.text());
+				var text = $.trim($(base_tag).text());
 				text = text.replace(/\s+/g, " ");
 				var tag = $(current_tag[0].tag).filter(
 						function() {
@@ -129,28 +128,22 @@ var highlight = function(html, data) {
 }
 
 var replace = function(tags) {
-	$(tags.tag)
-			.html(
-					function(i, v) {
-						return v
-								.replace(
-										tags.temporal,
-										"<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
-												+ JSON.stringify(
-														tags.extractedTemporal)
-														.replace(/"/g, '\'')
-												+ " "
-												+ "locale: "
-												+ JSON.stringify(tags.locale)
-														.replace(/"/g, '\'')
-												+ " "
-												+ "confidence: "
-												+ JSON
-														.stringify(tags.confidence)
-												+ "\">"
-												+ tags.temporal
-												+ "</span>");
-					});
+	$(tags.tag).replaceText(tags.temporal, "<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
+			+ JSON.stringify(
+					tags.extractedTemporal)
+					.replace(/"/g, '\'')
+			+ " "
+			+ "locale: "
+			+ JSON.stringify(tags.locale)
+					.replace(/"/g, '\'')
+			+ " "
+			+ "confidence: "
+			+ JSON
+					.stringify(tags.confidence)
+			+ "\">"
+			+ tags.temporal
+			+ "</span>");
+						
 }
 
 jQuery.fn.textWalk = function(fn) {
@@ -167,6 +160,10 @@ jQuery.fn.textWalk = function(fn) {
 	}
 	return this;
 };
+
+String.prototype.replaceAll = function(search, replace) {
+	return this.split(search).join(replace);
+}
 
 // add custom css style to page
 function addGlobalStyle(css) {

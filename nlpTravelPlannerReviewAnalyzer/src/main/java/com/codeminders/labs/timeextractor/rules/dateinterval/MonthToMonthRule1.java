@@ -21,8 +21,8 @@ public class MonthToMonthRule1 extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.9;
     private String rule = "(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")([.]?)[\\s]*(through|thru|to|-)[\\s]*(" + TemporalConstants.MONTH_OF_YEAR + "|"
-            + TemporalConstants.MONTH_OF_YEAR_EASY + ")([.]?)[\\s]*[,]?[\\s]*([2][0-9]\\d\\d)?";
-    protected int priority = 3;
+            + TemporalConstants.MONTH_OF_YEAR_EASY + ")";
+    protected int priority = 7;
 
     public MonthToMonthRule1() {
     }
@@ -48,9 +48,7 @@ public class MonthToMonthRule1 extends Rule {
         if (monthEnum2 != null) {
             month2 = monthEnum2.getValue();
         }
-        if (m.group(10) != null) {
-            year = Integer.parseInt(m.group(10));
-        }
+
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
 

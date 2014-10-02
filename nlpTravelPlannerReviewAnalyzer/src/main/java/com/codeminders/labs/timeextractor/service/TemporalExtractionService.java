@@ -35,6 +35,7 @@ public class TemporalExtractionService {
             TreeSet<TemporalExtraction> results = null;
             try {
                 results = extractDatesAndTimeFromText(htmlElement.getExtractedText());
+
             } catch (Exception ex) {
                 System.out.println("Exception logger here... " + ex);
             }
@@ -168,7 +169,7 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText("11:30 to 12:30"));
+        System.out.println(service.extractDatesAndTimeFromText(" by 19,720 i"));
 
     }
 }

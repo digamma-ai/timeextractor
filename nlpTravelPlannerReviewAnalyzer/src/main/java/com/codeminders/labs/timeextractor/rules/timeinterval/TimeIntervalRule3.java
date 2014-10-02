@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
@@ -17,15 +16,11 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class TimeIntervalRule3 extends Rule {
-    private TemporalBasicCaseParser parser;
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.3;
     private int priority = 3;
-    private String rule = "\\b((after|before|until|till|til|by)[\\s]*([01]?[0-9]|2[0-3])([\\s]*[.|:]([0-5][0-9]))?([\\s]*" + TemporalConstants.TIME_ZONE + ")?)\\b";
-    {
-        parser = new TemporalBasicCaseParser();
-    }
+    private String rule = "\\b((after|before|until|till|til|by)[\\s]*([01]?[0-9]|2[0-3])([\\s]*[.|:]([0-5][0-9]))?)([\\s]|$)";
 
     public TimeIntervalRule3() {
 
@@ -44,11 +39,6 @@ public class TimeIntervalRule3 extends Rule {
         TimeDate end = new TimeDate();
         Time time = new Time();
         Temporal temporal = null;
-        int timezone = 0;
-        if (m.group(7) != null) {
-            timezone = parser.getTimeZone(m.group(7));
-            time.setTimezone(timezone);
-        }
         if (m.group(3) != null) {
             time.setHours(Integer.parseInt(m.group(3)));
         }

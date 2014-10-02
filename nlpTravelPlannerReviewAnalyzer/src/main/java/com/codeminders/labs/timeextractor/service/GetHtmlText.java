@@ -27,23 +27,23 @@ public class GetHtmlText {
 
         ArrayList<HtmlElement> elements = new ArrayList<HtmlElement>();
         Document document = Jsoup.parse(html);
-
         Document.OutputSettings settings = document.outputSettings();
         settings.prettyPrint(PRETTY_PRINT);
         settings.escapeMode(ESCAPE_MODE);
-
         Elements htmlElements = document.body().select("*");
-        for (Element element : htmlElements) {
-            if (element.ownText().isEmpty()) {
+        for (int i = 0; i < htmlElements.size(); i++) {
+            Element element = htmlElements.get(i);
+
+            if (element.toString().length() > MAX_HTML_STRING_LENGTH || element.ownText().isEmpty()) {
                 continue;
             }
-            if (element.ownText().length() < MIN_TEXT_LENGTH || element.toString().length() > MAX_HTML_STRING_LENGTH) {
+
+            String text = element.text();
+            if (text.length() <= MIN_TEXT_LENGTH) {
                 continue;
             }
-            String text = element.ownText();
             try {
                 String elementString = element.toString().replace("&apos;", "'").replace("&quot;", "\"");
-
                 if (html.contains(elementString)) {
                     int beginning = html.indexOf(elementString);
                     int end = beginning + elementString.length();
@@ -65,6 +65,15 @@ public class GetHtmlText {
         }
 
         return elements;
+    }
+
+    public static void main(String[] args) {
+        String html = "<body><p class=\"cnn_storypgraphtxt cnn_storypgraph76\"><i><a href=\"http://www.restaurant-lemagret.com/\" target=\"_blank\">Le Magret</a></i><i>, Marche Victor Hugo, 31000 Toulouse; +33 (0)5 61 23 21 32; Tuesday-Friday 11.45 a.m.-2.30 p.m., Saturday-Sunday 11</i><i>.</i><i>45 a.m.-3 p.m.; moderate</i></p></body>";
+        GetHtmlText service = new GetHtmlText();
+        ArrayList<HtmlElement> htmlElements = service.getElements(html);
+        for (HtmlElement element : htmlElements) {
+            System.out.println("extracted: " + element.getExtractedText());
+        }
     }
 
 }

@@ -4,6 +4,7 @@ public class TemporalConstants {
 
     public static final String DAY_OF_WEEK = "(sunday|monday|tuesday|wednesday|thursday|friday|saturday)";
     public static final String DAY_OF_WEEK_EASY = "(sun|mon|tue|wed|thur|thu|fri|sat)";
+    public static final String SEASON = "(fall|winter|summer|spring|autumn)";
     public static final String MONTH_OF_YEAR = "(january|february|march|april|may|june|july|august|september|october|november|december)";
     public static final String MONTH_OF_YEAR_EASY = "(jan|feb|mar|apr|may|jun|jul|aug|sept|sep|oct|nov|dec)";
     public static final String HOLIDAYS = "((halloween)|(christmas eve)|(christmas day)|(christmas)|(new year's day)|(New Year s' Eve)|(new year day)|(new year)|(independence day)|(thanksgiving)|(Veterans Day)|(Columbus Day)|(Labor Day)|(Memorial Day)|(Washington's Birthday)|(Martin Luther King, Jr. Day)|(Martin Luther King Day)|(Inauguration Day)|((st[.]?|saint)[\\s]*(valentine|valentine's|valentines)[\\s]*(day)?))";

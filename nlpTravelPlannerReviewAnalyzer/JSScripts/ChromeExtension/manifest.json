@@ -9,7 +9,7 @@
     "default_icon": "icon.png"
   },
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js",  "main.js" ],
+    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "jquery.ba-replacetext.min.js", "main.js" ],
     "matches": [ "http://*/*", "https://*/*"]
   }],
      "background": {

@@ -29,6 +29,7 @@ import com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval4;
 import com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule1;
 import com.codeminders.labs.timeextractor.rules.dateinterval.MidLateMonthRule;
 import com.codeminders.labs.timeextractor.rules.dateinterval.MonthDaysIntervalRule1;
+import com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthInterval;
 import com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1;
 import com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules;
 import com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules2;
@@ -188,6 +189,8 @@ public class RulesFactory {
             return (NTimeAgoRule) obj;
         case ("NTimeAgoRule2"):
             return (NTimeAgoRule2) obj;
+        case ("MonthToMonthInterval"):
+            return (MonthToMonthInterval) obj;
 
         }
         return null;

@@ -32,6 +32,7 @@ import com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval4;
 import com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule1;
 import com.codeminders.labs.timeextractor.rules.dateinterval.MidLateMonthRule;
 import com.codeminders.labs.timeextractor.rules.dateinterval.MonthDaysIntervalRule1;
+import com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthInterval;
 import com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1;
 import com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules;
 import com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules2;
@@ -136,6 +137,7 @@ public class MultiplePatternsGenerator {
         Rule rule59 = new DurationRule5();
         Rule rule60 = new NTimeAgoRule();
         Rule rule61 = new NTimeAgoRule2();
+        Rule rule62 = new MonthToMonthInterval();
 
         rules.add(rule1);
         rules.add(rule2);
@@ -198,6 +200,7 @@ public class MultiplePatternsGenerator {
         rules.add(rule59);
         rules.add(rule60);
         rules.add(rule61);
+        rules.add(rule62);
 
         return rules;
 

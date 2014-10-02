@@ -13,7 +13,7 @@ import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class MonthDayYearRule2 extends Rule {
-    private double confidence = 0.8;
+    private double confidence = 0.6;
     private int priority = 2;
     protected String rule = "\\b((0?[1-9]|[12][0-9]|3[01])[.\\/](0?[1-9]|1[012])[.\\/](([12][0-9])?\\d\\d))\\b";
 

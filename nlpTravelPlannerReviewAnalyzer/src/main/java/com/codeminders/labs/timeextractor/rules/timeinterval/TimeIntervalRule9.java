@@ -10,22 +10,17 @@ import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
 // 9am till 6pm
 
 public class TimeIntervalRule9 extends Rule {
-    private TemporalBasicCaseParser parser;
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 5;
     private String rule = "\\b((from|between)[\\s]*)?(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\\s]*(to|till|until|before|-)[\\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))\\b";
-    {
-        parser = new TemporalBasicCaseParser();
-    }
 
     public TimeIntervalRule9() {
 
@@ -47,7 +42,6 @@ public class TimeIntervalRule9 extends Rule {
         Time timeTo = new Time();
 
         Temporal temporal = null;
-        int timezone = 0;
 
         if (m.group(3) != null) {
             timeFrom.setHours(Integer.parseInt(m.group(3)));

@@ -81,6 +81,24 @@ public class TimeIntervalRule6 extends Rule {
     public void setPriority(int priority) {
         this.priority = priority;
     }
+    
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
 
     @Override
     public int compareTo(Rule o) {

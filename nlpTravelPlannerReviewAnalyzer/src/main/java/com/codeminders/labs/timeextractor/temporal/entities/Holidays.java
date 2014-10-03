@@ -5,6 +5,7 @@ public class Holidays {
     public static final String NEW_YEAR2 = "new year's day";
     public static final String NEW_YEAR3 = "new year day";
     public static final String NEW_YEAR4 = "New Year s' Eve";
+    public static final String NEW_YEAR5 = "New Year's Eve";
     public static final String HALLOWEEN = "halloween";
     public static final String INDEPENDENCE_DAY = "independence day";
     public static final String ST_VALENTINE = "St. Valentine day";

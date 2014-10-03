@@ -28,7 +28,7 @@ public class TimeOfDayRule extends Rule {
 
     @Override
     public Type getType() {
-        return Type.TIME_INTERVAL;
+        return Type.TIME_INTERVAL_INDIRECT;
     }
 
     @Override

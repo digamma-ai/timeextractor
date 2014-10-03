@@ -336,7 +336,7 @@ public class TemporalBasicCaseParser {
     }
 
     public int getTimeZone(String zone) {
-        if (zone.equalsIgnoreCase("PST")) {
+        if (zone.equalsIgnoreCase("PST") || zone.equalsIgnoreCase("Pacific Time")) {
             return -8;
         }
 

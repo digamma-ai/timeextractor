@@ -18,12 +18,10 @@ import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.rules.combine.CombineRules;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.RulesFactory;
 
 public class TemporalExtractionService {
 
     private GetHtmlText htmlService = new GetHtmlText();
-    private RulesFactory factory = new RulesFactory();
     private Annotation2DTOTemporalConversion converter = new Annotation2DTOTemporalConversion();
     private CombineRules combineRulesService = new CombineRules();
     private static MultipleExtractionService service = new MultipleExtractionService(null);
@@ -55,8 +53,7 @@ public class TemporalExtractionService {
         TreeSet<TemporalExtraction> temporals = new TreeSet<TemporalExtraction>();
         List<RegexResult> results = service.getTemporals(text);
         for (RegexResult result : results) {
-            String name = result.getRuleName();
-            Rule rule = factory.getBaseRule(result.getRule(), name);
+            Rule rule = result.getRule();
             TemporalExtraction temporal = new TemporalExtraction();
             temporal.setFromPosition(result.getStart());
             temporal.setToPosition(result.getEnd());
@@ -169,7 +166,7 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText(" by 19,720 i"));
+        System.out.println(service.extractDatesAndTimeFromText("Friday 03 October 2014 – Sunday 05 October 2014"));
 
     }
 }

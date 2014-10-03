@@ -37,7 +37,7 @@ public class Time1RuleTest extends GeneralTest {
 
         String toPredict = "11 a.m.";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
-        assertEquals("11 a.m.", predicted.get(0).getTemporalExpression());
+        assertEquals("11 a.m", predicted.get(0).getTemporalExpression());
         assertEquals(11, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
 
     }
@@ -47,7 +47,7 @@ public class Time1RuleTest extends GeneralTest {
 
         String toPredict = "11 p.m.";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
-        assertEquals("11 p.m.", predicted.get(0).getTemporalExpression());
+        assertEquals("11 p.m", predicted.get(0).getTemporalExpression());
         assertEquals(23, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
 
     }

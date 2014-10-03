@@ -24,7 +24,7 @@ public class MonthAndDayRule2 extends Rule {
     private int day;
     private int year;
     private int priority = 4;
-    private String rule = "\\b(the[\\s]*)?((([1-2][0-9]|[3][0-1]|[1-9]))(th|st|rd|nd)?)[\\s]*(of|[,])?[\\s]*(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
+    private String rule = "\\b(the[\\s]*)?((([1-2][0-9]|[3][0-1]|[0]?[1-9]))(th|st|rd|nd)?)[\\s]*(of|[,])?[\\s]*(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
             + ")([\\s]*[,]?(of|[,])?[\\s]*([12][0-9]\\d\\d))?\\b";
 
     public MonthAndDayRule2() {

@@ -5,31 +5,24 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
-import com.codeminders.labs.timeextractor.temporal.entities.TimeTag;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// by 2100 CET
+// 12h00-18h00
 
-public class TimeIntervalRule4 extends Rule {
-    private TemporalBasicCaseParser parser;
+public class TimeIntervalRule11 extends Rule {
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.7;
-    private int priority = 4;
-    private String rule = "\\b((after|before|until|till|til|by)[\\s]*(2[0-3]|1[0-9]|0[0-9]|[0-9])([0-5][0-9])" + "([\\s]*" + TemporalConstants.TIME_ZONE + "))\\b";
-    {
-        parser = new TemporalBasicCaseParser();
-    }
+    protected double confidence = 0.8;
+    private int priority = 5;
+    private String rule = "\\b(([01]?[0-9]|2[0-3])h([0-5][0-9])[\\s]*[-|to][\\s]*([01]?[0-9]|2[0-3])h([0-5][0-9]))\\b";
 
-    public TimeIntervalRule4() {
+    public TimeIntervalRule11() {
 
     }
 
@@ -44,30 +37,35 @@ public class TimeIntervalRule4 extends Rule {
         Matcher m = Utils.getMatch(rule, text);
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
-        Time time = new Time();
+
+        Time timeFrom = new Time();
+        Time timeTo = new Time();
+
         Temporal temporal = null;
-        int timezone = 0;
-        if (m.group(6) != null) {
-            timezone = parser.getTimeZone(m.group(6));
-            time.setTimezone(timezone);
+        if (m.group(2) != null) {
+            timeFrom.setHours(Integer.parseInt(m.group(2)));
         }
+
         if (m.group(3) != null) {
-            time.setHours(Integer.parseInt(m.group(3)));
+            timeFrom.setMinutes(Integer.parseInt(m.group(3)));
         }
+
         if (m.group(4) != null) {
-            time.setMinutes(Integer.parseInt(m.group(4)));
+            timeTo.setHours(Integer.parseInt(m.group(4)));
         }
-        TimeTag tag = TemporalBasicCaseParser.getTimeTag(m.group(1));
-        if (tag == TimeTag.AFTER) {
-            start.setTime(time);
-            temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, start, null);
-        } else {
-            end.setTime(time);
-            temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, null, end);
+
+        if (m.group(5) != null) {
+            timeTo.setMinutes(Integer.parseInt(m.group(5)));
         }
+
+        start.setTime(timeFrom);
+        end.setTime(timeTo);
+
+        temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, start, end);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+
     }
 
     public String getRule() {
@@ -84,15 +82,6 @@ public class TimeIntervalRule4 extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    @Override
-    public double getConfidence() {
-        return confidence;
-    }
-
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
     }
 
     @Override

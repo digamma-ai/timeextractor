@@ -17,7 +17,7 @@ public class Time3Rule extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 3;
-    private String rule = "\\b(at[\\s]*|about[\\s]*|at about[\\s]*)?(([01]?[0-9]|2[0-3])[\\s]*(([:.,]?)([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))";
+    private String rule = "\\b(at[\\s]*|about[\\s]*|at about[\\s]*)?(([01]?[0-9]|2[0-3])[\\s]*(([:.,]?)([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))\\b";
 
     public Time3Rule() {
     }

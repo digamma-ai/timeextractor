@@ -85,7 +85,7 @@ public class TemporalParser {
         TimeDate end = new TimeDate();
 
         if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR2) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR3)
-                || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR4)) {
+                || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR4) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR5)) {
             Date startDate = new Date(0, 1, 1);
             Date endDate = new Date(0, 1, 1);
             start.setDate(startDate);

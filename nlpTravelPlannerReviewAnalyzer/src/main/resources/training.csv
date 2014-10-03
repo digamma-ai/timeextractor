@@ -45,7 +45,7 @@ venueId,time,tip
 437e6b00f964a520b82a1fe3,1341704896,Bank of America members have a free day once a month. Check with the museum what days are scheduled
 437e6b00f964a520b82a1fe3,1338032138,The observation tower on a clear-skies day makes a fabulous viewing.  Especially after priming the eyes with good stuff in the galleries.
 437e6b00f964a520b82a1fe3,1319129984,Usually has good exhibits and the tower has great views of SF on a clear day.
-437e6b00f964a520b82a1fe3,1271434351,College Night!!
+437e6b00f964a520b82a1fe3,1271434351,College <text>Night</text>!!
 437e6b00f964a520b82a1fe3,1270269667,"<text>First Fridays of the month in 2010</text> are free! Features Street Art of San Francisco: Mission Muralismo which includes music, interactive exhibits, and cocktails :D"
 437e6b00f964a520b82a1fe3,1406332141,"The De Young Museum will host a Fair Trade Bazaar <text>today</text> . Be sure to drop by and check out products from artisans all over the world. <text>Sat, 7/26 , 9:30am-4:30pm</text> , free."
 437e6b00f964a520b82a1fe3,1403732283,Come durning a <text>weekday</text> and bring a good book
@@ -127,8 +127,8 @@ venueId,time,tip
 4c52b7a4b6dabe9a24d2bb13,1319658425,"Different markets on different days - food, antiques & crafts. Nice places to eat & watch the world go by. Can even just grab a cornish pasty & watch the street artists."
 4c52b7a4b6dabe9a24d2bb13,1326714640,"Originally a convent garden owned by the Benedictines of Westminster, the site was developed by the 4th earl of Bedford. It was laid out in the 1630s as a piazza, to the design of Inigo Jones"
 4c52b7a4b6dabe9a24d2bb13,1376854835,Don't forget to vist Covent Garden on <text>Sunday</text>
-4c52b7a4b6dabe9a24d2bb13,1333629811,Tasty food market <text>every Thursday</text>. Chorizo sandwiches for the win
-4c52b7a4b6dabe9a24d2bb13,1323141095,"So festively decorated at Christmastime! I had been hoping to see this side of London on my 3rd visit <text>in December</text>, and the cafe/deli we went to on one side had just the warm beverages we were seeking."
+4c52b7a4b6dabe9a24d2bb13,1333629811,Tasty food market <text>every Thursday.</text> Chorizo sandwiches for the win
+4c52b7a4b6dabe9a24d2bb13,1323141095,"So festively decorated at <text>Christmas</text>time! I had been hoping to see this side of London on my 3rd visit <text>in December</text>, and the cafe/deli we went to on one side had just the warm beverages we were seeking."
 4c52b7a4b6dabe9a24d2bb13,1358264274,"Avoid the underground station during <text>evenings</text> and <text>week-ends</text>! Just walk from Leicester Square, it's <text>less than 5 minutes</text> walk."
 4c52b7a4b6dabe9a24d2bb13,1320101742,<text>Thursday</text> 's are a great day to visit if you're into fresh food!
 4c52b7a4b6dabe9a24d2bb13,1346941431,Farmers market on <text>Thursdays</text>
@@ -141,7 +141,7 @@ venueId,time,tip
 4ac518d2f964a52042a720e3,1263137220,Good for lunch not so good as a museum. Went there <text>today</text>.
 4ac518d2f964a52042a720e3,1397337618,My favourite place in the whole of London. Great Museum and been a member for the <text>last 10 years</text>. Will miss Shad though when the Museum moves.
 4ac518d2f964a52042a720e3,1343978705,"Designed to Win Exhibition, <text>July 25 ?November 18</text>"
-4ac518d2f964a52042a720e3,1336048033,The new Christian Laboutin exhibition has just opened ?on <text>until 9 July</text>
+4ac518d2f964a52042a720e3,1336048033,The new Christian Laboutin exhibition has just opened ?on until <text>9 July</text>
 4ac518d2f964a52044a720e3,1397932416,"Free Entrance, <text>until 5</text>"
 4ac518d2f964a52044a720e3,1350110187,"Great Gardens, open <text>1st April to 31st October</text>"
 4ac518cdf964a520e9a520e3,1362096511,"A beautiful museum dedicated to science, it is like a sanctuary for me. Go and discover! Until <text>June 2013</text>, Web Lab Experiments will continue by Google. Don't escape this one!"
@@ -153,7 +153,7 @@ venueId,time,tip
 4ac518cdf964a520e9a520e3,1313790848,"Nice museum! Don't go late, it has much to see and it realy closes <text>at 18:00</text>!!"
 4ac518cdf964a520e9a520e3,1305322534,A great place to spend a <text>whole day</text> .
 4ac518cdf964a520e9a520e3,1287832739,For kids the pattern pod is great! If you are driving car park on street is free <text>after 1.30pm on Saturdays</text> .
-4ac518cdf964a520e9a520e3,1391265485,Don't bother coming on a <text>Saturday</text>. Its packed and your child will only be disappointed when they don't get in to the attractions.
+4ac518cdf964a520e9a520e3,1391265485,Don't bother coming on a <text>Saturday.</text> Its packed and your child will only be disappointed when they don't get in to the attractions.
 4ac518cdf964a520e9a520e3,1377995532,"Free <text>night</text> for adults on <text>the last Wednesday of every month</text> called Lates. Sounded super cool, but the <text>nights</text> should be called 'Climbing Stairs and Waiting in Lines'."
 4ac518cdf964a520e9a520e3,1364137245,Leave a <text>whole day</text> !
 4ac518cdf964a520e9a520e3,1360595894,"If you're planning on eating in the restaurant by the imax, send someone ahead to queue. There can be <text>30min</text>+ wait at <text>weekends</text> ."
@@ -181,7 +181,7 @@ venueId,time,tip
 4ae2d9f8f964a5208d8f21e3,1391689382,"The Prince of Wales, President of the British Asian Trust,  meets singer Emeli Sande at a reception for supporters of the trust at the Victoria and Albert Museum in London, <text>5 February 2014</text>."
 4ae2d9f8f964a5208d8f21e3,1390794939,Best museum ever! Much like the Met but more sculptures and architecture. You can def stay here <text>all day</text> and longer!
 4ae2d9f8f964a5208d8f21e3,1377294977,<text>Friday</text> long hours !
-4ae2d9f8f964a5208d8f21e3,1373057207,"although the website states they are open <text>until 10 pm on fridays</text> , they close <text>at about 9.30</text>"
+4ae2d9f8f964a5208d8f21e3,1373057207,"although the website states they are open <text>until 10 pm on fridays</text> , they close at <text>about 9.30</text>"
 4ae2d9f8f964a5208d8f21e3,1367170052,David Bowie Is IS the exhibition to visit. Plan for <text>3 hours</text>.
 4aec421af964a520b5c521e3,1294511387,Not to mention the resident ales - taylors landlord particularly good this <text>evening</text>!
 4ac518d2f964a5203ca720e3,1275235389,The modern galleries on the ground floor just opened on <text>May 28</text> - great for a <text>Sunday afternoon</text> visit!
@@ -203,12 +203,12 @@ venueId,time,tip
 4ac518cef964a520fca520e3,1307303682,Go there around <text>16:00</text> or else there will be huge crowds of people everywhere. You need around <text>90-100 minutes</text> for everything inside including the 4D is a must if you've never experienced 4D movies.
 4ac518cef964a520fca520e3,1377726315,buy tickets in advance else you will end up waiting in queue for <text>more than 3 hrs</text> ..also the place is not that exciting apart from spirit of london ride and 4d movie
 4ac518cef964a520fca520e3,1333885394,Buy tickets online and save <text>3 hours</text> in the queue!
-4ac518d3f964a5204fa720e3,1319669113,"There is a special candlelit opening on <text>the first Tuesday of each month</text>, <text>6-9pm</text>, with last entry <text>at 8:30pm.</text> Look out for a range of architectural plans, including many that never came to fruition."
+4ac518d3f964a5204fa720e3,1319669113,"There is a special candlelit opening on <text>the first Tuesday of each month, 6-9pm</text>, with last entry <text>at 8:30pm</text>. Look out for a range of architectural plans, including many that never came to fruition."
 4ac518d3f964a5204fa720e3,1332849102,"On <text>the first Tuesday of each month</text>, the museum opens late (<text>6-9pm</text>, last entry <text>8pm</text>), and the rooms are lit by candles. Visitor numbers are generally high on these <text>evenings</text> , so early arrival is advised."
 4ac518d3f964a5204fa720e3,1310998990,Free and totally unique places like Sir John Soane's Museum are what make London great! Get in the queue early (around <text>5pm</text>) for the candlelight viewing on <text>the first Tue of every month</text>.
-4ac518d3f964a5204fa720e3,1256313285,"A simply magical special candlelit opening on <text>the first Tuesday evening of each month</text> ,<text>6-9pm.</text> Last entry for this is <text>8:30pm.</text>"
+4ac518d3f964a5204fa720e3,1256313285,"A simply magical special candlelit opening on <text>the first Tuesday evening of each month, 6-9pm.</text> Last entry for this is <text>8:30pm.</text>"
 4ac518d3f964a5204fa720e3,1270993322,For the candlelit event on <text>the 1st Tuesday of the month</text>: Get there early or queueing can take <text>up to 2hrs</text>...
-4ac518d3f964a5204fa720e3,1383691876,There's an atmospheric candlelit late opening (<text>until 9pm) on the first Tuesday of every month</text>. Books say to arrive early so there's always a long queue from <text>6pm</text>... BUT  no queue at all from 8ish!
+4ac518d3f964a5204fa720e3,1383691876,There's an atmospheric candlelit late opening (<text>until 9pm</text>) on <text>the first Tuesday of every month</text>. Books say to arrive early so there's always a long queue from <text>6pm</text>... BUT  no queue at all from 8ish!
 4ac518d3f964a5204fa720e3,1341084563,"<text>18 December</text>: When Soane eventually died, he had collected so much he arranged for an Act of Parliament to allow him to bequeath it to the nation, and it remains to this day."
 4ac518d3f964a52078a720e3,1309274667,The Imperial War Museum covers all aspects of 20th and 21st century conflict involving Britain and the Commonwealth. Get hands on at Open <text>Weekend</text> on <text>22-24 July 2011</text>.
 4ac518d3f964a52078a720e3,1288104730,We've got a <text>10 minute</text> documentary on the Charge of the Light Brigade that you can listen to while you are here. Click on this tip to get the link
@@ -217,7 +217,7 @@ venueId,time,tip
 4ac518d3f964a52078a720e3,1398850035,"Careful, it's closed until <text>19th July (2014</text>)!"
 4ac518d3f964a52078a720e3,1388850938,Horrible Histories exhibition Spies is excellent interactive fun for kids about spies during WWII. resumes <text>july 2014</text>
 4ac518d3f964a52078a720e3,1382876934,"In remodelation until <text>summer 2014</text>. Its a confusion now, with noise from the works. No worth, wait a few months and come again"
-4ac518d3f964a52078a720e3,1375786353,Much of the museum closed for renovations <text>until 2014</text>
+4ac518d3f964a52078a720e3,1375786353,Much of the museum closed for renovations until <text>2014</text>
 4ac518d3f964a52078a720e3,1352217735,"A must-see for History fans, and a great visit for the rest. Unfortunately, the trenches reconstruction exhibit is closed <text>until 2014</text> or <text>2015</text>, but the Holocaust exhibit is open and amazing."
 4ac518d3f964a52078a720e3,1314140348,Good for a rainy <text>afternoon</text>.
 4ac518d3f964a52078a720e3,1289770647,"very impressive museum with displays from WW1 to WW2, cold war, post cold war. If you have strong nerves visit Holocaust exhibition in 4th floor as well. Museum closes <text>at 18oo h</text> - entranve free."
@@ -228,11 +228,11 @@ venueId,time,tip
 4ac518d2f964a52045a720e3,1323069167,Perfect place for the kids on a wet <text>weekend</text>. The aquarium and hands-on music room (adjacent to the instrument collection) are favourites.
 4ac518d3f964a52076a720e3,1324064086,"The Tate boat, decorated by coloured spots inspired by Damien Hirst, travels <text>every 40 minutes</text> from Tate Modern - the world's most visited art gallery in its renovated power station - to Tate Britain."
 4ac518d3f964a52076a720e3,1332848114,"Tate Modern does <text>weekend</text> after-hours gallery-going extremely well, opening <text>till 10pm on Fridays</text> and <text>Saturdays</text> ."
-4ac518d3f964a52076a720e3,1272384962,<text>Late nights on Friday</text> would be a nice way to wind down <text>the week</text> . And it's free entry.
+4ac518d3f964a52076a720e3,1272384962,<text>Late nights on Friday</text> would be a nice way to wind down the week . And it's free entry.
 4ac518d3f964a52076a720e3,1328896461,The Infinity Room is a must see when visiting Yayoi Kusama's highly anticipated retrospective of her art work at Tate Modern (<text>from 9th February ?5th June 2012</text>)
 4ac518d3f964a52076a720e3,1364912045,You can enter Tate Modern for free except for major exhibitions or events. Tote Modern open <text>from 10:00am until 6:00pm</text> . on  <text>week days</text>
 4ac518d3f964a52076a720e3,1319292136,The Herzog & de Meuron recycled building always has  exciting temporary exhibitions. It is also a good idea to visit the other Tate museums. <text>Tuesdays</text> closed. +44(0)2078878888www.tate.org.uk/modern/.
-4ac518d3f964a52076a720e3,1271440701,Try and go on a <text>Friday</text> or <text>Saturday</text> when Tate doesn't close <text>till 10pm</text>. You won't feel rushed when trying to cover every exhibit in the massive building. Great views of the Thames as well!
+4ac518d3f964a52076a720e3,1271440701,Try and go on a <text>Friday</text> or <text>Saturday</text> when Tate doesn't close <text>till 10pm.</text> You won't feel rushed when trying to cover every exhibit in the massive building. Great views of the Thames as well!
 4ac518d3f964a52076a720e3,1368451776,"if you prefer it quiet, go first thing, <text>10am</text> - plenty of free art to enjoy"
 4ac518d3f964a52076a720e3,1319679000,"The collection is world-renowned, and the space is fittingly cool. After, consider the Tate Boat that runs <text>every 40 min</text> during gallery opening hours between Tate Britain & Tate Modern (Adult: GBP 5)."
 4ac518d3f964a52076a720e3,1379415532,Turbine Hall is closed to the public <text>until 2014</text>.
@@ -338,10 +338,10 @@ venueId,time,tip
 4adcda0af964a520623421e3,1268141670,View from the top floor is great and is open late. Free <text>the first Sunday of every month</text>!
 4adcda0af964a520623421e3,1393874813,"Quite a few Henri Matisse pieces, a couple of Picasso works but I love Ten Lizes by Andy Warhol most (4th floor). Also amazing Henri Cartier-Bresson exhibit through <text>June 2014</text>!"
 4adcda0af964a520623421e3,1367767836,"Free entry <text>every first Sunday of the month</text>, yay."
-4adcda10f964a5209a3521e3,1341397665,All <text>summer</text> long the unmissable temporary exhibit: Monet and Abstraction. Open <text>every day</text> <text>from 11am to 6pm</text> except on <text>Monday Late night on Tuesday</text> <text>until 9pm</text> Entrance 9 and 5 EUR.
+4adcda10f964a5209a3521e3,1341397665,All <text>summer</text> long the unmissable temporary exhibit: Monet and Abstraction. Open <text>every day from 11am to 6pm</text> except on <text>Monday Late night on Tuesday</text> <text>until 9pm</text> Entrance 9 and 5 EUR.
 4adcda10f964a5209a3521e3,1361973243,"Some of the most important Monets and Morisots. The Laurencin exhibit, on until the end of <text>June 2013</text> is wonderful. Most works have come from Tokyo, which makes it a unique occasion."
 4bc74aab14d795218c1467e9,1360304177,Spend <text>at least 3 hours</text>
-4ed29485b634dd29941f8916,1353007588,"During <text>the week</text> there are field trips with lots of noisy kids. If you prefer quiet, come <text>after 2pm</text> . "
+4ed29485b634dd29941f8916,1353007588,"During the week there are field trips with lots of noisy kids. If you prefer quiet, come <text>after 2pm</text> . "
 4ed29485b634dd29941f8916,1383278661,Make sure you all come and see the Dead Sea Scrolls. Startong <text>Nov. 22nd</text>. Thos will be a magnificent exhibit
 4ad4f28ff964a5204cfd20e3,1260999413, on <text>New Year</text>'s Eve .
 4ad4f28ff964a5204cfd20e3,1260999413,Visit Temple Square during the holiday season. Lights are turned on at dusk and turned off on Temple Square.
@@ -367,7 +367,7 @@ venueId,time,tip
 4a1fec4af964a5203c7c1fe3,1372623058,"Play the indoor architectural mini golf! Just remember, mini golf closes <text>at 3pm</text> on the <text>weekends</text> and <text>4pm</text> <text>weekdays</text>."
 4a1fec4af964a5203c7c1fe3,1327508163,"The Building Zone play area is no longer free. It's $3 per person, including adults, for a <text>45 minute</text> session."
 4a1fec4af964a5203c7c1fe3,1312984967,"Meet journalist Greg Lindsay on <text>Tuesday, September 27, 2011</text> <text>at 6:30 PM</text> as he talks about his book, Aerotropolis."
-4a299b7df964a520b2951fe3,1285971324,"Art & Coffee in the Luce Center, <text>Wed-Sun</text> <text>1-3:30pm</text>, chat with the curators, enjoy free coffee and wi-fi"
+4a299b7df964a520b2951fe3,1285971324,"Art & Coffee in the Luce Center, <text>Wed-Sun 1-3:30pm</text>, chat with the curators, enjoy free coffee and wi-fi"
 4a299b7df964a520b2951fe3,1372285503,Showcases some of the coolest modern art designs in the world.Collection highlights tours are held <text>daily at 12:30pm</text> and <text>2:00pm</text> (except on <text>the second Tuesday of each month</text> and on federal holidays).
 4a299b7df964a520b2951fe3,1402697630,Please pass by the information desk and ask about tours .. It provides great details without searching. Just remember the last tour is <text>at 3:30 pm</text>
 4a299b7df964a520b2951fe3,1395615643,"Beautiful landscapes, folk art. Plus it closes <text>at 7pm</text>"
@@ -386,7 +386,7 @@ venueId,time,tip
 4ab14d7bf964a520f36820e3,1337742384,Get here <text>more than 15 minutes</text> before opening...
 4ab14d7bf964a520f36820e3,1337190726,Take <text>at least 3hrs</text> to go thru. Very moving and informative. Incredible to see first hand.
 4ab14d7bf964a520f36820e3,1327694804,<text>January 27</text>: International Holocaust Remembrance Day
-49e87228f964a5204c651fe3,1279747678,"Stories about Indian folklore and history are shared twice <text>each day</text>, <text>at 11 a.m</text> . and <text>1 p.m</text> . Powered by ParentsConnect.com"
+49e87228f964a5204c651fe3,1279747678,"Stories about Indian folklore and history are shared twice <text>each day, at 11 a.m</text> . and <text>1 p.m</text> . Powered by ParentsConnect.com"
 49e87228f964a5204c651fe3,1341609216,"Don't plan on eating <text>at 5:00</text>, even though the museum is open <text>until 5:30</text> the cafe takes away all its food AND the employees begin yelling ""Close the gate! Gotta stop these people comin in!"""
 49e87228f964a5204c651fe3,1310247201,"<text>At 3pm</text> they have a free special guided tour, ask at the info desk about it"
 49e87228f964a5204c651fe3,1301766521,The food is excellent. Lots of choices and good quality. We ate <text>at 11:30</text> on a <text>Saturday</text> with no wait. When we were leaving the line was down the hall.
@@ -395,7 +395,7 @@ venueId,time,tip
 45c6c2bef964a5205e421fe3,1312300628,Don't miss <text>Friday</text> gallery talks <text>at 12:30 pm</text> at the home of the world's more comprehensive collection of <text>20th century</text> works. -- Green Guide Editor
 45c6c2bef964a5205e421fe3,1310852393,They close <text>at 530</text>
 4750accef964a520b24c1fe3,1323725843,Be prepared to wait in line after line for each exhibit in this beautiful and modern gallery.  Check out the view from the rooftop. Free admission <text>every Thursday from 7-9pm.</text>
-4750accef964a520b24c1fe3,1248056197,go on <text>Thursday nights</text>  <text>after 7</text> for free admission
+4750accef964a520b24c1fe3,1248056197,go on <text>Thursday nights after 7</text> for free admission
 4750accef964a520b24c1fe3,1326915562,Don't forget to leave time to go up to the roof for some great views! Free <text>Thursdays from 7 ?9 p.m</text> . Discover other museum deals on MetroFocus.
 4750accef964a520b24c1fe3,1248251917,Go see art.  It's open <text>Wed through Sun 12 to 6</text>.
 4750accef964a520b24c1fe3,1362094589,Free after a <text>7:00 pm on Thursday</text>
@@ -403,7 +403,7 @@ venueId,time,tip
 4750accef964a520b24c1fe3,1333052027,"Definitely, go at <text>Thurs 7pm-9pm</text>, when it's free. It's a good Museum but it doesn't worth the same price of Metropolitan being 1% of Met's size."
 4750accef964a520b24c1fe3,1325811842,"Gratis on <text>Thurs evening</text>, early bird gets the worm"
 4750accef964a520b24c1fe3,1320354712,<text>Wednesday</text> free entrance <text>from 7pm to 9 pm</text>
-4750accef964a520b24c1fe3,1314935997,The New Museum offers art lovers and the art curious a free opportunity to check out their museum and collections <text>every Thursday</text> from <text>7-9pm</text>!
+4750accef964a520b24c1fe3,1314935997,The New Museum offers art lovers and the art curious a free opportunity to check out their museum and collections <text>every Thursday from 7-9pm</text>!
 4750accef964a520b24c1fe3,1306259300,Our concierge Ella at Smyth recommends going to the SkyRoom during their free <text>Thursday nights</text> for the best view of the LES imaginable.
 4750accef964a520b24c1fe3,1371768917,Free on <text>Thursday 7-9pm</text>?!! Say what?!?
 4750accef964a520b24c1fe3,1353024819,Free on <text>thursdays from 7-9</text>!!
@@ -441,7 +441,7 @@ venueId,time,tip
 437e6b00f964a520b82a1fe3,1327087568,Come durning a <text>weekday</text> and bring a good book
 437e6b00f964a520b82a1fe3,1327087568,Free entrance on <text>first Tuesday of the month</text>.
 437e6b00f964a520b82a1fe3,1327087568,"See Vermeer's Girl with a Pearl Earring here <text>Jan 26 to June 2, 2013</text>."
-4ba294bdf964a520460638e3,1327087568,See the Queen up close during Ascot week <text>in June</text> when she leaves the castle in her Rolla via the 'Long Walk' on route to the races <text>at about 1.30pm.</text>.
+4ba294bdf964a520460638e3,1327087568,See the Queen up close during Ascot week <text>in June</text> when she leaves the castle in her Rolla via the 'Long Walk' on route to the races <text>at about 1.30pm</text>..
 4bc2609474a9a5935d46d3f6,1327087568,The South Plateau trail is scheduled to re-open <text>in March</text> - reportedly with awesome wheelchair access...to this most beautiful shore!
 4bc2609474a9a5935d46d3f6,1327087568,China Beach is closed to people until <text>mid-late-May.</text> Occupied by seal pups.
 4bc2609474a9a5935d46d3f6,1327087568,Closes <text>at 5</text>
@@ -461,18 +461,18 @@ venueId,time,tip
 4297b480f964a52062241fe3,1322340821,Free wifi!
 4297b480f964a52062241fe3,1322079101,I dropped a Collectivus Turkey Thingie here. Look for Thingies near here too.
 4297b480f964a52062241fe3,1320942346,sacagewea isn't even here...its all a lie!
-4297b480f964a52062241fe3,1320942346,It rained <text>last Tuesday afternoon</text> <text>from 11.30 to 12.00</text>
+4297b480f964a52062241fe3,1320942346,It rained <text>last Tuesday afternoon from 11.30 to 12.00</text>
 4b05874bf964a520ab8922e3,1306371075,"This time we went specifically for the Tutankhamun exhibition, but the museum itself is also quite amazing and worth a visit whether you're a visitor or a local."
 4b05874bf964a520ab8922e3,1388407306,Free entry <text>at 4.30 pm</text> .
 4b05874bf964a520ab8922e3,1285658077,Welcome to friends of the #ma2010conf (<text>27 Sept - 1 Oct</text>)
 4b05874bf964a520ab8922e3,1287440460,"Melbourne Museum's 10th Birthday celebrations, <text>Sunday 24 Oct</text> ."
-4b05874bf964a520ac8922e3,1311724824,"The NGV will be open for pre-booked tours <text>Sat</text> and <text>Sun</text> , <text>Jul 30 and 31</text> as part of Melbourne Open House <text>2011</text>"
+4b05874bf964a520ac8922e3,1311724824,"The NGV will be open for pre-booked tours <text>Sat</text> and <text>Sun, Jul 30 and 31</text> as part of Melbourne Open House <text>2011</text>"
 4b05874bf964a520ac8922e3,1380681898,Don't wait until your last day to come here. Could be a fun <text>Friday</text> walking meeting.
 4b05874bf964a520ac8922e3,1369200910,Monet Exhibition finishes <text>September 2013</text> $26 ticket. <text>10am-5pm</text>
 4b05874bf964a520ac8922e3,1405577545,The exhibition Start Up <text>2014</text> is really great!
 4b05874bf964a520ac8922e3,1342406007,Ballot for a guided tour or take a self-guided tour through this highly detailed design by Roy Grounds as part of Open House <text>10am to 5pm Saturday 28 and <text>Sunday 29 July 2012</text>  #OHM2012
-4d8c5081fdd3b1f756c16ada,1311216181,"The design allows spectators to enjoy unobstructed views, free from pillars, walls or other support structures, AAMI park will be open <text>10am to 4pm - Saturday July 30</text> as part of MOH <text>2011</text> "
-4d8c5081fdd3b1f756c16ada,1306117035,Win a Steeden pink match ball signed by your favourite NRL club! Donate to the McGrath Foundation between <text>20 June</text> & <text>before 12pm</text> <text>27 June 2011</text> at www.mcgrathfoundation.com.au for your chance to win!
+4d8c5081fdd3b1f756c16ada,1311216181,"The design allows spectators to enjoy unobstructed views, free from pillars, walls or other support structures, AAMI park will be open <text>10am to 4pm  Saturday July 30</text> as part of MOH <text>2011</text> "
+4d8c5081fdd3b1f756c16ada,1306117035,Win a Steeden pink match ball signed by your favourite NRL club! Donate to the McGrath Foundation between <text>20 June</text> & <text>before 12pm 27 June 2011</text> at www.mcgrathfoundation.com.au for your chance to win!
 4d8c5081fdd3b1f756c16ada,1356183214,"Small stadium, has ability to expand up to accommodate more in the future (currently about 28k). Close to Melbourne city, easy access to Tram's (70 from city) & Richmond train station."
 4d8c5081fdd3b1f756c16ada,1368844384,"Awesome venue, east to get to. Like similar venues the price of basic food is eye watering. A chicken burger and soft drink was a whopping $14.30 so might pay to take your own snacks"
 3fd66200f964a520d6f01ee3,1364160487,"The <text>2012</text> Stanley Cup Champions, the LA Kings, will be honored by President Barack Obama on <text>Tuesday, March 26</text> at the White House."
@@ -491,7 +491,7 @@ venueId,time,tip
 4a106336f964a520b4761fe3,1382008198,Good morning! Smithsonian museums will reopen to the public <text>today</text> (<text>Oct. 17</text> ) and the Smithsonian's National Zoo will reopen on <text>Friday</text> .
 4a106336f964a520b4761fe3,1398181558,"It just arrived <text>today</text> ! A <text>1964-65</text> Ford Mustang will be on temporary display beginning <text>April 25, 2014</text> , in honor of the museum's 50th anniversary and the car's."
 4a106336f964a520b4761fe3,1390333959,"<text>Tuesday Jan. 21, 2014</text> : Smithsonian museums will close <text>at 4 PM today</text> due to snow. Stay warm!"
-4a106336f964a520b4761fe3,1390313569,"<text>Tuesday, Jan. 21, 2014</text> : Good morning! We will open on time <text>today</text> but we may have to close early depending on weather conditions. <text>Today</text> 's programs and events may be cancelled due to weather."
+4a106336f964a520b4761fe3,1390313569,"<text>Tuesday, Jan. 21, 2014</text> : Good <text>morning</text>! We will open on time <text>today</text> but we may have to close early depending on weather conditions. <text>Today</text> 's programs and events may be cancelled due to weather."
 4a106336f964a520b4761fe3,1388067184,"We're open extended hours <text>Dec. 26-30</text> , closing <text>at 7:30 PM</text> . Come see our new ""Puppetry in America"" display featuring original Kermit and Mr. Moose."
 4a106336f964a520b4761fe3,1386682374,"<text>Dec. 10, 2013</text> : We're open despite the snow. Come see our Little Golden Books exhibition. It closes <text>Jan. 12</text>"
 4a106336f964a520b4761fe3,1385416953,"We're open on <text>Thanksgiving until 5:30 PM</text> . <text>No.v 29 and 30</text>, we have extended hours and close <text>at 7:30 PM</text> . Explore our ""FOOD"" exhibition!"
@@ -562,12 +562,12 @@ venueId,time,tip
 4a4fbaecf964a520a0af1fe3,1343139212,A view of the Lincoln Memorial <text>on 4-12-02</text> .
 4a4fbaecf964a520a0af1fe3,1378569410,Nice but too crowded on the <text>weekends</text> and holidays.
 49ff8ec0f964a5202f701fe3,1309293590,"Watch C-SPANÃ¢â‚¬â„¢s Ã¢â‚¬Å“Library of CongressÃ¢â‚¬ï¿½ original documentary on <text>Monday, July 18 at 8:00 p.m. ET</text>."
-49ff8ec0f964a5202f701fe3,1361921959,Opened <text>from 08:30 to 16:30</text> <text>from monday to saturday</text>. Free entrance
+49ff8ec0f964a5202f701fe3,1361921959,Opened <text>from 08:30 to 16:30 from monday to saturday</text>. Free entrance
 49ff8ec0f964a5202f701fe3,1357271532,"The Library of Congress is the largest library in the world, with more than 151.8 million items on approximately 838 miles of bookshelves"
 49ff8ec0f964a5202f701fe3,1279216197,"Spent <text>8 hours</text> reading the LA Times and the California Eagle, quickest day in quite a while"
 4a6dfd55f964a52085d31fe3,1354993092,"$10 for a mediocre sandwich, and $3 for a fountain drink in the cafe. Be prepared to take out a loan to eat there. ."
 452d6886f964a5204a3b1fe3,1351086481,"<text>Tomorrow night</text> (<text>10/24/12) at 7 P.M</text> . , Don DeLillo will discuss his new short-story collection ""The Angel Esmerelda"" with writer Jonathan Franzen. Don't miss it!"
-452d6886f964a5204a3b1fe3,1265928998,"<text>Weekday</text> <text>Daily</text> tours <text>at 11am</text> and <text>2pm, Saturday</text> <text>at 3:30</text>"
+452d6886f964a5204a3b1fe3,1265928998,"<text>Weekday Daily</text> tours <text>at 11am</text> and <text>2pm, Saturday</text> <text>at 3:30</text>"
 452d6886f964a5204a3b1fe3,1329430991,"<text>On 5/23/11</text> , I spoke at the rededication ceremony of the Landmark Stephen A. Schwarzman Building."
 452d6886f964a5204a3b1fe3,1289486437,"Best hours in NYPL system. Open <text>7 days</text> a week, and <text>till 11PM</text> M-Th."
 452d6886f964a5204a3b1fe3,1292718777,Get what you need to get done <text>before 5:50 PM on Saturdays</text> . The library promptly shuts down <text>at 6 PM</text> .
@@ -580,7 +580,7 @@ venueId,time,tip
 4b05885ef964a52044c122e3,1362346929,"Make reservations or you'll be waiting <text>about 30 -45 minutes</text> to get in. Once we got in, it was very nice. The biggest attraction is the replica of Frankfurt International Airport."
 4b05885ef964a52044c122e3,1404733812,"Come early (<text>9 am</text> if you can, it gets really crowded really quickly), try to make time for <text>3 hours</text>, and take your best camera to get good pictures of all those details even in the farthest corners."
 4b05885ef964a52044c122e3,1376687877,"Website said it closed <text>at 11PM</text>, got there <text>at 9:50PM</text> and it was closed.  Not sure if this is something that happens often or was just that day.  But better double check if you are planning to go there."
-4b05885ef964a52044c122e3,1363600549,"I went <text>at 8:15 a.m</text> . on a <text>Sunday</text>.  Only about 12 people there.  When I left (~ <text>9:45</text> ), there were hundreds.  Get a reservation and/or go very early."
+4b05885ef964a52044c122e3,1363600549,"I went <text>at 8:15 a.m</text> . on a <text>Sunday.</text>  Only about 12 people there.  When I left (~ <text>9:45</text> ), there were hundreds.  Get a reservation and/or go very early."
 4ae44d24f964a520eb9921e3,1304424438,Ab <text>30.09.2011</text> hier groÃƒÆ’Ã…Â¸e Sonderausstellung "Pergamon - Panorama der antiken Metropole"!
 4ae44d24f964a520eb9921e3,1376824763,"On <text>Sat</text> and <text>Sun</text> its packed. You'll have to wait <text>1-2 hours</text> to get in. If possible, order your tickets online, and just pass by the people standing in line."
 4ae44d24f964a520eb9921e3,1318279198,A great museum! Schedule <text>3-4 hours</text> for a visit at least
@@ -603,7 +603,7 @@ venueId,time,tip
 4adcda83f964a520aa4821e3,1352232048, <text>October the 5th 2014</text>
 4adcdab1f964a520075021e3,1352232048, Closes <text>at 17:30</text>
 4adcdab1f964a520075021e3,1352232048, To watch l'escalade you must find the right spot to watch the bonfire <text>at 19:15</text>
-4adcdab1f964a5200d5021e3,1352232048,SAFI shop opens <text>Mon.-Fri</text>. <text>12h00-18h00</text>
+4adcdab1f964a5200d5021e3,1352232048,SAFI shop opens <text>Mon.-Fri. 12h00-18h00</text>
 4adcdab3f964a5203b5021e3,1352232048,they march the way
 4adcdab3f964a5203b5021e3,1352232048,maybe
 4adcdab3f964a5203b5021e3,1352232048,2000 soldiers
@@ -643,7 +643,7 @@ venueId,time,tip
 4ade0d9cf964a520866c21e3,1352232048,"Possible to Be upfront, like <text>30mn</text> after gate opening, either for main hall, box or club. They do are harsh on The dslr tho Watch out :) *but nicely*"
 4b058892f964a5204fce22e3,1352232048,"Flatcat great punkrockband supporting The Offspring <text>17/06</text> at 20u!!"
 4b058892f964a5204fce22e3,1352232048,"The Sisters Of Mercy on <text>February 21st and 22nd, 2011</text> ."
-4b2dac97f964a52043da24e3,1352232048,"City Hall of Brussels. Golden Book for King Albert II and Prince Philip. <text>From 12 to 31 July 2013</text> (<text>9am-6pm</text> ) "
+4b2dac97f964a52043da24e3,1352232048,"City Hall of Brussels. Golden Book for King Albert II and Prince Philip. <text>From 12 to 31 July 2013(9am-6pm</text> ) "
 4b2dac97f964a52043da24e3,1352232048,"Wifi gratuit, quelques prises de courant, c'est calme a condition d'ÃƒÂ©viter de 12 ÃƒÂ  <text>14h00</text> "
 4efd6d75f9abd5b38e3b4eb1,1352232048,"Free tapas on <text>Wednesday</text> and <text>Friday</text> , happy hour on <text>Thursday</text> "
 4efd6d75f9abd5b38e3b4eb1,1352232048,"<text>Every Sunday</text> all-you-can-eat brunch <text>from 10 am until 3 pm</text> @ Ã¢â€šÂ¬15"
@@ -656,7 +656,7 @@ venueId,time,tip
 4b058889f964a5206fcc22e3,1352232048,"Visit the great picasso exhibition, until <text>January 2011</text> "
 4b058889f964a5206fcc22e3,1352232048,"Great temporary exhibition happening <text>until 11/05/14</text> . "The expressionism in Germany & France". Don't miss it!!!"
 4b058889f964a52057cc22e3,1352232048,"Online tickets don't work for <text>about twenty minutes</text> after purchase. Order before leaving home."
-4b058889f964a5206dcc22e3,1352232048,"See some of EuropeÃ¢â‚¬â„¢s best exhibition of cultural history. Must-see: permanent collection narrating Swiss History and Collections Gallery. Open <text>Tuesday-Sunday</text> , <text>10 am to 5 pm</text> (<text>until 7pm</text> <text>Thursdays</text> ."
+4b058889f964a5206dcc22e3,1352232048,"See some of EuropeÃ¢â‚¬â„¢s best exhibition of cultural history. Must-see: permanent collection narrating Swiss History and Collections Gallery. Open <text>Tuesday-Sunday, 10 am to 5 pm(<text>until 7pm Thursdays</text> ."
 4b058889f964a5206dcc22e3,1352232048,"<text>Every last sunday of the month</text> entrance is free of charge!"
 4b058889f964a5206dcc22e3,1352232048,"You can enter it for free with the train/subway ticket for <text>24 hours</text> ."
 4b6db00cf964a5207c862ce3,1352232048,"<text>At 8 pm</text> there was fantastic hip hop show near the monument!! Unfortunately I've forgot the band's name(("
@@ -664,7 +664,7 @@ venueId,time,tip
 4b8128ccf964a520ba9830e3,1352232048,"Free admission (only for individual visitors): <text>Mondays</text> : <text>April 1 Ã¢â‚¬â€œ October 31</text> (<text>9.30 a.m.-1 p.m</text> . ) then shifts to <text>Sundays</text> : <text>November 1 Ã¢â‚¬â€œ March 31</text> (<text>10 a.m.-4 p.m</text> . )"
 4c34457a213c2d7fc934385d,1352232048,"<text>12hours</text> under the ground, 130m bellow..:)"
 4b8a84a6f964a5204c7032e3,1352232048,"Day two: <text>10am</text> - Hop on buses 166 or 180 down the Royal Route to beautiful Lazienki Park. Start at the top, where the Chopin Monument and walk down the wide leafy avenues onto the Palace on the Water."
-4d49440ca67eba7aff1170d6,1352232048,"Avoid <text>morning hours</text> on <text>weekdays</text> , unless you don't mind hordes of running and screaming children, who apparently think they are in an amusement park. Horrible!"
+4d49440ca67eba7aff1170d6,1352232048,"Avoid <text>morning hours on weekdays</text> , unless you don't mind hordes of running and screaming children, who apparently think they are in an amusement park. Horrible!"
 4d49440ca67eba7aff1170d6,1352232048,"Closed on <text>Tuesdays</text> :)"
 4c82409ad92ea093835f4872,1352232048,"Free entrance for the whole <text>November 2013</text>"
 4c82409ad92ea093835f4872,1352232048,"<text>11.30am</text> : Visit the apartments and galleries of the Royal Castle (9) (open <text>Tues to Sunday</text> ; tickets 22 zloty/Ã‚Â£4.40; free on <text>Sunday</text> ). Its reconstruction was only finished <text>in 1988</text> ."
@@ -687,7 +687,7 @@ venueId,time,tip
 427ff980f964a520c7211fe3,1352232048,"Go on a <text>Saturday after 5pm</text> for free parking."
 427ff980f964a520c7211fe3,1352232048,"The museum is free <text>EVERY DAY</text> . You only pay for parking. Take a bus, and the <text>entire day</text> at the Getty is free."
 427ff980f964a520c7211fe3,1352232048,"Free <text>after 5pm  on Saturday</text> <text>nights</text>(closes <text>at 9pm</text> ). Great place for dates and to watch the sunset."
-427ff980f964a520c7211fe3,1352232048,"Bring the kids out to learn from the best! The Harlem Globetrotters will be hosting some summer skills clinics <text>June 24-29</text> . Don't miss out! For more information "
+427ff980f964a520c7211fe3,1352232048,"Bring the kids out to learn from the best! The Harlem Globetrotters will be hosting some <text>summer</text> skills clinics <text>June 24-29</text> . Don't miss out! For more information "
 427ff980f964a520c7211fe3,1352232048,"Avoid going to the Getty during the <text>weekend</text> . Best time to visit is <text>from Tuesday to Thursday</text> . The museum is closed on <text>Monday</text> . The Central Garden is closed until <text>mid-May</text> ."
 427ff980f964a520c7211fe3,1352232048,"Please don't do the walk up the hill its not <text>15 min</text> walk"
 427ff980f964a520c7211fe3,1352232048,"Take he architecture tour. It's free and takes <text>about 45min</text> . You will learn so many things that will make you appreciate the Getty Center even more!"
@@ -697,7 +697,7 @@ venueId,time,tip
 427ff980f964a520c7211fe3,1352232048,"New <text>summer hours</text> beginning <text>Friday</text> (<text>6/1/12</text> ) Getty Center will be open until <text>2100 hrs</text> (<text>9:00 PM</text> ) both <text>Fridays</text> & <text>Saturdays</text> until <text>September 23, 2012</text> ."
 427ff980f964a520c7211fe3,1352232048,"No longer free parking  <text>after 5PM</text> on <text>Saturdays</text> ... now $5 off of normal parking fee only on <text>Saturdays</text> past <text>5PM</text> or <text>1700</text> for you military types..like me :-)"
 427c0500f964a52097211fe3,1352232048,"Enjoy a live jazz trio led by guitarist Danny Petrow <text>every Friday</text> and <text>Saturday evening</text> ( <text>5:30-8:30pm</text> ) throughout <text>February</text> and <text>March</text> in The Petrie Court CafÃƒÂ© and Wine Bar. (Liz, Restaurants)"
-427c0500f964a52097211fe3,1352232048,"Visit the Arms and Armor Galleries on <text>afternoons</text> when there is a concert in the Musical Instrument galleries above, usually on <text>Wednesdays</text> <text>at 3:30</text> about once a month. (Ashira, Objects Conservation)"
+427c0500f964a52097211fe3,1352232048,"Visit the Arms and Armor Galleries on <text>afternoons</text> when there is a concert in the Musical Instrument galleries above, usually on <text>Wednesdays at 3:30</text> about once a month. (Ashira, Objects Conservation)"
 427c0500f964a52097211fe3,1352232048,"Go see the Francis Bacon exhibit at the Met, it's open late on <text>Fridays</text> and <text>Saturdays</text> , much less crowded than usual"
 427c0500f964a52097211fe3,1352232048,"Don't miss the roof garden cafe. Have a drink & see NY artist Roxy Paine's sculpture Maelstrom against the NY skyline. Open <text>til 9 PM Fri & Sat</text> ."
 427c0500f964a52097211fe3,1352232048,"Go see The Mourners exhibit before it closes on <text>23 May</text> . The statues are on loan from Dijon, France, and are pretty spectacular"
@@ -712,7 +712,7 @@ venueId,time,tip
 49cc413df964a5205a591fe3,1352232048,"Nightlife! <text>Every Thursday night</text> : DJs, geeky lectures, and drinks... oh my! Where else can you get drunk and learn at the same time? ($10)"
 49cc413df964a5205a591fe3,1352232048,"<text>Thursday nights</text> . no kids. drinks"
 49cc413df964a5205a591fe3,1352232048,"<text>10:30am</text> is Penguin feeding time! Get there early"
-49cc413df964a5205a591fe3,1352232048,"Watch the penguin feeding <text>at 10:30 am</text> and <text>3:30 pm</text> <text>every day</text> in the African Hall!"
+49cc413df964a5205a591fe3,1352232048,"Watch the penguin feeding <text>at 10:30 am</text> and <text>3:30 pm every day</text> in the African Hall!"
 49cc413df964a5205a591fe3,1352232048,"Best time to go is <text>the late afternoon</text> <text>about two hours</text> before closing. The birds and butterflies in the rainforest are usually going crazy at that time, and no lines!!"
 4a4b8a43f964a5206fac1fe3,1352232048,"Hot chocolate wasn't hot! Cool space, but with only 10 people here <text>at 10:30AM</text> on a <text>Sunday</text> , the space should be available within <text>9 months</text> ..."
 4a4b8a43f964a5206fac1fe3,1352232048,"Nice and quiet early in the <text>morning</text> with lots of open space. Gets busy by late <text>morning</text> with long queues."
@@ -730,11 +730,11 @@ venueId,time,tip
 4ab595e1f964a520877520e3,1352232048,"Bring plenty of your favorite booze, find a friend who lives near by (bathroom lines are soooo long), and watch out for flying corks on Mimosa <text>Sunday</text> Funday! FOUR!!!!"
 4ab595e1f964a520877520e3,1352232048,"<text>18:23</text> Mission Dolores Park"
 4ab595e1f964a520877520e3,1352232048,"It was most grateful <text>Sunday morning</text> ever!"
-4ab595e1f964a520877520e3,1352232048,"go there on a <text>weekday</text> <text>afternoon</text> , order a pitcher, enjoy the weather, order a burger than get another pitcher...by know you should have made friends with someone else....you're welcome"
+4ab595e1f964a520877520e3,1352232048,"go there on a <text>weekday afternoon</text> , order a pitcher, enjoy the weather, order a burger than get another pitcher...by know you should have made friends with someone else....you're welcome"
 3fd66200f964a52041ee1ee3,1352232048,"The bar starts serving <text>at 9 a.m</text> . Too drunk to stumble home? Rent a room right above the bar."
 3fd66200f964a52041ee1ee3,1352232048,"Head over to Zeitgeist for a mid-day drineepk on their patio. We hear their Bloody Mary is one of the best in town, just don't ask for the recipe. <text>Sat, 7/5</text> ."
 3fd66200f964a52041ee1ee3,1352232048,"So much fun on a <text>Friday night</text> - the perfect place to grab a bite before heading to one of our performances at Magic Theatre! :)"
-3fd66200f964a52041ee1ee3,1352232048,"Food, fun, games and live music at Off the Grid, Fort Mason Center. This event is free and will feature 35 food vendors. <text>Fri, 7/4, 5p-11pm</text>. "
+3fd66200f964a52041ee1ee3,1352232048,"Food, fun, games and live music at Off the Grid, Fort Mason Center. This event is free and will feature 35 food vendors. <text>Fri, 7/4, 5p-11pm.</text> "
 3fd66200f964a52041ee1ee3,1352232048,"Go <text>before 6</text> or <text>after 7:30</text> to avoid the crowds."
 49d68c61f964a520e65c1fe3,1352232048,"Ordered a $3 small coffee and waited <text>20 min</text> in line"
 49d68c61f964a520e65c1fe3,1352232048,"Cafe latte on a cold day and new Orleans iced on a hot day"
@@ -746,7 +746,7 @@ venueId,time,tip
 4e099cf2ae60a90eabd6a1cb,1352232048,"Very nice staff, delicous food and <text>15 min</text> before close we got limonade gratis. Like it!"
 4c127bf477cea5932422cd60,1352232048,"Simply amazing to see over Clearly night much than during day...is open <text>up to 12</text> in <text>night</text> !"
 4bd2237c046076b0a4547371,1352232048,"Uprising <text>2014</text> - <text>21.-22.-23.august</text> - ZlatÃƒÂ© piesky, Bratislava -"
-4e099cf2ae60a90eabd6a1cb,1352232048,"Unless you came by car, we recommend you to take the <text>30-min</text> boat trip back. In main season (<text>May - Sep</text> ) the boat leaves <text>daily</text> exc. <text>Mon</text> <text>at 1:30pm</text> and <text>6pm</text> . Tickets are sold at the boat behind the castle."
+4e099cf2ae60a90eabd6a1cb,1352232048,"Unless you came by car, we recommend you to take the <text>30-min</text> boat trip back. In main season (<text>May - Sep</text> ) the boat leaves <text>daily</text> exc. <text>Mon at 1:30pm</text> and <text>6pm</text> . Tickets are sold at the boat behind the castle."
 4e099cf2ae60a90eabd6a1cb,1352232048,"GREAT view of the city. Very peaceful and quit, birds twittering and winds blowing. Highly recommended, just <text>10mins</text> walk from the Hlavna Stanica."
 4e099cf2ae60a90eabd6a1cb,1352232048,"<text>All year</text> <text>2014</text> for free..what's not to like? Robert Wilson show is a bit weird but interesting."
 4d9dcbb7a1ec8cfadce60b4a,1352232048,"Closed <text>by 21:00CET</text>."
@@ -791,7 +791,7 @@ venueId,time,tip
 42829c80f964a52069221fe3,1352232048,"Potato Tacos on <text>Wednesday</text> !!!"
 42829c80f964a52069221fe3,1352232048,"Drinking in one of the best happy hours in LA <text>tonight</text> & <text>every wednesday night</text> . Try the scratch margarita & the green corn tamale."
 42829c80f964a52069221fe3,1352232048,"Check out The iO West Cagematch! The best competitive improv in Los Angeles! <text>Monday</text> and <text>Thursday nights</text> <text>at 11:30pm</text> !"
-4a8cb6fcf964a520f90e20e3,1352232048,"Dr. God Late <text>Night</text> Happy Hour. <text>Fri.-Sun</text>. <text>12am-2am.</text> $3 Well Drinks. $3 Shots of Vodka. $3 Mystery Beer. Do it."
+4a8cb6fcf964a520f90e20e3,1352232048,"Dr. God Late <text>Night</text> Happy Hour. <text>Fri.-Sun. 12am-2am.</text> $3 Well Drinks. $3 Shots of Vodka. $3 Mystery Beer. Do it."
 4a8cb6fcf964a520f90e20e3,1352232048,"Check out Freedom Snatch <text>every Thursday at 11pm</text> . These guys are pee your pants funny!"
 4a8cb6fcf964a520f90e20e3,1352232048,"USS Rock N Roll on <text>Wednesdays at 9:00</text> !"
 4a8cb6fcf964a520f90e20e3,1352232048,"Go watch USSRockNRoll <text>at 9:30pm on Tuesday nights</text> "
@@ -816,7 +816,7 @@ venueId,time,tip
 3fd66200f964a5207bee1ee3,1352232048,"Get here early and park free on Doheny <text>after 6</text> ."
 439568b4f964a5208b2b1fe3,1352232048,"This place is great! Get there <text>about 20-30 min</text> early for a good seat.."
 439568b4f964a5208b2b1fe3,1352232048,"Open <text>until 09:00 PM on Sunday</text> !"
-4a1ddeb0f964a520a57b1fe3,1352232048,"Closed <text>Monday</text> and <text>Tuesday</text> . $1 parking only <text>after 4:30pm</text> on <text>Friday</text> and all <text>weekend</text> ."
+4a1ddeb0f964a520a57b1fe3,1352232048,"Closed <text>Monday</text> and <text>Tuesday</text> . $1 parking only <text>after 4:30pm on Friday</text> and all <text>weekend</text> ."
 4a331c91f964a520039b1fe3,1352232048,"2 lucky subscribers can win a VIP package to see Dane Cook live on <text>Sat. Oct. 2</text> . Includes 2 tickets to the show, parking, drinks & appetizers. Send your contacts to alphamail@askmen.com to enter."
 4a331c91f964a520039b1fe3,1352232048,"On <text>Sunday, Oct. 27</text> , bring the whole family to The Greek Theatre for the third <text>annual</text> EEK! at The Greek, a symphonic <text>Halloween</text> extravaganza."
 4a331c91f964a520039b1fe3,1352232048,"Terrific outdoor venue. Parking is not that bad. Go <text>about 90 min</text> early & try street parking on Hillhurst. Nice <text>5 min</text> walk."
@@ -830,7 +830,7 @@ venueId,time,tip
 4a485cdcf964a520b5aa1fe3,1352232048,"Holds the title of being the 3rd-largest museum of its type in the U.S., w/ more than 3.5 million specimens. Free admission <text>first Tuesday</text> of most months , except <text>July/August</text> ; free <text>every Tuesday in Sept</text> "
 4aca27e7f964a520a4c020e3,1352232048,"The vert ramp takes the stage at Nokia Theatre <text>July 28th- 31st</text> for X Games 17. Get your tickets now! Ã�Å¸Ã�Â¾Ã�Â´Ã‘â‚¬Ã�Â¾Ã�Â±Ã�Â½Ã�ÂµÃ�Âµ"
 4aca27e7f964a520a4c020e3,1352232048,"Catch MotÃƒÂ¶rhead, Clutch and Valient Thorr tearing up the place on <text>March 11</text> !"
-4aca27e7f964a520a4c020e3,1352232048,"Adobe sneak peeks and <text>2010</text> MAX Awards, <text>Tuesday, October 26</text> , <text>6:00 pm</text>"
+4aca27e7f964a520a4c020e3,1352232048,"Adobe sneak peeks and <text>2010</text> MAX Awards, <text>Tuesday, October 26, 6:00 pm</text>"
 4aca27e7f964a520a4c020e3,1352232048,"MAX Attendees - Get ready for keynotes, happening here, <text>May 6 at 9:30 a.m</text> . and <text>May 7 at 10:00 a.m</text>. And don't forget to come back <text>Tuesday night</text> . We're hosting the Sneak Peek session at <text>at 6 p.m</text> "
 4aca27e7f964a520a4c020e3,1352232048,"If your in LA on <text>May 20 &21</text> you must go to the Nokia Theatre to see the 2 <text>night</text> Live Finale of American Idol. It's considered the most Entertaining place on the planet!!!!"
 4aca27e7f964a520a4c020e3,1352232048,"THE AVETT BROTHERS & BRANDI CARLILE - <text>October 1</text> @ Nokia Theatre <text>8 pm</text> . Buy tickets now at link below! "
@@ -862,7 +862,7 @@ venueId,time,tip
 4b0586e0f964a520c57222e3,1352232048,"Free admissions on <text>Thursdays 5-8 pm</text>!"
 4b0586e0f964a520c57222e3,1352232048,"Free General Admission: <text>Every Thursday 5-8 pm</text> ; Free admission for Members and children under 12."
 4b0586e0f964a520c57222e3,1352232048,"Free on <text>Thursdays from 5 to 8pm.</text> Great coffee shop! ---- Gratuito ÃƒÂ s quintas feiras das 17h ÃƒÂ s 20h. Otimo cafe!"
-4b0586e0f964a520c37222e3,1352232048,"On Remembrance Day <text>at 11:00 a.m.</text>, sunlight refracts through a single window on to the headstone of the Unknown Soldier in Memorial Hall. Located in the Foyer + access to the Hall is free"
+4b0586e0f964a520c37222e3,1352232048,"On Remembrance Day <text>at 11:00 a.m</text>., sunlight refracts through a single window on to the headstone of the Unknown Soldier in Memorial Hall. Located in the Foyer + access to the Hall is free"
 4b0586e0f964a520c47222e3,1352232048,"You need to check out the brand new (after it's Grand Re-Opening on <text>May 22</text> ) building & exhibits! See the Water Gallery, The Earth Gallery, and the Research Trek ... and don't miss the Dinosaurs!e"
 4b0586e0f964a520c47222e3,1352232048,"Pack a lunch because the food services is poorly thought out....<text>45 minutes</text> in line not seeing exhibits."
 4b19a713f964a52042e123e3,1352232048,"Come on a <text>Wednesday</text>. For only 6 bucks you can see the <text>Saturday night</text> headliner do a warm up set plus a bunch of local comedians. Best <text>night</text> out you can get for 6 measly dollars."

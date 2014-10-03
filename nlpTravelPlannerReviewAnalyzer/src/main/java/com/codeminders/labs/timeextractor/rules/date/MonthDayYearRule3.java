@@ -30,10 +30,9 @@ public class MonthDayYearRule3 extends Rule {
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-
-        String yearString = m.group(3);
-        String dayString = m.group(7);
-        String monthString = m.group(5);
+        String yearString = m.group(4);
+        String dayString = m.group(8);
+        String monthString = m.group(7);
 
         int day = Integer.parseInt(dayString);
         int month = Integer.parseInt(monthString);

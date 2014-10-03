@@ -21,10 +21,12 @@ public class DTOSet implements DTOTemporal {
 
         this.startDateTime = temporal.getStartDate();
         this.endDateTime = temporal.getEndDate();
-        frequency = temporal.getSet().getFrequency();
-        daysOfRepetition = temporal.getSet().getDaysOfRepetition();
-        interval = temporal.getSet().getInterval();
-        byDay = temporal.getSet().getByDay();
+        if (temporal.getSet() != null) {
+            frequency = temporal.getSet().getFrequency();
+            daysOfRepetition = temporal.getSet().getDaysOfRepetition();
+            interval = temporal.getSet().getInterval();
+            byDay = temporal.getSet().getByDay();
+        }
     }
 
     public TimeDate getStartDateTime() {

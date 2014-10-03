@@ -20,9 +20,9 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class MonthAndDayRule6 extends Rule {
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.8;
-    private int priority = 3;
-    private String rule = "(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[-]([12][0-9]\\d\\d)";
+    protected double confidence = 0.6;
+    private int priority = 5;
+    private String rule = "(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[-](([12][0-9])?(\\d\\d))";
 
     public MonthAndDayRule6() {
     }
@@ -34,7 +34,6 @@ public class MonthAndDayRule6 extends Rule {
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-
         MonthOfYear monthOfYear = TemporalBasicCaseParser.getMonthOfYear(m.group(1));
         int month = 0;
         if (monthOfYear != null) {
@@ -42,8 +41,11 @@ public class MonthAndDayRule6 extends Rule {
         }
 
         int year = 0;
-        if (!(m.group(4) == null)) {
-            year = Integer.parseInt(m.group(4));
+        String yearString = m.group(4);
+        if (yearString != null && yearString.length() == 2) {
+            year = Integer.parseInt("20" + yearString);
+        } else if (yearString != null) {
+            year = Integer.parseInt(yearString);
         }
 
         Date date = new Date(year, month, 0);

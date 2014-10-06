@@ -52,6 +52,7 @@ public class TimeExtractorRestService {
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - currentTime;
             System.out.println(totalTime);
+
             return Response.status(200).entity(result).build();
 
         }

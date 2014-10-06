@@ -27,6 +27,11 @@ public class Annotation2DTOTemporalConversion {
             } else if (temporal.getType() == Type.SET) {
                 DTOSet set = new DTOSet(temporal);
                 htmlTemporals.add(set);
+            }
+
+            else if (temporal.getType() == Type.DURATION_INTERVAL) {
+                DTODurationInterval interval = new DTODurationInterval(temporal);
+                htmlTemporals.add(interval);
             } else {
                 DTOTimeDate timeDate = new DTOTimeDate(temporal);
                 htmlTemporals.add(timeDate);

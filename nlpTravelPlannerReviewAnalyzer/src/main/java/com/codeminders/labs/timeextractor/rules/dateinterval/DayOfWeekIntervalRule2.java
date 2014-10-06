@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.date;
+package com.codeminders.labs.timeextractor.rules.dateinterval;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,47 +10,54 @@ import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// Fri, 6/27
+// Sat/Sun
+public class DayOfWeekIntervalRule2 extends Rule {
 
-public class MonthAndDayRule4 extends Rule {
-    private double confidence = 0.99;
-    private int priority = 4;
-    private String rule = "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY
-            + ")[,]?[\\s]*\\b(([1-9])|([1][0-2]))[\\/]\\b(([1-9])|([1-2][0-9])|([3][0-1]))\\b[\\s]*([,])?";
+    protected Locale locale = Locale.US;
+    protected double confidence = 0.6;
+    private int priority = 2;
+    private String rule = "\\b" + "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")" + "\\/" + "(" + TemporalConstants.DAY_OF_WEEK + "|"
+            + TemporalConstants.DAY_OF_WEEK_EASY + ")";
 
-    public MonthAndDayRule4() {
+    public DayOfWeekIntervalRule2() {
     }
 
     @Override
     public Type getType() {
-        return Type.DATE;
+        return Type.DATE_INTERVAL;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Date date = new Date();
 
-        if (m.group(5) != null) {
-            int month = Integer.parseInt(m.group(5));
-            date.setMonth(month);
+        TimeDate start = new TimeDate();
+        TimeDate end = new TimeDate();
+
+        Date startDate = new Date();
+        Date endDate = new Date();
+
+        DayOfWeek startDayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(3));
+        DayOfWeek endDayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(4));
+
+        if (startDayOfWeek != null && endDayOfWeek != null) {
+            startDate.setDayOfWeek(startDayOfWeek);
+            endDate.setDayOfWeek(endDayOfWeek);
 
         }
-        int day = Integer.parseInt(m.group(7));
-        DayOfWeek dayOfWeek = TemporalBasicCaseParser.getDayOfWeek((m.group(1)));
 
-        date.setDay(day);
-        date.setDayOfWeek(dayOfWeek);
-
-        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-        List<Temporal> result = new ArrayList<Temporal>();
-        result.add(temporal);
-        return result;
+        start.setDate(startDate);
+        end.setDate(endDate);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE_INTERVAL, start, end);
+        List<Temporal> temporalList = new ArrayList<Temporal>();
+        temporalList.add(temporal);
+        return temporalList;
     }
 
     @Override
@@ -62,13 +69,17 @@ public class MonthAndDayRule4 extends Rule {
         this.locale = locale;
     }
 
-    @Override
     public double getConfidence() {
         return confidence;
     }
 
     public void setConfidence(double confidence) {
         this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
     }
 
     public int getPriority() {
@@ -85,11 +96,6 @@ public class MonthAndDayRule4 extends Rule {
 
     public void setRule(String rule) {
         this.rule = rule;
-    }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
     }
 
 }

@@ -18,7 +18,7 @@ public class YearRule extends Rule {
 
     private int year;
     protected double confidence = 0.3;
-    protected String rule = "\\b(in[\\s]*)?\\b((([1][8-9])|([2][01]))\\d\\d)\\b";
+    protected String rule = "\\b(in[\\s]*|until[\\s]*|till[\\s]*|til[\\s]*)?\\b((([1][8-9])|([2][01]))\\d\\d)\\b";
     protected int priority = 1;
 
     public YearRule() {

@@ -13,6 +13,7 @@ public class Holidays {
     public static final String CHRISTMAS2 = "christmas day";
     public static final String CHRISTMAS3 = "christmas eve";
     public static final String THANKSGIVING = "thanksgiving";
+    public static final String THANKSGIVING2 = "thanksgiving day";
     public static final String INAUGURATION_DAY = "Inauguration Day";
     public static final String MLK_DAY1 = "Martin Luther King, Jr. Day";
     public static final String MLK_DAY2 = "Martin Luther King Day";

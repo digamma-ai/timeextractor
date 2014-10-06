@@ -6,22 +6,6 @@
   	result: BetweenTimeEvent($0) 
   }
     
-  // date period 
-  // Sat/Sun
-  { ruleType: "text", pattern: /(($DAYOFWEEK_EASY)\/($DAYOFWEEK_EASY))/,
-    priority:3,
-  	result: BetweenTimeEvent($0) 
-  }
-    
-   // Tuesday-Sunday 11-18 (date +time period)
-   
-  {  ruleType: "text", 
- 	 priority:5,
-     pattern: /\b(($DAY_OF_WEEK)[\s]*[-][\s]*($DAY_OF_WEEK))[\s]*(([1-9]|[1-2][0-9]|[3][0-1]))[-](([1-9]|[1-2][0-9]|[3][0-1]))\b/,
-  	 result: BetweenTimeEvent($0) 
-  }
-  
-  
   // between morning and evening
   // between morning and 12h
   
@@ -86,41 +70,8 @@
    }
    
     
- // lunch time
-  
- {
-   ruleType: "text",
-   pattern: /\b(lunch time)\b/,
-   result: BetweenTimeEvent("TIME") 
-  }
-  
-  // after lunch
-   {
-   ruleType: "text",
-   pattern: /(after l?ch)/,
-   result: BetweenTimeEvent("TIME") 
-  }
-  
- //every 
-  {
-   ruleType: "text",
-   pattern: /\b(everyday|everymonth|everyyear|every year|every day|every month|each month|each day|each year|everyweek|every week)\b/ ,
-   result: EveryTimeEvent($0) 
-  }
-  
- 
-  
-	//mid or mid-late month
-	
-	{ 
-    ruleType: "text",  
-    priority: 1,
-	pattern: /(mid|mid-late)[-\s]?($MONTH_OF_YEAR)/ ,
-	result: BetweenTimeEvent("SET") 
-	}
-	
-    
-  // 2009/04/10
+
+   // 2009/04/10
   
   { ruleType: "text", 
   priority:4,
@@ -259,14 +210,6 @@
   }
 
    
-    // March the Fourteenth, 2011
-   
-  {  ruleType: "text", 
-     priority:3,
-     pattern: /\b($MONTH_OF_YEAR)[\s]*(the)[\s]*($BasicOrdTerm)[,][\s]*((19|20)\d\d)\b/, 
-     result: MonthAndDayRule0("PERIOD_TIME") 
-  }
-     
    // 24/7
   
   {  ruleType: "text", 

@@ -1,5 +1,6 @@
 package com.codeminders.labs.timeextractor.dto;
 
+import com.codeminders.labs.timeextractor.temporal.entities.Duration;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 
 public class DTODuration implements DTOTemporal {
@@ -19,6 +20,16 @@ public class DTODuration implements DTOTemporal {
         years = temporal.getDuration().getYears();
         weeks = temporal.getDuration().getWeeks();
         months = temporal.getDuration().getMonths();
+    }
+
+    public DTODuration(Duration duration) {
+        days = duration.getDays();
+        hours = duration.getHours();
+        minutes = duration.getMinutes();
+        seconds = duration.getSeconds();
+        years = duration.getYears();
+        weeks = duration.getWeeks();
+        months = duration.getMonths();
     }
 
     public int getDays() {

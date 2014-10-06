@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.duration;
+package com.codeminders.labs.timeextractor.rules.duration.interval;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,38 +9,42 @@ import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class DurationRule3 extends Rule {
+public class DurationIntervalRule1 extends Rule {
     private TemporalParser parser;
-    private double confidence = 0.9;
-    private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last)[\\s]*)?" + "(" + TemporalConstants.BASIC_NUMBER_ONE_TEN + "|" + TemporalConstants.BASIC_NUMBER_TWENTY_HUNDRED
-            + "|" + TemporalConstants.BASIC_NUMBER_ELEVEN_NINETEEN + ")([\\s]*" + TemporalConstants.DURATION + ")\\b";
-    private int priority = 3;
+    private double confidence = 0.8;
+    private int priority = 6;
+    private String rule = "\\b" + "(\\d{1,})[\\s]*([-]|to)[\\s]*(\\d{1,})[\\s]*" + TemporalConstants.DURATION + "\\b";
 
-    public DurationRule3() {
+    public DurationIntervalRule1() {
         parser = new TemporalParser();
     }
 
     @Override
     public Type getType() {
-        return Type.DURATION;
+        return Type.DURATION_INTERVAL;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        int durationLength = 0;
-        if ((m.group(3)) != null) {
-            durationLength = TemporalBasicCaseParser.getIntFromBasicTerm(m.group(3).trim());
-        }
-        Temporal temporal = parser.getDuration(m.group(8), durationLength);
-        List<Temporal> temporalList = new ArrayList<Temporal>();
-        temporalList.add(temporal);
-        return temporalList;
+        int durationFrom = 0;
+        int durationTo = 0;
 
+        if (m.group(1) != null) {
+            durationFrom = Integer.parseInt(m.group(1));
+        }
+        if (m.group(3) != null) {
+            durationTo = Integer.parseInt(m.group(3));
+        }
+        Temporal duration1 = parser.getDuration(m.group(4), durationFrom);
+        Temporal duration2 = parser.getDuration(m.group(4), durationTo);
+        Temporal durationInterval = parser.getDurationInterval(duration1, duration2);
+        List<Temporal> temporalList = new ArrayList<Temporal>();
+        temporalList.add(durationInterval);
+        return temporalList;
     }
 
     @Override

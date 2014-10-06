@@ -22,7 +22,7 @@ public class CombineRules {
         for (int i = 1; i < list.size(); i++) {
             TemporalExtraction next = list.get(i);
             String midText = text.substring(start.getToPosition(), next.getFromPosition());
-            if (next.getFromPosition() - start.getToPosition() <= 4 && !midText.contains(".") && !midText.contains("&") && !midText.contains(";")) {
+            if (next.getFromPosition() - start.getToPosition() <= 4 && !midText.contains(".") && !midText.contains("&") && !midText.contains("!") && !midText.contains(";")) {
 
                 TemporalExtraction temporal = joinRules(start, next, midText);
                 if (temporal != null) {
@@ -209,7 +209,7 @@ public class CombineRules {
 
         else if ((typeA == Type.SET) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
             if (temporalA.getTemporal().get(0).getStartDate() == null || temporalA.getTemporal().get(0).getStartDate().getTime() == null) {
-                temporal = temporalJoinTimeDate(temporalA, temporalB);
+                temporal = joinDateAndSet(temporalB, temporalA);
                 temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
                 temporal.getTemporal().get(0).setType(Type.SET);
                 temporal.setFromPosition(temporalA.getFromPosition());
@@ -220,8 +220,8 @@ public class CombineRules {
         }
 
         else if ((typeB == Type.SET) && (typeA == Type.TIME || typeA == Type.TIME_INTERVAL || typeA == Type.TIME_INTERVAL_INDIRECT)) {
-            if (temporalA.getTemporal().get(0).getStartDate() != null && temporalA.getTemporal().get(0).getStartDate().getTime() == null) {
-                temporal = temporalJoinTimeDate(temporalB, temporalA);
+            if (temporalA.getTemporal().get(0).getStartDate() != null && temporalA.getTemporal().get(0).getStartDate().getTime() != null) {
+                temporal = joinDateAndSet(temporalA, temporalB);
                 temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
                 temporal.getTemporal().get(0).setType(Type.SET);
                 temporal.setFromPosition(temporalA.getFromPosition());
@@ -280,7 +280,7 @@ public class CombineRules {
         else if ((typeA == Type.DATE_TIME_INTERVAL_INDIRECT || typeA == Type.TIME_INTERVAL_INDIRECT) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL)) {
             temporal = joinIndirectAndDirect(temporalB, temporalA);
             temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.SET);
+            temporal.getTemporal().get(0).setType(typeB);
             temporal.setFromPosition(temporalA.getFromPosition());
             temporal.setToPosition(temporalB.getToPosition());
             return temporal;

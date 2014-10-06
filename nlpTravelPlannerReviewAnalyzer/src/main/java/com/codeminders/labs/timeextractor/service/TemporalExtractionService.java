@@ -6,6 +6,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeSet;
 
+import org.apache.log4j.Logger;
+
 import com.codeminders.labs.timeextractor.dto.Annotation2DTOTemporalConversion;
 import com.codeminders.labs.timeextractor.dto.DTOTemporal;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
@@ -25,6 +27,7 @@ public class TemporalExtractionService {
     private Annotation2DTOTemporalConversion converter = new Annotation2DTOTemporalConversion();
     private CombineRules combineRulesService = new CombineRules();
     private static MultipleExtractionService service = new MultipleExtractionService(null);
+    private static final Logger logger = Logger.getLogger(TemporalExtractionService.class);
 
     public Map<String, TreeSet<AnnotationIntervalHtml>> extractDatesAndTimeFromHtml(String html) {
         List<HtmlElement> htmlElements = htmlService.getElements(html);
@@ -33,9 +36,8 @@ public class TemporalExtractionService {
             TreeSet<TemporalExtraction> results = null;
             try {
                 results = extractDatesAndTimeFromText(htmlElement.getExtractedText());
-
             } catch (Exception ex) {
-                System.out.println("Exception logger here... " + ex);
+                logger.error("Sentence: " + htmlElement.getExtractedText() + " message: " + ex);
             }
             if (results != null && results.size() > 0) {
                 map.put(htmlElement, results);
@@ -166,7 +168,7 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText("Friday 03 October 2014 – Sunday 05 October 2014"));
+        System.out.println(service.extractDatesAndTimeFromText("0 to 3 years"));
 
     }
 }

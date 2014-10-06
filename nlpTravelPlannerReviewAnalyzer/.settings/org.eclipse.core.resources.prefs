@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
 encoding//src/main/resources/training.csv=UTF-8
+encoding//src/test/java/com/codeminders/labs/timeextractor/service/GetHtmlTextTest.java=UTF-8

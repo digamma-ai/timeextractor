@@ -8,6 +8,7 @@ import org.joda.time.LocalDateTime;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Duration;
+import com.codeminders.labs.timeextractor.temporal.entities.DurationInterval;
 import com.codeminders.labs.timeextractor.temporal.entities.Frequency;
 import com.codeminders.labs.timeextractor.temporal.entities.Holidays;
 import com.codeminders.labs.timeextractor.temporal.entities.Set;
@@ -116,7 +117,7 @@ public class TemporalParser {
             temporal = new Temporal(start, end);
         }
 
-        else if (holidayName.equalsIgnoreCase(Holidays.THANKSGIVING)) {
+        else if (holidayName.equalsIgnoreCase(Holidays.THANKSGIVING) || holidayName.equalsIgnoreCase(Holidays.THANKSGIVING2)) {
             Date startDate = new Date(0, 11, 0);
             startDate.setWeekOfMonth(WeekOfMonth.FOURTH);
             Date endDate = new Date(0, 11, 0);
@@ -293,6 +294,14 @@ public class TemporalParser {
 
     }
 
+    public Temporal getDurationInterval(Temporal duration1, Temporal duration2) {
+        Temporal temporal = new Temporal();
+        temporal.setType(Type.DURATION_INTERVAL);
+        DurationInterval interval = new DurationInterval(duration1.getDuration(), duration2.getDuration());
+        temporal.setDurationInterval(interval);
+        return temporal;
+    }
+
     public Temporal getDuration(String durationType, int durationLength) {
         Duration duration = null;
         if (durationType == null) {
@@ -324,7 +333,7 @@ public class TemporalParser {
             duration.setYears(durationLength);
         }
 
-        if (durationType.equalsIgnoreCase("days") || durationType.equalsIgnoreCase("day")) {
+        if (durationType.equalsIgnoreCase("days") || durationType.equalsIgnoreCase("day") || durationType.equalsIgnoreCase("nights") || durationType.equalsIgnoreCase("night")) {
             duration = new Duration();
             duration.setDays(durationLength);
         }

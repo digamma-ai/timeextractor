@@ -21,7 +21,7 @@ public class Time1Rule extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 1;
-    private String rule = "\\b(((at about|at|about)[\\s]*)?((([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)))\\b[\\s]*" + TemporalConstants.TIME_ZONE + "?)";
+    private String rule = "\\b(((at about|at|about)[\\s]*)?((([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)))(?!\\S)[\\s]*" + TemporalConstants.TIME_ZONE + "?)";
 
     public Time1Rule() {
     }

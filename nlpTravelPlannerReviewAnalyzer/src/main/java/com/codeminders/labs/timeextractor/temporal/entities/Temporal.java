@@ -4,7 +4,9 @@ public class Temporal {
 
     private Type type;
     private Duration duration;
+    private DurationInterval durationInterval;
     private Set set;
+
     private TimeDate startDate;
     private TimeDate endDate;
 
@@ -63,9 +65,17 @@ public class Temporal {
         this.set = set;
     }
 
+    public DurationInterval getDurationInterval() {
+        return durationInterval;
+    }
+
+    public void setDurationInterval(DurationInterval durationInterval) {
+        this.durationInterval = durationInterval;
+    }
+
     @Override
     public String toString() {
-        return "Temporal [type=" + type + ", duration=" + duration + ", set=" + set + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+        return "Temporal [type=" + type + ", duration=" + duration + ", durationInterval=" + durationInterval + ", set=" + set + ", startDate=" + startDate + ", endDate=" + endDate + "]";
     }
 
 }

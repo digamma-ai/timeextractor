@@ -1,6 +1,6 @@
 // local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/api/annotate"
 
-var TEMPORAL_EXTRACTION_URL = "http://localhost:8080/timeextractor/";
+var TEMPORAL_EXTRACTION_URL = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/";
 var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/annotate"
 var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL + "images/loading.gif";
 var METHOD_POST = "POST";

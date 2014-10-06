@@ -168,7 +168,7 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText("0 to 3 years"));
+        System.out.println(service.extractDatesAndTimeFromText("between morning and 4pm"));
 
     }
 }

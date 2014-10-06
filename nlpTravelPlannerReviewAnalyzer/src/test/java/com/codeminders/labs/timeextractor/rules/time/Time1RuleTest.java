@@ -13,7 +13,7 @@ import com.codeminders.labs.timeextractor.rules.general.GeneralTest;
 public class Time1RuleTest extends GeneralTest {
 
     @Test
-    public void DayOfWeekOrderRule2Test1() {
+    public void time1RuleTest1() {
 
         String toPredict = "7pm";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
@@ -23,7 +23,7 @@ public class Time1RuleTest extends GeneralTest {
     }
 
     @Test
-    public void DayOfWeekOrderRule2Test2() {
+    public void time1RuleTest2() {
 
         String toPredict = "12pm";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
@@ -33,21 +33,21 @@ public class Time1RuleTest extends GeneralTest {
     }
 
     @Test
-    public void DayOfWeekOrderRule2Test3() {
+    public void time1RuleTest3() {
 
         String toPredict = "11 a.m.";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
-        assertEquals("11 a.m", predicted.get(0).getTemporalExpression());
+        assertEquals("11 a.m.", predicted.get(0).getTemporalExpression());
         assertEquals(11, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
 
     }
 
     @Test
-    public void DayOfWeekOrderRule2Test4() {
+    public void time1RuleTest4() {
 
         String toPredict = "11 p.m.";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
-        assertEquals("11 p.m", predicted.get(0).getTemporalExpression());
+        assertEquals("11 p.m.", predicted.get(0).getTemporalExpression());
         assertEquals(23, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
 
     }

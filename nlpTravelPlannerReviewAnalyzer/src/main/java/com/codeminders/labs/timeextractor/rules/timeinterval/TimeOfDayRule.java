@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
 // time of day: morning, evening, etc.
 
@@ -33,9 +33,7 @@ public class TimeOfDayRule extends Rule {
 
     @Override
     public List<Temporal> getTemporal(String text) {
-        Pattern p = Pattern.compile(rule, Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(text);
-        m.find();
+        Matcher m = Utils.getMatch(rule, text);
         Temporal temporal = parser.getTimeOfDay(m.group(1));
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);

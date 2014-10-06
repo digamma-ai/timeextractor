@@ -440,7 +440,7 @@ public class TemporalParser {
             temporal = new Temporal(start, end, type);
 
         }
-        if (timeOfDay.equalsIgnoreCase("noon") || timeOfDay.equalsIgnoreCase("noons")) {
+        if (timeOfDay.equalsIgnoreCase("noon") || timeOfDay.equalsIgnoreCase("noons") ||  timeOfDay.equalsIgnoreCase("lunch time")) {
             Time startTime = new Time(12, 0, 0);
             Time endTime = new Time(12, 0, 0);
             start.setTime(startTime);

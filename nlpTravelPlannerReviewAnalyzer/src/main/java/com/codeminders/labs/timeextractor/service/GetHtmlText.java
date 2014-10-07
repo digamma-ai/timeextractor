@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Entities.EscapeMode;
 import org.jsoup.select.Elements;
 
+import com.codeminders.labs.timeextractor.constants.RestParameters;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
 
 /* */
@@ -33,8 +34,7 @@ public class GetHtmlText {
         Elements htmlElements = document.body().select("*");
         for (int i = 0; i < htmlElements.size(); i++) {
             Element element = htmlElements.get(i);
-
-            if (element.toString().length() > MAX_HTML_STRING_LENGTH || element.ownText().isEmpty()) {
+            if (element.toString().length() > MAX_HTML_STRING_LENGTH || element.ownText().length() < MIN_TEXT_LENGTH) {
                 continue;
             }
 
@@ -42,26 +42,16 @@ public class GetHtmlText {
             if (text.length() <= MIN_TEXT_LENGTH) {
                 continue;
             }
+            String temporalId = element.attr(RestParameters.TEMPORAL_ID);
             try {
-                String elementString = element.toString().replace("&apos;", "'").replace("&quot;", "\"");
-                if (html.contains(elementString)) {
-                    int beginning = html.indexOf(elementString);
-                    int end = beginning + elementString.length();
-                    String tagName = element.tagName();
-                    HtmlElement htmlEl = new HtmlElement();
-                    htmlEl.setTag(element.tagName());
-                    htmlEl.setTextFrom(beginning);
-                    htmlEl.setTextTo(end);
-                    htmlEl.setExtractedText(text);
-                    htmlEl.setFullTag(element.toString());
-                    htmlEl.setTag(tagName);
-                    elements.add(htmlEl);
-                }
+                HtmlElement htmlEl = new HtmlElement();
+                htmlEl.setExtractedText(text);
+                htmlEl.setTemporalId(temporalId);
+                elements.add(htmlEl);
 
             } catch (PatternSyntaxException ex) {
                 System.out.println("Exception: " + ex);
             }
-
         }
 
         return elements;

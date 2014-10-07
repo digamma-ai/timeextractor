@@ -47,8 +47,17 @@ public class GetHtmlTextTest {
     public void getHtmlElements5() {
         String html = "<li class=\"clearAfter fixedHeight\"><a class=\"imgLink leftFloat\" title=\"Italy: Teatro dell’Opera sacks orchestra and chorus\" href=\"/2014/10/04/italy-teatro-dell-opera-sacks-orchestra-and-chorus/\"><img src=\"http://static.euronews.com/articles/283410/130x73_283410.jpg?1412376602\" title=\"Italy: Teatro dell’Opera sacks orchestra and chorus\" alt=\"Italy: Teatro dell’Opera sacks orchestra and chorus\"></a><div class=\"titleWrap rightFloat\"><span class=\"artDate\">      ROME - 04/10 00:50 CET                                </span><h2 class=\"themeArtTitle\"><a href=\"/2014/10/04/italy-teatro-dell-opera-sacks-orchestra-and-chorus/\" title=\"Italy: Teatro dell’Opera sacks orchestra and chorus\">               Italy: Teatro dell’Opera sacks orchestra and chorus   </a></h2><p> In a first for Italy the Teatro dell’Opera in Rome has sacked its entire orchestra and chorus and will replace them with…</p> </div></li>";
         ArrayList<HtmlElement> htmlElements = service.getElements(html);
+        // assertEquals(2, htmlElements.size());
+
+    }
+
+    @Test
+    public void getHtmlElements6() {
+        String html = " <html><body><b>Project:</b> DeHTML<br><b>Description</b>:<br>This small script is intended to allow conversion from HTML markup to plain text. at 9:30 </body></html>";
+        ArrayList<HtmlElement> htmlElements = service.getElements(html);
         System.out.println(htmlElements);
         // assertEquals(2, htmlElements.size());
 
     }
+
 }

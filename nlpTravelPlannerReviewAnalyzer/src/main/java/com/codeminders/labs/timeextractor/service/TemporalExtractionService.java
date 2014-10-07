@@ -95,7 +95,6 @@ public class TemporalExtractionService {
                     from = 0;
                 }
                 int to = from + extraction.getTemporalExpression().length();
-
                 List<DTOTemporal> extracted = converter.convert(extraction);
                 List<Temporal> extractions = extraction.getTemporal();
                 if (extractions != null) {
@@ -106,10 +105,7 @@ public class TemporalExtractionService {
                 }
 
                 interval.setFrom(from);
-                interval.setTo(to);
-                interval.setHtmlTagFrom(element.getTextFrom());
-                interval.setHtmlTagTo(element.getTextTo());
-                interval.setTag(element.getTag());
+                interval.setTemporalId(element.getTemporalId());
                 interval.setExtractedTemporal(extracted);
                 interval.setTo(to);
                 interval.setConfidence(extraction.getConfidence());
@@ -168,7 +164,7 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText("between morning and 4pm"));
+        System.out.println(service.extractDatesAndTimeFromText("at 9:30pm on Tuesday nights"));
 
     }
 }

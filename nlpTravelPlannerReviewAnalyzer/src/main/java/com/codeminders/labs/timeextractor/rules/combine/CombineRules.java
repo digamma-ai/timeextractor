@@ -41,6 +41,14 @@ public class CombineRules {
 
         }
 
+        // remove "every" or "timezone" if it is left without temporal
+        // expression
+        removeUnusedTemporals(list);
+
+        return new TreeSet<TemporalExtraction>(list);
+    }
+
+    private void removeUnusedTemporals(List<TemporalExtraction> list) {
         for (int i = 0; i < list.size(); i++) {
             TemporalExtraction next = list.get(i);
             if (next.getTemporal() != null && next.getTemporal().get(0) != null && next.getTemporal().get(0).getType() != null) {
@@ -49,10 +57,7 @@ public class CombineRules {
                     i = i - 1;
                 }
             }
-
         }
-
-        return new TreeSet<TemporalExtraction>(list);
     }
 
     private TemporalExtraction joinRules(TemporalExtraction temporalA, TemporalExtraction temporalB, String midText) {

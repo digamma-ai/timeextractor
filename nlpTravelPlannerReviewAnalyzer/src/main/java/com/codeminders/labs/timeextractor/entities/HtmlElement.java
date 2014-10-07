@@ -2,13 +2,10 @@ package com.codeminders.labs.timeextractor.entities;
 
 public class HtmlElement {
 
-    private String fullTag;
     private String extractedText;
     private String tag;
     private String id;
-    private String tagClass;
-    private int htmlTagFrom;
-    private int htmlTagTo;
+    private String temporalId;
 
     public HtmlElement() {
 
@@ -30,38 +27,6 @@ public class HtmlElement {
         this.id = id;
     }
 
-    public String getTagClass() {
-        return tagClass;
-    }
-
-    public void setTagClass(String tagClass) {
-        this.tagClass = tagClass;
-    }
-
-    public int getTextFrom() {
-        return htmlTagFrom;
-    }
-
-    public void setTextFrom(int textFrom) {
-        this.htmlTagFrom = textFrom;
-    }
-
-    public int getTextTo() {
-        return htmlTagTo;
-    }
-
-    public void setTextTo(int textTo) {
-        this.htmlTagTo = textTo;
-    }
-
-    public String getFullTag() {
-        return fullTag;
-    }
-
-    public void setFullTag(String fullTag) {
-        this.fullTag = fullTag;
-    }
-
     public String getExtractedText() {
         return extractedText;
     }
@@ -70,10 +35,12 @@ public class HtmlElement {
         this.extractedText = extractedText;
     }
 
-    @Override
-    public String toString() {
-        return "HtmlElement [fullTag=" + fullTag + ", extractedText=" + extractedText + ", tag=" + tag + ", id=" + id + ", tagClass=" + tagClass + ", textFrom=" + htmlTagFrom + ", textTo="
-                + htmlTagTo + "]";
+    public String getTemporalId() {
+        return temporalId;
+    }
+
+    public void setTemporalId(String temporalId) {
+        this.temporalId = temporalId;
     }
 
 }

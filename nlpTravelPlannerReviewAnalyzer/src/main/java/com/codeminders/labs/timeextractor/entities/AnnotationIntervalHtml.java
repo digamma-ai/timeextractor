@@ -8,37 +8,11 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
 public class AnnotationIntervalHtml extends AnnotationInterval {
 
-    private int htmlTagFrom;
-    private int htmlTagTo;
     private List<DTOTemporal> extractedTemporal;
-    private String tag;
+    private String temporalId;
     private Locale locale;
     private double confidence;
     private Type temporalType;
-
-    public int getHtmlTagFrom() {
-        return htmlTagFrom;
-    }
-
-    public void setHtmlTagFrom(int htmlTagFrom) {
-        this.htmlTagFrom = htmlTagFrom;
-    }
-
-    public int getHtmlTagTo() {
-        return htmlTagTo;
-    }
-
-    public void setHtmlTagTo(int htmlTagTo) {
-        this.htmlTagTo = htmlTagTo;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
 
     public List<DTOTemporal> getExtractedTemporal() {
         return extractedTemporal;
@@ -72,24 +46,24 @@ public class AnnotationIntervalHtml extends AnnotationInterval {
         this.temporalType = temporalType;
     }
 
-    @Override
-    public String toString() {
-        return "AnnotationIntervalHtml [htmlTagFrom=" + htmlTagFrom + ", htmlTagTo=" + htmlTagTo + " extractedTemporal=" + extractedTemporal + ", tag=" + tag + ", locale=" + locale + ", confidence="
-                + confidence + ", temporalType=" + temporalType + "]";
+    public String getTemporalId() {
+        return temporalId;
+    }
+
+    public void setTemporalId(String temporalId) {
+        this.temporalId = temporalId;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final int prime = 1;
+        int result = super.hashCode();
         long temp;
         temp = Double.doubleToLongBits(confidence);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + ((extractedTemporal == null) ? 0 : extractedTemporal.hashCode());
-        result = prime * result + htmlTagFrom;
-        result = prime * result + htmlTagTo;
         result = prime * result + ((locale == null) ? 0 : locale.hashCode());
-        result = prime * result + ((tag == null) ? 0 : tag.hashCode());
+        result = prime * result + ((temporalId == null) ? 0 : temporalId.hashCode());
         result = prime * result + ((temporalType == null) ? 0 : temporalType.hashCode());
         return result;
     }
@@ -98,7 +72,7 @@ public class AnnotationIntervalHtml extends AnnotationInterval {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (!super.equals(obj))
             return false;
         if (getClass() != obj.getClass())
             return false;
@@ -110,19 +84,15 @@ public class AnnotationIntervalHtml extends AnnotationInterval {
                 return false;
         } else if (!extractedTemporal.equals(other.extractedTemporal))
             return false;
-        if (htmlTagFrom != other.htmlTagFrom)
-            return false;
-        if (htmlTagTo != other.htmlTagTo)
-            return false;
         if (locale == null) {
             if (other.locale != null)
                 return false;
         } else if (!locale.equals(other.locale))
             return false;
-        if (tag == null) {
-            if (other.tag != null)
+        if (temporalId == null) {
+            if (other.temporalId != null)
                 return false;
-        } else if (!tag.equals(other.tag))
+        } else if (!temporalId.equals(other.temporalId))
             return false;
         if (temporalType != other.temporalType)
             return false;
@@ -133,13 +103,10 @@ public class AnnotationIntervalHtml extends AnnotationInterval {
         if (this.equals(ext2)) {
             return 1;
         }
-        int a = ext1.getHtmlTagFrom();
-        int b = ext2.getHtmlTagFrom();
-        int cmp = a > b ? +1 : a < b ? -1 : 0;
-        if (cmp == 0) {
-            return 1;
-        }
-        return cmp;
+        String a = ext1.getTemporalId();
+        String b = ext2.getTemporalId();
+
+        return a.compareTo(b);
     }
 
 }

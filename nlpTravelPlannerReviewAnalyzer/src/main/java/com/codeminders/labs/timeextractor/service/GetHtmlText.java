@@ -31,10 +31,16 @@ public class GetHtmlText {
         Document.OutputSettings settings = document.outputSettings();
         settings.prettyPrint(PRETTY_PRINT);
         settings.escapeMode(ESCAPE_MODE);
+
         Elements htmlElements = document.body().select("*");
         for (int i = 0; i < htmlElements.size(); i++) {
             Element element = htmlElements.get(i);
+
             if (element.toString().length() > MAX_HTML_STRING_LENGTH || element.ownText().length() < MIN_TEXT_LENGTH) {
+                continue;
+            }
+
+            if (element.tagName().equals("em") || element.tagName().equals("i") || element.tagName().equals("b") || element.tagName().equals("font")) {
                 continue;
             }
 

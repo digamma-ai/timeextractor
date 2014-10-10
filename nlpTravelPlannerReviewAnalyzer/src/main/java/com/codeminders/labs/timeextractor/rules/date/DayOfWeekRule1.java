@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
+import org.joda.time.LocalDateTime;
+
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
-import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
-import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class DayOfWeekRule1 extends Rule {
@@ -20,8 +21,10 @@ public class DayOfWeekRule1 extends Rule {
     private String rule = "\\b(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")[s]?\\b" + "[.]?";
     protected double confidence = 0.362;
     protected int priority = 1;
+    private TemporalParser parser;
 
     public DayOfWeekRule1() {
+        parser = new TemporalParser();
     }
 
     @Override
@@ -33,15 +36,9 @@ public class DayOfWeekRule1 extends Rule {
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
         DayOfWeek dayOfWeek = null;
-
         dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(1));
-        Date date = new Date();
-
-        if (dayOfWeek != null) {
-            date.setDayOfWeek(dayOfWeek);
-
-        }
-        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
+        LocalDateTime currentDate = new LocalDateTime();
+        Temporal temporal = parser.getRelativeTemporalObjectByDayOfWeek(dayOfWeek, currentDate);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
 

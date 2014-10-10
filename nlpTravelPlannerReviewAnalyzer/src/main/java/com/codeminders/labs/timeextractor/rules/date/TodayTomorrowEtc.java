@@ -31,7 +31,6 @@ public class TodayTomorrowEtc extends Rule {
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-
         LocalDateTime currentDate = new LocalDateTime();
         Temporal temporal = parser.getRelativeTemporalObjectByProperty(m.group(), currentDate);
         List<Temporal> result = new ArrayList<Temporal>();

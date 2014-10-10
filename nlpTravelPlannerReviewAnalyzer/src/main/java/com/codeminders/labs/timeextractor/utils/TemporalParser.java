@@ -274,6 +274,89 @@ public class TemporalParser {
         return null;
     }
 
+    /* get by dayOfWeek */
+
+    public Temporal getRelativeTemporalObjectByDayOfWeek(DayOfWeek dayOfWeek, LocalDateTime localDate) {
+        int currentDayOfWeek = localDate.getDayOfWeek();
+        int parsedDayOfWeek = dayOfWeek.getValue();
+
+        if (parsedDayOfWeek >= currentDayOfWeek) {
+            localDate = localDate.plusDays(parsedDayOfWeek - currentDayOfWeek);
+        } else if (currentDayOfWeek > parsedDayOfWeek) {
+            localDate = localDate.plusDays(7 + parsedDayOfWeek - currentDayOfWeek);
+        }
+
+        TimeDate timeDate = getTimeDate(localDate);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
+        temporal.getStartDate().getDate().setDayOfWeek(dayOfWeek);
+        temporal.getEndDate().getDate().setDayOfWeek(dayOfWeek);
+        return temporal;
+
+    }
+
+    /* get by dayOfWeek and weekOfMonth */
+
+    public Temporal getRelativeTemporalObjectByWeekOfMonth(DayOfWeek dayOfWeek, WeekOfMonth weekOfMonth, LocalDateTime localDate) {
+        int currentDayOfWeek = localDate.getDayOfWeek();
+        int currentWeek = currentWeekOfMonth(localDate);
+
+        int parsedDayOfWeek = dayOfWeek.getValue();
+        int parsedWeekOfMonth = weekOfMonth.getValue();
+
+        if (weekOfMonth == WeekOfMonth.LAST) {
+            int day = getLastWeekdayOfMonth(parsedDayOfWeek, localDate.getMonthOfYear(), localDate.getYear());
+            if (day > localDate.getDayOfMonth()) {
+                localDate = localDate.withDayOfMonth(day);
+            } else {
+                day = getLastWeekdayOfMonth(parsedDayOfWeek, localDate.plusMonths(1).getMonthOfYear(), localDate.getYear());
+                localDate = localDate.withDayOfMonth(day);
+            }
+        } else if (currentWeek > parsedWeekOfMonth) {
+            localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear() + 1, localDate.getYear(), weekOfMonth.getValue());
+        } else if (currentWeek < parsedWeekOfMonth) {
+            localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
+        } else if (currentWeek == parsedWeekOfMonth) {
+            if (parsedDayOfWeek < currentDayOfWeek) {
+                localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear() + 1, localDate.getYear(), weekOfMonth.getValue());
+            } else {
+                localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
+            }
+        } else if (currentWeek == weekOfMonth.getValue() && currentDayOfWeek < parsedDayOfWeek) {
+            localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
+        }
+
+        TimeDate timeDate = getTimeDate(localDate);
+
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
+        temporal.getStartDate().getDate().setDayOfWeek(dayOfWeek);
+        temporal.getStartDate().getDate().setWeekOfMonth(weekOfMonth);
+        temporal.getEndDate().getDate().setDayOfWeek(dayOfWeek);
+        temporal.getEndDate().getDate().setWeekOfMonth(weekOfMonth);
+        return temporal;
+
+    }
+
+    private LocalDateTime nthWeekdayOfMonth(int dayOfWeek, int month, int year, int n) {
+        LocalDateTime start = new LocalDateTime(year, month, 1, 0, 0);
+        LocalDateTime date = start.withDayOfWeek(dayOfWeek);
+        return (date.isBefore(start)) ? date.plusWeeks(n) : date.plusWeeks(n - 1);
+    }
+
+    private int currentWeekOfMonth(LocalDateTime localDate) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, localDate.getMonthOfYear());
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        cal.add(Calendar.YEAR, localDate.getYear());
+        return cal.get(Calendar.WEEK_OF_MONTH);
+    }
+
+    private int getLastWeekdayOfMonth(int dayweek, int month, int year) {
+        LocalDateTime d = new LocalDateTime(year, month, 1, 0, 0).plusMonths(1).withDayOfWeek(dayweek);
+        if (d.getMonthOfYear() != month)
+            d = d.minusWeeks(1);
+        return d.getDayOfMonth();
+    }
+
     // Method returns TimeDate from localDate
 
     private TimeDate getTimeDate(LocalDateTime localDate) {
@@ -289,7 +372,6 @@ public class TemporalParser {
         Time time = new Time(hours, minutes, seconds);
         timeDate.setDate(date);
         timeDate.setTime(time);
-
         return timeDate;
 
     }
@@ -440,7 +522,7 @@ public class TemporalParser {
             temporal = new Temporal(start, end, type);
 
         }
-        if (timeOfDay.equalsIgnoreCase("noon") || timeOfDay.equalsIgnoreCase("noons") ||  timeOfDay.equalsIgnoreCase("lunch time")) {
+        if (timeOfDay.equalsIgnoreCase("noon") || timeOfDay.equalsIgnoreCase("noons") || timeOfDay.equalsIgnoreCase("lunch time")) {
             Time startTime = new Time(12, 0, 0);
             Time endTime = new Time(12, 0, 0);
             start.setTime(startTime);

@@ -88,13 +88,8 @@ public class TemporalExtractionService {
 
             for (TemporalExtraction extraction : annotations) {
                 AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
-                String extractedText = (element.getExtractedText());
-
-                int from = extractedText.indexOf(extraction.getTemporalExpression());
-                if (from == -1) {
-                    from = 0;
-                }
-                int to = from + extraction.getTemporalExpression().length();
+                int from = extraction.getFromPosition();
+                int to = extraction.getToPosition();
                 List<DTOTemporal> extracted = converter.convert(extraction);
                 List<Temporal> extractions = extraction.getTemporal();
                 if (extractions != null) {
@@ -103,7 +98,6 @@ public class TemporalExtractionService {
                         interval.setTemporalType(type);
                     }
                 }
-
                 interval.setFrom(from);
                 interval.setTemporalId(element.getTemporalId());
                 interval.setExtractedTemporal(extracted);
@@ -164,7 +158,8 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        System.out.println(service.extractDatesAndTimeFromText("at 9:30pm on Tuesday nights"));
-
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("third saturday of every month");
+        System.out.println(extracted.first());
     }
+
 }

@@ -213,14 +213,12 @@ public class CombineRules {
         }
 
         else if ((typeA == Type.SET) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
-            if (temporalA.getTemporal().get(0).getStartDate() == null || temporalA.getTemporal().get(0).getStartDate().getTime() == null) {
-                temporal = joinDateAndSet(temporalB, temporalA);
-                temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-                temporal.getTemporal().get(0).setType(Type.SET);
-                temporal.setFromPosition(temporalA.getFromPosition());
-                temporal.setToPosition(temporalB.getToPosition());
-                return temporal;
-            }
+            temporal = joinDateAndSet(temporalB, temporalA);
+            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
+            temporal.getTemporal().get(0).setType(Type.SET);
+            temporal.setFromPosition(temporalA.getFromPosition());
+            temporal.setToPosition(temporalB.getToPosition());
+            return temporal;
 
         }
 
@@ -356,13 +354,8 @@ public class CombineRules {
 
     private TemporalExtraction joinDateAndYear(TemporalExtraction temporalA, TemporalExtraction temporalB) {
         int year = temporalB.getTemporal().get(0).getStartDate().getDate().getYear();
-        if (temporalA.getTemporal().get(0).getStartDate().getDate().getYear() == 0) {
-            temporalA.getTemporal().get(0).getStartDate().getDate().setYear(year);
-        }
-        if (temporalA.getTemporal().get(0).getEndDate().getDate().getYear() == 0) {
-
-            temporalA.getTemporal().get(0).getEndDate().getDate().setYear(year);
-        }
+        temporalA.getTemporal().get(0).getStartDate().getDate().setYear(year);
+        temporalA.getTemporal().get(0).getEndDate().getDate().setYear(year);
         temporalA.setConfidence(0.8);
 
         return temporalA;
@@ -421,7 +414,6 @@ public class CombineRules {
             temporalA.getTemporal().get(0).getEndDate().setTime(temporalB.getTemporal().get(0).getEndDate().getTime());
         }
         temporalA.setConfidence(0.9);
-        temporalA.setToPosition(temporalB.getToPosition());
         return temporalA;
     }
 

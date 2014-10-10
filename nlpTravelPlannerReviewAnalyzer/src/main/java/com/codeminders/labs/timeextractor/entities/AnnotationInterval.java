@@ -8,21 +8,21 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
 public class AnnotationInterval implements Comparable<AnnotationInterval> {
 
-    private int from;
-    private int to;
-    private double confidence;
-    private Locale locale;
-    private List<DTOTemporal> extractedTemporal;
-    private Type temporalType;
+    protected int from;
+    protected int to;
+    protected double confidence;
+    protected Locale locale;
+    protected List<DTOTemporal> extractedTemporal;
+    protected Type temporalType;
 
     public AnnotationInterval() {
     }
 
-    public AnnotationInterval(int from, int to, String value, Locale locale) {
-        super();
+    public AnnotationInterval(int from, int to, Locale locale, List<DTOTemporal> extractedTemporal) {
         this.from = from;
         this.to = to;
         this.locale = locale;
+        this.extractedTemporal = extractedTemporal;
     }
 
     public int getFrom() {

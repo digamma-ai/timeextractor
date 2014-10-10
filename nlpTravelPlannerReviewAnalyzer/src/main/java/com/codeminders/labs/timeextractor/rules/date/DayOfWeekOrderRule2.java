@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
+import org.joda.time.LocalDateTime;
+
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
@@ -13,7 +15,7 @@ import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.temporal.entities.WeekOfMonth;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
-import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
 //1st Tuesday of the month
@@ -23,8 +25,10 @@ public class DayOfWeekOrderRule2 extends Rule {
     private String rule = "\\b(the[\\s]*)?(([1-5])(th|st|nd|rd)?[\\s]*)" + "((" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY
             + "))([s]?[\\s]*(of[\\s]*)(the[\\s]*)?(month))?\\b";
     private int priority = 3;
+    private TemporalParser parser;
 
     public DayOfWeekOrderRule2() {
+        parser = new TemporalParser();
 
     }
 
@@ -39,12 +43,13 @@ public class DayOfWeekOrderRule2 extends Rule {
         WeekOfMonth weekOfMonth = null;
         dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(5));
         weekOfMonth = TemporalBasicCaseParser.getWeekOfMonth(m.group(3));
+        LocalDateTime currentDate = new LocalDateTime();
 
         Date date = new Date();
         date.setDayOfWeek(dayOfWeek);
         date.setWeekOfMonth(weekOfMonth);
 
-        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
+        Temporal temporal = parser.getRelativeTemporalObjectByWeekOfMonth(dayOfWeek, weekOfMonth, currentDate);
 
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);

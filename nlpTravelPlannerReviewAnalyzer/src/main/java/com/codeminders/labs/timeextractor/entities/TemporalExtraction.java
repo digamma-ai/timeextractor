@@ -12,11 +12,26 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     public TemporalExtraction() {
     }
 
-    public TemporalExtraction(String temporalExpression, int fromPosition, int toPosition, String classOfRuleType) {
-        this.temporalExpression = temporalExpression;
+    public TemporalExtraction(int fromPosition, int toPosition, Locale locale, double confidence, String classOfRuleType) {
         this.fromPosition = fromPosition;
         this.toPosition = toPosition;
+        this.locale = locale;
+        this.confidence = confidence;
         this.classOfRuleType = classOfRuleType;
+    }
+
+    public TemporalExtraction(RegexResult result) {
+        Rule rule = result.getRule();
+        fromPosition = result.getStart();
+        classOfRuleType = result.getRuleName();
+        toPosition = result.getEnd();
+        locale = rule.getLocale();
+        confidence = rule.getConfidence();
+        temporal = rule.getTemporal(result.getText());
+        temporalExpression = result.getText();
+        if (rule.getType() != null && getTemporal() != null && getTemporal().get(0) != null) {
+            getTemporal().get(0).setType(rule.getType());
+        }
     }
 
     private String temporalExpression;

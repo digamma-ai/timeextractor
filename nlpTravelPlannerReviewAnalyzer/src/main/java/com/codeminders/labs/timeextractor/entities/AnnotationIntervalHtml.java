@@ -14,6 +14,22 @@ public class AnnotationIntervalHtml extends AnnotationInterval {
     private double confidence;
     private Type temporalType;
 
+    public AnnotationIntervalHtml(int from, int to, String temporalId, Locale locale, double confidence) {
+        this.from = from;
+        this.to = to;
+        this.temporalId = temporalId;
+        this.locale = locale;
+        this.confidence = confidence;
+    }
+
+    public AnnotationIntervalHtml(TemporalExtraction extraction, HtmlElement htmlElement) {
+        from = extraction.getFromPosition();
+        to = extraction.getToPosition();
+        temporalId = htmlElement.getTemporalId();
+        locale = extraction.getLocale();
+        confidence = extraction.getConfidence();
+    }
+
     public List<DTOTemporal> getExtractedTemporal() {
         return extractedTemporal;
     }

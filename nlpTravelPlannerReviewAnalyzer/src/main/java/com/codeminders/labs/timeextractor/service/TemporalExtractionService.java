@@ -23,11 +23,17 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
 public class TemporalExtractionService {
 
-    private GetHtmlText htmlService = new GetHtmlText();
-    private Annotation2DTOTemporalConversion converter = new Annotation2DTOTemporalConversion();
-    private CombineRules combineRulesService = new CombineRules();
+    private GetHtmlText htmlService;
+    private Annotation2DTOTemporalConversion converter;
+    private CombineRules combineRulesService;
     private static MultipleExtractionService service = new MultipleExtractionService(null);
     private static final Logger logger = Logger.getLogger(TemporalExtractionService.class);
+
+    public TemporalExtractionService() {
+        htmlService = new GetHtmlText();
+        converter = new Annotation2DTOTemporalConversion();
+        combineRulesService = new CombineRules();
+    }
 
     public Map<String, TreeSet<AnnotationIntervalHtml>> extractDatesAndTimeFromHtml(String html) {
         List<HtmlElement> htmlElements = htmlService.getElements(html);
@@ -56,23 +62,15 @@ public class TemporalExtractionService {
         List<RegexResult> results = service.getTemporals(text);
         for (RegexResult result : results) {
             Rule rule = result.getRule();
-            TemporalExtraction temporal = new TemporalExtraction();
-            temporal.setFromPosition(result.getStart());
-            temporal.setToPosition(result.getEnd());
-            if (rule != null) {
-                temporal.setConfidence(rule.getConfidence());
-                temporal.setLocale(rule.getLocale());
-                temporal.setTemporal(rule.getTemporal(result.getText()));
-                if (rule.getType() != null && temporal.getTemporal() != null && temporal.getTemporal().get(0) != null) {
-                    temporal.getTemporal().get(0).setType(rule.getType());
-                }
-
+            if (rule == null) {
+                continue;
             }
-            temporal.setTemporalExpression(result.getText());
-            temporal.setClassOfRuleType(result.getRuleName());
+            TemporalExtraction temporal = new TemporalExtraction(result);
+            if (rule.getType() != null && temporal.getTemporal() != null && temporal.getTemporal().get(0) != null) {
+                temporal.getTemporal().get(0).setType(rule.getType());
+            }
             temporals.add(temporal);
         }
-
         // composite rules service
         temporals = combineRulesService.combinationRule(temporals, text);
         return temporals;
@@ -87,26 +85,18 @@ public class TemporalExtractionService {
             TreeSet<TemporalExtraction> annotations = entry.getValue();
 
             for (TemporalExtraction extraction : annotations) {
-                AnnotationIntervalHtml interval = new AnnotationIntervalHtml();
-                int from = extraction.getFromPosition();
-                int to = extraction.getToPosition();
                 List<DTOTemporal> extracted = converter.convert(extraction);
                 List<Temporal> extractions = extraction.getTemporal();
+                AnnotationIntervalHtml interval = new AnnotationIntervalHtml(extraction, element);
                 if (extractions != null) {
                     if (extractions.get(0) != null && extractions.get(0).getType() != null) {
                         Type type = converter.getGeneralType(extractions.get(0).getType());
                         interval.setTemporalType(type);
                     }
                 }
-                interval.setFrom(from);
-                interval.setTemporalId(element.getTemporalId());
                 interval.setExtractedTemporal(extracted);
-                interval.setTo(to);
-                interval.setConfidence(extraction.getConfidence());
-                interval.setLocale(extraction.getLocale());
                 list.add(interval);
             }
-
             resultMap.put(Integer.valueOf(count).toString(), list);
             count++;
         }
@@ -138,15 +128,11 @@ public class TemporalExtractionService {
             return intervals;
         }
         for (TemporalExtraction temporal : annotated) {
-            AnnotationInterval interval = new AnnotationInterval();
             List<DTOTemporal> temporals = converter.convert(temporal);
             int from = temporal.getFromPosition();
             int to = temporal.getToPosition();
-            interval.setFrom(from);
-            interval.setTo(to);
             Locale locale = temporal.getLocale();
-            interval.setLocale(locale);
-            interval.setExtractedTemporal(temporals);
+            AnnotationInterval interval = new AnnotationInterval(from, to, locale, temporals);
             if (temporal.getTemporal() != null && temporal.getTemporal().get(0) != null && temporal.getTemporal().get(0).getType() != null) {
                 Type type = converter.getGeneralType(temporal.getTemporal().get(0).getType());
                 interval.setTemporalType(type);
@@ -158,7 +144,7 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("third saturday of every month");
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("1st tuesday ");
         System.out.println(extracted.first());
     }
 

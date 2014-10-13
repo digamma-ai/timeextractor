@@ -18,7 +18,7 @@ public class DayOfWeekOrderRule1Test extends GeneralTest {
     public void DayOfWeekOrderRule1Test1() {
 
         String toPredict = "the first Tuesday";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("the first Tuesday", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.TU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.FIRST, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());
@@ -29,7 +29,7 @@ public class DayOfWeekOrderRule1Test extends GeneralTest {
     public void dayOfWeekOrderRule1Test2() {
 
         String toPredict = "the first Tuesday of month";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("the first Tuesday of month", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.TU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.FIRST, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());
@@ -40,7 +40,7 @@ public class DayOfWeekOrderRule1Test extends GeneralTest {
     public void dayOfWeekOrderRule1Test3() {
 
         String toPredict = "the last Wednesday of the month";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("the last Wednesday of the month", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.WE, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.LAST, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());
@@ -51,7 +51,7 @@ public class DayOfWeekOrderRule1Test extends GeneralTest {
     public void dayOfWeekOrderRule1Test4() {
 
         String toPredict = "second Thursday";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("second Thursday", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.TH, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.SECOND, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());
@@ -62,7 +62,7 @@ public class DayOfWeekOrderRule1Test extends GeneralTest {
     public void dayOfWeekOrderRule1Test5() {
 
         String toPredict = "second Thursdays";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("second Thursdays", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.TH, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.SECOND, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());

@@ -17,7 +17,7 @@ public class MonthAndDayRule5Test extends GeneralTest {
     public void monthAndDayRule4Test1() {
 
         String toPredict = "Sunday 17 of July";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("Sunday 17 of July", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(DayOfWeek.SU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());

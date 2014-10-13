@@ -8,5 +8,6 @@ public class RestParameters {
     public static String DATE = "date";
     public static String CLEAN = "clean";
     public static String TEMPORAL_ID = "_temporal_id";
+    public static String TIMEZONE_OFFSET = "timezone_offset";
 
 }

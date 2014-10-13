@@ -16,7 +16,7 @@ public class MonthOfYear1Test extends GeneralTest {
     public void testMonthOfYear1() {
 
         String toPredict = "October";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("October", predicted.get(0).getTemporalExpression());
         assertEquals(10, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
     }
@@ -25,7 +25,7 @@ public class MonthOfYear1Test extends GeneralTest {
     public void testMonthOfYear2() {
 
         String toPredict = "Was October, aaaa";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("October", predicted.get(0).getTemporalExpression());
         assertEquals(10, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(4, predicted.get(0).getFromPosition());
@@ -37,7 +37,7 @@ public class MonthOfYear1Test extends GeneralTest {
     public void testMonthOfYear4() {
 
         String toPredict = "aOctober,";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals(0, predicted.size());
 
     }
@@ -46,7 +46,7 @@ public class MonthOfYear1Test extends GeneralTest {
     public void testMonthOfYear5() {
 
         String toPredict = "Octobera,";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals(0, predicted.size());
 
     }
@@ -55,7 +55,7 @@ public class MonthOfYear1Test extends GeneralTest {
     public void testMonthOfYear6() {
 
         String toPredict = "October-";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("October", predicted.get(0).getTemporalExpression());
         assertEquals(10, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
     }

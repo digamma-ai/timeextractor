@@ -17,7 +17,7 @@ public class DurationRule1Test extends GeneralTest {
     public void durationRule1Test() {
 
         String toPredict = "3 minutes";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("3 minutes", predicted.get(0).getTemporalExpression());
         assertEquals(Type.DURATION, predicted.get(0).getTemporal().get(0).getType());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getDuration().getMinutes());
@@ -28,7 +28,7 @@ public class DurationRule1Test extends GeneralTest {
     public void durationRule2Test() {
 
         String toPredict = "2 days";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("2 days", predicted.get(0).getTemporalExpression());
         assertEquals(Type.DURATION, predicted.get(0).getTemporal().get(0).getType());
         assertEquals(2, predicted.get(0).getTemporal().get(0).getDuration().getDays());
@@ -39,7 +39,7 @@ public class DurationRule1Test extends GeneralTest {
     public void durationRule3Test() {
 
         String toPredict = "3 year";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("3 year", predicted.get(0).getTemporalExpression());
         assertEquals(Type.DURATION, predicted.get(0).getTemporal().get(0).getType());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getDuration().getYears());

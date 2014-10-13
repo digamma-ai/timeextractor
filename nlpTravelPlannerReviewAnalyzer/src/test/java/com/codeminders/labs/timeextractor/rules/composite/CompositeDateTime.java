@@ -19,7 +19,7 @@ public class CompositeDateTime extends GeneralTest {
     public void compositeDateTimeInterval1() {
 
         String toPredict = "2014-02-02 11am";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("2014-02-02 11am", predicted.get(0).getTemporalExpression());
         assertEquals(Type.TIME_DATE, predicted.get(0).getTemporal().get(0).getType());
         assertEquals(2014, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getYear());

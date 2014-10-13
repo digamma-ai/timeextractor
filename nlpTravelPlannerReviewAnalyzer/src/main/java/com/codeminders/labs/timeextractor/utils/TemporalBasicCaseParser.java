@@ -337,63 +337,63 @@ public class TemporalBasicCaseParser {
 
     public int getTimeZone(String zone) {
         if (zone.equalsIgnoreCase("PST") || zone.equalsIgnoreCase("Pacific Time")) {
-            return -8;
+            return +480;
         }
 
         else if (zone.equalsIgnoreCase("PDT") || zone.equalsIgnoreCase("PT")) {
-            return -7;
+            return +420;
         }
 
         else if (zone.equalsIgnoreCase("EST")) {
-            return -5;
+            return +300;
         }
 
         else if (zone.equalsIgnoreCase("EDT") || zone.equalsIgnoreCase("ET") || zone.equalsIgnoreCase("Eastern Daylight Time")) {
-            return -4;
+            return +240;
         }
 
         else if (zone.equalsIgnoreCase("CST")) {
-            return -6;
+            return +360;
         } else if (zone.equalsIgnoreCase("CET") || zone.equalsIgnoreCase("Central European Time")) {
-            return +1;
+            return -60;
         }
 
         else if (zone.equalsIgnoreCase("CEST")) {
-            return +2;
+            return -120;
         }
 
         else if (zone.equalsIgnoreCase("BST")) {
-            return +1;
+            return -60;
         }
 
         else if (zone.equalsIgnoreCase("EEST") || zone.equalsIgnoreCase("Eastern Europe Summer Time")) {
-            return +3;
+            return -180;
         }
 
         else if (zone.equalsIgnoreCase("GMT")) {
             return 0;
         } else if (zone.equalsIgnoreCase("IST")) {
-            return +1;
+            return -60;
         } else if (zone.equalsIgnoreCase("MSD")) {
-            return +4;
+            return -240;
         } else if (zone.equalsIgnoreCase("MSK")) {
-            return +4;
+            return -240;
         } else if (zone.equalsIgnoreCase("WEST")) {
-            return +1;
+            return -60;
         } else if (zone.equalsIgnoreCase("WET")) {
             return 0;
         } else if (zone.equalsIgnoreCase("CST")) {
-            return +8;
+            return -480;
         } else if (zone.equalsIgnoreCase("HKT")) {
-            return +8;
+            return -480;
         } else if (zone.equalsIgnoreCase("IDT")) {
-            return +3;
+            return -180;
         } else if (zone.equalsIgnoreCase("JST")) {
-            return +9;
+            return -540;
         } else if (zone.equalsIgnoreCase("CST")) {
-            return -6;
+            return +360;
         } else if (zone.equalsIgnoreCase("EST")) {
-            return -5;
+            return +300;
         }
         return 0;
 

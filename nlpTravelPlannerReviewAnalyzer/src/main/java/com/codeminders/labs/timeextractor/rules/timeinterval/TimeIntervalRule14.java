@@ -23,7 +23,7 @@ public class TimeIntervalRule14 extends Rule
     private String rule = "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")[,]?[\\s]*\\b([01]?[0-9]|2[0-3])[-]([01]?[0-9]|2[0-3])\\b";
     protected Locale locale = Locale.US;
     protected double confidence = 0.6;
-    private int priority = 5;
+    private int priority = 4;
 
     public TimeIntervalRule14() {
     }

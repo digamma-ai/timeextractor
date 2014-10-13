@@ -18,7 +18,7 @@ public class DayOfWeekOrderRule2Test extends GeneralTest {
     public void DayOfWeekOrderRule2Test1() {
 
         String toPredict = "1st Tuesday of the month";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("1st Tuesday of the month", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.TU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.FIRST, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());
@@ -29,7 +29,7 @@ public class DayOfWeekOrderRule2Test extends GeneralTest {
     public void DayOfWeekOrderRule2Test2() {
 
         String toPredict = "1st Tuesday";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("1st Tuesday", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.TU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.FIRST, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());
@@ -40,7 +40,7 @@ public class DayOfWeekOrderRule2Test extends GeneralTest {
     public void DayOfWeekOrderRule2Test3() {
 
         String toPredict = "3rd Wednesday";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("3rd Wednesday", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.WE, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
         assertEquals(WeekOfMonth.THIRD, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getWeekOfMonth());

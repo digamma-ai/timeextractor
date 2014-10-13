@@ -18,7 +18,7 @@ public class TimeIntervalRule3Test extends GeneralTest {
     public void timeIntervalRule3Test1() {
 
         String toPredict = "after 5:30";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("after 5:30", predicted.get(0).getTemporalExpression());
         assertEquals(5, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(30, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getMinutes());
@@ -29,7 +29,7 @@ public class TimeIntervalRule3Test extends GeneralTest {
     public void timeIntervalRule3Test2() {
 
         String toPredict = "after 5";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("after 5", predicted.get(0).getTemporalExpression());
         assertEquals(5, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
 
@@ -39,7 +39,7 @@ public class TimeIntervalRule3Test extends GeneralTest {
     public void timeIntervalRule3Test3() {
 
         String toPredict = "before 5";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("before 5", predicted.get(0).getTemporalExpression());
         assertEquals(5, predicted.get(0).getTemporal().get(0).getEndDate().getTime().getHours());
 
@@ -49,7 +49,7 @@ public class TimeIntervalRule3Test extends GeneralTest {
     public void timeIntervalRule3Test4() {
 
         String toPredict = "before 5.30 CET";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("before 5.30 CET", predicted.get(0).getTemporalExpression());
         assertEquals(5, predicted.get(0).getTemporal().get(0).getEndDate().getTime().getHours());
         assertEquals(30, predicted.get(0).getTemporal().get(0).getEndDate().getTime().getMinutes());

@@ -81,7 +81,7 @@ public class TimeIntervalRule6 extends Rule {
     public void setPriority(int priority) {
         this.priority = priority;
     }
-    
+
     @Override
     public Locale getLocale() {
         return locale;

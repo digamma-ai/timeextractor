@@ -16,7 +16,7 @@ public class SeasonRules2Test extends GeneralTest {
     public void SeasonRules2Test1() {
 
         String toPredict = "spring 2014";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("spring 2014", predicted.get(0).getTemporalExpression());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(5, predicted.get(0).getTemporal().get(0).getEndDate().getDate().getMonth());
@@ -29,7 +29,7 @@ public class SeasonRules2Test extends GeneralTest {
     public void SeasonRules2Test2() {
 
         String toPredict = "winter 2014";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("winter 2014", predicted.get(0).getTemporalExpression());
         assertEquals(12, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(1, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());

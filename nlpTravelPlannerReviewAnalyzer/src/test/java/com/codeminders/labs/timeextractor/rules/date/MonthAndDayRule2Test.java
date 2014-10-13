@@ -16,7 +16,7 @@ public class MonthAndDayRule2Test extends GeneralTest {
     public void monthAndDayRule2Test1() {
 
         String toPredict = "14 July 2012";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("14 July 2012", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -28,7 +28,7 @@ public class MonthAndDayRule2Test extends GeneralTest {
     public void monthAndDayRule2Test2() {
 
         String toPredict = "14 July, 2012";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("14 July, 2012", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -40,7 +40,7 @@ public class MonthAndDayRule2Test extends GeneralTest {
     public void monthAndDayRule2Test3() {
 
         String toPredict = "14 July";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("14 July", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());

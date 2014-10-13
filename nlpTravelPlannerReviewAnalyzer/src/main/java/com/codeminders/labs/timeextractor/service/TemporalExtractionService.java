@@ -16,8 +16,8 @@ import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
 import com.codeminders.labs.timeextractor.entities.RegexResult;
 import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
-import com.codeminders.labs.timeextractor.rules.combine.CombineRules;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
@@ -25,23 +25,25 @@ public class TemporalExtractionService {
 
     private GetHtmlText htmlService;
     private Annotation2DTOTemporalConversion converter;
-    private CombineRules combineRulesService;
+    private CombineRulesService combineRulesService;
+    private ProcessRulesService processingService;
     private static MultipleExtractionService service = new MultipleExtractionService(null);
     private static final Logger logger = Logger.getLogger(TemporalExtractionService.class);
 
     public TemporalExtractionService() {
         htmlService = new GetHtmlText();
         converter = new Annotation2DTOTemporalConversion();
-        combineRulesService = new CombineRules();
+        combineRulesService = new CombineRulesService();
+        processingService = new ProcessRulesService();
     }
 
-    public Map<String, TreeSet<AnnotationIntervalHtml>> extractDatesAndTimeFromHtml(String html) {
+    public Map<String, TreeSet<AnnotationIntervalHtml>> extractDatesAndTimeFromHtml(String html, Settings settings) {
         List<HtmlElement> htmlElements = htmlService.getElements(html);
         Map<HtmlElement, TreeSet<TemporalExtraction>> map = new HashMap<HtmlElement, TreeSet<TemporalExtraction>>();
         for (HtmlElement htmlElement : htmlElements) {
             TreeSet<TemporalExtraction> results = null;
             try {
-                results = extractDatesAndTimeFromText(htmlElement.getExtractedText());
+                results = extractDatesAndTimeFromText(htmlElement.getExtractedText(), settings);
             } catch (Exception ex) {
                 logger.error("Sentence: " + htmlElement.getExtractedText() + " message: " + ex);
             }
@@ -54,7 +56,7 @@ public class TemporalExtractionService {
         return result;
     }
 
-    public TreeSet<TemporalExtraction> extractDatesAndTimeFromText(String text) {
+    public TreeSet<TemporalExtraction> extractDatesAndTimeFromText(String text, Settings settings) {
         if (text == null) {
             return null;
         }
@@ -73,6 +75,8 @@ public class TemporalExtractionService {
         }
         // composite rules service
         temporals = combineRulesService.combinationRule(temporals, text);
+        // process according to current date and timezone (make intervals)
+        temporals = processingService.changeRulesAccordingToUserTimeZone(temporals, settings);
         return temporals;
     }
 
@@ -103,10 +107,10 @@ public class TemporalExtractionService {
         return resultMap;
     }
 
-    public Map<String, TreeSet<TemporalExtraction>> extractDatesAndTimeFromMultipleText(List<BaseText> baseTexts) {
+    public Map<String, TreeSet<TemporalExtraction>> extractDatesAndTimeFromMultipleText(List<BaseText> baseTexts, Settings settings) {
         Map<String, TreeSet<TemporalExtraction>> extractions = new HashMap<>();
         for (BaseText text : baseTexts) {
-            TreeSet<TemporalExtraction> extracted = extractDatesAndTimeFromText(text.getText());
+            TreeSet<TemporalExtraction> extracted = extractDatesAndTimeFromText(text.getText(), settings);
             extractions.put(text.getId(), extracted);
         }
         return extractions;
@@ -144,8 +148,8 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("1st tuesday ");
+        Settings settings = new Settings(null, null);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(" every first Tuesday", settings);
         System.out.println(extracted.first());
     }
-
 }

@@ -5,7 +5,7 @@ public class Time {
     private int hours;
     private int minutes;
     private int seconds;
-    private int timezone;
+    private int timezone = -1000;
 
     public Time() {
     }
@@ -14,6 +14,13 @@ public class Time {
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
+    }
+
+    public Time(int hours, int minutes, int seconds, int timezone) {
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.timezone = timezone;
     }
 
     public int getHours() {

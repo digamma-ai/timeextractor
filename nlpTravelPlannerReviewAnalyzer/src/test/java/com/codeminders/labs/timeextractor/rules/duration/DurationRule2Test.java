@@ -17,7 +17,7 @@ public class DurationRule2Test extends GeneralTest {
     public void durationRule2Test1() {
 
         String toPredict = "three minutes";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("three minutes", predicted.get(0).getTemporalExpression());
         assertEquals(Type.DURATION, predicted.get(0).getTemporal().get(0).getType());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getDuration().getMinutes());

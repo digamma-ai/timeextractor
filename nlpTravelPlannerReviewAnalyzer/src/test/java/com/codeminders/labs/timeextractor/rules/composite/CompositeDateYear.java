@@ -18,7 +18,7 @@ public class CompositeDateYear extends GeneralTest {
     public void compositeDateTimeInterval1() {
 
         String toPredict = "25th of May 2014";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         Type type = predicted.get(0).getTemporal().get(0).getType();
         Date startDate = predicted.get(0).getTemporal().get(0).getStartDate().getDate();
         Date endDate = predicted.get(0).getTemporal().get(0).getEndDate().getDate();

@@ -16,21 +16,21 @@ public class CompositeSetTimeInterval extends GeneralTest {
     public void compositeSetTimeInterval1() {
 
         String toPredict = "every Friday morning";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("every Friday morning", predicted.get(0).getTemporalExpression());
     }
 
     @Test
     public void compositeSetTimeInterval2() {
         String toPredict = "every Friday ";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("every Friday", predicted.get(0).getTemporalExpression());
     }
 
     @Test
     public void compositeSetTimeInterval3() {
         String toPredict = "11am-14pm of every month";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("11am-14pm of every month", predicted.get(0).getTemporalExpression());
     }
 }

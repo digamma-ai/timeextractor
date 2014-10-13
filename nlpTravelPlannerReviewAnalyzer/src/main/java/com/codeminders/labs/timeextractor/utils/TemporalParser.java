@@ -241,19 +241,19 @@ public class TemporalParser {
     public Temporal getRelativeTemporalObjectByProperty(String property, LocalDateTime localDate) {
 
         if (property.equalsIgnoreCase("today")) {
-            TimeDate timeDate = getTimeDate(localDate);
+            TimeDate timeDate = Utils.getTimeDate(localDate);
             return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
 
         }
         if (property.equalsIgnoreCase("tomorrow")) {
             localDate = localDate.plusDays(1);
-            TimeDate timeDate = getTimeDate(localDate);
+            TimeDate timeDate = Utils.getTimeDate(localDate);
             return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         }
 
         if (property.equalsIgnoreCase("tonight")) {
             localDate = localDate.plusDays(1);
-            TimeDate timeDate = getTimeDate(localDate);
+            TimeDate timeDate = Utils.getTimeDate(localDate);
             Time time = new Time(19, 0, 0);
             timeDate.setTime(time);
             return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
@@ -261,14 +261,14 @@ public class TemporalParser {
 
         if (property.equalsIgnoreCase("yesterday")) {
             localDate = localDate.minusDays(1);
-            TimeDate timeDate = getTimeDate(localDate);
+            TimeDate timeDate = Utils.getTimeDate(localDate);
             return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
 
         }
 
         if (property.equalsIgnoreCase("the day before yesterday")) {
             localDate = localDate.minusDays(2);
-            TimeDate timeDate = getTimeDate(localDate);
+            TimeDate timeDate = Utils.getTimeDate(localDate);
             return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         }
         return null;
@@ -286,7 +286,7 @@ public class TemporalParser {
             localDate = localDate.plusDays(7 + parsedDayOfWeek - currentDayOfWeek);
         }
 
-        TimeDate timeDate = getTimeDate(localDate);
+        TimeDate timeDate = Utils.getTimeDate(localDate);
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         temporal.getStartDate().getDate().setDayOfWeek(dayOfWeek);
         temporal.getEndDate().getDate().setDayOfWeek(dayOfWeek);
@@ -325,7 +325,7 @@ public class TemporalParser {
             localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
         }
 
-        TimeDate timeDate = getTimeDate(localDate);
+        TimeDate timeDate = Utils.getTimeDate(localDate);
 
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         temporal.getStartDate().getDate().setDayOfWeek(dayOfWeek);
@@ -355,25 +355,6 @@ public class TemporalParser {
         if (d.getMonthOfYear() != month)
             d = d.minusWeeks(1);
         return d.getDayOfMonth();
-    }
-
-    // Method returns TimeDate from localDate
-
-    private TimeDate getTimeDate(LocalDateTime localDate) {
-        TimeDate timeDate = new TimeDate();
-        int day = localDate.getDayOfMonth();
-        int month = localDate.getMonthOfYear();
-        int year = localDate.getYear();
-        timeDate.setRelative(true);
-        Date date = new Date(year, month, day);
-        int hours = localDate.getHourOfDay();
-        int minutes = localDate.getMinuteOfHour();
-        int seconds = localDate.getSecondOfMinute();
-        Time time = new Time(hours, minutes, seconds);
-        timeDate.setDate(date);
-        timeDate.setTime(time);
-        return timeDate;
-
     }
 
     public Temporal getDurationInterval(Temporal duration1, Temporal duration2) {
@@ -472,7 +453,7 @@ public class TemporalParser {
             localDateTime = localDateTime.minusSeconds(durationLength);
 
         }
-        TimeDate timeDate = getTimeDate(localDateTime);
+        TimeDate timeDate = Utils.getTimeDate(localDateTime);
         temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         return temporal;
 

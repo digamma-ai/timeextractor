@@ -20,6 +20,7 @@ import com.codeminders.labs.timeextractor.constants.RestParameters;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
+import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
 import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
@@ -40,15 +41,17 @@ public class TimeExtractorRestService {
         JSONObject object = jsonArray.getJSONObject(0);
         String html = object.optString(RestParameters.HTML);
         String text = object.optString(RestParameters.TEXT);
-
+        String timezone = object.optString(RestParameters.TIMEZONE_OFFSET);
+        
         if ((html == null) && (text == null)) {
             return Response.status(400).entity(ExceptionMessages.FILLED_FIELEDS).build();
         }
+        Settings settings = new Settings(null, timezone);
 
         // html case
         if (html != null & !html.isEmpty()) {
             long currentTime = System.currentTimeMillis();
-            Map<String, TreeSet<AnnotationIntervalHtml>> result = service.extractDatesAndTimeFromHtml(html);
+            Map<String, TreeSet<AnnotationIntervalHtml>> result = service.extractDatesAndTimeFromHtml(html, settings);
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - currentTime;
             System.out.println(totalTime);
@@ -72,7 +75,7 @@ public class TimeExtractorRestService {
                 baseTexts.add(baseText);
             }
 
-            Map<String, TreeSet<TemporalExtraction>> extractDates = service.extractDatesAndTimeFromMultipleText(baseTexts);
+            Map<String, TreeSet<TemporalExtraction>> extractDates = service.extractDatesAndTimeFromMultipleText(baseTexts, settings);
             Map<String, TreeSet<AnnotationInterval>> annotatedIntervals = service.getAllAnnotations(extractDates);
             return Response.status(200).entity(annotatedIntervals).build();
 

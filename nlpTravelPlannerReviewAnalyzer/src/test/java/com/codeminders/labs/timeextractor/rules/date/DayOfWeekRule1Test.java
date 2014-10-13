@@ -17,7 +17,7 @@ public class DayOfWeekRule1Test extends GeneralTest {
     public void dayOfWeekRule1Test1() {
 
         String toPredict = "Sunday";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("Sunday", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.SU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
 
@@ -27,7 +27,7 @@ public class DayOfWeekRule1Test extends GeneralTest {
     public void dayOfWeekRule1Test2() {
 
         String toPredict = "Wed";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("Wed", predicted.get(0).getTemporalExpression());
         assertEquals(DayOfWeek.WE, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());
 

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import com.codeminders.labs.timeextractor.business.CsvReader;
 import com.codeminders.labs.timeextractor.business.CsvWriter;
 import com.codeminders.labs.timeextractor.business.FScore;
+import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.entities.Tip;
 import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
@@ -43,8 +44,8 @@ public class MainTestingClass {
             }
             String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-").trim();
             System.out.println(text);
-
-            TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text);
+            Settings settings = new Settings(null, "0");
+            TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {
                 tn++;

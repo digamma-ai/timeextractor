@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.combine;
+package com.codeminders.labs.timeextractor.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
-public class CombineRules {
+public class CombineRulesService {
 
     public TreeSet<TemporalExtraction> combinationRule(TreeSet<TemporalExtraction> rules, String text) {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(rules);
@@ -38,13 +38,11 @@ public class CombineRules {
             } else {
                 start = list.get(i);
             }
-
         }
 
         // remove "every" or "timezone" if it is left without temporal
         // expression
         removeUnusedTemporals(list);
-
         return new TreeSet<TemporalExtraction>(list);
     }
 
@@ -340,10 +338,10 @@ public class CombineRules {
 
     private TemporalExtraction joinTimeZoneAndDate(TemporalExtraction temporalA, TemporalExtraction temporalB) {
         int timezone = temporalB.getTemporal().get(0).getStartDate().getTime().getTimezoneOffset();
-        if (temporalA.getTemporal().get(0).getStartDate().getTime().getTimezoneOffset() == 0) {
+        if (temporalA.getTemporal().get(0).getStartDate().getTime().getTimezoneOffset() == -1000) {
             temporalA.getTemporal().get(0).getStartDate().getTime().setTimezone(timezone);
         }
-        if (temporalA.getTemporal().get(0).getEndDate().getTime().getTimezoneOffset() == 0) {
+        if (temporalA.getTemporal().get(0).getEndDate().getTime().getTimezoneOffset() == -1000) {
             temporalA.getTemporal().get(0).getEndDate().getTime().setTimezone(timezone);
 
         }

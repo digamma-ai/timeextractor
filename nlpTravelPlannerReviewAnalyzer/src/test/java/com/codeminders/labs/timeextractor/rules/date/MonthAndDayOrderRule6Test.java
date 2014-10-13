@@ -16,7 +16,7 @@ public class MonthAndDayOrderRule6Test extends GeneralTest {
     public void monthAndDayOrderRule6Test1() {
 
         String toPredict = "March the Fourteenth 2011";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("March the Fourteenth 2011", predicted.get(0).getTemporalExpression());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -28,7 +28,7 @@ public class MonthAndDayOrderRule6Test extends GeneralTest {
     public void monthAndDayOrderRule6Test2() {
 
         String toPredict = "March Fourteenth 2011";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("March Fourteenth 2011", predicted.get(0).getTemporalExpression());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -40,7 +40,7 @@ public class MonthAndDayOrderRule6Test extends GeneralTest {
     public void monthAndDayOrderRule6Test3() {
 
         String toPredict = "March Fourteenth of 2011";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("March Fourteenth of 2011", predicted.get(0).getTemporalExpression());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -52,7 +52,7 @@ public class MonthAndDayOrderRule6Test extends GeneralTest {
     public void monthAndDayOrderRule6Test4() {
 
         String toPredict = "March the Fourteenth, 2011";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("March the Fourteenth, 2011", predicted.get(0).getTemporalExpression());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());

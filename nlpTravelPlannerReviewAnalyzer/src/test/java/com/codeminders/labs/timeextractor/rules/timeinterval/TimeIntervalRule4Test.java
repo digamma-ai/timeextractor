@@ -16,7 +16,7 @@ public class TimeIntervalRule4Test extends GeneralTest {
     public void timeIntervalRule4Test() {
 
         String toPredict = "after 5:30 pm";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("after 5:30 pm", predicted.get(0).getTemporalExpression());
         assertEquals(17, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(30, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getMinutes());
@@ -27,7 +27,7 @@ public class TimeIntervalRule4Test extends GeneralTest {
     public void timeIntervalRule4Test2() {
 
         String toPredict = "after 5 pm";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("after 5 pm", predicted.get(0).getTemporalExpression());
         assertEquals(17, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
 
@@ -37,7 +37,7 @@ public class TimeIntervalRule4Test extends GeneralTest {
     public void timeIntervalRule4Test3() {
 
         String toPredict = "after 5 pm CET";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict));
+        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("after 5 pm CET", predicted.get(0).getTemporalExpression());
         assertEquals(17, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(1, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getTimezoneOffset());

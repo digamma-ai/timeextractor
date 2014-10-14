@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
          
-    <display-name>Time extractor</display-name>
+ <display-name>Time extractor</display-name>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
@@ -32,6 +32,8 @@
         <servlet-name>servlet</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+
+
 
 <filter>
     <filter-name>CORS</filter-name>

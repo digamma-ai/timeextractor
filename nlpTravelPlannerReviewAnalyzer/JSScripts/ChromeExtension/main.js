@@ -1,27 +1,33 @@
 // server http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/
 // local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/"
 
-var TEMPORAL_EXTRACTION_URL = "http://localhost:8080/timeextractor/";
+var TEMPORAL_EXTRACTION_URL = "https://localhost:8443/timeextractor/";
 var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/annotate"
 var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL + "images/loading.gif";
 var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
 var TEMPORAL_ID = "_temporal_id";
-
+var highlighted = false;
+var old_page;
 chrome.runtime.onMessage.addListener(function(request, sender) {
 	start();
 });
 
 var start = function() {
 	addGlobalStyle('.highlight { background-color: yellow  }');
-
+	if (highlighted) {
+		highlighted = false;
+		$('body').html(old_page);
+		return;
+	}
 	var all_tags = $("*");
 	for (var i = 0; i < all_tags.length; i++) {
 		$(all_tags[i]).attr(TEMPORAL_ID, TEMPORAL_ID + i);
 	}
 	var offset = new Date().getTimezoneOffset();
 	var html = $("html").html();
+	old_page = $('body').html();
 	var json_to_get_temporal = [ {
 		'id' : '1',
 		'html' : html,
@@ -31,6 +37,7 @@ var start = function() {
 	$.when(temporalData(json_to_get_temporal)).then(
 			function(data, textStatus, jqXHR) {
 				highlight(html, data);
+				highlighted = true;
 			}).fail(function(data, textStatus, jqXHR) {
 		alert("An error occured on server: " + jqXHR);
 	});

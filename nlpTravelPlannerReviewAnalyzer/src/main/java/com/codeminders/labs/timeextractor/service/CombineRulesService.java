@@ -421,6 +421,9 @@ public class CombineRulesService {
 
     private TemporalExtraction temporalJoinDates(TemporalExtraction temporalA, TemporalExtraction temporalB) {
         if (temporalB.getTemporal().get(0).getEndDate() != null && temporalA.getTemporal().get(0).getEndDate() != null) {
+            if (temporalA.getTemporal().get(0).getStartDate().getDate().getYear() == 0) {
+                temporalA.getTemporal().get(0).getStartDate().getDate().setYear(temporalB.getTemporal().get(0).getEndDate().getDate().getYear());
+            }
             temporalA.getTemporal().get(0).setEndDate(temporalB.getTemporal().get(0).getEndDate());
         }
         temporalA.setConfidence(0.9);

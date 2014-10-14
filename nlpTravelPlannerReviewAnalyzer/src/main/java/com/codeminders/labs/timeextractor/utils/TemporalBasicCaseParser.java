@@ -356,9 +356,7 @@ public class TemporalBasicCaseParser {
             return +360;
         } else if (zone.equalsIgnoreCase("CET") || zone.equalsIgnoreCase("Central European Time")) {
             return -60;
-        }
-
-        else if (zone.equalsIgnoreCase("CEST")) {
+        } else if (zone.equalsIgnoreCase("CEST")) {
             return -120;
         }
 

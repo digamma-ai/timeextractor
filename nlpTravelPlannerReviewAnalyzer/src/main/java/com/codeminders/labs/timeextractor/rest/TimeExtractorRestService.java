@@ -42,11 +42,17 @@ public class TimeExtractorRestService {
         String html = object.optString(RestParameters.HTML);
         String text = object.optString(RestParameters.TEXT);
         String timezone = object.optString(RestParameters.TIMEZONE_OFFSET);
-        
+
         if ((html == null) && (text == null)) {
             return Response.status(400).entity(ExceptionMessages.FILLED_FIELEDS).build();
         }
-        Settings settings = new Settings(null, timezone);
+        Settings settings = null;
+
+        try {
+            settings = new Settings(null, timezone);
+        } catch (NumberFormatException ex) {
+            return Response.status(400).entity(ExceptionMessages.TIMEZONE).build();
+        }
 
         // html case
         if (html != null & !html.isEmpty()) {

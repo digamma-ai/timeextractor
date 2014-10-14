@@ -8,7 +8,6 @@ import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
-import com.codeminders.labs.timeextractor.dto.Annotation2DTOTemporalConversion;
 import com.codeminders.labs.timeextractor.dto.DTOTemporal;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
@@ -76,7 +75,7 @@ public class TemporalExtractionService {
         // composite rules service
         temporals = combineRulesService.combinationRule(temporals, text);
         // process according to current date and timezone (make intervals)
-        temporals = processingService.changeRulesAccordingToUserTimeZone(temporals, settings);
+        temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
         return temporals;
     }
 
@@ -149,7 +148,7 @@ public class TemporalExtractionService {
     public static void main(String[] args) {
         TemporalExtractionService service = new TemporalExtractionService();
         Settings settings = new Settings(null, null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(" every first Tuesday", settings);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("1st tuesday of every month", settings);
         System.out.println(extracted.first());
     }
 }

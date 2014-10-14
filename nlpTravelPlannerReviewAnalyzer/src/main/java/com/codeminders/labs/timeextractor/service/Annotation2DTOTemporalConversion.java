@@ -1,8 +1,13 @@
-package com.codeminders.labs.timeextractor.dto;
+package com.codeminders.labs.timeextractor.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.codeminders.labs.timeextractor.dto.DTODuration;
+import com.codeminders.labs.timeextractor.dto.DTODurationInterval;
+import com.codeminders.labs.timeextractor.dto.DTOSet;
+import com.codeminders.labs.timeextractor.dto.DTOTemporal;
+import com.codeminders.labs.timeextractor.dto.DTOTimeDate;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;

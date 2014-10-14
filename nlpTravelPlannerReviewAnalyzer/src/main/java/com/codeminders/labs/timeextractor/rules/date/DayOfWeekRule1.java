@@ -9,10 +9,12 @@ import org.joda.time.LocalDateTime;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
+import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
@@ -37,8 +39,9 @@ public class DayOfWeekRule1 extends Rule {
         Matcher m = Utils.getMatch(rule, text);
         DayOfWeek dayOfWeek = null;
         dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(1));
-        LocalDateTime currentDate = new LocalDateTime();
-        Temporal temporal = parser.getRelativeTemporalObjectByDayOfWeek(dayOfWeek, currentDate);
+        Date date = new Date();
+        date.setDayOfWeek(dayOfWeek);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
 

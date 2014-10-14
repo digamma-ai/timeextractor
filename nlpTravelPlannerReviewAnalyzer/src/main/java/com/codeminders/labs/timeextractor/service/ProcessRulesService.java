@@ -17,7 +17,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class ProcessRulesService {
 
-    public TreeSet<TemporalExtraction> changeRulesAccordingToUserTimeZone(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
+    public TreeSet<TemporalExtraction> changeRulesAccordingToUserTimeZoneAndCurrentDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
         Iterator<TemporalExtraction> itr = receivedTemporals.iterator();
         int offsetTimeZone = settings.getTimezoneOffset();
 

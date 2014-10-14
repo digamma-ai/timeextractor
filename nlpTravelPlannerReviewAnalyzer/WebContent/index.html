@@ -111,24 +111,28 @@
 										<td>html</td>
 										<td>Html page to be annotated</td>
 									</tr>
+									<tr>
+										<td>timezone**</td>
+										<td>Timezone offset</td>
+									</tr>
 								</table>
 
 							</td>
 						</tr>
 						<tr>
 							<td>Sample json params text</td>
-							<td><pre>[ {"id":"2",'text':" monday " },{"id":"3",'text':" tuesday " }];</pre>
+							<td><pre>[ {"id":"2",'text':" monday ", 'timezone_offset':"0" },{"id":"3",'text':" tuesday ", 'timezone_offset':"0" }];</pre>
 
 							</td>
 						</tr>
 						<tr>
-							<td>Sample json params html</td>
-							<td><pre>[ {'html' : "<body>24/02/2014</body>"} ];</pre></td>
+							<td>Sample json params html***</td>
+							<td><pre>[ {'html' : "&ltbody _temporal_id = \"32\">24/02/2014&lt/body>", 'timezone_offset':"0" } ];</pre></td>
 						</tr>
 						<tr>
 							<td>Sample call</td>
-							<td><pre>
-        var json = [ {	'html' : "<body>24/02/2014</body>"} ];
+							<td><pre>var offset = new Date().getTimezoneOffset();<br>var json = [ {	'html' : "<body>24/02/2014</body>", 'timezone_offset':offset} ];
+
         $.ajax({
 		type : "POST",
 		url : "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate",
@@ -144,8 +148,8 @@
 						</tr>
 					</table>
 					* either 'text' or 'html' parameter should be specified, otherwise
-					400 Exception Missing parameter is thrown
-
+					400 Exception Missing parameter is thrown <br /> ** obligatory
+					parameter<br /> *** for html page, each tag should have _temporal_id parameter, as it comes in response to identify tag with temporal text inside 
 					</p>
 
 					<h1>API Response for Text</h1>
@@ -175,7 +179,7 @@
 							<td>temporalType</td>
 							<td>Type of extracted temporal object, one of four: <br>
 								1. TIME_DATE<br> 2. DATE_INTERVAL_TIME_INTERVAL<br> 3.
-								DURATION<br> 4. SET
+								DURATION<br>4. DURATION_INTERVAL<br>5. SET
 							</td>
 						</tr>
 						<tr>
@@ -232,7 +236,7 @@
 							<td>temporalType</td>
 							<td>Type of extracted temporal object, one of four: <br>
 								1. TIME_DATE<br> 2. DATE_INTERVAL_TIME_INTERVAL<br> 3.
-								DURATION<br> 4. SET
+								DURATION<br>4. DURATION_INTERVAL<br>5. SET
 							</td>
 						</tr>
 						<tr>
@@ -374,13 +378,13 @@
 								<table>
 									<tr>
 										<td>TIME</td>
-										<td>only field “time” is set, same values for
-											startDateTime and endDateTime</td>
+										<td>field “time” is set, same values for
+											startDateTime and endDateTime, field "date" will be set to current date</td>
 									</tr>
 									<tr>
 										<td>DATE</td>
-										<td>only field “date” is set, same values for
-											startDateTime and endDateTime</td>
+										<td>field “date” is set, same values for
+											startDateTime and endDateTime, field "time" will be set to current time value</td>
 									</tr>
 									<tr>
 										<td>TIME_DATE</td>
@@ -547,6 +551,75 @@
 						</tr>
 
 					</table>
+					
+					
+					<br> <br>
+					<h2>"DURATION_INTERVAL":</h2>
+					<br> <br>
+					<table class = "reference">
+					<tr>
+					<td>durationFrom</td>
+					<td><table class="reference">
+						<tr>
+							<td>seconds</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>minutes</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>days</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>weeks</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>months</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>years</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+
+					</table></td>
+					</tr>
+					<tr>
+					<td>durationTo</td>
+					<td><table class="reference">
+						<tr>
+							<td>seconds</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>minutes</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>days</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>weeks</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>months</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+						<tr>
+							<td>years</td>
+							<td>integer (0 if not set)</td>
+						</tr>
+
+					</table></td>
+					</tr>
+					</table>
+					
+					
 					<br> <br>
 					<h2>"SET":</h2>
 					<br> <br>
@@ -701,20 +774,23 @@
 							<td>Response</td>
 						</tr>
 						<tr>
-							<td><pre>[ {	'html' : "&ltbody>24/02/2014&lt/body>"} ]</pre></td>
+							<td><pre>[ {'html' : "&ltbody _temporal_id="1">24/02/2014&lt/body>",<br/>'timezone_offset':"0"} ]</pre></td>
 							<td><pre>{
     "1": [
         {
             "from": 0,
             "to": 10,
-            "confidence": 0.99,
+            "confidence": 0.6,
             "locale": "en_US",
-            "htmlTagFrom": 0,
-            "htmlTagTo": 23,
             "extractedTemporal": [
                 {
                     "startDateTime": {
-                        "time": null,
+                        "time": {
+                            "hours": 17,
+                            "minutes": 46,
+                            "seconds": 55,
+                            "timezoneOffset": 0
+                        },
                         "date": {
                             "year": 2014,
                             "month": 2,
@@ -722,10 +798,15 @@
                             "dayOfWeek": null,
                             "weekOfMonth": null
                         },
-                        "relative": false
+                        "relative": true
                     },
                     "endDateTime": {
-                        "time": null,
+                        "time": {
+                            "hours": 17,
+                            "minutes": 46,
+                            "seconds": 55,
+                            "timezoneOffset": 0
+                        },
                         "date": {
                             "year": 2014,
                             "month": 2,
@@ -733,15 +814,16 @@
                             "dayOfWeek": null,
                             "weekOfMonth": null
                         },
-                        "relative": false
+                        "relative": true
                     },
                     "type": "DATE"
                 }
             ],
-            "tag": "body",
-            "temporalType": "TIME_DATE"
+            "temporalType": "TIME_DATE",
+            "temporalId": "1"
         }
     ]
+}
 }</pre></td>
 						</tr>
 					</table>

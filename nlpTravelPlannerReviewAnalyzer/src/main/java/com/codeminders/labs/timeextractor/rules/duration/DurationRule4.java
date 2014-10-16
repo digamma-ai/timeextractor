@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -15,6 +16,8 @@ public class DurationRule4 extends Rule {
     private double confidence = 0.9;
     private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last)[\\s]*)?" + "([\\d]{1,})[\\s]*(hr|h)[\\s]*([\\d]{1,})[\\s]*(mins|min|mn|m)" + "\\b";
     private int priority = 4;
+    protected String example = "lasts 12hr 2 mins, at least 2 mins";
+    protected UUID id = UUID.fromString("a2578914-03f3-4297-b9cd-6486974e1fea");
 
     public DurationRule4() {
     }
@@ -76,5 +79,17 @@ public class DurationRule4 extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

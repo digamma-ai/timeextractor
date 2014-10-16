@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
@@ -17,6 +18,8 @@ public class WeekDay extends Rule {
     private double confidence = 0.9;
     private String rule = "\\b(week days|week day|week days|week day|weekday|weekdays|week-days|week-day)\\b";
     protected int priority = 1;
+    protected String example = "week days, weekday, etc. ";
+    protected UUID id = UUID.fromString("04562d23-7c1d-4bb6-b1e6-95b237c1490e");
 
     public WeekDay() {
     }
@@ -84,6 +87,18 @@ public class WeekDay extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 }

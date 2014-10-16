@@ -252,7 +252,7 @@ public class CombineRulesService {
 
         }
 
-        else if ((typeA == Type.TIME_DATE || typeA == Type.TIME || typeA == Type.DATE_TIME_INTERVAL || typeA == Type.TIME_DATE_INTERVAl || typeA == Type.DATE_INTERVAL_TIME_INTERVAL)
+        else if ((typeA == Type.TIME_DATE || typeA == Type.TIME || typeA == Type.DATE_TIME_INTERVAL || typeA == Type.TIME_INTERVAL || typeA == Type.TIME_DATE_INTERVAl || typeA == Type.DATE_INTERVAL_TIME_INTERVAL)
                 && typeB == Type.TIMEZONE) {
             temporal = joinTimeZoneAndDate(temporalA, temporalB);
             temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
@@ -338,11 +338,16 @@ public class CombineRulesService {
 
     private TemporalExtraction joinTimeZoneAndDate(TemporalExtraction temporalA, TemporalExtraction temporalB) {
         int timezone = temporalB.getTemporal().get(0).getStartDate().getTime().getTimezoneOffset();
-        if (temporalA.getTemporal().get(0).getStartDate().getTime().getTimezoneOffset() == -1000) {
+        TimeDate timeDateStart = temporalA.getTemporal().get(0).getStartDate();
+        TimeDate timeDateEnd = temporalA.getTemporal().get(0).getEndDate();
+
+        if (timeDateStart != null && timeDateStart.getTime() != null && timeDateStart.getTime().getTimezoneOffset() == -1000) {
             temporalA.getTemporal().get(0).getStartDate().getTime().setTimezone(timezone);
+            temporalA.getTemporal().get(0).getStartDate().getTime().setTimezoneName(temporalB.getTemporal().get(0).getStartDate().getTime().getTimezoneName());
         }
-        if (temporalA.getTemporal().get(0).getEndDate().getTime().getTimezoneOffset() == -1000) {
+        if (timeDateEnd != null && timeDateEnd.getTime() != null && temporalA.getTemporal().get(0).getEndDate().getTime().getTimezoneOffset() == -1000) {
             temporalA.getTemporal().get(0).getEndDate().getTime().setTimezone(timezone);
+            temporalA.getTemporal().get(0).getEndDate().getTime().setTimezoneName(temporalB.getTemporal().get(0).getStartDate().getTime().getTimezoneName());
 
         }
         temporalA.setConfidence(0.8);

@@ -3,9 +3,9 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
@@ -19,19 +19,15 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 // until 5.33 am, after 5pm 
 
 public class TimeIntervalRule5 extends Rule {
-    private TemporalBasicCaseParser parser;
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
-    private int priority = 4;
-    private String rule = "((after|before|until|till|til|by)[\\s]*([01]?[0-9]|2[0-3])(([.|:])([0-5][0-9]))?[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))" + "([\\s]*" + TemporalConstants.TIME_ZONE
-            + ")?)";
-    {
-        parser = new TemporalBasicCaseParser();
-    }
+    private int priority = 5;
+    private String rule = "((after|before|until|till|til|by)[\\s]*([01]?[0-9]|2[0-3])(([.|:])([0-5][0-9]))?[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)))";
+    protected String example = "after 19pm, until 5.33 am";
+    protected UUID id = UUID.fromString("1a7522ee-7abe-4595-af9e-8cff79d8d88a");
 
     public TimeIntervalRule5() {
-
     }
 
     @Override
@@ -47,12 +43,6 @@ public class TimeIntervalRule5 extends Rule {
         TimeDate end = new TimeDate();
         Time time = new Time();
         Temporal temporal = null;
-        int timezone = 0;
-
-        if (m.group(11) != null) {
-            timezone = parser.getTimeZone(m.group(11));
-            time.setTimezone(timezone);
-        }
         if (m.group(3) != null) {
             int hours = Integer.parseInt(m.group(3));
             hours = Utils.convertTime(hours, m.group(7));
@@ -91,8 +81,28 @@ public class TimeIntervalRule5 extends Rule {
     }
 
     @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
     }
 
+    public UUID getId() {
+        return id;
+    }
 }

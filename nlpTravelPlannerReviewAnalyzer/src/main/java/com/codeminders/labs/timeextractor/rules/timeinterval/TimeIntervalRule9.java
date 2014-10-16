@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -21,6 +22,8 @@ public class TimeIntervalRule9 extends Rule {
     protected double confidence = 0.8;
     private int priority = 5;
     private String rule = "\\b((from|between)[\\s]*)?(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))?[\\s]*(to|till|until|before|-)[\\s]*(([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]?(([p,P][.]?[m,M]?)|([a,A][.]?[m,M]?))\\b";
+    protected String example = "9am till 6pm";
+    protected UUID id = UUID.fromString("730197fe-92c5-4e12-bfba-b13b6335a2a9");
 
     public TimeIntervalRule9() {
 
@@ -85,8 +88,29 @@ public class TimeIntervalRule9 extends Rule {
     }
 
     @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 }

@@ -3,31 +3,26 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-//11.30 am-12.30 pm CET
+//11.30 am-12.30 pm
 
 public class TimeIntervalRule7 extends Rule {
-    private TemporalBasicCaseParser parser;
-
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
-    private int priority = 5;
-    private String rule = "\\b((from|between)[\\s]*)?(([01]?[0-9]|2[0-3]|1[0-9])([:.,]([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M]?[.]?)|([a,A][.]?[m,M]?[.]?))?[\\s]*(–|-|to|until|till|til|up to|through|thru)[\\s]*(\\b([01]?[0-9]|2[0-3]|1[0-9])([:.,]([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))"
-            + "([\\s]*" + TemporalConstants.TIME_ZONE + ")?";
-    {
-        parser = new TemporalBasicCaseParser();
-    }
+    private int priority = 6;
+    private String rule = "\\b((from|between)[\\s]*)?(([01]?[0-9]|2[0-3]|1[0-9])([:.,]([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M]?[.]?)|([a,A][.]?[m,M]?[.]?))?[\\s]*(–|-|to|until|till|til|up to|through|thru)[\\s]*(\\b([01]?[0-9]|2[0-3]|1[0-9])([:.,]([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))";
+    protected String example = "11.30 am-12.30 pm";
+    protected UUID id = UUID.fromString("3ab0f1b9-c85d-415b-8f62-0c355bf8de70");
 
     public TimeIntervalRule7() {
 
@@ -49,7 +44,6 @@ public class TimeIntervalRule7 extends Rule {
         Time timeTo = new Time();
 
         Temporal temporal = null;
-        int timezone = 0;
 
         if (m.group(4) != null) {
             timeFrom.setHours(Integer.parseInt(m.group(4)));
@@ -71,13 +65,6 @@ public class TimeIntervalRule7 extends Rule {
         if (m.group(14) != null) {
             timeTo.setMinutes(Integer.parseInt(m.group(14)));
         }
-
-        if (m.group(19) != null) {
-            timezone = parser.getTimeZone(m.group(19));
-            timeTo.setTimezone(timezone);
-            timeFrom.setTimezone(timezone);
-        }
-
         start.setTime(timeFrom);
         end.setTime(timeTo);
 
@@ -105,8 +92,29 @@ public class TimeIntervalRule7 extends Rule {
     }
 
     @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 }

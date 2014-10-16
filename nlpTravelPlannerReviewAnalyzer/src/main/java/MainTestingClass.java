@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
@@ -17,7 +16,7 @@ public class MainTestingClass {
     private static String TRAINING_DATA = "/training.csv";
     private static String TEST_RESULTS_FILE = "C:/test/results.txt";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
         TemporalExtractionService service = new TemporalExtractionService();
         CsvReader reader = new CsvReader();
@@ -44,7 +43,7 @@ public class MainTestingClass {
             }
             String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-").trim();
             System.out.println(text);
-            Settings settings = new Settings(null, "0");
+            Settings settings = new Settings(null, "0", null);
             TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {

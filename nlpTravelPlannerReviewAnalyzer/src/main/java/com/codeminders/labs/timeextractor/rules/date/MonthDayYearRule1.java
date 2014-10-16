@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -17,6 +18,8 @@ public class MonthDayYearRule1 extends Rule {
     private double confidence = 0.8;
     private int priority = 3;
     protected String rule = "\\b((in|on|by|until)[\\s]*)?((1[012]|0?[1-9]))[-.\\/]((3[01]|[12][0-9]|0[1-9]))[-.\\/]((([12][0-9])\\d\\d)|\\d\\d)\\b";
+    protected String example = "by 10/30/2012, 01-29-2014";
+    protected UUID id = UUID.fromString("2e81e051-8721-4085-889d-bd0fa740febf");
 
     public MonthDayYearRule1() {
     }
@@ -91,4 +94,19 @@ public class MonthDayYearRule1 extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

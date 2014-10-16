@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -23,6 +24,8 @@ public class MonthAndDayRule6 extends Rule {
     protected double confidence = 0.6;
     private int priority = 5;
     private String rule = "(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[-](([12][0-9])?(\\d\\d))";
+    protected String example = "Jan-2013, February-2015";
+    protected UUID id = UUID.fromString("b4c91529-7e21-4926-b3f7-1cd19bb90134");
 
     public MonthAndDayRule6() {
     }
@@ -91,9 +94,25 @@ public class MonthAndDayRule6 extends Rule {
         this.rule = rule;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
 }

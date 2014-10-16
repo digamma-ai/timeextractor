@@ -9,5 +9,7 @@ public class RestParameters {
     public static String CLEAN = "clean";
     public static String TEMPORAL_ID = "_temporal_id";
     public static String TIMEZONE_OFFSET = "timezone_offset";
+    public static String TIMEZONE_NAME = "timezone_name";
+    public static String RULES_TO_IGNORE = "rules_to_ignore";
 
 }

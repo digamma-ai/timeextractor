@@ -48,7 +48,7 @@ public class Time4RuleTest extends GeneralTest {
         String toPredict = "at 2100 CET";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("at 2100 CET", predicted.get(0).getTemporalExpression());
-        assertEquals(21, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
+        assertEquals(20, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(00, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getMinutes());
     }
 
@@ -58,7 +58,7 @@ public class Time4RuleTest extends GeneralTest {
         String toPredict = "2100 CET";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("2100 CET", predicted.get(0).getTemporalExpression());
-        assertEquals(21, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
+        assertEquals(20, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(00, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getMinutes());
     }
 
@@ -88,7 +88,7 @@ public class Time4RuleTest extends GeneralTest {
         String toPredict = "1205 HKT";
         List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
         assertEquals("1205 HKT", predicted.get(0).getTemporalExpression());
-        assertEquals(12, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
+        assertEquals(4, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getHours());
         assertEquals(05, predicted.get(0).getTemporal().get(0).getStartDate().getTime().getMinutes());
     }
 }

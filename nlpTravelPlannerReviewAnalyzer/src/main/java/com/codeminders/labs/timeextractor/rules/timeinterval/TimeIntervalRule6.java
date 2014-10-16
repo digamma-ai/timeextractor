@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -21,6 +22,8 @@ public class TimeIntervalRule6 extends Rule {
     protected double confidence = 0.8;
     private int priority = 5;
     private String rule = "\\b(from[\\s]*)?(([01]?[0-9]|2[0-3]|1[0-9])[-]([01]?[0-9]|2[0-3]|1[0-9])(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)\\b))";
+    protected String example = "from 5-9pm, 7-10am";
+    protected UUID id = UUID.fromString("b2360b5c-59cc-4689-91f1-9325ac219e06");
 
     public TimeIntervalRule6() {
 
@@ -100,9 +103,21 @@ public class TimeIntervalRule6 extends Rule {
         this.confidence = confidence;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 }

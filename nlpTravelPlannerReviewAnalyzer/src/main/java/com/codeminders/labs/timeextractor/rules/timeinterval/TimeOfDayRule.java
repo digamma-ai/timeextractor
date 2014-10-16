@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -19,11 +20,11 @@ public class TimeOfDayRule extends Rule {
     private double confidence = 0.9;
     private int priority = 1;
     private String rule = "(\\b" + TemporalConstants.TIME_OF_DAY + "[s]?)([\\s]*hours)?\\b";
-    {
-        parser = new TemporalParser();
-    }
+    protected String example = "time of day: morning, evening, etc.";
+    protected UUID id = UUID.fromString("dd7ef249-9eac-499d-930a-0ee2a0c4b897");
 
     public TimeOfDayRule() {
+        parser = new TemporalParser();
     }
 
     @Override
@@ -74,8 +75,20 @@ public class TimeOfDayRule extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -22,6 +23,8 @@ public class DayOfWeekRule3 extends Rule {
     protected double confidence = 0.8;
     private String rule = "((" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")[s]?[.]?[,]?[\\s]*([1-2][0-9]|[3][0-1]|[1-9])[,]?[\\s]*([12][0-9]\\d\\d))";
     private int priority = 3;
+    protected String example = "Sunday 16 2014";
+    protected UUID id = UUID.fromString("c099f256-a339-40f2-a562-b43c1f767c70");
 
     public DayOfWeekRule3() {
     }
@@ -90,6 +93,22 @@ public class DayOfWeekRule3 extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
 }

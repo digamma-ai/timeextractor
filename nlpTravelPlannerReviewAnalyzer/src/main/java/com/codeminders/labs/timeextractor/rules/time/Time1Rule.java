@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -22,6 +23,8 @@ public class Time1Rule extends Rule {
     protected double confidence = 0.8;
     private int priority = 1;
     private String rule = "\\b(((at about|at|about)[\\s]*)?((([0-9]|0[0-9]|1[0-9]|2[0-3]))[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)))(?!\\S)[\\s]*" + TemporalConstants.TIME_ZONE + "?)";
+    protected String example = " at 5 pm CET";
+    protected UUID id = UUID.fromString("27d68b76-15cd-4272-8724-bc442197141b");
 
     public Time1Rule() {
     }
@@ -86,6 +89,18 @@ public class Time1Rule extends Rule {
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 }

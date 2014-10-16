@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import org.joda.time.LocalDateTime;
@@ -18,6 +19,8 @@ public class TodayTomorrowEtc extends Rule {
     private double confidence = 0.9;
     private int priority = 2;
     protected String rule = "\\b((today)|(yesterday)|(tomorrow)|(the day before yesterday)|(tonight))\\b";
+    protected String example = "today, tomorrow, yesterday, the day before yesterday, tonight";
+    protected UUID id = UUID.fromString("315f23c5-90da-4b2c-8d32-c9249d18aa75");
 
     public TodayTomorrowEtc() {
         parser = new TemporalParser();
@@ -76,4 +79,21 @@ public class TodayTomorrowEtc extends Rule {
     public void setPriority(int priority) {
         this.priority = priority;
     }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
 }

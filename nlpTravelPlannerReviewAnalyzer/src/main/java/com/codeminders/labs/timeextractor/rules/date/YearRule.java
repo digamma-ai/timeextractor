@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -12,23 +13,23 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// year rule
+// year rule (2014, 2013, 1989, etc.)
 
 public class YearRule extends Rule {
 
-    private int year;
     protected double confidence = 0.3;
     protected String rule = "\\b(in[\\s]*|until[\\s]*|till[\\s]*|til[\\s]*)?\\b((([1][8-9])|([2][01]))\\d\\d)\\b";
     protected int priority = 1;
+    protected String example = "2013, 2014, 1989, etc.";
+    protected UUID id = UUID.fromString("c39a0bda-8298-4d69-bcc2-ce23583f5c85");
 
     public YearRule() {
     }
 
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Date date = new Date();
-        year = Integer.parseInt(m.group(2));
-        date.setYear(year);
+        int year = Integer.parseInt(m.group(2));
+        Date date = new Date(year, 0, 0);
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
@@ -77,4 +78,19 @@ public class YearRule extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

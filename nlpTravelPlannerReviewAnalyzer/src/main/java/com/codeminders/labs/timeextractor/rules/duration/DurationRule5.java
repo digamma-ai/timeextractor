@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -19,6 +20,8 @@ public class DurationRule5 extends Rule {
     private String rule = "((lasts|about|past|at least|up to|more than|less than|last)[\\s]*)?" + "(" + TemporalConstants.BASIC_NUMBER_TWENTY_HUNDRED + ")[-\\s]("
             + TemporalConstants.BASIC_NUMBER_ONE_TEN + ")" + "([\\s]*" + TemporalConstants.DURATION + ")";
     private int priority = 4;
+    protected String example = "lasts twenty minutes, up to ten hours, etc.";
+    protected UUID id = UUID.fromString("a6578914-03f3-4297-b9cd-6486974e1fea");
 
     public DurationRule5() {
         parser = new TemporalParser();
@@ -84,5 +87,17 @@ public class DurationRule5 extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

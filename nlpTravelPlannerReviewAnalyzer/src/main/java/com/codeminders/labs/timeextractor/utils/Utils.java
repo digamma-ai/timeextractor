@@ -1,5 +1,11 @@
 package com.codeminders.labs.timeextractor.utils;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +14,7 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
@@ -33,6 +40,20 @@ public class Utils {
 
     }
 
+    public static Set<UUID> getSetofUUIDsFromString(String arrayOfUUIDs) throws Exception {
+        Set<UUID> setOfUUIDs = new HashSet<UUID>();
+        String[] UUIDs = arrayOfUUIDs.split(",");
+        for (String UUId : UUIDs) {
+            try {
+                setOfUUIDs.add(UUID.fromString(UUId.trim()));
+            } catch (Exception ex) {
+                throw new Exception(ExceptionMessages.FIELD_RULES);
+            }
+        }
+        return setOfUUIDs;
+
+    }
+
     public static TimeDate getTimeDate(LocalDateTime localDate) {
         return getTimeDate(localDate, -1000);
     }
@@ -42,6 +63,10 @@ public class Utils {
         if (timeDate.getDate() != null) {
             newTimeDate.getDate().setDayOfWeek(timeDate.getDate().getDayOfWeek());
             newTimeDate.getDate().setWeekOfMonth(timeDate.getDate().getWeekOfMonth());
+        }
+        if (timeDate.getTime() != null) {
+            String tz = timeDate.getTime().getTimezoneName();
+            newTimeDate.getTime().setTimezoneName(tz);
         }
         return newTimeDate;
     }
@@ -72,6 +97,20 @@ public class Utils {
             localDateTime = localDateTime.withSecondOfMinute(time.getSeconds());
         }
         return localDateTime;
+
+    }
+
+    public static java.util.Date offsetTimeZone(java.util.Date date, String timezoneName) {
+
+        TimeZone fromTimeZone = TimeZone.getTimeZone(timezoneName);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(fromTimeZone);
+        calendar.setTime(date);
+        System.out.println(fromTimeZone.getDSTSavings());
+        if (fromTimeZone.inDaylightTime(calendar.getTime())) {
+            calendar.add(Calendar.MILLISECOND, calendar.getTimeZone().getDSTSavings() * -1);
+        }
+        return calendar.getTime();
 
     }
 

@@ -3,9 +3,8 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
-
-import org.joda.time.LocalDateTime;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -24,6 +23,8 @@ public class DayOfWeekRule1 extends Rule {
     protected double confidence = 0.362;
     protected int priority = 1;
     private TemporalParser parser;
+    protected String example = "Tuesday, Wednesday, Friday, etc.";
+    protected UUID id = UUID.fromString("8c01e067-822f-4d96-ae21-39ec70021d52");
 
     public DayOfWeekRule1() {
         parser = new TemporalParser();
@@ -84,6 +85,22 @@ public class DayOfWeekRule1 extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
 }

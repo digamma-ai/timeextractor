@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -26,12 +27,12 @@ public class TimeIntervalRule10 extends Rule {
     private int priority = 5;
     private String rule = "\\b((from|between)[\\s]*)([01]?[0-9]|2[0-3])[\\s]*[.|:]([0-5][0-9])[\\s]*(to|and)[\\s]*([01]?[0-9]|2[0-3])[\\s]*[.|:]([0-5][0-9])" + "([\\s]*" + TemporalConstants.TIME_ZONE
             + ")?";
-    {
-        parser = new TemporalBasicCaseParser();
-    }
+
+    protected String example = "from 10:00 to 11:00";
+    protected UUID id = UUID.fromString("11e289d6-9421-40bb-b799-cd7f96c32913");
 
     public TimeIntervalRule10() {
-
+        parser = new TemporalBasicCaseParser();
     }
 
     @Override
@@ -105,4 +106,24 @@ public class TimeIntervalRule10 extends Rule {
         return super.compare(this, o);
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

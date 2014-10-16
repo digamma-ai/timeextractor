@@ -84,9 +84,15 @@
 
 					<h1>API Request</h1>
 					<br>
+					<h2>You must POST the following parameters:</h2>
+					<br>
 					<p class="bio">
 					<table class="reference">
 
+						<tr>
+							<td>Parameter</td>
+							<td>Description</td>
+						</tr>
 						<tr>
 							<td>URL</td>
 							<td>http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate</td>
@@ -115,13 +121,21 @@
 										<td>timezone**</td>
 										<td>Timezone offset</td>
 									</tr>
+
+									<tr>
+										<td>rules_to_ignore</td>
+										<td>UUID of rules that will be excluded, <br>ex.
+											af400fa9-7306-4e87-8e75-9591ae532555; <br> Multiple ids
+											should be separated with comma
+										</td>
+									</tr>
 								</table>
 
 							</td>
 						</tr>
 						<tr>
 							<td>Sample json params text</td>
-							<td><pre>[ {"id":"2",'text':" monday ", 'timezone_offset':"0" },{"id":"3",'text':" tuesday ", 'timezone_offset':"0" }];</pre>
+							<td><pre>[ {"id":"2",'text':" monday ", 'timezone_offset':"0" },<br>{"id":"3",'text':" tuesday ", 'timezone_offset':"0", "rules_to_ignore":"364d8630-4592-4a24-9397-2634b0623bd74" }];</pre>
 
 							</td>
 						</tr>
@@ -149,7 +163,9 @@
 					</table>
 					* either 'text' or 'html' parameter should be specified, otherwise
 					400 Exception Missing parameter is thrown <br /> ** obligatory
-					parameter<br /> *** for html page, each tag should have _temporal_id parameter, as it comes in response to identify tag with temporal text inside 
+					parameter<br /> *** for html page, each tag should have
+					_temporal_id parameter, as it comes in response to identify tag
+					with temporal text inside
 					</p>
 
 					<h1>API Response for Text</h1>
@@ -378,13 +394,14 @@
 								<table>
 									<tr>
 										<td>TIME</td>
-										<td>field “time” is set, same values for
-											startDateTime and endDateTime, field "date" will be set to current date</td>
+										<td>field “time” is set, same values for startDateTime
+											and endDateTime, field "date" will be set to current date</td>
 									</tr>
 									<tr>
 										<td>DATE</td>
-										<td>field “date” is set, same values for
-											startDateTime and endDateTime, field "time" will be set to current time value</td>
+										<td>field “date” is set, same values for startDateTime
+											and endDateTime, field "time" will be set to current time
+											value</td>
 									</tr>
 									<tr>
 										<td>TIME_DATE</td>
@@ -551,75 +568,75 @@
 						</tr>
 
 					</table>
-					
-					
+
+
 					<br> <br>
 					<h2>"DURATION_INTERVAL":</h2>
 					<br> <br>
-					<table class = "reference">
-					<tr>
-					<td>durationFrom</td>
-					<td><table class="reference">
+					<table class="reference">
 						<tr>
-							<td>seconds</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>minutes</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>days</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>weeks</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>months</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>years</td>
-							<td>integer (0 if not set)</td>
-						</tr>
+							<td>durationFrom</td>
+							<td><table class="reference">
+									<tr>
+										<td>seconds</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>minutes</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>days</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>weeks</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>months</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>years</td>
+										<td>integer (0 if not set)</td>
+									</tr>
 
-					</table></td>
-					</tr>
-					<tr>
-					<td>durationTo</td>
-					<td><table class="reference">
-						<tr>
-							<td>seconds</td>
-							<td>integer (0 if not set)</td>
+								</table></td>
 						</tr>
 						<tr>
-							<td>minutes</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>days</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>weeks</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>months</td>
-							<td>integer (0 if not set)</td>
-						</tr>
-						<tr>
-							<td>years</td>
-							<td>integer (0 if not set)</td>
-						</tr>
+							<td>durationTo</td>
+							<td><table class="reference">
+									<tr>
+										<td>seconds</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>minutes</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>days</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>weeks</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>months</td>
+										<td>integer (0 if not set)</td>
+									</tr>
+									<tr>
+										<td>years</td>
+										<td>integer (0 if not set)</td>
+									</tr>
 
-					</table></td>
-					</tr>
+								</table></td>
+						</tr>
 					</table>
-					
-					
+
+
 					<br> <br>
 					<h2>"SET":</h2>
 					<br> <br>
@@ -774,7 +791,7 @@
 							<td>Response</td>
 						</tr>
 						<tr>
-							<td><pre>[ {'html' : "&ltbody _temporal_id="1">24/02/2014&lt/body>",<br/>'timezone_offset':"0"} ]</pre></td>
+							<td><pre>[ {'html':"&ltbody _temporal_id="1"><br>24/02/2014&lt/body>",<br />'timezone_offset':"0"} ]</pre></td>
 							<td><pre>{
     "1": [
         {

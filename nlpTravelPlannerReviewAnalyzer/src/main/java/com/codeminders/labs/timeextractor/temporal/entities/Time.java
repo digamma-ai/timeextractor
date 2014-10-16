@@ -6,6 +6,7 @@ public class Time {
     private int minutes;
     private int seconds;
     private int timezone = -1000;
+    private String timezoneName;
 
     public Time() {
     }
@@ -53,6 +54,14 @@ public class Time {
 
     public void setTimezone(int timezone) {
         this.timezone = timezone;
+    }
+
+    public String getTimezoneName() {
+        return timezoneName;
+    }
+
+    public void setTimezoneName(String timezoneName) {
+        this.timezoneName = timezoneName;
     }
 
     @Override

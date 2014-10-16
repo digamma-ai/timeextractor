@@ -10,9 +10,9 @@ public class GeneralTest {
     protected static Settings settings;
 
     @BeforeClass
-    public static void before() {
+    public static void before() throws Exception {
         service = new TemporalExtractionService();
-        settings = new Settings(null, "0");
+        settings = new Settings(null, "0", null);
     }
 
 }

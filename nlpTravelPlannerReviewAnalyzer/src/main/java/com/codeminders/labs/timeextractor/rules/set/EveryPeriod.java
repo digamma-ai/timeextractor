@@ -2,6 +2,7 @@ package com.codeminders.labs.timeextractor.rules.set;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -16,6 +17,9 @@ public class EveryPeriod extends Rule {
     private TemporalParser parser;
     private double confidence = 0.9;
     private String rule = "\\b((every|each)[\\s]*(day|week|month|year|weekday|weekend))\\b";
+    protected String example = "every week, every year, each month, etc.";
+    protected UUID id = UUID.fromString("6617d13e-f1cb-475e-8d73-a2cf1a42742e");
+
     private int priority = 2;
     {
         parser = new TemporalParser();
@@ -66,5 +70,17 @@ public class EveryPeriod extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

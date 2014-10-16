@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -24,6 +25,8 @@ public class MonthToMonthInterval extends Rule {
             + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + "|" + TemporalConstants.SEASON + "))";
     protected int priority = 6;
     private TemporalParser parser;
+    protected String example = "from winter to summer, from January to spring";
+    protected UUID id = UUID.fromString("cde98bf8-262b-4491-af63-e25d26522de5");
 
     public MonthToMonthInterval() {
         parser = new TemporalParser();
@@ -107,4 +110,15 @@ public class MonthToMonthInterval extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

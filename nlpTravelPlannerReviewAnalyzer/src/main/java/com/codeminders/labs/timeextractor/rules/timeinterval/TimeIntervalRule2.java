@@ -2,6 +2,7 @@ package com.codeminders.labs.timeextractor.rules.timeinterval;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -16,14 +17,13 @@ public class TimeIntervalRule2 extends Rule {
     private TemporalParser parser;
     private int priority = 2;
     private String rule = "\\b(between)[\\s]*" + TemporalConstants.TIME_OF_DAY + "[\\s]*((and|to|until|til)|[-])[\\s]*" + TemporalConstants.TIME_OF_DAY + "\\b";
+    protected String example = "between morning and evening";
+    protected UUID id = UUID.fromString("db01b0a4-8ef9-49b7-bf17-509533ef7e84");
 
     private double confidence = 0.9;
 
-    {
-        parser = new TemporalParser();
-    }
-
     public TimeIntervalRule2() {
+        parser = new TemporalParser();
     }
 
     @Override
@@ -67,8 +67,21 @@ public class TimeIntervalRule2 extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
     }
+
+    public UUID getId() {
+        return id;
+    }
+
 }

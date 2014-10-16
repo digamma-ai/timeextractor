@@ -2,6 +2,7 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -21,6 +22,8 @@ public class DateInterval4 extends Rule {
 
     private double confidence = 0.9;
     private int priority = 5;
+    protected String example = "January 22 - March 26, 2014";
+    protected UUID id = UUID.fromString("3d2d6ff8-3057-4d61-9564-01f98124739c");
 
     public DateInterval4() {
     }
@@ -104,4 +107,15 @@ public class DateInterval4 extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

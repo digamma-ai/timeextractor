@@ -1,7 +1,10 @@
 package com.codeminders.labs.timeextractor.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.TreeSet;
 
 import org.joda.time.LocalDateTime;
@@ -30,11 +33,26 @@ public class ProcessRulesService {
                 TimeDate endTimeDate = temporal.getEndDate();
                 startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone);
                 endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone);
+                startTimeDate = summerTime(startTimeDate);
+                endTimeDate = summerTime(endTimeDate);
                 temporal.setStartDate(startTimeDate);
                 temporal.setEndDate(endTimeDate);
             }
         }
         return receivedTemporals;
+    }
+
+    private TimeDate summerTime(TimeDate timeDate) {
+        if (timeDate == null) {
+            return null;
+        }
+
+        if (summerTimeIsObserved(timeDate)) {
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate);
+            localDateTimeStart = localDateTimeStart.minusMinutes(60);
+            timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
+        }
+        return timeDate;
     }
 
     private TimeDate convertDateAndOffset(TimeDate timeDate, int offsetTimeZone) {
@@ -57,7 +75,26 @@ public class ProcessRulesService {
             localDateTimeStart = localDateTimeStart.plusMinutes(offsetTimeZone);
             timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
         }
+
         return timeDate;
+
+    }
+
+    private boolean summerTimeIsObserved(TimeDate timeDate) {
+        if (timeDate == null || timeDate.getTime() == null || timeDate.getTime().getTimezoneName() == null) {
+            return false;
+        }
+        String timezone = timeDate.getTime().getTimezoneName();
+
+        TimeZone tz = TimeZone.getTimeZone(timezone);
+        Calendar c = Calendar.getInstance(tz);
+        Date date = new Date();
+        c.setTime(date);
+        int offset = c.get(Calendar.DST_OFFSET);
+        if (offset > 0) {
+            return true;
+        }
+        return false;
 
     }
 

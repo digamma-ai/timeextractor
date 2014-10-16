@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -22,6 +23,8 @@ public class MonthOfYear1 extends Rule {
     protected double confidence = 0.3;
     private int priority = 2;
     protected String rule = "\\b((through[\\s]*|thru[\\s]*|in[\\s]*)?(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[.]?)\\b";
+    protected String example = "in December, through Febryary, January, February, etc.";
+    protected UUID id = UUID.fromString("bb70b339-738c-4c32-88ff-6ede9803e14b");
 
     public MonthOfYear1() {
     }
@@ -83,5 +86,21 @@ public class MonthOfYear1 extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -17,9 +18,11 @@ public class SeasonRules extends Rule {
     private TemporalParser parser;
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.5;
+    protected double confidence = 0.7;
     private String rule = "\\b(((in)[\\s]*|(in the|throughout)[\\s]([\\s]the)?)[\\s]*)?" + TemporalConstants.SEASON + "[s]?([\\s]*(month|months|hours))?\\b";
     protected int priority = 1;
+    protected String example = "summer, fall, summer hours, winter months, etc.";
+    protected UUID id = UUID.fromString("8b28436d-b929-4db8-81bd-d564419f8ce8");
 
     public SeasonRules() {
         parser = new TemporalParser();
@@ -78,4 +81,15 @@ public class SeasonRules extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

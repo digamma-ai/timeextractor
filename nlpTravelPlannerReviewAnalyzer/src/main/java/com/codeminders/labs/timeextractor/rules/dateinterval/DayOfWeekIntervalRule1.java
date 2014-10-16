@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -25,6 +26,8 @@ public class DayOfWeekIntervalRule1 extends Rule {
     private String rule = "((from[\\s]*)?((" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")([.])?)[\\s]*(-|to|thru|through|–)[\\s]*(" + TemporalConstants.DAY_OF_WEEK
             + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")([.])?)";
     private int priority = 4;
+    protected String example = "Monday to Tuesday";
+    protected UUID id = UUID.fromString("2ced1532-57e4-43ff-9e0a-9935737464bf");
 
     public DayOfWeekIntervalRule1() {
     }
@@ -100,4 +103,15 @@ public class DayOfWeekIntervalRule1 extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

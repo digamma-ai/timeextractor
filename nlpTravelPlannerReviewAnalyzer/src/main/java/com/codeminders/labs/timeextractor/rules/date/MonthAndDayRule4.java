@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -21,7 +22,9 @@ public class MonthAndDayRule4 extends Rule {
     private double confidence = 0.99;
     private int priority = 4;
     private String rule = "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY
-            + ")[,]?[\\s]*\\b(([1-9])|([1][0-2]))[\\/]\\b(([1-9])|([1-2][0-9])|([3][0-1]))\\b[\\s]*([,])?";
+            + ")[,]?[\\s]*\\b(([0]?[1-9])|([1][0-2]))[\\/]\\b(([1-9])|([1-2][0-9])|([3][0-1]))\\b[\\s]*([,])?";
+    protected String example = "Fri, 6/27; Saturday 01/10";
+    protected UUID id = UUID.fromString("cf400fa9-7306-4e87-8e75-9591ae532555");
 
     public MonthAndDayRule4() {
     }
@@ -87,9 +90,25 @@ public class MonthAndDayRule4 extends Rule {
         this.rule = rule;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
 }

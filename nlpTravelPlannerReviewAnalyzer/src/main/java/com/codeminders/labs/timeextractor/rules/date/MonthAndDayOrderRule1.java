@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -22,6 +23,8 @@ public class MonthAndDayOrderRule1 extends Rule {
     private int priority = 3;
     private String rule = "\\b(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[\\s]*(the)?[\\s]*(" + TemporalConstants.BASIC_ORDER
             + ")[,]?([\\s]*of)?[\\s]*([12]\\d\\d\\d)?\\b";
+    protected String example = " March the Fourteenth, 2011";
+    protected UUID id = UUID.fromString("887414c3-55a8-438f-a4b7-2f7a85f2398e");
 
     public MonthAndDayOrderRule1() {
     }
@@ -92,4 +95,19 @@ public class MonthAndDayOrderRule1 extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import org.joda.time.LocalDate;
@@ -22,6 +23,8 @@ public class MidLateMonthRule extends Rule {
     private double confidence = 0.9;
     private String rule = "(mid|mid-late)[-\\s]*((" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[s]?([.])?)";
     protected int priority = 3;
+    protected String example = "mid May, mid-late June";
+    protected UUID id = UUID.fromString("507de84b-7da1-416a-9264-d0ab29b7da4e");
 
     public MidLateMonthRule() {
     }
@@ -107,4 +110,15 @@ public class MidLateMonthRule extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

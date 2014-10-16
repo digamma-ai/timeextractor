@@ -1,59 +1,51 @@
-package com.codeminders.labs.timeextractor.rules.frequency;
+package com.codeminders.labs.timeextractor.rules.timeinterval;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
+import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class FrequencyTime extends Rule {
+// between 7pm to midnight
 
-    private double confidence = 0.9;
+public class TimeIntervalRule17 extends Rule {
+
     private TemporalParser parser;
-    private String rule = "\\b(daily|weekly|monthly|yearly|annual|hourly)\\b";
-    protected String example = "daily, weekly, monthly, annualy, hourly, etc.";
-    protected UUID id = UUID.fromString("74bd1c6b-80d3-4f57-86b2-25cb6e4f3e08");
+    protected Locale locale = Locale.US;
+    protected double confidence = 0.8;
+    private int priority = 6;
+    private String rule = "\\b(from|between)[\\s]*" + "([01]?[0-9]|2[0-3])[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M]\\.?))[\\s]*(to|and)[\\s]*" + TemporalConstants.TIME_OF_DAY + "\\b";
+    protected String example = "from morning to 14pm";
+    protected UUID id = UUID.fromString("ae135d69-9fcc-4014-9c1c-f02754be012a");
 
-    private int priority = 2;
-    {
+    public TimeIntervalRule17() {
         parser = new TemporalParser();
-    }
-
-    public FrequencyTime() {
-
     }
 
     @Override
     public Type getType() {
-        return Type.SET;
+        return Type.TIME_INTERVAL;
+
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Temporal temporal = parser.getTemporalForEveryPeriod(m.group());
+        Temporal temporal = parser.getTimeOfDay(m.group(7));
+        int hours = Integer.parseInt(m.group(2));
+        hours = Utils.convertTime(hours, m.group(3));
+        temporal.getStartDate().getTime().setHours(hours);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
-    }
 
-    @Override
-    public double getConfidence() {
-        return confidence;
-    }
-
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
-    }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
     }
 
     public String getRule() {
@@ -72,6 +64,20 @@ public class FrequencyTime extends Rule {
         this.priority = priority;
     }
 
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public String getExample() {
         return example;
     }
@@ -83,4 +89,5 @@ public class FrequencyTime extends Rule {
     public UUID getId() {
         return id;
     }
+
 }

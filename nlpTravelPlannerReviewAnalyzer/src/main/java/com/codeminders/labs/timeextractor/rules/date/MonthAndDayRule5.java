@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -18,6 +19,8 @@ public class MonthAndDayRule5 extends Rule {
     private double confidence = 0.2;
     private int priority = 1;
     private String rule = "\\b(([0]?([1-9])|([1-2][0-9])|([3][0-1]))\\/(([0]?[1-9])|[1][0-2]))\\b";
+    protected String example = "6/27";
+    protected UUID id = UUID.fromString("79607c59-fae0-424b-a8a6-7adb0f29194b");
 
     public MonthAndDayRule5() {
     }
@@ -81,9 +84,25 @@ public class MonthAndDayRule5 extends Rule {
         this.rule = rule;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
 }

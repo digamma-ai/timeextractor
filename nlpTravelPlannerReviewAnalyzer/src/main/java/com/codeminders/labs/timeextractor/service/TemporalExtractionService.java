@@ -60,7 +60,7 @@ public class TemporalExtractionService {
             return null;
         }
         TreeSet<TemporalExtraction> temporals = new TreeSet<TemporalExtraction>();
-        List<RegexResult> results = service.getTemporals(text);
+        List<RegexResult> results = service.getTemporals(text, settings);
         for (RegexResult result : results) {
             Rule rule = result.getRule();
             if (rule == null) {
@@ -145,10 +145,10 @@ public class TemporalExtractionService {
         return intervals;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         TemporalExtractionService service = new TemporalExtractionService();
-        Settings settings = new Settings(null, null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("1st tuesday of every month", settings);
+        Settings settings = new Settings(null, null, null);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("November 2013", settings);
         System.out.println(extracted.first());
     }
 }

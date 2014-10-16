@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -20,6 +21,8 @@ public class TimeZone extends Rule {
     protected double confidence = 0.3;
     private int priority = 1;
     private String rule = "\\b" + TemporalConstants.TIME_ZONE + "\\b";
+    protected String example = "CET, UTC, etc. (rule is used only for composite rules, not as a simple rule )";
+    protected UUID id = UUID.fromString("4803fc1e-9c43-4e78-b5af-51865c5c3ed1");
 
     public TimeZone() {
     }
@@ -40,6 +43,7 @@ public class TimeZone extends Rule {
             time.setTimezone(timezone);
         }
         time.setHours(hours);
+        time.setTimezoneName(m.group());
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type, time);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
@@ -83,5 +87,17 @@ public class TimeZone extends Rule {
     @Override
     public int compareTo(Rule o) {
         return super.compare(this, o);
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
     }
 }

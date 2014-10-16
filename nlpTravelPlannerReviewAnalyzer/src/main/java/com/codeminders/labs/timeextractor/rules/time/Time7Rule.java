@@ -3,24 +3,24 @@ package com.codeminders.labs.timeextractor.rules.time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// at 5.30 CET
+// at 5.30 
 public class Time7Rule extends Rule {
-    private TemporalBasicCaseParser parser = new TemporalBasicCaseParser();
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 3;
-    private String rule = "(\\b(at[\\s]*|about[\\s]*|around[\\s]*)(([01]?[0-9]|2[0-3])[.]([0-5][0-9]))[\\s]*" + TemporalConstants.TIME_ZONE + "?)\\b";
+    private String rule = "(\\b(at[\\s]*|about[\\s]*|around[\\s]*)(([01]?[0-9]|2[0-3])[.]([0-5][0-9])))\\b";
+    protected String example = "at 5.30 CET";
+    protected UUID id = UUID.fromString("039228bb-7b6d-4f67-bb07-2268faeb6584");
 
     public Time7Rule() {
     }
@@ -39,11 +39,7 @@ public class Time7Rule extends Rule {
             int minutes = Integer.parseInt(m.group(5));
             time.setMinutes(minutes);
         }
-        int timezone = 0;
-        if (m.group(6) != null) {
-            timezone = parser.getTimeZone(m.group(6));
-            time.setTimezone(timezone);
-        }
+
         time.setHours(hours);
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type, time);
         List<Temporal> temporalList = new ArrayList<Temporal>();
@@ -90,4 +86,15 @@ public class Time7Rule extends Rule {
         return super.compare(this, o);
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

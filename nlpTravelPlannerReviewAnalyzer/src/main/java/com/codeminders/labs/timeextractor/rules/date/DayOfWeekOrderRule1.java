@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -23,6 +24,8 @@ public class DayOfWeekOrderRule1 extends Rule {
     private String rule = "\\b((the[\\s]*)?(" + TemporalConstants.BASIC_ORDER + ")[\\s]*(" + "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")"
             + "[s]?)([\\s]*(of)[\\s]*(the[\\s]*)?(month))?)\\b";
     private int priority = 3;
+    protected String example = "the first Tuesday, the third Monday of the month, the last Friday";
+    protected UUID id = UUID.fromString("1fde55f7-8fee-485f-8b26-50d60536e528");
 
     public DayOfWeekOrderRule1() {
     }
@@ -85,4 +88,19 @@ public class DayOfWeekOrderRule1 extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

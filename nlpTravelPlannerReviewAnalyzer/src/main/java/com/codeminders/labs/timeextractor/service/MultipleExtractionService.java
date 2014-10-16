@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import com.codeminders.labs.timeextractor.entities.RegexResult;
 import com.codeminders.labs.timeextractor.entities.Rule;
+import com.codeminders.labs.timeextractor.entities.Settings;
 
 public class MultipleExtractionService {
 
@@ -17,16 +18,18 @@ public class MultipleExtractionService {
         generator = new MultiplePatternsGenerator(file);
     }
 
-    public List<RegexResult> getTemporals(String text) {
+    public List<RegexResult> getTemporals(String text, Settings settings) {
         TreeSet<Rule> rules = generator.getRules();
         List<RegexResult> results = new ArrayList<RegexResult>();
         for (Rule rule : rules) {
+            if (settings.getRulesToIgnore().contains(rule.getId())) {
+                continue;
+            }
             Pattern p = Pattern.compile(rule.getRule(), Pattern.CASE_INSENSITIVE);
             Matcher m = p.matcher(text);
             while (m.find()) {
                 boolean overlap = false;
                 String temporal = m.group();
-
                 int start = m.start();
                 int end = m.end();
                 String ruleName = rule.getClass().getSimpleName();
@@ -56,7 +59,7 @@ public class MultipleExtractionService {
         return Math.max(result1.getStart(), result2.getStart()) <= Math.min(result1.getEnd(), result2.getEnd());
     }
 
-    public MultiplePatternsGenerator getGenerator() {
+    public static MultiplePatternsGenerator getGenerator() {
         return generator;
     }
 

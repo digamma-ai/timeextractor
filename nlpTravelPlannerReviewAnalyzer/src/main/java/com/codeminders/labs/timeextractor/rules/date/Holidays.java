@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
@@ -15,6 +16,8 @@ public class Holidays extends Rule {
     private TemporalParser parser;
     private int priority = 1;
     private String rule = TemporalConstants.HOLIDAYS;
+    protected String example = "Christmas, New Year, Thanksgiving Day, Memorial Day, etc.";
+    protected UUID id = UUID.fromString("fdc63959-88e4-4859-bbed-7ba071d90593");
 
     public Holidays() {
         parser = new TemporalParser();
@@ -71,4 +74,19 @@ public class Holidays extends Rule {
         this.rule = rule;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

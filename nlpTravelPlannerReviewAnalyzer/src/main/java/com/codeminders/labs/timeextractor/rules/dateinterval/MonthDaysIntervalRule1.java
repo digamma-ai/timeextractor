@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.dateinterval;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -24,6 +25,8 @@ public class MonthDaysIntervalRule1 extends Rule {
     private String rule = "\\b((" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY
             + ")[.]?)[\\s]*(([3][0-1]|[1-2][0-9]|[1-9])[\\s]*(th|st|rd|nd)?[\\s]*[-][\\s]*([3][0-1]|[1-2][0-9]|[1-9])(th|st|rd|nd)?)([\\s]*[,]?[\\s]*([2][0-9]\\d\\d))?";
     protected int priority = 6;
+    protected String example = "Jul 28th-31st 2014";
+    protected UUID id = UUID.fromString("a309c8b4-4200-4776-98be-bbb024102565");
 
     public MonthDaysIntervalRule1() {
 
@@ -110,4 +113,15 @@ public class MonthDaysIntervalRule1 extends Rule {
         this.priority = priority;
     }
 
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

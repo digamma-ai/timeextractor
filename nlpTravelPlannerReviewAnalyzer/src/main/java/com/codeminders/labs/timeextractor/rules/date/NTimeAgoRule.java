@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.rules.date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
@@ -19,6 +20,8 @@ public class NTimeAgoRule extends Rule {
     private int priority = 5;
     protected String rule = "\\b([\\d]{1,})[\\s]*(" + TemporalConstants.DURATION + ")[\\s]*(ago)\\b";
     private TemporalParser parser;
+    protected String example = "10 month, 11 years, 123 minutes, etc.";
+    protected UUID id = UUID.fromString("f4d08326-7301-4f3d-8885-62ba81a521cf");
 
     public NTimeAgoRule() {
         parser = new TemporalParser();
@@ -76,5 +79,21 @@ public class NTimeAgoRule extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

@@ -66,5 +66,6 @@ com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule13
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule14
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule15
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule16
+com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule17
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeOfDayRule
 com.codeminders.labs.timeextractor.rules.frequency.Every

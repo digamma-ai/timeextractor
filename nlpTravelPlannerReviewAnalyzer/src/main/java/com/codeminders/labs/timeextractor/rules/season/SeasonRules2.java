@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.time;
+package com.codeminders.labs.timeextractor.rules.season;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,45 +6,35 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
-import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
-import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
+import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class TimeZone extends Rule {
-    private TemporalBasicCaseParser parser = new TemporalBasicCaseParser();
+public class SeasonRules2 extends Rule {
+    private TemporalParser parser;
     protected Locale locale = Locale.US;
-    protected double confidence = 0.3;
-    private int priority = 1;
-    private String rule = "\\b" + TemporalConstants.TIME_ZONE + "\\b";
-    protected String example = "CET, UTC, etc. (rule is used only for composite rules, not as a simple rule )";
-    protected UUID id = UUID.fromString("4803fc1e-9c43-4e78-b5af-51865c5c3ed1");
+    protected double confidence = 0.8;
+    private String rule = "\\b(fall|winter|summer|spring|autumn)[\\s]*([2][0-9]\\d\\d)\\b";
+    protected int priority = 2;
+    protected String example = "fall 2014, winter 2015";
+    protected UUID id = UUID.fromString("ef72a1a4-bd22-4a3c-83ea-8be3c98f0da0");
 
-    public TimeZone() {
+    public SeasonRules2() {
+        parser = new TemporalParser();
     }
 
     @Override
     public Type getType() {
-        return Type.TIMEZONE;
+        return Type.DATE_INTERVAL;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Time time = new Time();
-        int hours = 0;
-        int timezone = 0;
-        if (m.group() != null) {
-            timezone = parser.getTimeZone(m.group());
-            time.setTimezone(timezone);
-        }
-        time.setHours(hours);
-        time.setTimezoneName(m.group());
-        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type, time);
+        int year = Integer.parseInt(m.group(2));
+        Temporal temporal = parser.getSeason(m.group(1), year);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
@@ -68,6 +58,11 @@ public class TimeZone extends Rule {
         this.confidence = confidence;
     }
 
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public String getRule() {
         return rule;
     }
@@ -82,11 +77,6 @@ public class TimeZone extends Rule {
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
     }
 
     public String getExample() {

@@ -29,8 +29,8 @@ com.codeminders.labs.timeextractor.rules.dateinterval.MidLateMonthRule
 com.codeminders.labs.timeextractor.rules.dateinterval.MonthDaysIntervalRule1
 com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthInterval
 com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1
-com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules
-com.codeminders.labs.timeextractor.rules.dateinterval.SeasonRules2
+com.codeminders.labs.timeextractor.rules.season.SeasonRules
+com.codeminders.labs.timeextractor.rules.season.SeasonRules2
 com.codeminders.labs.timeextractor.rules.dateinterval.WeekDay
 com.codeminders.labs.timeextractor.rules.dateinterval.WeekEnd
 com.codeminders.labs.timeextractor.rules.duration.DurationRule1
@@ -50,7 +50,7 @@ com.codeminders.labs.timeextractor.rules.time.Time5Rule
 com.codeminders.labs.timeextractor.rules.time.Time6Rule
 com.codeminders.labs.timeextractor.rules.time.Time7Rule
 com.codeminders.labs.timeextractor.rules.time.Time8Rule
-com.codeminders.labs.timeextractor.rules.time.TimeZone
+com.codeminders.labs.timeextractor.rules.timezone.TimeZone
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule2
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule3
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule4
@@ -65,7 +65,7 @@ com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule12
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule13
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule14
 com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule15
-com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule16
-com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule17
-com.codeminders.labs.timeextractor.rules.timeinterval.TimeOfDayRule
+com.codeminders.labs.timeextractor.rules.timeofday.TimeIntervalRule16
+com.codeminders.labs.timeextractor.rules.timeofday.TimeIntervalRule17
+com.codeminders.labs.timeextractor.rules.timeofday.TimeOfDayRule
 com.codeminders.labs.timeextractor.rules.frequency.Every

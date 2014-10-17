@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.dateinterval;
+package com.codeminders.labs.timeextractor.rules.timeofday;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,56 +13,40 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class SeasonRules extends Rule {
+// between noon and 3pm
+
+public class TimeIntervalRule16 extends Rule {
 
     private TemporalParser parser;
-
     protected Locale locale = Locale.US;
-    protected double confidence = 0.7;
-    private String rule = "\\b(((in)[\\s]*|(in the|throughout)[\\s]([\\s]the)?)[\\s]*)?" + TemporalConstants.SEASON + "[s]?([\\s]*(month|months|hours))?\\b";
-    protected int priority = 1;
-    protected String example = "summer, fall, summer hours, winter months, etc.";
-    protected UUID id = UUID.fromString("8b28436d-b929-4db8-81bd-d564419f8ce8");
+    protected double confidence = 0.8;
+    private int priority = 6;
+    private String rule = "\\b(from|between)[\\s]*" + TemporalConstants.TIME_OF_DAY + "[\\s]*(to|and)[\\s]*([01]?[0-9]|2[0-3])[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M]\\.?))(?!,\\S)";
+    protected String example = "from morning to 14pm";
+    protected UUID id = UUID.fromString("ae135d69-9fcc-4014-9c1c-f02754be012a");
 
-    public SeasonRules() {
+    public TimeIntervalRule16() {
         parser = new TemporalParser();
     }
 
     @Override
     public Type getType() {
-        return Type.DATE_INTERVAL;
+        return Type.TIME_INTERVAL;
+
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Temporal temporal = parser.getSeason(m.group(6), 0);
+
+        Temporal temporal = parser.getTimeOfDay(m.group(2));
+        int hours = Integer.parseInt(m.group(5));
+        hours = Utils.convertTime(hours, m.group(6));
+        temporal.getEndDate().getTime().setHours(hours);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
-    }
 
-    @Override
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
-
-    @Override
-    public double getConfidence() {
-        return confidence;
-    }
-
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
-    }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
     }
 
     public String getRule() {
@@ -81,6 +65,20 @@ public class SeasonRules extends Rule {
         this.priority = priority;
     }
 
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public String getExample() {
         return example;
     }
@@ -92,4 +90,5 @@ public class SeasonRules extends Rule {
     public UUID getId() {
         return id;
     }
+
 }

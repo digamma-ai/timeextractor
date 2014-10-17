@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.timeinterval;
+package com.codeminders.labs.timeextractor.rules.timeofday;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +13,19 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// between noon and 3pm
+// between 7pm to midnight
 
-public class TimeIntervalRule16 extends Rule {
+public class TimeIntervalRule17 extends Rule {
 
     private TemporalParser parser;
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 6;
-    private String rule = "\\b(from|between)[\\s]*" + TemporalConstants.TIME_OF_DAY + "[\\s]*(to|and)[\\s]*([01]?[0-9]|2[0-3])[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M]\\.?))(?!,\\S)";
+    private String rule = "\\b(from|between)[\\s]*" + "([01]?[0-9]|2[0-3])[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M]\\.?))[\\s]*(to|and)[\\s]*" + TemporalConstants.TIME_OF_DAY + "\\b";
     protected String example = "from morning to 14pm";
     protected UUID id = UUID.fromString("ae135d69-9fcc-4014-9c1c-f02754be012a");
 
-    public TimeIntervalRule16() {
+    public TimeIntervalRule17() {
         parser = new TemporalParser();
     }
 
@@ -38,11 +38,10 @@ public class TimeIntervalRule16 extends Rule {
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-
-        Temporal temporal = parser.getTimeOfDay(m.group(2));
-        int hours = Integer.parseInt(m.group(5));
-        hours = Utils.convertTime(hours, m.group(6));
-        temporal.getEndDate().getTime().setHours(hours);
+        Temporal temporal = parser.getTimeOfDay(m.group(7));
+        int hours = Integer.parseInt(m.group(2));
+        hours = Utils.convertTime(hours, m.group(3));
+        temporal.getStartDate().getTime().setHours(hours);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;

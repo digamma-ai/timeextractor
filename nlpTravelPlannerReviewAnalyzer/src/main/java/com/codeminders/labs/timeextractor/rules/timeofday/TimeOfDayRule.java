@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.timeinterval;
+package com.codeminders.labs.timeextractor.rules.timeofday;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,39 +13,50 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// between 7pm to midnight
+// time of day: morning, evening, etc.
 
-public class TimeIntervalRule17 extends Rule {
-
+public class TimeOfDayRule extends Rule {
     private TemporalParser parser;
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.8;
-    private int priority = 6;
-    private String rule = "\\b(from|between)[\\s]*" + "([01]?[0-9]|2[0-3])[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M]\\.?))[\\s]*(to|and)[\\s]*" + TemporalConstants.TIME_OF_DAY + "\\b";
-    protected String example = "from morning to 14pm";
-    protected UUID id = UUID.fromString("ae135d69-9fcc-4014-9c1c-f02754be012a");
+    private double confidence = 0.9;
+    private int priority = 1;
+    private String rule = "(\\b" + TemporalConstants.TIME_OF_DAY + "[s]?)([\\s]*hours)?\\b";
+    protected String example = "time of day: morning, evening, etc.";
+    protected UUID id = UUID.fromString("dd7ef249-9eac-499d-930a-0ee2a0c4b897");
 
-    public TimeIntervalRule17() {
+    public TimeOfDayRule() {
         parser = new TemporalParser();
     }
 
     @Override
     public Type getType() {
-        return Type.TIME_INTERVAL;
-
+        return Type.TIME_INTERVAL_INDIRECT;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Temporal temporal = parser.getTimeOfDay(m.group(7));
-        int hours = Integer.parseInt(m.group(2));
-        hours = Utils.convertTime(hours, m.group(3));
-        temporal.getStartDate().getTime().setHours(hours);
+        Temporal temporal = parser.getTimeOfDay(m.group(1));
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
+    }
 
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    @Override
+    public double getConfidence() {
+        return confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
     }
 
     public String getRule() {
@@ -64,20 +75,6 @@ public class TimeIntervalRule17 extends Rule {
         this.priority = priority;
     }
 
-    @Override
-    public double getConfidence() {
-        return confidence;
-    }
-
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
-    }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
-    }
-
     public String getExample() {
         return example;
     }
@@ -86,8 +83,12 @@ public class TimeIntervalRule17 extends Rule {
         this.example = example;
     }
 
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public UUID getId() {
         return id;
     }
-
 }

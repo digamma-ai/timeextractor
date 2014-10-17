@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.timeinterval;
+package com.codeminders.labs.timeextractor.rules.timezone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,33 +9,42 @@ import java.util.regex.Matcher;
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
+import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalParser;
+import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
+import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// time of day: morning, evening, etc.
-
-public class TimeOfDayRule extends Rule {
-    private TemporalParser parser;
-    private double confidence = 0.9;
+public class TimeZone extends Rule {
+    private TemporalBasicCaseParser parser = new TemporalBasicCaseParser();
+    protected Locale locale = Locale.US;
+    protected double confidence = 0.3;
     private int priority = 1;
-    private String rule = "(\\b" + TemporalConstants.TIME_OF_DAY + "[s]?)([\\s]*hours)?\\b";
-    protected String example = "time of day: morning, evening, etc.";
-    protected UUID id = UUID.fromString("dd7ef249-9eac-499d-930a-0ee2a0c4b897");
+    private String rule = "\\b" + TemporalConstants.TIME_ZONE + "\\b";
+    protected String example = "CET, UTC, etc. (rule is used only for composite rules, not as a simple rule )";
+    protected UUID id = UUID.fromString("4803fc1e-9c43-4e78-b5af-51865c5c3ed1");
 
-    public TimeOfDayRule() {
-        parser = new TemporalParser();
+    public TimeZone() {
     }
 
     @Override
     public Type getType() {
-        return Type.TIME_INTERVAL_INDIRECT;
+        return Type.TIMEZONE;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Temporal temporal = parser.getTimeOfDay(m.group(1));
+        Time time = new Time();
+        int hours = 0;
+        int timezone = 0;
+        if (m.group() != null) {
+            timezone = parser.getTimeZone(m.group());
+            time.setTimezone(timezone);
+        }
+        time.setHours(hours);
+        time.setTimezoneName(m.group());
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(type, time);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;
@@ -75,17 +84,17 @@ public class TimeOfDayRule extends Rule {
         this.priority = priority;
     }
 
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public String getExample() {
         return example;
     }
 
     public void setExample(String example) {
         this.example = example;
-    }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
     }
 
     public UUID getId() {

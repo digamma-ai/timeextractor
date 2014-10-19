@@ -1,5 +1,6 @@
 package com.codeminders.labs.timeextractor.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -14,11 +15,35 @@ import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
+import com.codeminders.labs.timeextractor.temporal.entities.Type;
+import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
 /* Class to change timezone and date if null to current */
 
 public class ProcessRulesService {
+
+    private TemporalParser parser = new TemporalParser();
+
+    public TreeSet<TemporalExtraction> processRelativeDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
+        List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
+        receivedTemporals = relativeDate(list, settings.getDate());
+        return receivedTemporals;
+
+    }
+
+    private TreeSet<TemporalExtraction> relativeDate(List<TemporalExtraction> list, LocalDateTime dateTime) {
+        for (int i = 0; i < list.size(); i++) {
+            TemporalExtraction extraction = list.get(i);
+            Temporal temporal = extraction.getTemporal().get(0);
+            if (temporal.getType() == Type.RELATIVE_TODAY) {
+                temporal = parser.getRelativeTemporalObjectByProperty(extraction.getTemporalExpression(), dateTime);
+                list.get(i).getTemporal().set(0, temporal);
+            }
+        }
+        return new TreeSet<TemporalExtraction>(list);
+
+    }
 
     public TreeSet<TemporalExtraction> changeRulesAccordingToUserTimeZoneAndCurrentDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
         Iterator<TemporalExtraction> itr = receivedTemporals.iterator();
@@ -31,10 +56,11 @@ public class ProcessRulesService {
                 Temporal temporal = temporals.get(i);
                 TimeDate startTimeDate = temporal.getStartDate();
                 TimeDate endTimeDate = temporal.getEndDate();
-                startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone);
-                endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone);
                 startTimeDate = summerTime(startTimeDate);
                 endTimeDate = summerTime(endTimeDate);
+
+                startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone);
+                endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone);
                 temporal.setStartDate(startTimeDate);
                 temporal.setEndDate(endTimeDate);
             }
@@ -82,6 +108,9 @@ public class ProcessRulesService {
 
     private boolean summerTimeIsObserved(TimeDate timeDate) {
         if (timeDate == null || timeDate.getTime() == null || timeDate.getTime().getTimezoneName() == null) {
+            return false;
+        }
+        if (timeDate.getTime().getTimezoneName() == null) {
             return false;
         }
         String timezone = timeDate.getTime().getTimezoneName();

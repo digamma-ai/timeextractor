@@ -1,7 +1,7 @@
-// server http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/
+// server https://ec2-54-81-15-231.compute-1.amazonaws.com:8443/timeextractor-2/
 // local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/"
 
-var TEMPORAL_EXTRACTION_URL = "https://ec2-54-81-15-231.compute-1.amazonaws.com:8443/timeextractor-2/";
+var TEMPORAL_EXTRACTION_URL = "https://localhost:8443/timeextractor/";
 var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/annotate"
 var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL + "images/loading.gif";
 var METHOD_POST = "POST";
@@ -19,13 +19,14 @@ var start = function() {
 	for (var i = 0; i < all_tags.length; i++) {
 		$(all_tags[i]).attr(TEMPORAL_ID, TEMPORAL_ID + i);
 	}
+	var currentdate = new Date();
 	var offset = new Date().getTimezoneOffset();
 	var html = $("html").html();
 	var json_to_get_temporal = [ {
 		'id' : '1',
 		'html' : html,
 		'timezone_offset' : offset,
-		date : "2014-07-27"
+		date : currentdate
 	} ];
 	$.when(temporalData(json_to_get_temporal)).then(
 			function(data, textStatus, jqXHR) {

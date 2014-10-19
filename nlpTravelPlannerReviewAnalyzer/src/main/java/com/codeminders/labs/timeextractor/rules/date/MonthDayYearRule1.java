@@ -16,7 +16,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 public class MonthDayYearRule1 extends Rule {
 
     private double confidence = 0.8;
-    private int priority = 3;
+    private int priority = 4;
     protected String rule = "\\b((in|on|by|until)[\\s]*)?((1[012]|0?[1-9]))[-.\\/]((3[01]|[12][0-9]|0[1-9]))[-.\\/]((([12][0-9])\\d\\d)|\\d\\d)\\b";
     protected String example = "by 10/30/2012, 01-29-2014";
     protected UUID id = UUID.fromString("2e81e051-8721-4085-889d-bd0fa740febf");

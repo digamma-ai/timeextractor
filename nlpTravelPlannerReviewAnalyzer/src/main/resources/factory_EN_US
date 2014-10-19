@@ -16,9 +16,9 @@ com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule1
 com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule2
 com.codeminders.labs.timeextractor.rules.date.MonthDayYearRule3
 com.codeminders.labs.timeextractor.rules.date.MonthOfYear1
-com.codeminders.labs.timeextractor.rules.date.NTimeAgoRule
-com.codeminders.labs.timeextractor.rules.date.NTimeAgoRule2
-com.codeminders.labs.timeextractor.rules.date.TodayTomorrowEtc
+com.codeminders.labs.timeextractor.rules.date.relative.NTimeAgoRule
+com.codeminders.labs.timeextractor.rules.date.relative.NTimeAgoRule2
+com.codeminders.labs.timeextractor.rules.date.relative.TodayTomorrowEtc
 com.codeminders.labs.timeextractor.rules.date.YearRule
 com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval2
 com.codeminders.labs.timeextractor.rules.dateinterval.DateInterval3

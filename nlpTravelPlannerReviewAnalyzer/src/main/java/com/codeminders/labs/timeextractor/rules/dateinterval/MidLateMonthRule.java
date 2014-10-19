@@ -21,7 +21,7 @@ import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class MidLateMonthRule extends Rule {
     private double confidence = 0.9;
-    private String rule = "(mid|mid-late)[-\\s]*((" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[s]?([.])?)";
+    private String rule = "\\b(mid|mid-late)[-\\s]*((" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[s]?([.])?)";
     protected int priority = 3;
     protected String example = "mid May, mid-late June";
     protected UUID id = UUID.fromString("507de84b-7da1-416a-9264-d0ab29b7da4e");

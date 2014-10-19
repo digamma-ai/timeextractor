@@ -13,114 +13,127 @@ import com.codeminders.labs.timeextractor.entities.Tip;
 import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
 
 public class MainTestingClass {
-    private static String TRAINING_DATA = "/training.csv";
-    private static String TEST_RESULTS_FILE = "C:/test/results.txt";
+	private static String TRAINING_DATA = "/training.csv";
+	private static String TEST_RESULTS_FILE = "C:/test/results.txt";
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 
-        TemporalExtractionService service = new TemporalExtractionService();
-        CsvReader reader = new CsvReader();
-        String csv = CsvReader.class.getResource(TRAINING_DATA).getPath();
-        CsvWriter writer = new CsvWriter();
-        String fileToWrite = TEST_RESULTS_FILE;
+		TemporalExtractionService service = new TemporalExtractionService();
+		CsvReader reader = new CsvReader();
+		String csv = CsvReader.class.getResource(TRAINING_DATA).getPath();
+		CsvWriter writer = new CsvWriter();
+		String fileToWrite = TEST_RESULTS_FILE;
 
-        int tp = 0;
-        int fp = 0;
-        int tn = 0;
-        int fn = 0;
+		int tp = 0;
+		int fp = 0;
+		int tn = 0;
+		int fn = 0;
 
-        List<Tip> tips = reader.getTipsFromFile(csv, ",");
+		List<Tip> tips = reader.getTipsFromFile(csv, ",");
 
-        for (Tip tip : tips) {
-            String patternString = "<text>(.*?)</text>";
-            Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(tip.getTipText());
-            HashSet<String> annotated = new HashSet<String>();
+		for (Tip tip : tips) {
+			String patternString = "<text>(.*?)</text>";
+			Pattern pattern = Pattern.compile(patternString);
+			Matcher matcher = pattern.matcher(tip.getTipText());
+			HashSet<String> annotated = new HashSet<String>();
 
-            while (matcher.find()) {
-                String result = matcher.group().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-");
-                annotated.add(result.trim());
-            }
-            String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-").trim();
-            System.out.println(text);
-            Settings settings = new Settings(null, "0", null);
-            TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);
-            System.out.println(predicted);
-            if (predicted.size() == 0 && annotated.size() == 0) {
-                tn++;
-                continue;
-            }
-            if (annotated.size() == 0 && predicted.size() != 0) {
-                System.out.println("False positive " + predicted + " " + annotated);
-                writer.writeToFile(fileToWrite, (text));
-                writer.writeToFile(fileToWrite, "False positive " + predicted + " " + annotated);
-                fp++;
-                continue;
-            }
+			while (matcher.find()) {
+				String result = matcher.group().replace("<text>", "")
+						.replace("</text>", "").replace("?", "-")
+						.replace("–", "-");
+				annotated.add(result.trim());
+			}
+			String text = tip.getTipText().replace("<text>", "")
+					.replace("</text>", "").replace("?", "-").replace("–", "-")
+					.trim();
+			System.out.println(text);
+			Settings settings = new Settings(null, "0", null);
+			TreeSet<TemporalExtraction> predicted = service
+					.extractDatesAndTimeFromText(text, settings);
+			System.out.println(predicted);
+			if (predicted.size() == 0 && annotated.size() == 0) {
+				tn++;
+				continue;
+			}
+			if (annotated.size() == 0 && predicted.size() != 0) {
+				System.out.println("False positive " + predicted + " "
+						+ annotated);
+				writer.writeToFile(fileToWrite, (text));
+				writer.writeToFile(fileToWrite, "False positive " + predicted
+						+ " " + annotated);
+				fp++;
+				continue;
+			}
 
-            if (predicted.size() == 0 && annotated.size() != 0) {
-                System.out.println("False negative " + predicted + " " + annotated);
-                writer.writeToFile(fileToWrite, (text));
-                writer.writeToFile(fileToWrite, "False negative " + predicted + " " + annotated);
+			if (predicted.size() == 0 && annotated.size() != 0) {
+				System.out.println("False negative " + predicted + " "
+						+ annotated);
+				writer.writeToFile(fileToWrite, (text));
+				writer.writeToFile(fileToWrite, "False negative " + predicted
+						+ " " + annotated);
 
-                fn++;
-                continue;
+				fn++;
+				continue;
 
-            }
-            HashSet<String> predictions = new HashSet<String>();
-            for (TemporalExtraction cm : predicted) {
-                predictions.add(cm.getTemporalExpression().trim());
-            }
+			}
+			HashSet<String> predictions = new HashSet<String>();
+			for (TemporalExtraction cm : predicted) {
+				predictions.add(cm.getTemporalExpression().trim());
+			}
 
-            for (String annotation : annotated) {
-                if (!predictions.contains(annotation)) {
-                    System.out.println(text);
-                    System.out.println("False negative " + predictions + " " + annotated);
-                    writer.writeToFile(fileToWrite, (text));
-                    writer.writeToFile(fileToWrite, ("False negative " + predictions + " " + annotated));
-                    fn++;
-                }
-            }
+			for (String annotation : annotated) {
+				if (!predictions.contains(annotation)) {
+					System.out.println(text);
+					System.out.println("False negative " + predictions + " "
+							+ annotated);
+					writer.writeToFile(fileToWrite, (text));
+					writer.writeToFile(fileToWrite, ("False negative "
+							+ predictions + " " + annotated));
+					fn++;
+				}
+			}
 
-            for (String prediction : predictions) {
-                if (!annotated.contains(prediction)) {
-                    System.out.println(tip.getTipText());
-                    System.out.println("False positive " + predictions + " " + annotated);
-                    writer.writeToFile(fileToWrite, (text));
-                    writer.writeToFile(fileToWrite, ("False positive " + predictions + " " + annotated));
-                    fp++;
-                }
-            }
+			for (String prediction : predictions) {
+				if (!annotated.contains(prediction)) {
+					System.out.println(tip.getTipText());
+					System.out.println("False positive " + predictions + " "
+							+ annotated);
+					writer.writeToFile(fileToWrite, (text));
+					writer.writeToFile(fileToWrite, ("False positive "
+							+ predictions + " " + annotated));
+					fp++;
+				}
+			}
 
-            tp++;
-        }
+			tp++;
+		}
 
-        FScore score = new FScore();
+		FScore score = new FScore();
 
-        System.out.println("True positive " + tp);
-        System.out.println("False positive " + fp);
-        System.out.println("True negative " + tn);
-        System.out.println("False negative " + fn);
+		System.out.println("True positive " + tp);
+		System.out.println("False positive " + fp);
+		System.out.println("True negative " + tn);
+		System.out.println("False negative " + fn);
 
-        writer.writeToFile(fileToWrite, ("True positive " + tp));
-        writer.writeToFile(fileToWrite, ("False positive " + fp));
-        writer.writeToFile(fileToWrite, ("True negative " + tn));
-        writer.writeToFile(fileToWrite, ("False negative " + fn));
+		writer.writeToFile(fileToWrite, ("True positive " + tp));
+		writer.writeToFile(fileToWrite, ("False positive " + fp));
+		writer.writeToFile(fileToWrite, ("True negative " + tn));
+		writer.writeToFile(fileToWrite, ("False negative " + fn));
 
-        double accuracy = score.accuracy(tp, tn, fp, fn);
-        double precision = score.precision(tp, fp);
-        double recall = score.recall(tp, fn);
-        double fScore = score.f1Score(precision, recall);
+		double accuracy = score.accuracy(tp, tn, fp, fn);
+		double precision = score.precision(tp, fp);
+		double recall = score.recall(tp, fn);
+		double fScore = score.f1Score(precision, recall);
 
-        System.out.println("F-Score: " + fScore);
-        System.out.println("Precision: " + precision);
-        System.out.println("Recall: " + recall);
-        System.out.println("Accuracy: " + accuracy);
+		System.out.println("F-Score: " + fScore);
+		System.out.println("Precision: " + precision);
+		System.out.println("Recall: " + recall);
+		System.out.println("Accuracy: " + accuracy);
 
-        writer.writeToFile(fileToWrite, ("F-Score: " + fScore));
-        writer.writeToFile(fileToWrite, ("Precision: " + precision));
-        writer.writeToFile(fileToWrite, ("Recall: " + recall));
-        writer.writeToFile(fileToWrite, ("Accuracy: " + accuracy));
+		writer.writeToFile(fileToWrite, ("F-Score: " + fScore));
+		writer.writeToFile(fileToWrite, ("Precision: " + precision));
+		writer.writeToFile(fileToWrite, ("Recall: " + recall));
+		writer.writeToFile(fileToWrite, ("Accuracy: " + accuracy));
 
-    }
+	}
 }

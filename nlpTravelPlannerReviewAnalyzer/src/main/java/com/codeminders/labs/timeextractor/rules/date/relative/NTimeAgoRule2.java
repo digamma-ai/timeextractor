@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.date;
+package com.codeminders.labs.timeextractor.rules.date.relative;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +10,22 @@ import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
+import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class NTimeAgoRule extends Rule {
+public class NTimeAgoRule2 extends Rule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.7;
     private int priority = 5;
-    protected String rule = "\\b([\\d]{1,})[\\s]*(" + TemporalConstants.DURATION + ")[\\s]*(ago)\\b";
+    protected String rule = "\\b" + "((" + TemporalConstants.BASIC_NUMBER_ONE_TEN + "|" + "([\\s]*" + TemporalConstants.BASIC_NUMBER_TWENTY_HUNDRED + ")" + "|" + "([\\s]*"
+            + TemporalConstants.BASIC_NUMBER_ELEVEN_NINETEEN + "))[\\s]*((" + TemporalConstants.DURATION + "))[\\s]*(ago))\\b";
     private TemporalParser parser;
-    protected String example = "10 month, 11 years, 123 minutes, etc.";
-    protected UUID id = UUID.fromString("f4d08326-7301-4f3d-8885-62ba81a521cf");
+    protected String example = "one hour ago, two weeks ago, month ago";
+    protected UUID id = UUID.fromString("74b57dd8-ccd7-40c5-b1b5-cff2ad657b88");
 
-    public NTimeAgoRule() {
+    public NTimeAgoRule2() {
         parser = new TemporalParser();
     }
 
@@ -35,8 +37,8 @@ public class NTimeAgoRule extends Rule {
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        int length = Integer.parseInt(m.group(1));
-        Temporal temporal = parser.getRelativeDurationDate(m.group(2), length, null);
+        int length = TemporalBasicCaseParser.getIntFromBasicTerm(m.group(2));
+        Temporal temporal = parser.getRelativeDurationDate(m.group(8), length, null);
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;

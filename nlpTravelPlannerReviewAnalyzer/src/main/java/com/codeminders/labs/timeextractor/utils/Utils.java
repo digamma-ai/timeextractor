@@ -1,6 +1,5 @@
 package com.codeminders.labs.timeextractor.utils;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,6 +55,10 @@ public class Utils {
 
     public static TimeDate getTimeDate(LocalDateTime localDate) {
         return getTimeDate(localDate, -1000);
+    }
+
+    public static TimeDate getTimeDateUTC(LocalDateTime localDate) {
+        return getTimeDate(localDate, 0);
     }
 
     public static TimeDate getTimeDate(LocalDateTime localDate, int timezoneOffset, TimeDate timeDate) {

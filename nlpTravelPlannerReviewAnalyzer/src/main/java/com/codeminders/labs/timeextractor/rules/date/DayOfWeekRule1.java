@@ -14,93 +14,92 @@ import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
-import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class DayOfWeekRule1 extends Rule {
 
-    private String rule = "\\b(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")[s]?\\b" + "[.]?";
-    protected double confidence = 0.362;
-    protected int priority = 1;
-    private TemporalParser parser;
-    protected String example = "Tuesday, Wednesday, Friday, etc.";
-    protected UUID id = UUID.fromString("8c01e067-822f-4d96-ae21-39ec70021d52");
+	private String rule = "\\b(" + TemporalConstants.DAY_OF_WEEK + "|"
+			+ TemporalConstants.DAY_OF_WEEK_EASY + ")[s]?\\b" + "[.]?";
+	protected double confidence = 0.362;
+	protected int priority = 1;
+	protected String example = "Tuesday, Wednesday, Friday, etc.";
+	protected UUID id = UUID.fromString("8c01e067-822f-4d96-ae21-39ec70021d52");
 
-    public DayOfWeekRule1() {
-        parser = new TemporalParser();
-    }
+	public DayOfWeekRule1() {
+	}
 
-    @Override
-    public Type getType() {
-        return Type.DAY_OF_WEEK;
-    }
+	@Override
+	public Type getType() {
+		return Type.DAY_OF_WEEK;
+	}
 
-    @Override
-    public List<Temporal> getTemporal(String text) {
-        Matcher m = Utils.getMatch(rule, text);
-        DayOfWeek dayOfWeek = null;
-        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(1));
-        Date date = new Date();
-        date.setDayOfWeek(dayOfWeek);
-        Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-        List<Temporal> temporalList = new ArrayList<Temporal>();
-        temporalList.add(temporal);
+	@Override
+	public List<Temporal> getTemporal(String text) {
+		Matcher m = Utils.getMatch(rule, text);
+		DayOfWeek dayOfWeek = null;
+		dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(1));
+		Date date = new Date();
+		date.setDayOfWeek(dayOfWeek);
+		Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type,
+				date);
+		List<Temporal> temporalList = new ArrayList<Temporal>();
+		temporalList.add(temporal);
 
-        return temporalList;
-    }
+		return temporalList;
+	}
 
-    @Override
-    public Locale getLocale() {
-        return locale;
-    }
+	@Override
+	public Locale getLocale() {
+		return locale;
+	}
 
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
 
-    public double getConfidence() {
-        return confidence;
-    }
+	public double getConfidence() {
+		return confidence;
+	}
 
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
-    }
+	public void setConfidence(double confidence) {
+		this.confidence = confidence;
+	}
 
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
-    }
+	@Override
+	public int compareTo(Rule o) {
+		return super.compare(this, o);
+	}
 
-    public String getRule() {
-        return rule;
-    }
+	public String getRule() {
+		return rule;
+	}
 
-    public void setRule(String rule) {
-        this.rule = rule;
-    }
+	public void setRule(String rule) {
+		this.rule = rule;
+	}
 
-    public int getPriority() {
-        return priority;
-    }
+	public int getPriority() {
+		return priority;
+	}
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
 
-    public String getExample() {
-        return example;
-    }
+	public String getExample() {
+		return example;
+	}
 
-    public void setExample(String example) {
-        this.example = example;
-    }
+	public void setExample(String example) {
+		this.example = example;
+	}
 
-    public UUID getId() {
-        return id;
-    }
+	public UUID getId() {
+		return id;
+	}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 }

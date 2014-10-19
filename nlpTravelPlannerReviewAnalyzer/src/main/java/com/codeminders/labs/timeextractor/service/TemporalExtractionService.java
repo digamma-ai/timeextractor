@@ -74,6 +74,8 @@ public class TemporalExtractionService {
         }
         // composite rules service
         temporals = combineRulesService.combinationRule(temporals, text);
+        // process relative date
+        temporals = processingService.processRelativeDate(temporals, settings);
         // process according to current date and timezone (make intervals)
         temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
         return temporals;
@@ -147,8 +149,8 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) throws Exception {
         TemporalExtractionService service = new TemporalExtractionService();
-        Settings settings = new Settings(null, null, null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("November 2013", settings);
+        Settings settings = new Settings(null, "-180", null);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("tomorrow", settings);
         System.out.println(extracted.first());
     }
 }

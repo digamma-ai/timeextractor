@@ -3,13 +3,15 @@ var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/rules"
 var METHOD_GET = "GET";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
+var loaded = false;
 
-var start = function() {
+var getAllRules = function() {
 	$.when(rules()).then(function(data, textStatus, jqXHR) {
 		console.log(data);
+		loaded = true;
 	}).fail(function(data, textStatus, jqXHR) {
 		alert("An error occured on server: " + jqXHR);
-	});
+	})
 }
 
 // get rule ids
@@ -21,9 +23,4 @@ var rules = function() {
 		contentType : CONTENT_TYPE,
 		dataType : DATA_TYPE,
 	});
-}
-
-$(document).ready()
-{
-	start();
 }

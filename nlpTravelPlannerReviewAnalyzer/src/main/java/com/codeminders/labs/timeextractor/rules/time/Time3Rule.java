@@ -18,7 +18,7 @@ public class Time3Rule extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 4;
-    private String rule = "\\b(at[\\s]*|about[\\s]*|at about[\\s]*|around[\\s]*)?(([01]?[0-9]|2[0-3])[\\s]*(([:.,]?)([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M]\\.?))(?!,\\S)";
+    private String rule = "\\b(at[\\s]*|about[\\s]*|at about[\\s]*|around[\\s]*)?(([01]?[0-9]|2[0-3])[\\s]*(([:.,]?)([0-5][0-9]))?)[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?))(?!\\w)";
     protected String example = "at 5:30 pm";
     protected UUID id = UUID.fromString("e1f227da-71c0-42eb-988e-ce29ccd4c7f8");
 

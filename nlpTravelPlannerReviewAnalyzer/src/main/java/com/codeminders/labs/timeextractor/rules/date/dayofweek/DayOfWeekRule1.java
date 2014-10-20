@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.date;
+package com.codeminders.labs.timeextractor.rules.date.dayofweek;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,43 +9,39 @@ import java.util.regex.Matcher;
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
+import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// November, December, etc.
+public class DayOfWeekRule1 extends Rule {
 
-public class MonthOfYear1 extends Rule {
+    private String rule = "\\b(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")[s]?\\b" + "[.]?";
+    protected double confidence = 0.362;
+    protected int priority = 1;
+    protected String example = "Tuesday, Wednesday, Friday, etc.";
+    protected UUID id = UUID.fromString("8c01e067-822f-4d96-ae21-39ec70021d52");
 
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.3;
-    private int priority = 2;
-    protected String rule = "\\b((through[\\s]*|thru[\\s]*|in[\\s]*)?(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[.]?)\\b";
-    protected String example = "in December, through Febryary, January, February, etc.";
-    protected UUID id = UUID.fromString("bb70b339-738c-4c32-88ff-6ede9803e14b");
-
-    public MonthOfYear1() {
+    public DayOfWeekRule1() {
     }
 
     @Override
     public Type getType() {
-        return Type.MONTH;
+        return Type.DAY_OF_WEEK;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-
-        int month = TemporalBasicCaseParser.getMonthOfYear(m.group(3)).getValue();
+        DayOfWeek dayOfWeek = null;
+        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(1));
         Date date = new Date();
-        date.setMonth(month);
+        date.setDayOfWeek(dayOfWeek);
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
-
         return temporalList;
     }
 
@@ -58,7 +54,6 @@ public class MonthOfYear1 extends Rule {
         this.locale = locale;
     }
 
-    @Override
     public double getConfidence() {
         return confidence;
     }
@@ -103,4 +98,5 @@ public class MonthOfYear1 extends Rule {
     public void setId(UUID id) {
         this.id = id;
     }
+
 }

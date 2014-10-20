@@ -1,8 +1,8 @@
-com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule1
-com.codeminders.labs.timeextractor.rules.date.DayOfWeekOrderRule2
-com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule1
-com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule2
-com.codeminders.labs.timeextractor.rules.date.DayOfWeekRule3
+com.codeminders.labs.timeextractor.rules.date.dayofweek.DayOfWeekOrderRule1
+com.codeminders.labs.timeextractor.rules.date.dayofweek.DayOfWeekOrderRule2
+com.codeminders.labs.timeextractor.rules.date.dayofweek.DayOfWeekRule1
+com.codeminders.labs.timeextractor.rules.date.dayofweek.DayOfWeekRule2
+com.codeminders.labs.timeextractor.rules.date.dayofweek.DayOfWeekRule3
 com.codeminders.labs.timeextractor.rules.date.DayOrderAndMonthRule1
 com.codeminders.labs.timeextractor.rules.date.Holidays
 com.codeminders.labs.timeextractor.rules.date.MonthAndDayOrderRule1

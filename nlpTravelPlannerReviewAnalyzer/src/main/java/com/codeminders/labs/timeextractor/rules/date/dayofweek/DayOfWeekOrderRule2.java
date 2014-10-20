@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.date;
+package com.codeminders.labs.timeextractor.rules.date.dayofweek;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,48 +12,42 @@ import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
+import com.codeminders.labs.timeextractor.temporal.entities.WeekOfMonth;
 import com.codeminders.labs.timeextractor.utils.TemporalBasicCaseParser;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-// Sunday 16 2014
-public class DayOfWeekRule3 extends Rule {
+//1st Tuesday of the month
+public class DayOfWeekOrderRule2 extends Rule {
 
-    protected Locale locale = Locale.US;
-    protected double confidence = 0.8;
-    private String rule = "((" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY + ")[s]?[.]?[,]?[\\s]*([1-2][0-9]|[3][0-1]|[1-9])[,]?[\\s]*([12][0-9]\\d\\d))";
+    protected double confidence = 0.9;
+    private String rule = "\\b(the[\\s]*)?(([1-5])(th|st|nd|rd)?[\\s]*)" + "((" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY
+            + "))([s]?[\\s]*(of[\\s]*)(the[\\s]*)?(month))?\\b";
     private int priority = 3;
-    protected String example = "Sunday 16 2014";
-    protected UUID id = UUID.fromString("c099f256-a339-40f2-a562-b43c1f767c70");
+    protected String example = "1st Tuesday of the month";
+    protected UUID id = UUID.fromString("80bd5c57-71ee-4bde-ac7c-529481987d70");
 
-    public DayOfWeekRule3() {
+    public DayOfWeekOrderRule2() {
+
     }
 
     public Type getType() {
-        return Type.DATE;
+        return Type.DAY_OF_WEEK_WEEK_OF_MONTH;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
         DayOfWeek dayOfWeek = null;
-        int dayOfMonth = 0;
-        int year = 0;
-
-        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(2));
-        dayOfMonth = Integer.parseInt(m.group(5));
-        year = Integer.parseInt(m.group(6));
-
+        WeekOfMonth weekOfMonth = null;
+        dayOfWeek = TemporalBasicCaseParser.getDayOfWeek(m.group(5));
+        weekOfMonth = TemporalBasicCaseParser.getWeekOfMonth(m.group(3));
         Date date = new Date();
         date.setDayOfWeek(dayOfWeek);
-        date.setDay(dayOfMonth);
-        date.setYear(year);
-
+        date.setWeekOfMonth(weekOfMonth);
         Temporal temporal = TemporalObjectGenerator.generateTemporalDate(type, date);
-
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
-
         return temporalList;
     }
 
@@ -66,17 +60,13 @@ public class DayOfWeekRule3 extends Rule {
         this.locale = locale;
     }
 
+    @Override
     public double getConfidence() {
         return confidence;
     }
 
     public void setConfidence(double confidence) {
         this.confidence = confidence;
-    }
-
-    @Override
-    public int compareTo(Rule o) {
-        return super.compare(this, o);
     }
 
     public String getRule() {
@@ -103,6 +93,11 @@ public class DayOfWeekRule3 extends Rule {
         this.example = example;
     }
 
+    @Override
+    public int compareTo(Rule o) {
+        return super.compare(this, o);
+    }
+
     public UUID getId() {
         return id;
     }
@@ -110,5 +105,4 @@ public class DayOfWeekRule3 extends Rule {
     public void setId(UUID id) {
         this.id = id;
     }
-
 }

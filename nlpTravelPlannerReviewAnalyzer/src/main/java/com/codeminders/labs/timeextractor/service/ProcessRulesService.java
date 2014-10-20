@@ -29,40 +29,48 @@ public class ProcessRulesService {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
         receivedTemporals = relativeDate(list, settings.getDate());
         return receivedTemporals;
-
     }
 
     private TreeSet<TemporalExtraction> relativeDate(List<TemporalExtraction> list, LocalDateTime dateTime) {
+        if (dateTime == null) {
+            dateTime = new LocalDateTime();
+        }
         for (int i = 0; i < list.size(); i++) {
             TemporalExtraction extraction = list.get(i);
             Temporal temporal = extraction.getTemporal().get(0);
             if (temporal.getType() == Type.RELATIVE_TODAY) {
                 temporal = parser.getRelativeTemporalObjectByProperty(extraction.getTemporalExpression(), dateTime);
                 list.get(i).getTemporal().set(0, temporal);
+            } else if (temporal.getType() == Type.DAY_OF_WEEK) {
+                temporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getStartDate().getDate().getDayOfWeek(), dateTime);
+                list.get(i).getTemporal().set(0, temporal);
             }
         }
         return new TreeSet<TemporalExtraction>(list);
-
     }
 
     public TreeSet<TemporalExtraction> changeRulesAccordingToUserTimeZoneAndCurrentDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
         Iterator<TemporalExtraction> itr = receivedTemporals.iterator();
         int offsetTimeZone = settings.getTimezoneOffset();
-
         while (itr.hasNext()) {
             TemporalExtraction te = (TemporalExtraction) itr.next();
             List<Temporal> temporals = te.getTemporal();
             for (int i = 0; i < temporals.size(); i++) {
                 Temporal temporal = temporals.get(i);
-                TimeDate startTimeDate = temporal.getStartDate();
-                TimeDate endTimeDate = temporal.getEndDate();
-                startTimeDate = summerTime(startTimeDate);
-                endTimeDate = summerTime(endTimeDate);
-
-                startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone);
-                endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone);
-                temporal.setStartDate(startTimeDate);
-                temporal.setEndDate(endTimeDate);
+                if (temporal != null) {
+                    TimeDate startTimeDate = temporal.getStartDate();
+                    if (startTimeDate != null) {
+                        startTimeDate = summerTime(startTimeDate);
+                        startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone);
+                        temporal.setStartDate(startTimeDate);
+                    }
+                    TimeDate endTimeDate = temporal.getEndDate();
+                    if (endTimeDate != null) {
+                        endTimeDate = summerTime(endTimeDate);
+                        endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone);
+                        temporal.setEndDate(endTimeDate);
+                    }
+                }
             }
         }
         return receivedTemporals;

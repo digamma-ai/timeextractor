@@ -129,37 +129,37 @@ var replace = function(tag, temporal, current_tag, gcUrl) {
 	if (current_tag['temporalType'] == 'TIME_DATE'
 			|| current_tag['temporalType'] == 'DATE_INTERVAL'
 			|| current_tag['temporalType'] == 'SET') {
-		$(tag)
-				.replaceText(
-						temporal,
-						"<a href = \""
-								+ gcUrl
-								+ "\" target = \"_blank\" ><span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
-								+ JSON.stringify(current_tag.extractedTemporal)
-										.replace(/"/g, '\'')
-								+ " "
-								+ "locale: "
-								+ JSON.stringify(current_tag.locale).replace(
-										/"/g, '\'') + " " + "confidence: "
-								+ JSON.stringify(current_tag.confidence)
-								+ "\">" + temporal + "</span></a>");
+		$(tag).replaceText(temporal,
+				replaceAString(gcUrl, current_tag, temporal));
 	} else {
-		$(tag)
-				.replaceText(
-						temporal,
-						"<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
-								+ JSON.stringify(current_tag.extractedTemporal)
-										.replace(/"/g, '\'')
-								+ " "
-								+ "locale: "
-								+ JSON.stringify(current_tag.locale).replace(
-										/"/g, '\'')
-								+ " "
-								+ "confidence: "
-								+ JSON.stringify(current_tag.confidence)
-								+ "\">" + temporal + "</span>");
+		$(tag).replaceText(temporal,
+				replaceSimpleString(gcUrl, current_tag, temporal));
 	}
 
+}
+
+var replaceSimpleString = function(gcUrl, current_tag, temporal) {
+	return "<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
+			+ JSON.stringify(current_tag.extractedTemporal).replace(/"/g, '\'')
+			+ " "
+			+ "locale: "
+			+ JSON.stringify(current_tag.locale).replace(/"/g, '\'')
+			+ " "
+			+ "confidence: "
+			+ JSON.stringify(current_tag.confidence)
+			+ "\">"
+			+ temporal + "</span>";
+}
+
+var replaceAString = function(gcUrl, current_tag, temporal) {
+	return "<a href = \""
+			+ gcUrl
+			+ "\" target = \"_blank\" ><span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
+			+ JSON.stringify(current_tag.extractedTemporal).replace(/"/g, '\'')
+			+ " " + "locale: "
+			+ JSON.stringify(current_tag.locale).replace(/"/g, '\'') + " "
+			+ "confidence: " + JSON.stringify(current_tag.confidence) + "\">"
+			+ temporal + "</span></a>";
 }
 
 // generate google calendar URL
@@ -167,7 +167,6 @@ var replace = function(tag, temporal, current_tag, gcUrl) {
 var generateGCUrl = function(extractedTemporal) {
 	return "http://www.google.com/calendar/event?action=TEMPLATE&dates="
 			+ generateDatesPartOfGCString(extractedTemporal);
-
 }
 
 var generateDatesPartOfGCString = function(extractedTemporal) {

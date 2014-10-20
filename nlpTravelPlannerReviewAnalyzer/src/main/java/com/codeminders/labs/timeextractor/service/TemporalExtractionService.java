@@ -1,5 +1,6 @@
 package com.codeminders.labs.timeextractor.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +27,7 @@ public class TemporalExtractionService {
     private Annotation2DTOTemporalConversion converter;
     private CombineRulesService combineRulesService;
     private ProcessRulesService processingService;
+    private FilterRulesService filterService;
     private static MultipleExtractionService service = new MultipleExtractionService(null);
     private static final Logger logger = Logger.getLogger(TemporalExtractionService.class);
 
@@ -34,6 +36,7 @@ public class TemporalExtractionService {
         converter = new Annotation2DTOTemporalConversion();
         combineRulesService = new CombineRulesService();
         processingService = new ProcessRulesService();
+        filterService = new FilterRulesService();
     }
 
     public Map<String, TreeSet<AnnotationIntervalHtml>> extractDatesAndTimeFromHtml(String html, Settings settings) {
@@ -56,10 +59,27 @@ public class TemporalExtractionService {
     }
 
     public TreeSet<TemporalExtraction> extractDatesAndTimeFromText(String text, Settings settings) {
+        // extract dates and times
+        TreeSet<TemporalExtraction> temporals = extractDatesAndTimes(text, settings);
+        // combine extracted elements
+        temporals = combineRulesService.combinationRule(temporals, text);
+        // process relative date
+        temporals = processingService.processRelativeDate(temporals, settings);
+        // process timezone (make intervals)
+        temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
+        // filter simple rules
+        temporals = filterService.removeSimpleTemporals(new ArrayList<TemporalExtraction>(temporals));
+        return temporals;
+    }
+
+    /* Method extracts dates and times from text */
+
+    private TreeSet<TemporalExtraction> extractDatesAndTimes(String text, Settings settings) {
+        TreeSet<TemporalExtraction> temporals = new TreeSet<TemporalExtraction>();
+
         if (text == null) {
             return null;
         }
-        TreeSet<TemporalExtraction> temporals = new TreeSet<TemporalExtraction>();
         List<RegexResult> results = service.getTemporals(text, settings);
         for (RegexResult result : results) {
             Rule rule = result.getRule();
@@ -72,12 +92,6 @@ public class TemporalExtractionService {
             }
             temporals.add(temporal);
         }
-        // composite rules service
-        temporals = combineRulesService.combinationRule(temporals, text);
-        // process relative date
-        temporals = processingService.processRelativeDate(temporals, settings);
-        // process according to current date and timezone (make intervals)
-        temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
         return temporals;
     }
 
@@ -150,7 +164,7 @@ public class TemporalExtractionService {
     public static void main(String[] args) throws Exception {
         TemporalExtractionService service = new TemporalExtractionService();
         Settings settings = new Settings(null, "-180", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("tomorrow", settings);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("third tuesday of the month", settings);
         System.out.println(extracted.first());
     }
 }

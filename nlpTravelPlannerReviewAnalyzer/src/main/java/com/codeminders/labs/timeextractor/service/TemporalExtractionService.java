@@ -61,10 +61,11 @@ public class TemporalExtractionService {
     public TreeSet<TemporalExtraction> extractDatesAndTimeFromText(String text, Settings settings) {
         // extract dates and times
         TreeSet<TemporalExtraction> temporals = extractDatesAndTimes(text, settings);
-        // combine extracted elements
-        temporals = combineRulesService.combinationRule(temporals, text);
         // process relative date
         temporals = processingService.processRelativeDate(temporals, settings);
+        // combine extracted elements
+        temporals = combineRulesService.combinationRule(temporals, text);
+        temporals = processingService.processRelativeDayOfWeek(temporals, settings);
         // process timezone (make intervals)
         temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
         // filter simple rules
@@ -164,7 +165,7 @@ public class TemporalExtractionService {
     public static void main(String[] args) throws Exception {
         TemporalExtractionService service = new TemporalExtractionService();
         Settings settings = new Settings(null, "-180", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("third tuesday of the month", settings);
-        System.out.println(extracted.first());
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("2pm on Sundays ", settings);
+        System.out.println(extracted);
     }
 }

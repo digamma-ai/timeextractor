@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.rules.general.GeneralTest;
-import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 
 public class CompositeDayOfWeekTimeOfDayTest extends GeneralTest {
 

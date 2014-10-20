@@ -31,6 +31,12 @@ public class ProcessRulesService {
         return receivedTemporals;
     }
 
+    public TreeSet<TemporalExtraction> processRelativeDayOfWeek(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
+        List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
+        receivedTemporals = dayOfWeekRelative(list, settings.getDate());
+        return receivedTemporals;
+    }
+
     private TreeSet<TemporalExtraction> relativeDate(List<TemporalExtraction> list, LocalDateTime dateTime) {
         if (dateTime == null) {
             dateTime = new LocalDateTime();
@@ -41,7 +47,20 @@ public class ProcessRulesService {
             if (temporal.getType() == Type.RELATIVE_TODAY) {
                 temporal = parser.getRelativeTemporalObjectByProperty(extraction.getTemporalExpression(), dateTime);
                 list.get(i).getTemporal().set(0, temporal);
-            } else if (temporal.getType() == Type.DAY_OF_WEEK) {
+                list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
+            }
+        }
+        return new TreeSet<TemporalExtraction>(list);
+    }
+
+    public TreeSet<TemporalExtraction> dayOfWeekRelative(List<TemporalExtraction> list, LocalDateTime dateTime) {
+        if (dateTime == null) {
+            dateTime = new LocalDateTime();
+        }
+        for (int i = 0; i < list.size(); i++) {
+            TemporalExtraction extraction = list.get(i);
+            Temporal temporal = extraction.getTemporal().get(0);
+            if (temporal.getType() == Type.DAY_OF_WEEK) {
                 temporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getStartDate().getDate().getDayOfWeek(), dateTime);
                 list.get(i).getTemporal().set(0, temporal);
             }

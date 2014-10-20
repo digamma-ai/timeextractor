@@ -33,7 +33,7 @@ public class DayOfWeekIntervalRule2 extends Rule {
 
     @Override
     public Type getType() {
-        return Type.DATE_INTERVAL;
+        return Type.DAY_OF_WEEK_INTERVAL;
     }
 
     @Override

@@ -20,5 +20,4 @@
    "storage",
     "tabs", "http://*/*", "https://*/*"],
     "options_page": "options.html"
-  
 }

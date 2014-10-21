@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.set;
+package com.codeminders.labs.timeextractor.rules.repeated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,30 +11,32 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-public class AllPeriod extends Rule {
+// every day, every week, every month
+
+public class EveryPeriod extends Rule {
     private TemporalParser parser;
     private double confidence = 0.9;
-    private String rule = "\\b((whole|all|entire|full)[\\s]*(day|week|month|year))\\b";
-    protected String example = "whole year, all day, full month, entire week";
-    protected UUID id = UUID.fromString("8b48600c-fcaf-4379-a604-6c74678522a7");
+    private String rule = "\\b((every|each)[\\s]*(day|week|month|year|weekday|weekend))\\b";
+    protected String example = "every week, every year, each month, etc.";
+    protected UUID id = UUID.fromString("6617d13e-f1cb-475e-8d73-a2cf1a42742e");
 
     private int priority = 2;
     {
         parser = new TemporalParser();
     }
 
-    public AllPeriod() {
+    public EveryPeriod() {
     }
 
     @Override
     public Type getType() {
-        return Type.DURATION;
+        return Type.SET;
     }
 
     @Override
     public List<Temporal> getTemporal(String text) {
         Matcher m = Utils.getMatch(rule, text);
-        Temporal temporal = parser.getDuration(m.group(3), 1);
+        Temporal temporal = parser.getTemporalForEveryPeriod(m.group(3));
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);
         return temporalList;

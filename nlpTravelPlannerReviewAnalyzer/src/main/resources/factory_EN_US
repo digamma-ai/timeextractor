@@ -40,8 +40,8 @@ com.codeminders.labs.timeextractor.rules.duration.DurationRule4
 com.codeminders.labs.timeextractor.rules.duration.DurationRule5
 com.codeminders.labs.timeextractor.rules.duration.interval.DurationIntervalRule1
 com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime
-com.codeminders.labs.timeextractor.rules.set.AllPeriod
-com.codeminders.labs.timeextractor.rules.set.EveryPeriod
+com.codeminders.labs.timeextractor.rules.repeated.AllPeriod
+com.codeminders.labs.timeextractor.rules.repeated.EveryPeriod
 com.codeminders.labs.timeextractor.rules.time.Time1Rule
 com.codeminders.labs.timeextractor.rules.time.Time2Rule
 com.codeminders.labs.timeextractor.rules.time.Time3Rule

@@ -334,7 +334,7 @@ public class CombineRulesService {
             temporal.setToPosition(temporalB.getToPosition());
             return temporal;
         }
-        
+
         else if ((typeB == Type.DAY_OF_WEEK_INTERVAL) && (typeA == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = temporalJoinTimeDate(temporalB, temporalA);
             temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());

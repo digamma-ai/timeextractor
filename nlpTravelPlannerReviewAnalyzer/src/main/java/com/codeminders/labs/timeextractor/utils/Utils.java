@@ -76,10 +76,12 @@ public class Utils {
 
     /* Method returns LocalDateTime from TimeDate */
 
-    public static LocalDateTime getTimeDate(TimeDate timeDate) {
-        LocalDateTime localDateTime = new LocalDateTime();
+    public static LocalDateTime getTimeDate(TimeDate timeDate, LocalDateTime localDateTime) {
         if (timeDate == null) {
             return localDateTime;
+        }
+        if (localDateTime == null) {
+            localDateTime = new LocalDateTime();
         }
         Date date = timeDate.getDate();
         Time time = timeDate.getTime();

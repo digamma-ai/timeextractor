@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.dateinterval;
+package com.codeminders.labs.timeextractor.rules.weekend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +13,20 @@ import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.utils.TemporalObjectGenerator;
 
-public class WeekEnd extends Rule {
+public class WeekDay extends Rule {
 
     private double confidence = 0.9;
-    private String rule = "\\b(weekend|weekends|week-end|week-ends)\\b";
+    private String rule = "\\b(week days|week day|week days|week day|weekday|weekdays|week-days|week-day)\\b";
     protected int priority = 1;
-    protected String example = "weekend, week-end, etc.";
-    protected UUID id = UUID.fromString("7bf02d24-c82b-47db-99b8-9344f9bbed20");
+    protected String example = "week days, weekday, etc. ";
+    protected UUID id = UUID.fromString("04562d23-7c1d-4bb6-b1e6-95b237c1490e");
 
-    public WeekEnd() {
+    public WeekDay() {
     }
 
     @Override
     public Type getType() {
-        return Type.DATE_INTERVAL;
+        return Type.DAY_OF_WEEK_INTERVAL;
     }
 
     @Override
@@ -37,8 +37,8 @@ public class WeekEnd extends Rule {
         Date startDate = new Date();
         Date endDate = new Date();
 
-        startDate.setDayOfWeek(DayOfWeek.SA);
-        endDate.setDayOfWeek(DayOfWeek.SU);
+        startDate.setDayOfWeek(DayOfWeek.MO);
+        endDate.setDayOfWeek(DayOfWeek.FR);
 
         start.setDate(startDate);
         end.setDate(endDate);
@@ -100,4 +100,5 @@ public class WeekEnd extends Rule {
     public UUID getId() {
         return id;
     }
+
 }

@@ -23,7 +23,7 @@ public class TimeIntervalRule5 extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 5;
-    private String rule = "((after|before|until|till|til|by)[\\s]*([01]?[0-9]|2[0-3])(([.|:])([0-5][0-9]))?[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)))";
+    private String rule = "((after|before|until|till|til|by|past)[\\s]*([01]?[0-9]|2[0-3])(([.|:])([0-5][0-9]))?[\\s]*(([p,P][.]?[m,M][.]?)|([a,A][.]?[m,M][.]?)))";
     protected String example = "after 19pm, until 5.33 am";
     protected UUID id = UUID.fromString("1a7522ee-7abe-4595-af9e-8cff79d8d88a");
 

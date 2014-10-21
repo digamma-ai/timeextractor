@@ -22,7 +22,7 @@ public class MonthAndDayRule4 extends Rule {
     private double confidence = 0.99;
     private int priority = 4;
     private String rule = "(" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY
-            + ")[,]?[\\s]*\\b(([0]?[1-9])|([1][0-2]))[\\/]\\b(([1-9])|([1-2][0-9])|([3][0-1]))\\b[\\s]*([,])?";
+            + ")[,]?[\\s]*(([0]?[1-9])|([1][0-2]))[\\/]\\b(([1-9])|([1-2][0-9])|([3][0-1]))\\b";
     protected String example = "Fri, 6/27; Saturday 01/10";
     protected UUID id = UUID.fromString("cf400fa9-7306-4e87-8e75-9591ae532555");
 

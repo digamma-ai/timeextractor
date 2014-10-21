@@ -31,17 +31,18 @@ com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthInterval
 com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1
 com.codeminders.labs.timeextractor.rules.season.SeasonRules
 com.codeminders.labs.timeextractor.rules.season.SeasonRules2
-com.codeminders.labs.timeextractor.rules.dateinterval.WeekDay
-com.codeminders.labs.timeextractor.rules.dateinterval.WeekEnd
+com.codeminders.labs.timeextractor.rules.weekend.WeekDay
+com.codeminders.labs.timeextractor.rules.weekend.WeekEnd
 com.codeminders.labs.timeextractor.rules.duration.DurationRule1
 com.codeminders.labs.timeextractor.rules.duration.DurationRule2
 com.codeminders.labs.timeextractor.rules.duration.DurationRule3
 com.codeminders.labs.timeextractor.rules.duration.DurationRule4
 com.codeminders.labs.timeextractor.rules.duration.DurationRule5
 com.codeminders.labs.timeextractor.rules.duration.interval.DurationIntervalRule1
-com.codeminders.labs.timeextractor.rules.frequency.FrequencyTime
+com.codeminders.labs.timeextractor.rules.repeated.FrequencyTime
 com.codeminders.labs.timeextractor.rules.repeated.AllPeriod
 com.codeminders.labs.timeextractor.rules.repeated.EveryPeriod
+com.codeminders.labs.timeextractor.rules.repeated.Every
 com.codeminders.labs.timeextractor.rules.time.Time1Rule
 com.codeminders.labs.timeextractor.rules.time.Time2Rule
 com.codeminders.labs.timeextractor.rules.time.Time3Rule
@@ -68,4 +69,3 @@ com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule15
 com.codeminders.labs.timeextractor.rules.timeofday.TimeIntervalRule16
 com.codeminders.labs.timeextractor.rules.timeofday.TimeIntervalRule17
 com.codeminders.labs.timeextractor.rules.timeofday.TimeOfDayRule
-com.codeminders.labs.timeextractor.rules.frequency.Every

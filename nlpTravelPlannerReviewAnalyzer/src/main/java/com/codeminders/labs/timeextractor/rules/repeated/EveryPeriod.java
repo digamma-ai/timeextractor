@@ -30,7 +30,7 @@ public class EveryPeriod extends Rule {
 
     @Override
     public Type getType() {
-        return Type.SET;
+        return Type.PERIODIC;
     }
 
     @Override

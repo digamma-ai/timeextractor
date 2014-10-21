@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.frequency;
+package com.codeminders.labs.timeextractor.rules.repeated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class FrequencyTime extends Rule {
 
     @Override
     public Type getType() {
-        return Type.SET;
+        return Type.PERIODIC;
     }
 
     @Override

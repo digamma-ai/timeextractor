@@ -50,6 +50,9 @@ public class TimeIntervalRule7 extends Rule {
             if (m.group(7) != null) {
                 timeFrom.setHours(Utils.convertTime(timeFrom.getHours(), m.group(7)));
             }
+            if (m.group(7) == null && m.group(15) != null) {
+                timeFrom.setHours(Utils.convertTime(timeFrom.getHours(), m.group(15)));
+            }
         }
         if (m.group(6) != null) {
             timeFrom.setMinutes(Integer.parseInt(m.group(6)));

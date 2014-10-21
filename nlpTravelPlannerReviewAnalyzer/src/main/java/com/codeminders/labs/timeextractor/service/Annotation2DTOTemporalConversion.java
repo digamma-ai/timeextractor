@@ -54,6 +54,8 @@ public class Annotation2DTOTemporalConversion {
             return Type.DATE_INTERVAL;
         } else if (type == Type.DURATION) {
             return Type.DURATION;
+        } else if (type == Type.PERIODIC) {
+            return Type.PERIODIC;
         } else {
             return Type.TIME_DATE;
         }

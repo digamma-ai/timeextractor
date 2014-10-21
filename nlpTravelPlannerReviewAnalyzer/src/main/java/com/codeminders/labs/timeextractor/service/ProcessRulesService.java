@@ -12,10 +12,12 @@ import org.joda.time.LocalDateTime;
 
 import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
+import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
+import com.codeminders.labs.timeextractor.temporal.entities.WeekOfMonth;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
@@ -35,6 +37,82 @@ public class ProcessRulesService {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
         receivedTemporals = dayOfWeekRelative(list, settings.getDate());
         return receivedTemporals;
+    }
+
+    public TreeSet<TemporalExtraction> processRelativeDayOfWeekWeekOfMonth(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
+        List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
+        receivedTemporals = dayOfWeekWeekOfMonthRelative(list, settings.getDate());
+        return receivedTemporals;
+    }
+
+    public TreeSet<TemporalExtraction> processRelativeDayOfWeekInterval(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
+        List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
+        receivedTemporals = dayOfWeekIntervalRelative(list, settings.getDate());
+        return receivedTemporals;
+    }
+
+    private TreeSet<TemporalExtraction> dayOfWeekIntervalRelative(List<TemporalExtraction> list, LocalDateTime dateTime) {
+        if (dateTime == null) {
+            dateTime = new LocalDateTime();
+        }
+        for (int i = 0; i < list.size(); i++) {
+            TemporalExtraction extraction = list.get(i);
+            Temporal temporal = extraction.getTemporal().get(0);
+            if (temporal.getType() == Type.DAY_OF_WEEK_INTERVAL) {
+                Temporal startTemporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getStartDate().getDate().getDayOfWeek(), dateTime);
+                dateTime = dateTime.withDayOfMonth(startTemporal.getEndDate().getDate().getDay());
+                dateTime = dateTime.withMonthOfYear(startTemporal.getEndDate().getDate().getMonth());
+                Temporal endTemporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getEndDate().getDate().getDayOfWeek(), dateTime);
+
+                if (temporal.getStartDate() != null && temporal.getStartDate().getTime() != null) {
+                    Time time = temporal.getStartDate().getTime();
+                    startTemporal.getStartDate().setTime(time);
+                }
+                if (temporal.getEndDate() != null && temporal.getEndDate().getTime() != null) {
+                    TimeDate endDate = endTemporal.getEndDate();
+                    endDate.setDate(temporal.getEndDate().getDate());
+                    Time time = temporal.getEndDate().getTime();
+                    endDate.setTime(time);
+                }
+                startTemporal.setEndDate(endTemporal.getEndDate());
+                list.get(i).getTemporal().set(0, startTemporal);
+            }
+        }
+        return new TreeSet<TemporalExtraction>(list);
+    }
+
+    private TreeSet<TemporalExtraction> dayOfWeekWeekOfMonthRelative(List<TemporalExtraction> list, LocalDateTime dateTime) {
+        if (dateTime == null) {
+            dateTime = new LocalDateTime();
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            TemporalExtraction extraction = list.get(i);
+            Temporal temporal = extraction.getTemporal().get(0);
+            if (temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH) {
+                if (temporal.getStartDate() == null) {
+                    temporal.setStartDate(temporal.getEndDate());
+                }
+                DayOfWeek dayOfWeek = temporal.getStartDate().getDate().getDayOfWeek();
+                WeekOfMonth weekOfMonth = temporal.getStartDate().getDate().getWeekOfMonth();
+                if (temporal.getStartDate().getDate().getMonth() != 0) {
+                    dateTime = dateTime.withMonthOfYear(temporal.getStartDate().getDate().getMonth());
+                    dateTime = dateTime.withDayOfMonth(1);
+
+                }
+                Temporal newTemporal = parser.getRelativeTemporalObjectByWeekOfMonth(dayOfWeek, weekOfMonth, dateTime);
+                if (temporal.getStartDate() != null && temporal.getStartDate().getTime() != null) {
+                    Time time = temporal.getStartDate().getTime();
+                    newTemporal.getStartDate().setTime(time);
+                }
+                if (temporal.getEndDate() != null && temporal.getEndDate().getTime() != null) {
+                    Time time = temporal.getEndDate().getTime();
+                    newTemporal.getEndDate().setTime(time);
+                }
+                list.get(i).getTemporal().set(0, newTemporal);
+            }
+        }
+        return new TreeSet<TemporalExtraction>(list);
     }
 
     private TreeSet<TemporalExtraction> relativeDate(List<TemporalExtraction> list, LocalDateTime dateTime) {
@@ -61,8 +139,24 @@ public class ProcessRulesService {
             TemporalExtraction extraction = list.get(i);
             Temporal temporal = extraction.getTemporal().get(0);
             if (temporal.getType() == Type.DAY_OF_WEEK) {
-                temporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getStartDate().getDate().getDayOfWeek(), dateTime);
-                list.get(i).getTemporal().set(0, temporal);
+                if (temporal.getStartDate() == null) {
+                    temporal.setStartDate(temporal.getEndDate());
+                } else if (temporal.getStartDate().getTime() == null) {
+                    temporal.getStartDate().setTime(temporal.getEndDate().getTime());
+                }
+                Temporal newTemporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getStartDate().getDate().getDayOfWeek(), dateTime);
+                if (temporal.getStartDate() != null && temporal.getStartDate().getTime() != null) {
+                    Time time = temporal.getStartDate().getTime();
+                    newTemporal.getStartDate().setTime(time);
+                }
+                if (temporal.getEndDate() != null && temporal.getEndDate().getTime() != null) {
+                    TimeDate endDate = new TimeDate();
+                    endDate.setDate(newTemporal.getEndDate().getDate());
+                    Time time = temporal.getEndDate().getTime();
+                    endDate.setTime(time);
+                    newTemporal.setEndDate(endDate);
+                }
+                list.get(i).getTemporal().set(0, newTemporal);
             }
         }
         return new TreeSet<TemporalExtraction>(list);
@@ -79,54 +173,52 @@ public class ProcessRulesService {
                 if (temporal != null) {
                     TimeDate startTimeDate = temporal.getStartDate();
                     if (startTimeDate != null) {
-                        startTimeDate = summerTime(startTimeDate);
-                        startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone);
+                        startTimeDate = summerTime(startTimeDate, settings.getDate());
+                        startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone, settings.getDate());
                         temporal.setStartDate(startTimeDate);
                     }
                     TimeDate endTimeDate = temporal.getEndDate();
                     if (endTimeDate != null) {
-                        endTimeDate = summerTime(endTimeDate);
-                        endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone);
+                        endTimeDate = summerTime(endTimeDate, settings.getDate());
+                        endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone, settings.getDate());
                         temporal.setEndDate(endTimeDate);
                     }
                 }
             }
         }
+
         return receivedTemporals;
     }
 
-    private TimeDate summerTime(TimeDate timeDate) {
+    private TimeDate summerTime(TimeDate timeDate, LocalDateTime localDateTime) {
         if (timeDate == null) {
             return null;
         }
 
         if (summerTimeIsObserved(timeDate)) {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate);
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
             localDateTimeStart = localDateTimeStart.minusMinutes(60);
             timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
         }
         return timeDate;
     }
 
-    private TimeDate convertDateAndOffset(TimeDate timeDate, int offsetTimeZone) {
+    private TimeDate convertDateAndOffset(TimeDate timeDate, int offsetTimeZone, LocalDateTime localDateTime) {
         if (timeDate == null) {
             return null;
         }
         Time time = timeDate.getTime();
         if (timeDate != null && time != null && time.getTimezoneOffset() == -1000) {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate);
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
             localDateTimeStart = localDateTimeStart.plusMinutes(offsetTimeZone);
             timeDate = Utils.getTimeDate(localDateTimeStart, 0, timeDate);
         } else if (timeDate != null && time != null) {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate);
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
             localDateTimeStart = localDateTimeStart.plusMinutes(timeDate.getTime().getTimezoneOffset());
             timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
         } else {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate);
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
             timeDate = Utils.getTimeDate(localDateTimeStart, offsetTimeZone, timeDate);
-            localDateTimeStart = Utils.getTimeDate(timeDate);
-            localDateTimeStart = localDateTimeStart.plusMinutes(offsetTimeZone);
-            timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
         }
 
         return timeDate;

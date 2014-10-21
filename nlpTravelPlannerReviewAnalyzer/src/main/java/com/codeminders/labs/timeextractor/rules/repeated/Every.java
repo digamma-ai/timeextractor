@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.frequency;
+package com.codeminders.labs.timeextractor.rules.repeated;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,6 +3,7 @@ package com.codeminders.labs.timeextractor.utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
@@ -21,7 +22,9 @@ import com.codeminders.labs.timeextractor.temporal.entities.WeekOfMonth;
 public class TemporalParser {
 
     public Temporal getSeason(String season, int year) {
-
+        if (year == 0) {
+            year = new LocalDate().getYear();
+        }
         if (season == null || season.isEmpty()) {
             return null;
         }
@@ -85,8 +88,9 @@ public class TemporalParser {
         TimeDate start = new TimeDate();
         TimeDate end = new TimeDate();
 
-        if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR2) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR3)
-                || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR4) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR5)) {
+        if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR2)
+                || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR3) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR4)
+                || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR5)) {
             Date startDate = new Date(0, 1, 1);
             Date endDate = new Date(0, 1, 1);
             start.setDate(startDate);
@@ -109,7 +113,8 @@ public class TemporalParser {
             temporal = new Temporal(start, end);
         }
 
-        else if (holidayName.equalsIgnoreCase(Holidays.CHRISTMAS) || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS2) || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS3)) {
+        else if (holidayName.equalsIgnoreCase(Holidays.CHRISTMAS) || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS2)
+                || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS3)) {
             Date startDate = new Date(0, 12, 25);
             Date endDate = new Date(0, 12, 25);
             start.setDate(startDate);
@@ -324,6 +329,14 @@ public class TemporalParser {
                 day = getLastWeekdayOfMonth(parsedDayOfWeek, localDate.plusMonths(1).getMonthOfYear(), localDate.getYear());
                 localDate = localDate.withDayOfMonth(day);
             }
+        } else if (weekOfMonth == WeekOfMonth.FIRST) {
+            LocalDateTime newLocalDate = nthWeekdayOfMonth(parsedDayOfWeek, localDate.getMonthOfYear(), localDate.getYear(), 1);
+            if (newLocalDate.getDayOfMonth() < localDate.getDayOfMonth()) {
+                localDate = nthWeekdayOfMonth(parsedDayOfWeek, localDate.getMonthOfYear() + 1, localDate.getYear(), 1);
+            } else {
+                localDate = newLocalDate;
+            }
+
         } else if (currentWeek > parsedWeekOfMonth) {
             localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear() + 1, localDate.getYear(), weekOfMonth.getValue());
         } else if (currentWeek < parsedWeekOfMonth) {
@@ -356,11 +369,10 @@ public class TemporalParser {
     }
 
     private int currentWeekOfMonth(LocalDateTime localDate) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, localDate.getMonthOfYear());
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        cal.add(Calendar.YEAR, localDate.getYear());
-        return cal.get(Calendar.WEEK_OF_MONTH);
+        int date = localDate.getDayOfMonth();
+        int weekOfMonth = date % 7;
+
+        return weekOfMonth;
     }
 
     private int getLastWeekdayOfMonth(int dayweek, int month, int year) {
@@ -383,13 +395,14 @@ public class TemporalParser {
         if (durationType == null) {
             return null;
         }
-        if (durationType.equalsIgnoreCase("minutes") || durationType.equalsIgnoreCase("minute") || durationType.equalsIgnoreCase("mins") || durationType.equalsIgnoreCase("min")
-                || durationType.equalsIgnoreCase("mns") || durationType.equalsIgnoreCase("mn")) {
+        if (durationType.equalsIgnoreCase("minutes") || durationType.equalsIgnoreCase("minute") || durationType.equalsIgnoreCase("mins")
+                || durationType.equalsIgnoreCase("min") || durationType.equalsIgnoreCase("mns") || durationType.equalsIgnoreCase("mn")) {
             duration = new Duration();
             duration.setMinutes(durationLength);
         }
 
-        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs") || durationType.equalsIgnoreCase("hr")) {
+        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs")
+                || durationType.equalsIgnoreCase("hr")) {
             duration = new Duration();
             duration.setHours(durationLength);
         }
@@ -409,7 +422,8 @@ public class TemporalParser {
             duration.setYears(durationLength);
         }
 
-        if (durationType.equalsIgnoreCase("days") || durationType.equalsIgnoreCase("day") || durationType.equalsIgnoreCase("nights") || durationType.equalsIgnoreCase("night")) {
+        if (durationType.equalsIgnoreCase("days") || durationType.equalsIgnoreCase("day") || durationType.equalsIgnoreCase("nights")
+                || durationType.equalsIgnoreCase("night")) {
             duration = new Duration();
             duration.setDays(durationLength);
         }
@@ -431,13 +445,14 @@ public class TemporalParser {
         if (durationType == null) {
             return null;
         }
-        if (durationType.equalsIgnoreCase("minutes") || durationType.equalsIgnoreCase("minute") || durationType.equalsIgnoreCase("mins") || durationType.equalsIgnoreCase("min")
-                || durationType.equalsIgnoreCase("mns") || durationType.equalsIgnoreCase("mn")) {
+        if (durationType.equalsIgnoreCase("minutes") || durationType.equalsIgnoreCase("minute") || durationType.equalsIgnoreCase("mins")
+                || durationType.equalsIgnoreCase("min") || durationType.equalsIgnoreCase("mns") || durationType.equalsIgnoreCase("mn")) {
             localDateTime = localDateTime.minusMinutes(durationLength);
 
         }
 
-        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs") || durationType.equalsIgnoreCase("hr")) {
+        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs")
+                || durationType.equalsIgnoreCase("hr")) {
             localDateTime = localDateTime.minusHours(durationLength);
 
         }

@@ -2,25 +2,74 @@
 <html>
 <head>
 <title>My Test Extension Options</title>
+<meta name="copyright"
+	content="Copyright 2004-2014 &quot;codeminders&quot;">
+<meta name="keywords"
+	content="codeminders, machine learning, nlp, time extraction, temporal extraction">
+<meta name="robots" content="all">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="codeminders.css" />
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+<style type="text/css">
+.temporalextractorheader {
+	top: 173px;
+	left: 245px;
+	z-index: 100;
+	position: absolute;
+}
+
+.reference td {
+	border: 1px solid #d4d4d4;
+	padding: 5px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	vertical-align: top;
+}
+
+.content-save {
+	left: 100px;
+}
+</style>
 </head>
 <body>
-	Select type of connection: http or https
-	<br>
-	<br>
-	<select id="connection">
-		<option value="http">http</option>
-		<option value="https">https</option>
-	</select>
-	<br>
-	<br>
-	<div id="rules">
-		Select rules to be excluded<br> <br> <input type="button"
-			id="load_rules" value="Load rules">
-	</div>
+<body>
+	<div id="container" class="pages">
 
-	<div id="status"></div>
-	<br>
-	<button id="save">Save</button>
+		<div id="intro">
+			<div class="codeminders-big">
+				<a href="" alt=""><img src="images/codeminders-big.png" alt="" /></a>
+			</div>
+
+			<div class="CodemindersMottoPage">
+				<h2>from ideas. to reality.</h2>
+			</div>
+
+
+			<div class="content">
+				<div class="content-inside">
+					<h1>Options</h1>
+					<p class="bio">
+						Select the type of connection http or https: <br> <select
+							id="connection" class="css-select">
+							<option value="http">http</option>
+							<option value="https">https</option>
+						</select> <br> *** IN CASE YOU USE HTTPS YOU HAVE TO ADD IN CHROME
+						https://timeext.codeminders.com:8443/ to trusted web-sites
+					</p>
+					<div id="rules">
+						<p class="bio">
+							Load rule groups, select the one you want to be excluded and
+							click on save button <br> <input type="button"
+								id="load_rules" value="Load rules" class="rules">
+					</div>
+					<div id="status"></div>
+					<br>
+					<button id="save" class="save">Save</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script type="text/javascript" src="jquery.min.js"></script>
 	<script src="groups.js"></script>

@@ -1,16 +1,17 @@
 {
-  "name": "temporal extractor",
+  "name": "time extractor",
   "manifest_version": 2, 
   "version": "1",
-  "description": "Extracts temporal information from html page",
+  "description": "Extracts time information from html page: time, date, time intervals, date intervals, durations, durtion intervals, periods, etc.",
   "browser_action": {
     "name": "Manipulate DOM",
     "icons": ["icon.png"],
     "default_icon": "icon.png"
   },
+  "author":"codeminders.com",
   "content_scripts": [ {
     "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "jquery.ba-replacetext.min.js", "rules.js", "main.js" ],
-    "matches": [ "http://*/*", "https://*/*"]
+      "matches": [ "http://*/*", "https://*/*"]
   }],
      "background": {
     "scripts": [ "jquery.min.js", "background.js" ],

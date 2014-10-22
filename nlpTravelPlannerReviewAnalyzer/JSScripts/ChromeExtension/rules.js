@@ -1,5 +1,4 @@
-var TEMPORAL_EXTRACTION_URL = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/";
-var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/rules"
+var TEMPORAL_EXTRACTION_URL = "http://timeext.codeminders.com:8080/timeextractor-2/api/rules";
 var METHOD_GET = "GET";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
@@ -48,8 +47,22 @@ function restore_options() {
 	});
 }
 
+var checkAll = function() {
+	$('#select_all').click(function() {
+		$('body').find(':checkbox').prop('checked', true);
+	});
+}
+
+var uncheckAll = function() {
+	$('#unselect_all').click(function() {
+		$('body').find(':checkbox').prop('checked', false);
+
+	});
+}
+
 $(document).ready()
 {
+
 	var el = document.getElementById("load_rules");
 	var save = document.getElementById("save");
 
@@ -58,6 +71,7 @@ $(document).ready()
 		save.addEventListener("click", save_options);
 	}
 	document.addEventListener('DOMContentLoaded', restore_options);
+	checkAll();
 };
 
 function saveArrayOfRuleIds(arrayOfRuleNames) {
@@ -79,6 +93,8 @@ function getAllRules() {
 		allRules = data;
 		addTable(data);
 		$("#load_rules").hide();
+		checkAll();
+		uncheckAll();
 	}).fail(function(data, textStatus, jqXHR) {
 		alert("An error occured on server: " + jqXHR);
 	});
@@ -88,7 +104,7 @@ function getAllRules() {
 var rules = function() {
 	return $.ajax({
 		type : METHOD_GET,
-		url : TEMPORAL_EXTRACTION_SERVICE_URL,
+		url : TEMPORAL_EXTRACTION_URL,
 		crossDomain : true,
 		contentType : CONTENT_TYPE,
 		dataType : DATA_TYPE,
@@ -96,42 +112,19 @@ var rules = function() {
 }
 
 function addTable(rules) {
-	var myTableDiv = document.getElementById("rules")
-	var table = document.createElement('TABLE')
-	var tableBody = document.createElement('TBODY')
-
-	table.border = '1'
-	table.appendChild(tableBody);
-
-	var heading = new Array();
-	heading[0] = ""
-	heading[1] = "Group Types"
-	heading[2] = "Examples"
-
-	// TABLE COLUMNS
-	var tr = document.createElement('TR');
-	tableBody.appendChild(tr);
-	for (i = 0; i < heading.length; i++) {
-		var th = document.createElement('TH')
-		th.width = '75';
-		th.appendChild(document.createTextNode(heading[i]));
-		tr.appendChild(th);
+	var html = "<table class = \"reference\"><tbody>";
+	for ( var prop in rules) {
+		html += '<tr>';
+		html += '<td>' + "<input type='checkbox' id=\"" + prop
+				+ "\" class=\"checkbox\" ></input>" + '</td>';
+		html += '<td><b>' + rule_group_name(prop)['type'] + '</b></td>';
+		html += '<td>' + rule_group_name(prop)['example'] + '</td>';
+		html += "</tr>";
 	}
-	// TABLE ROWS
-	for ( var propt in rules) {
-		var tr = document.createElement('TR');
-		var td = document.createElement('TD');
-		var x = document.createElement("INPUT");
-		x.setAttribute("type", "checkbox");
-		x.setAttribute("id", propt);
-		td.appendChild(x);
-		tr.appendChild(td);
-		var cell = document.createElement("td");
-		var cellText = document.createTextNode(rule_group_name(propt));
-		cell.appendChild(cellText);
-		tr.appendChild(cell);
-		tableBody.appendChild(tr);
-	}
-	myTableDiv.appendChild(table)
+	html += "</tbody></table>"
+	html += "<p class =\"bio\"><a href = \"#\" id = \"select_all\">Check all</a>"
+	html += "  <a href = \"#\" id = \"unselect_all\">Uncheck all</a></p>"
+
+	$(html).appendTo('#rules');
 
 }

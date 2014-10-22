@@ -27,10 +27,10 @@ com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule1
 com.codeminders.labs.timeextractor.rules.dateinterval.DayOfWeekIntervalRule2
 com.codeminders.labs.timeextractor.rules.dateinterval.MidLateMonthRule
 com.codeminders.labs.timeextractor.rules.dateinterval.MonthDaysIntervalRule1
-com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthInterval
 com.codeminders.labs.timeextractor.rules.dateinterval.MonthToMonthRule1
 com.codeminders.labs.timeextractor.rules.season.SeasonRules
 com.codeminders.labs.timeextractor.rules.season.SeasonRules2
+com.codeminders.labs.timeextractor.rules.season.MonthToMonthInterval
 com.codeminders.labs.timeextractor.rules.weekend.WeekDay
 com.codeminders.labs.timeextractor.rules.weekend.WeekEnd
 com.codeminders.labs.timeextractor.rules.duration.DurationRule1

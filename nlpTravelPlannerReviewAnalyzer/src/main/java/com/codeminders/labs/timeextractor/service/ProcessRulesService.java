@@ -143,6 +143,17 @@ public class ProcessRulesService {
                 list.get(i).getTemporal().set(0, temporal);
                 list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
             }
+            if (temporal.getType() == Type.RELATIVE_DATE) {
+                temporal = parser.getRelativeDurationDate(extraction.getTemporalExpression(), dateTime);
+                list.get(i).getTemporal().set(0, temporal);
+                list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
+            }
+            if (temporal.getType() == Type.RELATIVE_DATE_ORDER) {
+                temporal = parser.getRelativeDurationDate2(extraction.getTemporalExpression(), dateTime);
+                list.get(i).getTemporal().set(0, temporal);
+                list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
+            }
+
         }
         return new TreeSet<TemporalExtraction>(list);
     }

@@ -1,10 +1,6 @@
-// server http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/
-// local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/"
+var TEMPORAL_EXTRACTION_URL_HTTP = "http://timeext.codeminders.com:8080/timeextractor-2/api/annotate";
+var TEMPORAL_EXTRACTION_URL_HTTPS = "https://timeext.codeminders.com:8443/timeextractor-2/api/annotate";
 
-var TEMPORAL_EXTRACTION_URL_HTTP = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/api/annotate";
-var TEMPORAL_EXTRACTION_URL_HTTPS = "https://ec2-54-81-15-231.compute-1.amazonaws.com:8443/timeextractor-2/api/annotate";
-
-var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL + "images/loading.gif";
 var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'

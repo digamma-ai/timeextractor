@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.regex.Matcher;
 
 import com.codeminders.labs.timeextractor.constants.TemporalConstants;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
-import com.codeminders.labs.timeextractor.utils.TemporalParser;
-import com.codeminders.labs.timeextractor.utils.Utils;
 
 public class NTimeAgoRule extends Rule {
 
@@ -19,12 +16,10 @@ public class NTimeAgoRule extends Rule {
     protected double confidence = 0.7;
     private int priority = 5;
     protected String rule = "\\b([\\d]{1,})[\\s]*(" + TemporalConstants.DURATION + ")[\\s]*(ago)\\b";
-    private TemporalParser parser;
-    protected String example = "10 month, 11 years, 123 minutes, etc.";
+    protected String example = "10 month ago, 11 years ago, 123 minutes ago, etc.";
     protected UUID id = UUID.fromString("f4d08326-7301-4f3d-8885-62ba81a521cf");
 
     public NTimeAgoRule() {
-        parser = new TemporalParser();
     }
 
     @Override
@@ -34,12 +29,11 @@ public class NTimeAgoRule extends Rule {
 
     @Override
     public List<Temporal> getTemporal(String text) {
-        Matcher m = Utils.getMatch(rule, text);
-        int length = Integer.parseInt(m.group(1));
-        Temporal temporal = parser.getRelativeDurationDate(m.group(2), length, null);
-        List<Temporal> temporalList = new ArrayList<Temporal>();
-        temporalList.add(temporal);
-        return temporalList;
+        List<Temporal> results = new ArrayList<Temporal>();
+        Temporal temporal = new Temporal();
+        results.add(temporal);
+        return results;
+
     }
 
     @Override

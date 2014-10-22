@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.rules.dateinterval;
+package com.codeminders.labs.timeextractor.rules.season;
 
 import java.util.ArrayList;
 import java.util.List;

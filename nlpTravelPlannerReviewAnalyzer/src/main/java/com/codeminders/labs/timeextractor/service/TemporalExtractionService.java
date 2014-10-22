@@ -165,8 +165,8 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) throws Exception {
         TemporalExtractionService service = new TemporalExtractionService();
-        Settings settings = new Settings(null, "0", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("after 5pm on saturday night", settings);
+        Settings settings = new Settings(null, "-180", null);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("1 week ago", settings);
         System.out.println(extracted);
     }
 }

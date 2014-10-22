@@ -146,6 +146,7 @@ public class CombineRulesService {
             temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
             temporal.setFromPosition(temporalA.getFromPosition());
             temporal.setToPosition(temporalB.getToPosition());
+            temporal.getTemporal().get(0).setType(Type.YEAR_INTERVAL);
 
             return temporal;
         }

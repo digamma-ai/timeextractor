@@ -2,10 +2,13 @@ package com.codeminders.labs.timeextractor.utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import com.codeminders.labs.timeextractor.rules.date.relative.NTimeAgoRule;
+import com.codeminders.labs.timeextractor.rules.date.relative.NTimeAgoRule2;
 import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.DayOfWeek;
 import com.codeminders.labs.timeextractor.temporal.entities.Duration;
@@ -437,52 +440,106 @@ public class TemporalParser {
 
     }
 
-    public Temporal getRelativeDurationDate(String durationType, int durationLength, Temporal temporal) {
-        LocalDateTime localDateTime = null;
-        if (temporal == null) {
-            localDateTime = LocalDateTime.now();
+    public Temporal getRelativeDurationDate(String text, LocalDateTime dateTime) {
+        Matcher m = Utils.getMatch(new NTimeAgoRule().getRule(), text);
+        int durationLength = Integer.parseInt(m.group(1));
+        String durationType = m.group(3);
+        if (dateTime == null) {
+            dateTime = LocalDateTime.now();
         }
         if (durationType == null) {
             return null;
         }
         if (durationType.equalsIgnoreCase("minutes") || durationType.equalsIgnoreCase("minute") || durationType.equalsIgnoreCase("mins")
                 || durationType.equalsIgnoreCase("min") || durationType.equalsIgnoreCase("mns") || durationType.equalsIgnoreCase("mn")) {
-            localDateTime = localDateTime.minusMinutes(durationLength);
+            dateTime = dateTime.minusMinutes(durationLength);
 
         }
 
         if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs")
                 || durationType.equalsIgnoreCase("hr")) {
-            localDateTime = localDateTime.minusHours(durationLength);
+            dateTime = dateTime.minusHours(durationLength);
 
         }
 
         if (durationType.equalsIgnoreCase("weeks") || durationType.equalsIgnoreCase("week")) {
-            localDateTime = localDateTime.minusWeeks(durationLength);
+            dateTime = dateTime.minusWeeks(durationLength);
 
         }
 
         if (durationType.equalsIgnoreCase("months") || durationType.equalsIgnoreCase("month")) {
-            localDateTime = localDateTime.minusMonths(durationLength);
+            dateTime = dateTime.minusMonths(durationLength);
 
         }
 
         if (durationType.equalsIgnoreCase("years") || durationType.equalsIgnoreCase("year")) {
-            localDateTime = localDateTime.minusYears(durationLength);
+            dateTime = dateTime.minusYears(durationLength);
 
         }
 
         if (durationType.equalsIgnoreCase("days") || durationType.equalsIgnoreCase("day")) {
-            localDateTime = localDateTime.minusDays(durationLength);
+            dateTime = dateTime.minusDays(durationLength);
 
         }
 
         if (durationType.equalsIgnoreCase("seconds") || durationType.equalsIgnoreCase("secs") || durationType.equalsIgnoreCase("sec")) {
-            localDateTime = localDateTime.minusSeconds(durationLength);
+            dateTime = dateTime.minusSeconds(durationLength);
 
         }
-        TimeDate timeDate = Utils.getTimeDate(localDateTime);
-        temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
+        TimeDate timeDate = Utils.getTimeDate(dateTime);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
+        return temporal;
+
+    }
+
+    public Temporal getRelativeDurationDate2(String text, LocalDateTime dateTime) {
+        Matcher m = Utils.getMatch(new NTimeAgoRule2().getRule(), text);
+        int durationLength = TemporalBasicCaseParser.getIntFromBasicTerm(m.group(2));
+        String durationType = m.group(8);
+        if (dateTime == null) {
+            dateTime = LocalDateTime.now();
+        }
+        if (durationType == null) {
+            return null;
+        }
+        if (durationType.equalsIgnoreCase("minutes") || durationType.equalsIgnoreCase("minute") || durationType.equalsIgnoreCase("mins")
+                || durationType.equalsIgnoreCase("min") || durationType.equalsIgnoreCase("mns") || durationType.equalsIgnoreCase("mn")) {
+            dateTime = dateTime.minusMinutes(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("hours") || durationType.equalsIgnoreCase("hour") || durationType.equalsIgnoreCase("hrs")
+                || durationType.equalsIgnoreCase("hr")) {
+            dateTime = dateTime.minusHours(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("weeks") || durationType.equalsIgnoreCase("week")) {
+            dateTime = dateTime.minusWeeks(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("months") || durationType.equalsIgnoreCase("month")) {
+            dateTime = dateTime.minusMonths(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("years") || durationType.equalsIgnoreCase("year")) {
+            dateTime = dateTime.minusYears(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("days") || durationType.equalsIgnoreCase("day")) {
+            dateTime = dateTime.minusDays(durationLength);
+
+        }
+
+        if (durationType.equalsIgnoreCase("seconds") || durationType.equalsIgnoreCase("secs") || durationType.equalsIgnoreCase("sec")) {
+            dateTime = dateTime.minusSeconds(durationLength);
+
+        }
+        TimeDate timeDate = Utils.getTimeDate(dateTime);
+        Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         return temporal;
 
     }

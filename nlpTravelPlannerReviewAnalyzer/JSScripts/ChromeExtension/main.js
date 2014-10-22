@@ -1,39 +1,59 @@
 // server http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/
 // local var TEMPORAL_EXTRACTION_SERVICE_URL = "http://localhost:8080/timeextractor/"
 
-var TEMPORAL_EXTRACTION_URL = " http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/";
-var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/annotate"
+var TEMPORAL_EXTRACTION_URL_HTTP = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/api/annotate";
+var TEMPORAL_EXTRACTION_URL_HTTPS = "https://ec2-54-81-15-231.compute-1.amazonaws.com:8443/timeextractor-2/api/annotate";
+
 var LOADING_BAR_IMAGE_URL = TEMPORAL_EXTRACTION_URL + "images/loading.gif";
 var METHOD_POST = "POST";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
 var TEMPORAL_ID = "_temporal_id";
+var highlighted = false;
+var old_html;
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
-	start();
+	if (!highlighted) {
+		chrome.storage.sync.get({
+			'connectionType' : 'http',
+			'ruleIds' : ''
+		}, function(obj) {
+			var connectionType = obj['connectionType'];
+			var rulesToIgnore = obj['ruleIds'];
+			var url = serverURL(connectionType);
+			start(url, rulesToIgnore);
+		});
+	} else {
+		start(null, null);
+	}
+
 });
 
-var start = function() {
+var start = function(url, rulesToIgnore) {
 	addGlobalStyle('.highlight { background-color: yellow  }');
 	var all_tags = $("*");
 	for (var i = 0; i < all_tags.length; i++) {
 		$(all_tags[i]).attr(TEMPORAL_ID, TEMPORAL_ID + i);
 	}
+	if (highlighted) {
+		location.reload(false);
+		return;
+	}
 	var currentdate = new Date();
 	var offset = new Date().getTimezoneOffset();
-	console.log(currentdate);
-	console.log(offset);
 	var html = $("html").html();
 	var json_to_get_temporal = [ {
 		'id' : '1',
 		'html' : html,
 		'timezone_offset' : offset,
-		date : currentdate
+		date : currentdate,
+		rules_to_ignore : rulesToIgnore
 	} ];
-	$.when(temporalData(json_to_get_temporal)).then(
+	$.when(temporalData(json_to_get_temporal, url)).then(
 			function(data, textStatus, jqXHR) {
-				highlight(html, data);
 				highlighted = true;
+				old_html = $('body').html();
+				highlight(html, data);
 			}).fail(function(data, textStatus, jqXHR) {
 		alert("An error occured on server: " + jqXHR);
 	});
@@ -42,15 +62,27 @@ var start = function() {
 
 // get temporal data from text service
 
-var temporalData = function(json) {
+var temporalData = function(json, url) {
 	return $.ajax({
 		type : METHOD_POST,
-		url : TEMPORAL_EXTRACTION_SERVICE_URL,
+		url : url,
 		data : JSON.stringify(json),
 		crossDomain : true,
 		contentType : CONTENT_TYPE,
 		dataType : DATA_TYPE,
 	});
+}
+
+// server URL depends on connectionType
+
+var serverURL = function(connectionType) {
+	switch (connectionType) {
+	case "https":
+		return TEMPORAL_EXTRACTION_URL_HTTPS;
+	default:
+		return TEMPORAL_EXTRACTION_URL_HTTP;
+	}
+
 }
 
 // function to highlight text on html page from position
@@ -91,6 +123,12 @@ var highlight = function(html, data) {
 					selected[i].current_tag, selected[i].gcUrl);
 		}
 	}
+}
+
+var unhighlight = function(html) {
+	highlighted = false;
+	$('body').html(old_html);
+
 }
 
 function getText(elems) {
@@ -134,13 +172,14 @@ var replace = function(tag, temporal, current_tag, gcUrl) {
 		$(tag).replaceText(temporal,
 				replaceAString(gcUrl, current_tag, temporal));
 	} else {
-		$(tag).replaceText(temporal,
-				replaceSimpleString(gcUrl, current_tag, temporal));
+		$(tag)
+				.replaceText(temporal,
+						replaceSimpleString(current_tag, temporal));
 	}
 
 }
 
-var replaceSimpleString = function(gcUrl, current_tag, temporal) {
+var replaceSimpleString = function(current_tag, temporal) {
 	return "<span data-tooltip aria-haspopup=\"true\" class=\"has-tip highlight\" title=\""
 			+ JSON.stringify(current_tag.extractedTemporal).replace(/"/g, '\'')
 			+ " "

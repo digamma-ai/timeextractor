@@ -65,14 +65,12 @@ public class TemporalExtractionService {
         temporals = processingService.processRelativeDate(temporals, settings);
         // combine extracted elements
         temporals = combineRulesService.combinationRule(temporals, text);
-        temporals = processingService.processRelativeDayOfWeek(temporals, settings);
-        temporals = processingService.processRelativeDayOfWeekWeekOfMonth(temporals, settings);
-        temporals = processingService.processRelativeDayOfWeekInterval(temporals, settings);
-
-        // process timezone (make intervals)
-        temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
         // filter simple rules
         temporals = filterService.removeSimpleTemporals(new ArrayList<TemporalExtraction>(temporals));
+        // provess days of week according to current date
+        temporals = processingService.processRelativeDayOfWeek(temporals, settings);
+        // process timezone
+        temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
         return temporals;
     }
 

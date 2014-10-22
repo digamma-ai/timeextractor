@@ -67,12 +67,7 @@ public class TimeExtractorRestService {
 
         String rulesToIgnore = null;
         try {
-            object.optString(RestParameters.RULES_TO_IGNORE);
-        } catch (Exception ex) {
-            logger.error(ex);
-        }
-        try {
-            object.optString(RestParameters.RULES_TO_IGNORE);
+            rulesToIgnore = object.optString(RestParameters.RULES_TO_IGNORE);
         } catch (Exception ex) {
             logger.error(ex);
         }

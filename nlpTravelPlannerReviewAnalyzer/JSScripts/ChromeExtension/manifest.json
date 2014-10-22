@@ -9,15 +9,15 @@
     "default_icon": "icon.png"
   },
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "jquery.ba-replacetext.min.js", "options.js", "rules.js", "main.js" ],
+    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "jquery.ba-replacetext.min.js", "rules.js", "main.js" ],
     "matches": [ "http://*/*", "https://*/*"]
   }],
      "background": {
-    "scripts": ["background.js" ],
+    "scripts": [ "jquery.min.js", "background.js" ],
     "persistent": false
   },
   "permissions": [
-   "storage",
+   "storage","contextMenus",
     "tabs", "http://*/*", "https://*/*"],
     "options_page": "options.html"
 }

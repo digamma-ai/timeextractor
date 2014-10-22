@@ -1,20 +1,84 @@
-var TEMPORAL_EXTRACTION_URL = "http://localhost:8080/timeextractor/";
+var TEMPORAL_EXTRACTION_URL = "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-2/";
 var TEMPORAL_EXTRACTION_SERVICE_URL = TEMPORAL_EXTRACTION_URL + "api/rules"
 var METHOD_GET = "GET";
 var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
+var allRules;
+// Saves options to chrome.storage
+function save_options() {
+	var arrayOfRulesToBeIgnored = [];
+	var connectionType = document.getElementById('connection').value;
+	var rules = [];
+	$('input[type=checkbox]').each(function() {
+		var sThisVal = (this.checked ? $(this).val() : "");
+		if (sThisVal == 'on') {
+			rules.push($(this).attr('id'));
+		}
+	});
+	var id = saveArrayOfRuleIds(rules);
+	chrome.storage.sync.set({
+		connectionType : connectionType,
+		rules : rules,
+		ruleIds : id
+	}, function() {
+		var status = document.getElementById('status');
+		status.textContent = 'Options saved.';
+		setTimeout(function() {
+			status.textContent = '';
+		}, 750);
+	});
+}
+
+function restore_options() {
+	chrome.storage.sync.get({
+		connectionType : 'http',
+	}, function(items) {
+		document.getElementById('connection').value = items.connectionType;
+	});
+
+	chrome.storage.sync.get({
+		rules : 'rules',
+	}, function(items) {
+		$('input[type=checkbox]').each(function() {
+			var isInArray = $.inArray($(this).attr('id'), items['rules']);
+			if (isInArray != -1) {
+				$(this).prop("checked", true);
+			}
+		});
+	});
+}
 
 $(document).ready()
 {
 	var el = document.getElementById("load_rules");
-	if (el) {
+	var save = document.getElementById("save");
+
+	if (el && save) {
 		el.addEventListener("click", getAllRules);
+		save.addEventListener("click", save_options);
 	}
+	document.addEventListener('DOMContentLoaded', restore_options);
 };
+
+function saveArrayOfRuleIds(arrayOfRuleNames) {
+	var id = [];
+	for ( var name in arrayOfRuleNames) {
+		var ruleName = arrayOfRuleNames[name];
+		var rules = allRules[ruleName];
+		for (var i = 0; i < rules.length; i++) {
+			id.push(rules[i].id);
+		}
+	}
+	return id;
+
+}
 
 function getAllRules() {
 	$.when(rules()).then(function(data, textStatus, jqXHR) {
+		restore_options();
+		allRules = data;
 		addTable(data);
+		$("#load_rules").hide();
 	}).fail(function(data, textStatus, jqXHR) {
 		alert("An error occured on server: " + jqXHR);
 	});
@@ -54,7 +118,6 @@ function addTable(rules) {
 		tr.appendChild(th);
 	}
 	// TABLE ROWS
-	console.log(rules);
 	for ( var propt in rules) {
 		var tr = document.createElement('TR');
 		var td = document.createElement('TD');
@@ -70,40 +133,5 @@ function addTable(rules) {
 		tableBody.appendChild(tr);
 	}
 	myTableDiv.appendChild(table)
-}
-
-var rule_group_name = function(group_name) {
-	switch (group_name) {
-	case "com.codeminders.labs.timeextractor.rules.timeofday":
-		return "Time of day";
-	case "com.codeminders.labs.timeextractor.rules.duration":
-		return "Duration";
-	case "com.codeminders.labs.timeextractor.rules.frequency":
-		return "Frequency";
-	case "com.codeminders.labs.timeextractor.rules.date":
-		return "Date";
-	case "com.codeminders.labs.timeextractor.rules.duration.interval":
-		return "Duration Interval";
-	case "com.codeminders.labs.timeextractor.rules.duration.interval":
-		return "Duration Interval";
-	case "com.codeminders.labs.timeextractor.rules.date.relative":
-		return "Relative dates";
-	case "com.codeminders.labs.timeextractor.rules.time":
-		return "Time";
-	case "com.codeminders.labs.timeextractor.rules.dateinterval":
-		return "Date interval";
-	case "com.codeminders.labs.timeextractor.rules.repeated":
-		return "Repeated";
-	case "com.codeminders.labs.timeextractor.rules.date.dayofweek":
-		return "Day of week";
-	case "com.codeminders.labs.timeextractor.rules.season":
-		return "Season";
-	case "com.codeminders.labs.timeextractor.rules.timezone":
-		return "Timezone";
-	case "com.codeminders.labs.timeextractor.rules.timeinterval":
-		return "Time intervals";
-	default:
-		return group_name;
-	}
 
 }

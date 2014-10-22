@@ -44,9 +44,11 @@ public class Utils {
         String[] UUIDs = arrayOfUUIDs.split(",");
         for (String UUId : UUIDs) {
             try {
-                setOfUUIDs.add(UUID.fromString(UUId.trim()));
+                UUId = UUId.replace("\"", "").replace("[", "").replace("]", "").trim();
+                UUID uuid = UUID.fromString(UUId);
+                setOfUUIDs.add(uuid);
             } catch (Exception ex) {
-                throw new Exception(ExceptionMessages.FIELD_RULES);
+                throw new Exception(ExceptionMessages.FIELD_RULES + ": " + UUId);
             }
         }
         return setOfUUIDs;

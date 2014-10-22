@@ -4,12 +4,26 @@
 <title>My Test Extension Options</title>
 </head>
 <body>
+	Select type of connection: http or https
+	<br>
+	<br>
+	<select id="connection">
+		<option value="http">http</option>
+		<option value="https">https</option>
+	</select>
+	<br>
+	<br>
 	<div id="rules">
-		<input type="button" id="load_rules" value="Load rules">
+		Select rules to be excluded<br> <br> <input type="button"
+			id="load_rules" value="Load rules">
 	</div>
 
+	<div id="status"></div>
+	<br>
+	<button id="save">Save</button>
+
 	<script type="text/javascript" src="jquery.min.js"></script>
+	<script src="groups.js"></script>
 	<script src="rules.js"></script>
-	<script src="options.js"></script>
 </body>
 </html>

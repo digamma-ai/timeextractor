@@ -7,6 +7,9 @@ var allRules;
 function save_options() {
 	var arrayOfRulesToBeIgnored = [];
 	var connectionType = document.getElementById('connection').value;
+	if (connectionType == 'https') {
+		open();
+	}
 	var rules = [];
 	$('input[type=checkbox]').each(function() {
 		var sThisVal = (this.checked ? $(this).val() : "");
@@ -60,18 +63,32 @@ var uncheckAll = function() {
 	});
 }
 
+var close = function() {
+	$("#close").click(function() {
+		document.getElementById('light').style.display = 'none';
+		document.getElementById('fade').style.display = 'none';
+	});
+}
+
+var open = function() {
+
+	document.getElementById('light').style.display = 'block';
+	document.getElementById('fade').style.display = 'block';
+
+}
+
 $(document).ready()
 {
 
 	var el = document.getElementById("load_rules");
 	var save = document.getElementById("save");
 
-	if (el && save) {
+	if (el && save && close) {
 		el.addEventListener("click", getAllRules);
 		save.addEventListener("click", save_options);
 	}
 	document.addEventListener('DOMContentLoaded', restore_options);
-	checkAll();
+	close();
 };
 
 function saveArrayOfRuleIds(arrayOfRuleNames) {
@@ -112,7 +129,10 @@ var rules = function() {
 }
 
 function addTable(rules) {
-	var html = "<table class = \"reference\"><tbody>";
+	var html = '';
+	html += "<p class =\"bio\"><a href = \"#\" id = \"select_all\">Check all</a>"
+	html += "  <a href = \"#\" id = \"unselect_all\">Uncheck all</a></p>"
+	html += "<table class = \"reference\"><tbody>";
 	for ( var prop in rules) {
 		html += '<tr>';
 		html += '<td>' + "<input type='checkbox' id=\"" + prop
@@ -122,8 +142,6 @@ function addTable(rules) {
 		html += "</tr>";
 	}
 	html += "</tbody></table>"
-	html += "<p class =\"bio\"><a href = \"#\" id = \"select_all\">Check all</a>"
-	html += "  <a href = \"#\" id = \"unselect_all\">Uncheck all</a></p>"
 
 	$(html).appendTo('#rules');
 

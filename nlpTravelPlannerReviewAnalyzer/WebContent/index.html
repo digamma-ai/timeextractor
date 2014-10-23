@@ -66,16 +66,20 @@
 					<br /> <br /> <br />
 					<h1>About</h1>
 					<p class="bio">
-						Temporal extractor API identifies and extracts temporal
-						expressions such as time, date, time intervals, date intervals,
-						durations, etc. from texts and html pages. <br>Below you can
-						find API documentation:
+						Time extractor API identifies and extracts time expressions such
+						as time, date, time intervals, date intervals, durations, etc.
+						from texts and html pages. <br>Below you can find API
+						documentation
 					</p>
-
-					<h1>Chrome extension</h1>
+					<h1>Chrome Extension</h1>
+					<p class="bio">Extension is used to add dates/times from web
+						page to your google calendar and demonstrates API possibilities</p>
 					<p class="bio">
-						<a href="ChromeExtension.crx">Here you can download Chrome
-							Extension archive</a><br>
+						<a
+							href="https://chrome.google.com/webstore/detail/time-extractor/hgaoahpeednaofaedhlbengbefdcfiei"
+							class="chromeExtension" target="_blank">Download Chrome
+							Extension</a> <a href="Time_Extractor_User_Guide.pdf"
+							class="instruction">Download PDF Instruction</a>
 					</p>
 
 					<h1>API Request</h1>
@@ -91,7 +95,9 @@
 						</tr>
 						<tr>
 							<td>URL</td>
-							<td>http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate</td>
+							<td>http://timeext.codeminders.com/timeextractor-2/api/annotate<br>
+								<br>https://timeext.codeminders.com:8443/timeextractor-2/api/annotate
+							</td>
 						</tr>
 						<tr>
 							<td>Method</td>
@@ -117,7 +123,11 @@
 										<td>timezone**</td>
 										<td>Timezone offset</td>
 									</tr>
-
+									<tr>
+										<td>date**</td>
+										<td>Current date in format, ex: Thu Oct 23 2014 21:26:17
+											GMT+0300</td>
+									</tr>
 									<tr>
 										<td>rules_to_ignore</td>
 										<td>UUID of rules that will be excluded, <br>ex.
@@ -131,21 +141,21 @@
 						</tr>
 						<tr>
 							<td>Sample json params text</td>
-							<td><pre>[ {"id":"2",'text':" monday ", 'timezone_offset':"0" },<br>{"id":"3",'text':" tuesday ", 'timezone_offset':"0", "rules_to_ignore":"364d8630-4592-4a24-9397-2634b0623bd74" }];</pre>
+							<td><pre>[ {"id":"2",'text':" monday ", 'timezone_offset':"0", 'date':'Thu Oct 23 2014 21:26:17 GMT+0300' },<br>{"id":"3",'text':" tuesday ", 'timezone_offset':"0", "rules_to_ignore":"364d8630-4592-4a24-9397-2634b0623bd74", 'date':'Thu Oct 23 2014 21:26:17 GMT+0300' }];</pre>
 
 							</td>
 						</tr>
 						<tr>
 							<td>Sample json params html***</td>
-							<td><pre>[ {'html' : "&ltbody _temporal_id = \"32\">24/02/2014&lt/body>", 'timezone_offset':"0" } ];</pre></td>
+							<td><pre>[ {'html' : "&ltbody _temporal_id = \"32\">24/02/2014&lt/body>", 'timezone_offset':"0", 'date':'Thu Oct 23 2014 21:26:17 GMT+0300' } ];</pre></td>
 						</tr>
 						<tr>
 							<td>Sample call</td>
-							<td><pre>var offset = new Date().getTimezoneOffset();<br>var json = [ {	'html' : "<body>24/02/2014</body>", 'timezone_offset':offset} ];
+							<td><pre>var offset = new Date().getTimezoneOffset(); var date = new Date(); <br>var json = [ {'html' : "&ltbody _temporal_id = \"32\">24/02/2014&lt/body>", 'timezone_offset':"0", 'date':date } ];
 
         $.ajax({
 		type : "POST",
-		url : "http://ec2-54-81-15-231.compute-1.amazonaws.com:8080/timeextractor-0.0.2/api/annotate",
+		url : "http://timeext.codeminders.com/timeextractor-2/api/annotate",
 		data : JSON.stringify(json),
 		crossDomain : true,
 		contentType : "application/json",

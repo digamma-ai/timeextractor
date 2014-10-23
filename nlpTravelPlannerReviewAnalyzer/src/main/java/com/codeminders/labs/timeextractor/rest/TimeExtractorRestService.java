@@ -62,6 +62,8 @@ public class TimeExtractorRestService {
 
             } catch (Exception ex) {
                 logger.error(ex);
+                return Response.status(400).entity(ExceptionMessages.DATE_RULES).build();
+
             }
         }
 

@@ -25,8 +25,17 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 
 });
 
-var start = function(url, rulesToIgnore) {
+$(document).ready()
+{
+	var imgURL = chrome.extension.getURL("images/loading.gif");
 	addGlobalStyle('.highlight { background-color: yellow  }');
+	addGlobalStyle(".loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999; background:url('"
+			+ imgURL + "') 50% 50% no-repeat rgb(249,249,249) }");
+	
+
+}
+
+var start = function(url, rulesToIgnore) {
 	var all_tags = $("*");
 	for (var i = 0; i < all_tags.length; i++) {
 		$(all_tags[i]).attr(TEMPORAL_ID, TEMPORAL_ID + i);
@@ -35,6 +44,17 @@ var start = function(url, rulesToIgnore) {
 		location.reload(false);
 		return;
 	}
+	var webUrl = document.location.protocol.indexOf("https:") == 0 ? "https"
+			: "http";
+	var currentUrl = url.indexOf("https://") == 0 ? "https" : "http";
+
+	if (webUrl == 'https' && currentUrl == 'http') {
+		alert("You should change in extension 'options' connection type for https ");
+		openOptions();
+		return;
+	}
+
+	$('body').prepend('<div class="loader"></div>');
 	var currentdate = new Date();
 	var offset = new Date().getTimezoneOffset();
 	var html = $("html").html();
@@ -50,11 +70,23 @@ var start = function(url, rulesToIgnore) {
 				highlighted = true;
 				old_html = $('body').html();
 				highlight(html, data);
+				$(".loader").fadeOut("slow");
 			}).fail(function(data, textStatus, jqXHR) {
-		alert("An error occured on server: " + jqXHR);
+		$(".loader").fadeOut("slow");
+		console.log(chrome.runtime.lastError);
+		alert("An error occured on server: " + textStatus);
+
 	});
 	;
 };
+
+var openOptions = function() {
+	chrome.runtime.sendMessage({
+		options : "options"
+	}, function(response) {
+
+	});
+}
 
 // get temporal data from text service
 

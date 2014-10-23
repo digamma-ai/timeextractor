@@ -37,7 +37,7 @@
 
 		<div id="intro">
 			<div class="codeminders-big">
-				<a href="" alt=""><img src="images/codeminders-big.png" alt="" /></a>
+				<img src="images/codeminders-big.png" alt="" />
 			</div>
 
 			<div class="CodemindersMottoPage">
@@ -49,23 +49,33 @@
 				<div class="content-inside">
 					<h1>Options</h1>
 					<p class="bio">
-						Select the type of connection http or https: <br> <select
+						Select the type of connection http or https: <br> <br> <select
 							id="connection" class="css-select">
 							<option value="http">http</option>
 							<option value="https">https</option>
-						</select> <br> *** IN CASE YOU USE HTTPS YOU HAVE TO ADD IN CHROME
-						https://timeext.codeminders.com:8443/ to trusted web-sites
+						</select>
 					</p>
+					<br>
 					<div id="rules">
 						<p class="bio">
 							Load rule groups, select the one you want to be excluded and
-							click on save button <br> <input type="button"
+							click on save button <br> <br> <input type="button"
 								id="load_rules" value="Load rules" class="rules">
 					</div>
 					<div id="status"></div>
 					<br>
 					<button id="save" class="save">Save</button>
 
+					<div id="light" class="white_content">
+						<font color="red">IN CASE YOU USE HTTPS YOU HAVE TO ADD IN
+							CHROME<br /> <br> 1. Click on the link <a
+							href="https://timeext.codeminders.com:8443/" target="_blank">https://timeext.codeminders.com:8443/</a><br>
+							<br>2. Click "Advanced" <br> <br>3. Click "Proceed
+							Anyway" on and the contents should load. Otherwise you will get
+							error message<br> <br>
+						</font><a href="#" id="close">Close</a>
+					</div>
+					<div id="fade" class="black_overlay"></div>
 				</div>
 			</div>
 		</div>

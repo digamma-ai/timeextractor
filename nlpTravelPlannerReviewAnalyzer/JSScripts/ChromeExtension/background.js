@@ -3,8 +3,18 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 		chrome.tabs.sendMessage(tab.id, {
 			message : "message"
 		});
+
 	});
 });
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	if (request.options == "options") {
+		chrome.tabs.create({
+			url : "options.html"
+		});
+	}
+});
+
 chrome.contextMenus.create({
 	'id' : 'contextFalseNegative',
 	'enabled' : true,
@@ -30,7 +40,6 @@ function onClickHandler(info, tab) {
 	} else {
 		report(fromUrl, text, 'false negative');
 	}
-
 };
 
 function report(url, text, type) {

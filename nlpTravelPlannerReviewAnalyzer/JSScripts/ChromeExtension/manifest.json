@@ -1,8 +1,8 @@
 {
-  "name": "time extractor",
+  "name": "Time extractor",
   "manifest_version": 2, 
-  "version": "1",
-  "description": "Extracts time information from html page: time, date, time intervals, date intervals, durations, durtion intervals, periods, etc.",
+  "version": "1.0.1",
+  "description": "Extracts time information from html page and is used to add dates/times from web page to your google calendar. ",
   "browser_action": {
     "name": "Manipulate DOM",
     "icons": ["icon.png"],
@@ -18,7 +18,10 @@
     "persistent": false
   },
   "permissions": [
-   "storage","contextMenus",
+   "storage","contextMenus", 
     "tabs", "http://*/*", "https://*/*"],
-    "options_page": "options.html"
+    "options_page": "options.html",
+    "web_accessible_resources": [
+       "images/loading.gif"
+     ]
 }

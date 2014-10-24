@@ -71,10 +71,8 @@ var close = function() {
 }
 
 var open = function() {
-
 	document.getElementById('light').style.display = 'block';
 	document.getElementById('fade').style.display = 'block';
-
 }
 
 $(document).ready()

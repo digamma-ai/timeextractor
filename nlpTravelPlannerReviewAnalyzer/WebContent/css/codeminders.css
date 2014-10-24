@@ -462,21 +462,31 @@ a:hover.address {
 }
 
 .instruction {
-	background-color:#f5ae34;
-	border:1px solid #ab7a19;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff !important;
-	font-family:arial;
-	font-size:17px;
-	padding:14px 23px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #e09007;
+	background-color: #f5ae34;
+	border: 1px solid #ab7a19;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff !important;
+	font-family: arial;
+	font-size: 17px;
+	padding: 14px 23px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #e09007;
 }
+
 .instruction:hover {
-	background-color:#f5a720;
+	background-color: #f5a720;
 }
+
 .instruction:active {
-	position:relative;
-	top:1px;
+	position: relative;
+	top: 1px;
+}
+
+.css-select {
+	border: 1px solid orange;
+	font-size: 14px;
+	color: black;
+	background: while;
+	padding: 5px;
 }

@@ -1,6 +1,8 @@
 package com.codeminders.labs.timeextractor.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -8,6 +10,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
+import org.joda.time.LocalDateTime;
 
 import com.codeminders.labs.timeextractor.dto.DTOTemporal;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
@@ -165,8 +168,12 @@ public class TemporalExtractionService {
 
     public static void main(String[] args) throws Exception {
         TemporalExtractionService service = new TemporalExtractionService();
-        Settings settings = new Settings(null, "-180", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("1 week ago", settings);
+        String parserRule = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+        SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
+        Date dateStr = sdf.parse("2014-10-24T18:40:40.931Z");
+        LocalDateTime localDate = new LocalDateTime(dateStr);
+        Settings settings = new Settings(localDate, "-180", null);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Friday after 5pm", settings);
         System.out.println(extracted);
     }
 }

@@ -6,7 +6,6 @@ var CONTENT_TYPE = "application/json"
 var DATA_TYPE = 'json'
 var TEMPORAL_ID = "_temporal_id";
 var highlighted = false;
-var old_html;
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
 	if (!highlighted) {
@@ -31,8 +30,7 @@ $(document).ready()
 	addGlobalStyle('.highlight { background-color: yellow  }');
 	addGlobalStyle(".loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999; background:url('"
 			+ imgURL + "') 50% 50% no-repeat rgb(249,249,249) }");
-	
-
+	alert_error();
 }
 
 var start = function(url, rulesToIgnore) {
@@ -49,8 +47,8 @@ var start = function(url, rulesToIgnore) {
 	var currentUrl = url.indexOf("https://") == 0 ? "https" : "http";
 
 	if (webUrl == 'https' && currentUrl == 'http') {
-		alert("You should change in extension 'options' connection type for https ");
-		openOptions();
+		message = "You should change in extension 'options' connection type for HTTPS.";
+		openPopup(message);
 		return;
 	}
 
@@ -68,25 +66,16 @@ var start = function(url, rulesToIgnore) {
 	$.when(temporalData(json_to_get_temporal, url)).then(
 			function(data, textStatus, jqXHR) {
 				highlighted = true;
-				old_html = $('body').html();
 				highlight(html, data);
 				$(".loader").fadeOut("slow");
 			}).fail(function(data, textStatus, jqXHR) {
 		$(".loader").fadeOut("slow");
-		console.log(chrome.runtime.lastError);
-		alert("An error occured on server: " + textStatus);
-
+		if (jqXHR == 'Not Found') {
+			openPopup('Server is not responding, try again later');
+		}
 	});
 	;
 };
-
-var openOptions = function() {
-	chrome.runtime.sendMessage({
-		options : "options"
-	}, function(response) {
-
-	});
-}
 
 // get temporal data from text service
 

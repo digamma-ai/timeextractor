@@ -272,7 +272,10 @@ public class TemporalParser {
             localDate = localDate.plusDays(1);
             TimeDate timeDate = Utils.getTimeDateUTC(localDate);
             Time time = new Time(19, 0, 0);
+            time.setTimezone(0);
+
             timeDate.setTime(time);
+
             return TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         }
 
@@ -306,8 +309,8 @@ public class TemporalParser {
             localDate = localDate.plusDays(7 + parsedDayOfWeek - currentDayOfWeek);
         }
         Time time = new Time(localDate.getHourOfDay(), localDate.getMinuteOfHour(), 0);
-        time.setTimezone(0);
         TimeDate timeDate = Utils.getTimeDate(localDate);
+        time.setTimezone(0);
         timeDate.setTime(time);
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         temporal.getStartDate().getDate().setDayOfWeek(dayOfWeek);
@@ -487,6 +490,7 @@ public class TemporalParser {
 
         }
         TimeDate timeDate = Utils.getTimeDate(dateTime);
+        timeDate.getTime().setTimezone(0);
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         return temporal;
 
@@ -539,6 +543,7 @@ public class TemporalParser {
 
         }
         TimeDate timeDate = Utils.getTimeDate(dateTime);
+        timeDate.getTime().setTimezone(0);
         Temporal temporal = TemporalObjectGenerator.generateTemporalTime(Type.DATE, timeDate);
         return temporal;
 

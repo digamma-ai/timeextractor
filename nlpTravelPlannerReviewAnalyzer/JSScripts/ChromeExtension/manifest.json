@@ -1,7 +1,7 @@
 {
   "name": "Time extractor",
   "manifest_version": 2, 
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extracts time information from html page and is used to add dates/times from web page to your google calendar. ",
   "browser_action": {
     "name": "Manipulate DOM",
@@ -10,7 +10,7 @@
   },
   "author":"codeminders.com",
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "jquery.ba-replacetext.min.js", "rules.js", "main.js" ],
+    "js": [ "jquery.min.js", "foundation.js", "foundation.tooltip.js", "jquery.ba-replacetext.min.js", "rules.js", "alert.js", "main.js" ],
       "matches": [ "http://*/*", "https://*/*"]
   }],
      "background": {
@@ -23,5 +23,6 @@
     "options_page": "options.html",
     "web_accessible_resources": [
        "images/loading.gif"
-     ]
+     ],
+     "homepage_url": "http://timeext.codeminders.com/"
 }

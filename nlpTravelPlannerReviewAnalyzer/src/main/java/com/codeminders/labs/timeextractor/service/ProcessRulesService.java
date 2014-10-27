@@ -47,17 +47,19 @@ public class ProcessRulesService {
         for (int i = 0; i < list.size(); i++) {
             TemporalExtraction extraction = list.get(i);
             Temporal temporal = extraction.getTemporal().get(0);
-            if (temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH) {
+            if (temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH || temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT
+                    || temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET || temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT
+                    || temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_SET || temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT_SET) {
                 Temporal newTemporal = relativedayOfWeekWeekOfMonth(temporal, dateTime);
                 list.get(i).getTemporal().set(0, newTemporal);
             }
 
-            else if (temporal.getType() == Type.DAY_OF_WEEK_INTERVAL) {
+            else if (temporal.getType() == Type.DAY_OF_WEEK_INTERVAL || temporal.getType() == Type.DAY_OF_WEEK_INTERVAL_TIME) {
                 Temporal newTemporal = relativeDayOfWeekInterval(temporal, dateTime);
                 list.get(i).getTemporal().set(0, newTemporal);
             }
 
-            else if (temporal.getType() == Type.DAY_OF_WEEK) {
+            else if (temporal.getType() == Type.DAY_OF_WEEK || temporal.getType() == Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT || temporal.getType() == Type.DAY_OF_WEEK_SET) {
                 Temporal newTemporal = relativeDayOfWeek(temporal, dateTime);
                 list.get(i).getTemporal().set(0, newTemporal);
             }
@@ -100,7 +102,6 @@ public class ProcessRulesService {
         }
         if (temporal.getEndDate() != null && temporal.getEndDate().getTime() != null) {
             TimeDate endDate = endTemporal.getEndDate();
-            endDate.setDate(temporal.getEndDate().getDate());
             Time time = temporal.getEndDate().getTime();
             endDate.setTime(time);
         }

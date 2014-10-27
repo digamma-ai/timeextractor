@@ -170,10 +170,10 @@ public class TemporalExtractionService {
         TemporalExtractionService service = new TemporalExtractionService();
         String parserRule = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
         SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
-        Date dateStr = sdf.parse("2014-10-24T18:40:40.931Z");
+        Date dateStr = sdf.parse("2014-10-27T18:40:40.931Z");
         LocalDateTime localDate = new LocalDateTime(dateStr);
         Settings settings = new Settings(localDate, "-180", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Friday after 5pm", settings);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Free entry every first Tuesday of the month!!", settings);
         System.out.println(extracted);
     }
 }

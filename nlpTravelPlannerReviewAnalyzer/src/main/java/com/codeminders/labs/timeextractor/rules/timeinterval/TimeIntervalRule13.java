@@ -19,7 +19,7 @@ public class TimeIntervalRule13 extends Rule {
     protected Locale locale = Locale.US;
     protected double confidence = 0.8;
     private int priority = 5;
-    private String rule = "\\b(([01]?[0-9]|2[0-3])[:]([0-5][0-9])[\\s]*[-|to][\\s]*([01]?[0-9]|2[0-3])[:]([0-5][0-9]))\\b";
+    private String rule = "\\b(([01]?[0-9]|2[0-3])[:]([0-5][0-9])[\\s]*[-|–|to][\\s]*([01]?[0-9]|2[0-3])[:]([0-5][0-9]))\\b";
     protected String example = "20:22 to 23:30";
     protected UUID id = UUID.fromString("c444e037-eb63-4e73-a6e2-c9db29f1b8c9");
 

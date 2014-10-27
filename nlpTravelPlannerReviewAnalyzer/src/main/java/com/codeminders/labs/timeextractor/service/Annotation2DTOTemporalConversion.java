@@ -29,7 +29,7 @@ public class Annotation2DTOTemporalConversion {
             if (temporal.getType() == Type.DURATION) {
                 DTODuration duration = new DTODuration(temporal);
                 htmlTemporals.add(duration);
-            } else if (temporal.getType() == Type.SET) {
+            } else if (temporal.getType() == Type.SET || temporal.getType() == Type.DAY_OF_WEEK_SET || temporal.getType() == Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET) {
                 DTOSet set = new DTOSet(temporal);
                 htmlTemporals.add(set);
             }

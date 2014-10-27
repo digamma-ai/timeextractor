@@ -59,7 +59,8 @@ public class ProcessRulesService {
                 list.get(i).getTemporal().set(0, newTemporal);
             }
 
-            else if (temporal.getType() == Type.DAY_OF_WEEK || temporal.getType() == Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT || temporal.getType() == Type.DAY_OF_WEEK_SET) {
+            else if (temporal.getType() == Type.DAY_OF_WEEK || temporal.getType() == Type.DAY_OF_WEEK_AND_TIME || temporal.getType() == Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT
+                    || temporal.getType() == Type.DAY_OF_WEEK_SET) {
                 Temporal newTemporal = relativeDayOfWeek(temporal, dateTime);
                 list.get(i).getTemporal().set(0, newTemporal);
             }

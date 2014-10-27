@@ -125,7 +125,8 @@ public class CombineRulesService {
 
         else if (typeA == Type.DATE && typeB == Type.DAY_OF_WEEK) {
             if (temporalA.getTemporal().get(0).getStartDate().getDate().getDayOfWeek() == null) {
-                setDetails(temporalA, temporalB, temporal, Type.DATE, midText);
+                temporal = joinDayOfWeekAndDate(temporalB, temporalA);
+                setDetails(temporalB, temporalA, temporal, Type.DATE, midText);
                 return temporal;
             }
         }
@@ -230,7 +231,11 @@ public class CombineRulesService {
 
         else if (typeA == Type.EVERY && (typeB == Type.DAY_OF_WEEK || typeB == Type.DAY_OF_WEEK_WEEK_OF_MONTH)) {
             temporal = joinEvery(temporalA, temporalB);
-            setDetails(temporalA, temporalB, temporal, Type.SET, midText);
+            if (typeB == Type.DAY_OF_WEEK) {
+                setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_SET, midText);
+            } else {
+                setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET, midText);
+            }
             return temporal;
         }
 
@@ -321,7 +326,7 @@ public class CombineRulesService {
         else if ((typeA == Type.DURATION) && (typeB == Type.DURATION)) {
             temporal = joinDuration(temporalA, temporalB);
             if (temporal != null) {
-                setDetails(temporalA, temporalB, temporal, Type.DURATION_INTERVAL, midText);
+                setDetails(temporalA, temporalB, temporal, Type.DURATION, midText);
                 return temporal;
             }
             return null;

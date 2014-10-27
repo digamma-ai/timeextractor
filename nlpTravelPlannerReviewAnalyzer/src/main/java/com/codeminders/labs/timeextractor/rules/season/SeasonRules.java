@@ -18,7 +18,7 @@ public class SeasonRules extends Rule {
     private TemporalParser parser;
 
     protected Locale locale = Locale.US;
-    protected double confidence = 0.7;
+    protected double confidence = 0.4;
     private String rule = "\\b(((in)[\\s]*|(in the|throughout)[\\s]([\\s]the)?)[\\s]*)?" + TemporalConstants.SEASON + "[s]?([\\s]*(month|months|hours))?\\b";
     protected int priority = 1;
     protected String example = "summer, fall, summer hours, winter months, etc.";

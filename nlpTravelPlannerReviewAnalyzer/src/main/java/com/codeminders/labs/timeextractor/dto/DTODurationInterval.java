@@ -8,6 +8,7 @@ public class DTODurationInterval implements DTOTemporal {
     private DTODuration durationTo;
 
     public DTODurationInterval(Temporal durationInterval) {
+        System.out.println(durationInterval);
         durationFrom = new DTODuration(durationInterval.getDurationInterval().getDurationFrom());
         durationTo = new DTODuration(durationInterval.getDurationInterval().getDurationTo());
 

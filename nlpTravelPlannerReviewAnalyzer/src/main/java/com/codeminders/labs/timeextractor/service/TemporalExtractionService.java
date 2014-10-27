@@ -21,6 +21,7 @@ import com.codeminders.labs.timeextractor.entities.RegexResult;
 import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
+import com.codeminders.labs.timeextractor.service.combine.CombineRulesService;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
@@ -172,8 +173,8 @@ public class TemporalExtractionService {
         SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
         Date dateStr = sdf.parse("2014-10-27T18:40:40.931Z");
         LocalDateTime localDate = new LocalDateTime(dateStr);
-        Settings settings = new Settings(localDate, "-180", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Free entry every first Tuesday of the month!!", settings);
+        Settings settings = new Settings(localDate, "0", null);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("1st tuesday of every month", settings);
         System.out.println(extracted);
     }
 }

@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.service;
+package com.codeminders.labs.timeextractor.service.combine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +15,6 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 /* Class is responsible for combining rules by rule types */
 
 public class CombineRulesService {
-
-    private static final Type DAY_OF_WEEK_INTERVAL_TIME = null;
 
     public TreeSet<TemporalExtraction> combinationRule(TreeSet<TemporalExtraction> rules, String text) {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(rules);
@@ -57,262 +55,168 @@ public class CombineRulesService {
 
         if ((typeA == Type.DATE || typeA == Type.MONTH) && typeB == Type.TIME_INTERVAL) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE_TIME_INTERVAL);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE_TIME_INTERVAL, midText);
             return temporal;
         }
 
         else if (typeA == Type.TIME_INTERVAL && (typeB == Type.DATE || typeB == Type.MONTH)) {
             temporal = temporalJoinTimeDate(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE_TIME_INTERVAL);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-
+            setDetails(temporalA, temporalB, temporal, Type.DATE_TIME_INTERVAL, midText);
             return temporal;
-
         }
 
         else if (typeA == Type.DATE_INTERVAL && typeB == Type.TIME_INTERVAL) {
             temporal = temporalJoinTimeDate(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE_INTERVAL_TIME_INTERVAL);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE_INTERVAL_TIME_INTERVAL, midText);
             return temporal;
-
         }
 
         else if (typeA == Type.TIME_INTERVAL && typeB == Type.DATE_INTERVAL) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE_INTERVAL_TIME_INTERVAL);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE_INTERVAL_TIME_INTERVAL, midText);
             return temporal;
 
         } else if (typeA == Type.TIME && typeB == Type.DATE) {
             temporal = temporalJoinTimeDate(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.TIME_DATE);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-
+            setDetails(temporalA, temporalB, temporal, Type.TIME_DATE, midText);
             return temporal;
+
         } else if ((typeA == Type.DATE || typeA == Type.DATE_INTERVAL) && typeB == Type.TIME) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.TIME_DATE);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-
+            setDetails(temporalA, temporalB, temporal, Type.TIME_DATE, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DATE || typeA == Type.DATE_INTERVAL || typeA == Type.DATE_TIME_INTERVAL || typeA == Type.MONTH) && typeB == Type.YEAR) {
             temporal = joinDateAndYear(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-
+            setDetails(temporalA, temporalB, temporal, Type.DATE, midText);
             return temporal;
         }
 
         else if ((typeB == Type.DATE || typeB == Type.DATE_INTERVAL || typeB == Type.DATE_TIME_INTERVAL || typeB == Type.MONTH) && typeA == Type.YEAR) {
             temporal = joinDateAndYear(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE, midText);
 
             return temporal;
         }
 
         else if (typeA == Type.DATE && typeB == Type.DATE && (midText.contains("to") || midText.contains("-") || midText.contains("–") || midText.contains("—"))) {
             temporal = temporalJoinDates(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE_INTERVAL, midText);
 
             return temporal;
         } else if (typeA == Type.YEAR && typeB == Type.YEAR && (midText.contains("to") || midText.contains("-") || midText.contains("–") || midText.contains("—"))) {
             temporal = temporalJoinDates(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-            temporal.getTemporal().get(0).setType(Type.YEAR_INTERVAL);
-
+            setDetails(temporalA, temporalB, temporal, Type.YEAR_INTERVAL, midText);
             return temporal;
         }
 
         else if (typeA == Type.TIME && typeB == Type.TIME && (midText.contains("to") || midText.contains("-") || midText.contains("–") || midText.contains("—"))) {
             temporal = joinTimeAndTime(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.TIME_INTERVAL, midText);
             return temporal;
         }
 
         else if (typeA == Type.DAY_OF_WEEK && typeB == Type.DATE) {
             temporal = joinDayOfWeekAndDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-
+            setDetails(temporalA, temporalB, temporal, Type.DATE, midText);
             return temporal;
         }
 
         else if (typeA == Type.DATE && typeB == Type.DAY_OF_WEEK) {
             if (temporalA.getTemporal().get(0).getStartDate().getDate().getDayOfWeek() == null) {
-                temporal = joinDayOfWeekAndDate(temporalB, temporalA);
-                temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-                temporal.setFromPosition(temporalA.getFromPosition());
-                temporal.setToPosition(temporalB.getToPosition());
-
+                setDetails(temporalA, temporalB, temporal, Type.DATE, midText);
                 return temporal;
             }
         }
 
         else if (typeA == Type.DAY_OF_WEEK && (typeB == Type.TIME_INTERVAL || typeB == Type.TIME)) {
             temporal = joinDayOfWeekAndTimeInterval(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-
+            setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_AND_TIME, midText);
             return temporal;
         }
 
         else if ((typeA == Type.TIME_INTERVAL || typeA == Type.TIME) && typeB == Type.DAY_OF_WEEK) {
             temporal = joinDayOfWeekAndTimeInterval(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
-
+            setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_AND_TIME, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DATE || typeA == Type.DATE_INTERVAL || typeA == Type.DATE_TIME_INTERVAL_INDIRECT || typeA == Type.MONTH) && (typeB == Type.SET || typeB == Type.PERIODIC)) {
             if (temporalB.getTemporal().get(0).getStartDate() == null) {
                 temporal = joinDateAndSet(temporalA, temporalB);
-                temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-                temporal.getTemporal().get(0).setType(Type.SET);
-                temporal.setFromPosition(temporalA.getFromPosition());
-                temporal.setToPosition(temporalB.getToPosition());
+                setDetails(temporalA, temporalB, temporal, Type.SET, midText);
                 return temporal;
             }
-
         }
 
         else if ((typeA == Type.DAY_OF_WEEK || typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH || typeA == Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT || typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT)
                 && (typeB == Type.SET || typeB == Type.PERIODIC)) {
             if (temporalB.getTemporal().get(0).getStartDate() == null) {
                 temporal = joinDateAndSet(temporalA, temporalB);
-                temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
                 if (typeA == Type.DAY_OF_WEEK) {
-                    temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_SET);
+                    setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_SET, midText);
                 } else if (typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH) {
-                    temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET);
+                    setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET, midText);
                 } else if (typeA == Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT) {
-                    temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT_SET);
-                } else if (typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT) {
-                    temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT_SET);
+                    setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT_SET, midText);
+                } else {
+                    setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT, midText);
                 }
-                temporal.setFromPosition(temporalA.getFromPosition());
-                temporal.setToPosition(temporalB.getToPosition());
                 return temporal;
             }
-
         }
 
         else if ((typeA == Type.SET) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = joinTimeAndSet(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_SET);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.SET, midText);
             return temporal;
         }
 
         else if ((typeB == Type.SET) && (typeA == Type.TIME || typeA == Type.TIME_INTERVAL || typeA == Type.TIME_INTERVAL_INDIRECT)) {
             if (temporalA.getTemporal().get(0).getStartDate() != null && temporalA.getTemporal().get(0).getStartDate().getTime() != null) {
                 temporal = joinTimeAndSet(temporalA, temporalB);
-                temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-                temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_SET);
-                temporal.setFromPosition(temporalA.getFromPosition());
-                temporal.setToPosition(temporalB.getToPosition());
+                setDetails(temporalA, temporalB, temporal, Type.SET, midText);
                 return temporal;
             }
         }
 
         else if ((typeA == Type.PERIODIC) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = joinDateAndSet(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.SET);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.SET, midText);
             return temporal;
         }
 
         else if ((typeB == Type.PERIODIC) && (typeA == Type.TIME || typeA == Type.TIME_INTERVAL || typeA == Type.TIME_INTERVAL_INDIRECT)) {
             if (temporalA.getTemporal().get(0).getStartDate() != null && temporalA.getTemporal().get(0).getStartDate().getTime() != null) {
                 temporal = joinDateAndSet(temporalA, temporalB);
-                temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-                temporal.getTemporal().get(0).setType(Type.SET);
-                temporal.setFromPosition(temporalA.getFromPosition());
-                temporal.setToPosition(temporalB.getToPosition());
+                setDetails(temporalA, temporalB, temporal, Type.SET, midText);
                 return temporal;
             }
         }
 
         else if ((typeA == Type.DATE || typeA == Type.DATE_INTERVAL || typeA == Type.DAY_OF_WEEK_AND_TIME || typeA == Type.DAY_OF_WEEK_AND_TIME) && typeB == Type.TIME_INTERVAL_INDIRECT) {
             temporal = joinDayOfWeekAndTimeInterval(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE_TIME_INTERVAL_INDIRECT);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE_TIME_INTERVAL_INDIRECT, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK || typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH || typeA == Type.DAY_OF_WEEK_INTERVAL || typeA == Type.DAY_OF_WEEK_SET || typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET)
                 && typeB == Type.TIME_INTERVAL_INDIRECT) {
             temporal = joinDayOfWeekAndTimeInterval(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            if (typeA == Type.DAY_OF_WEEK) {
-                temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_TIME_INTERVAL_INDIRECT);
-            } else if (typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH) {
-                temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_INDIRECT);
-
-            }
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeA, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK_SET || typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET) && (typeB == Type.TIME_INTERVAL_INDIRECT || typeB == Type.TIME_INTERVAL || typeB == Type.TIME)) {
             temporal = joinDayOfWeekAndTimeInterval(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            if (typeA == Type.DAY_OF_WEEK_SET) {
-                temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_TIME_INTERVAL_SET);
-            } else if (typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH_SET) {
-                temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_WEEK_OF_MONTH_TIME_INTERVAL_SET);
-
-            }
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeA, midText);
             return temporal;
         }
 
         else if ((typeB == Type.DATE || typeB == Type.DATE_INTERVAL || typeB == Type.DAY_OF_WEEK || typeB == Type.DAY_OF_WEEK_INTERVAL) && typeA == Type.TIME_INTERVAL_INDIRECT) {
             temporal = joinDayOfWeekAndTimeInterval(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DATE_TIME_INTERVAL_INDIRECT);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE_TIME_INTERVAL_INDIRECT, midText);
             return temporal;
         }
 
@@ -320,150 +224,104 @@ public class CombineRulesService {
                 || typeA == Type.DATE_INTERVAL_TIME_INTERVAL || typeA == Type.DATE)
                 && typeB == Type.TIMEZONE) {
             temporal = joinTimeZoneAndDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeA, midText);
             return temporal;
         }
 
         else if (typeA == Type.EVERY && (typeB == Type.DAY_OF_WEEK || typeB == Type.DAY_OF_WEEK_WEEK_OF_MONTH)) {
             temporal = joinEvery(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.SET, midText);
             return temporal;
         }
 
         else if (typeA == Type.EVERY && typeB == Type.TIME) {
             temporal = joinEvery(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.SET, midText);
             return temporal;
         }
 
         else if (typeA == Type.EVERY && (typeB == Type.DATE_INTERVAL || typeB == Type.DATE)) {
             temporal = joinEvery(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.SET, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DATE_TIME_INTERVAL_INDIRECT || typeA == Type.TIME_INTERVAL_INDIRECT) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL)) {
             temporal = joinIndirectAndDirect(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DATE_TIME_INTERVAL, midText);
             return temporal;
         }
 
         else if ((typeA == Type.RELATIVE_TODAY) && (typeB == Type.DATE || typeB == Type.TIME_DATE_INTERVAl || typeB == Type.DATE_TIME_INTERVAL || typeB == Type.DATE_INTERVAL_TIME_INTERVAL)) {
             temporal = joinTodayAndDate(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.TIME_INTERVAL, midText);
             return temporal;
         }
 
         else if ((typeB == Type.RELATIVE_TODAY) && (typeA == Type.DATE || typeA == Type.TIME_DATE_INTERVAl || typeA == Type.DATE_TIME_INTERVAL || typeA == Type.DATE_INTERVAL_TIME_INTERVAL)) {
             temporal = joinTodayAndDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.TIME_INTERVAL, midText);
             return temporal;
         }
 
         else if ((typeA == Type.RELATIVE_TODAY) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeA, midText);
             return temporal;
         }
 
         else if ((typeB == Type.RELATIVE_TODAY) && (typeA == Type.TIME || typeA == Type.TIME_INTERVAL || typeA == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = temporalJoinTimeDate(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeB, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK_INTERVAL) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_INTERVAL_TIME);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_INTERVAL_TIME, midText);
             return temporal;
         }
 
         else if ((typeB == Type.DAY_OF_WEEK_INTERVAL) && (typeA == Type.TIME || typeA == Type.TIME_INTERVAL || typeA == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = temporalJoinTimeDate(temporalB, temporalA);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(Type.DAY_OF_WEEK_INTERVAL_TIME);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, Type.DAY_OF_WEEK_INTERVAL_TIME, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH) && typeB == Type.YEAR) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeA, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH) && (typeB == Type.TIME || typeB == Type.TIME_INTERVAL || typeB == Type.TIME_INTERVAL_INDIRECT)) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeB, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH) && (typeB == Type.SET || typeB == Type.PERIODIC)) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeB, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK_AND_TIME) && typeB == Type.DATE) {
             temporal = temporalJoinTimeDate(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeB);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeB, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DAY_OF_WEEK_WEEK_OF_MONTH) && typeB == Type.MONTH) {
             temporal = temporalJoinWeekOfMonthAndMonth(temporalA, temporalB);
-            temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-            temporal.getTemporal().get(0).setType(typeA);
-            temporal.setFromPosition(temporalA.getFromPosition());
-            temporal.setToPosition(temporalB.getToPosition());
+            setDetails(temporalA, temporalB, temporal, typeA, midText);
             return temporal;
         }
 
         else if ((typeA == Type.DURATION) && (typeB == Type.DURATION)) {
             temporal = joinDuration(temporalA, temporalB);
             if (temporal != null) {
-                temporal.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
-                temporal.setFromPosition(temporalA.getFromPosition());
-                temporal.setToPosition(temporalB.getToPosition());
+                setDetails(temporalA, temporalB, temporal, Type.DURATION_INTERVAL, midText);
                 return temporal;
             }
             return null;
@@ -542,7 +400,6 @@ public class CombineRulesService {
         if (dateAEnd != null && dateAEnd.getTime() != null && dateBEnd != null && dateBEnd.getTime() != null) {
             temporalA.getTemporal().get(0).getEndDate().setTime(temporalB.getTemporal().get(0).getEndDate().getTime());
         }
-        temporalA.getTemporal().get(0).setType(Type.DATE_TIME_INTERVAL);
         temporalA.setClassOfRuleType(temporalA.getClassOfRuleType() + " join " + temporalB.getClassOfRuleType());
         return temporalA;
     }
@@ -560,7 +417,6 @@ public class CombineRulesService {
 
         }
         temporalA.setConfidence(0.8);
-        temporalA.getTemporal().get(0).setType(Type.TIME_INTERVAL);
         temporalA.setClassOfRuleType(temporalA.getClassOfRuleType() + " join " + temporalB.getClassOfRuleType());
         return temporalA;
     }
@@ -596,7 +452,6 @@ public class CombineRulesService {
     private TemporalExtraction joinDateAndSet(TemporalExtraction temporalA, TemporalExtraction temporalB) {
         temporalB.getTemporal().get(0).setStartDate(temporalA.getTemporal().get(0).getStartDate());
         temporalB.getTemporal().get(0).setEndDate((temporalA.getTemporal().get(0).getEndDate()));
-        temporalB.getTemporal().get(0).setType(Type.SET);
         temporalB.setClassOfRuleType(temporalA.getClassOfRuleType() + " join " + temporalB.getClassOfRuleType());
         return temporalB;
 
@@ -609,7 +464,6 @@ public class CombineRulesService {
         if (temporalB.getTemporal().get(0).getEndDate() != null && temporalA.getTemporal().get(0).getEndDate() != null) {
             temporalB.getTemporal().get(0).getEndDate().setTime(temporalA.getTemporal().get(0).getEndDate().getTime());
         }
-        temporalB.getTemporal().get(0).setType(Type.SET);
         temporalB.setClassOfRuleType(temporalA.getClassOfRuleType() + " join " + temporalB.getClassOfRuleType());
         return temporalB;
 
@@ -689,4 +543,12 @@ public class CombineRulesService {
         temporalA.setClassOfRuleType(temporalA.getClassOfRuleType() + " join " + temporalB.getClassOfRuleType());
         return temporalA;
     }
+
+    private void setDetails(TemporalExtraction temporalA, TemporalExtraction temporalB, TemporalExtraction result, Type type, String midText) {
+        result.getTemporal().get(0).setType(type);
+        result.setFromPosition(temporalA.getFromPosition());
+        result.setTemporalExpression(temporalA.getTemporalExpression() + midText + temporalB.getTemporalExpression());
+        result.setToPosition(temporalB.getToPosition());
+    }
+
 }

@@ -232,7 +232,7 @@ public class TemporalParser {
         }
 
         else if (holidayName.equalsIgnoreCase(Holidays.VETERANS_DAY)) {
-            Date startDate = new Date(0, 11, 1);
+            Date startDate = new Date(0, 11, 11);
             Date endDate = new Date(0, 11, 11);
             start.setDate(startDate);
             end.setDate(endDate);

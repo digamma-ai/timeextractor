@@ -174,7 +174,7 @@ public class TemporalExtractionService {
         Date dateStr = sdf.parse("2014-10-27T18:40:40.931Z");
         LocalDateTime localDate = new LocalDateTime(dateStr);
         Settings settings = new Settings(localDate, "0", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Thursday nights after 6pm", settings);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Thanksgiving", settings);
         System.out.println(extracted);
     }
 }

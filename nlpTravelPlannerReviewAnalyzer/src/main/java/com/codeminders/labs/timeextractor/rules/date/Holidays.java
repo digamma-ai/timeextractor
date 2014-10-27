@@ -18,13 +18,14 @@ public class Holidays extends Rule {
     private String rule = TemporalConstants.HOLIDAYS;
     protected String example = "Christmas, New Year, Thanksgiving Day, Memorial Day, etc.";
     protected UUID id = UUID.fromString("fdc63959-88e4-4859-bbed-7ba071d90593");
+    protected Type type;
 
     public Holidays() {
         parser = new TemporalParser();
     }
 
     public Type getType() {
-        return Type.DATE;
+        return type;
     }
 
     @Override
@@ -32,6 +33,7 @@ public class Holidays extends Rule {
         List<Temporal> result = new ArrayList<Temporal>();
         Temporal holiday = parser.getHoliday(text);
         result.add(holiday);
+        type = holiday.getType();
         return result;
     }
 

@@ -69,3 +69,4 @@ com.codeminders.labs.timeextractor.rules.timeinterval.TimeIntervalRule15
 com.codeminders.labs.timeextractor.rules.timeofday.TimeIntervalRule16
 com.codeminders.labs.timeextractor.rules.timeofday.TimeIntervalRule17
 com.codeminders.labs.timeextractor.rules.timeofday.TimeOfDayRule
+com.codeminders.labs.timeextractor.rules.filter.FilterRules1

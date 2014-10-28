@@ -71,9 +71,14 @@ var rule_group_name = function(group_name) {
 			"type" : "Ignore all past dates",
 			"example" : "If today is 28/10/2014, then all dates that are less than current will be excluded(ex. 27/10/2014 will be excluded)"
 		};
+	case "com.codeminders.labs.timeextractor.rules.filter":
+		return {
+			"type" : "Filter rules",
+			"example" : "Filter rules exclude cases: the sun, by 1,5%, water fall, etc."
+		};
 	default:
 		return {
-			"type" : "group_name",
+			"type" : group_name,
 			"example" : ""
 		};
 	}

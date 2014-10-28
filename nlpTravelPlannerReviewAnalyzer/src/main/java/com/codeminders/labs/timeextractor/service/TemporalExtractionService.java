@@ -84,12 +84,12 @@ public class TemporalExtractionService {
         temporals = processingService.processRelativeDate(temporals, settings);
         // combine extracted elements
         temporals = combineRulesService.combinationRule(temporals, text);
-        // filter simple rules
-        temporals = filterService.removeSimpleTemporals(new ArrayList<TemporalExtraction>(temporals), settings);
         // provess days of week according to current date
         temporals = processingService.processRelativeDayOfWeek(temporals, settings);
         // process timezone
         temporals = processingService.changeExpressionsAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
+        // filter simple rules
+        temporals = filterService.removeSimpleTemporals(new ArrayList<TemporalExtraction>(temporals), settings);
         return temporals;
     }
 
@@ -189,7 +189,7 @@ public class TemporalExtractionService {
         Date dateStr = sdf.parse("2014-10-27T18:40:40.931Z");
         LocalDateTime localDate = new LocalDateTime(dateStr);
         Settings settings = new Settings(localDate, "0", null, 0);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("First Tuesday of month", settings);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Honda has trimmed its full-year sales forecast while announcing quarterly operating profit fell by 4.", settings);
         System.out.println(extracted);
     }
 }

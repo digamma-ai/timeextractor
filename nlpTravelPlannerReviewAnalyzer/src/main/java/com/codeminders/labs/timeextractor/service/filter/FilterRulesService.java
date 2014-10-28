@@ -40,16 +40,18 @@ public class FilterRulesService {
             boolean excludeSimpleCases = false;
             boolean excludePastDates = false;
             boolean excludeByRule = false;
+            boolean excludeFilterRules = false;
 
             TemporalExtraction current = list.get(i);
             List<Temporal> temporals = current.getTemporal();
             if (temporals != null && temporals.get(0) != null && temporals.get(0).getType() != null) {
                 excludeByRule = excludeRulesSelectedByUsers(current, settings);
                 excludeSimpleCases = filterSimpleCases(current);
+                excludeFilterRules = excludeFilterRules(current);
                 if (settings.isIncludeOnlyLatestDates()) {
                     excludePastDates = excludePastDates(current, settings);
                 }
-                if (excludeSimpleCases || excludePastDates || excludeByRule) {
+                if (excludeSimpleCases || excludePastDates || excludeByRule || excludeFilterRules) {
                     list.remove(i);
                     i = i - 1;
                 }
@@ -93,6 +95,23 @@ public class FilterRulesService {
 
     /**
      * Method checks whether current time found expression needs to be excluded
+     * because of the filtering rule
+     * 
+     * @param TemporalExtraction
+     *            current - found temporal expression
+     * @return boolean
+     */
+    private boolean excludeFilterRules(TemporalExtraction current) {
+        Type currentType = current.getTemporal().get(0).getType();
+        if (currentType == Type.Filter) {
+            return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * Method checks whether current time found expression needs to be excluded
      * by user set to find only dates that are current date or after current
      * date
      * 
@@ -102,6 +121,7 @@ public class FilterRulesService {
      *            settings - user settings
      * @return boolean
      */
+
     private boolean excludePastDates(TemporalExtraction current, Settings settings) {
         TimeDate timeDate = current.getTemporal().get(0).getEndDate();
         if (timeDate == null) {
@@ -113,4 +133,5 @@ public class FilterRulesService {
         }
         return false;
     }
+
 }

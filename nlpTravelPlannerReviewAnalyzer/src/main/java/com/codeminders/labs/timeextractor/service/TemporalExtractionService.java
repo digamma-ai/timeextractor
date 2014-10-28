@@ -22,13 +22,28 @@ import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.service.combine.CombineRulesService;
+import com.codeminders.labs.timeextractor.service.convert.Convert2DTO;
+import com.codeminders.labs.timeextractor.service.convert.ConvertHtmlToText;
+import com.codeminders.labs.timeextractor.service.filter.FilterRulesService;
+import com.codeminders.labs.timeextractor.service.process.ProcessRulesService;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
+/**
+ * <h1>TemporalExtractionService Class</h1> is used for finding time expressions
+ * from texts and html pages. The work flow contains of several steps: finding
+ * simple expressions by multiple regex rules, combining them, using extracted
+ * time expression types, transforming relative ones according to relative date
+ * and filtering.
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
 public class TemporalExtractionService {
 
-    private GetHtmlText htmlService;
-    private Annotation2DTOTemporalConversion converter;
+    private ConvertHtmlToText htmlService;
+    private Convert2DTO converter;
     private CombineRulesService combineRulesService;
     private ProcessRulesService processingService;
     private FilterRulesService filterService;
@@ -36,8 +51,8 @@ public class TemporalExtractionService {
     private static final Logger logger = Logger.getLogger(TemporalExtractionService.class);
 
     public TemporalExtractionService() {
-        htmlService = new GetHtmlText();
-        converter = new Annotation2DTOTemporalConversion();
+        htmlService = new ConvertHtmlToText();
+        converter = new Convert2DTO();
         combineRulesService = new CombineRulesService();
         processingService = new ProcessRulesService();
         filterService = new FilterRulesService();
@@ -70,11 +85,11 @@ public class TemporalExtractionService {
         // combine extracted elements
         temporals = combineRulesService.combinationRule(temporals, text);
         // filter simple rules
-        temporals = filterService.removeSimpleTemporals(new ArrayList<TemporalExtraction>(temporals));
+        temporals = filterService.removeSimpleTemporals(new ArrayList<TemporalExtraction>(temporals), settings);
         // provess days of week according to current date
         temporals = processingService.processRelativeDayOfWeek(temporals, settings);
         // process timezone
-        temporals = processingService.changeRulesAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
+        temporals = processingService.changeExpressionsAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
         return temporals;
     }
 
@@ -86,7 +101,7 @@ public class TemporalExtractionService {
         if (text == null) {
             return null;
         }
-        List<RegexResult> results = service.getTemporals(text, settings);
+        List<RegexResult> results = service.getTemporals(text);
         for (RegexResult result : results) {
             Rule rule = result.getRule();
             if (rule == null) {
@@ -173,8 +188,8 @@ public class TemporalExtractionService {
         SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
         Date dateStr = sdf.parse("2014-10-27T18:40:40.931Z");
         LocalDateTime localDate = new LocalDateTime(dateStr);
-        Settings settings = new Settings(localDate, "0", null);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Thanksgiving", settings);
+        Settings settings = new Settings(localDate, "0", null, 0);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("First Tuesday of month", settings);
         System.out.println(extracted);
     }
 }

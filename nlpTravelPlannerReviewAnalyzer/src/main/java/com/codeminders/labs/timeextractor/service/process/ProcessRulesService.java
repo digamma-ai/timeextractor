@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.service;
+package com.codeminders.labs.timeextractor.service.process;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,22 +21,175 @@ import com.codeminders.labs.timeextractor.temporal.entities.WeekOfMonth;
 import com.codeminders.labs.timeextractor.utils.TemporalParser;
 import com.codeminders.labs.timeextractor.utils.Utils;
 
-/* Class to change timezone and date if null to current */
+/**
+ * <h1>Process Rules Service Class</h1> is used for processing extracted time
+ * expressions: setting specified timezone, finding closes relative date in case
+ * of day of week, etc.
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
 
 public class ProcessRulesService {
 
-    private TemporalParser parser = new TemporalParser();
+    private TemporalParser parser;
 
+    public ProcessRulesService() {
+        parser = new TemporalParser();
+    }
+
+    /**
+     * Method is used to find closest date according to current date for
+     * relative date (today, yesterday, etc.)
+     * 
+     * @param TreeSet
+     *            <TemporalExtraction> receivedTemporals - found time
+     *            expressions
+     * @param Settings
+     *            settings - user specified Settings
+     * @return TreeSet<TemporalExtraction> - found time expressions with
+     *         temporal object with respect to current date
+     */
     public TreeSet<TemporalExtraction> processRelativeDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
         receivedTemporals = relativeDate(list, settings.getDate());
         return receivedTemporals;
     }
 
+    /**
+     * Method is used to find closest day of week according to current date for
+     * relative date (Sunday, Monday, Second Tuesdday of the month)
+     * 
+     * @param TreeSet
+     *            <TemporalExtraction> receivedTemporals - found time
+     *            expressions
+     * @param Settings
+     *            settings - user specified Settings
+     * @return TreeSet<TemporalExtraction> - found time expressions with
+     *         temporal object with respect to current date
+     */
     public TreeSet<TemporalExtraction> processRelativeDayOfWeek(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
         receivedTemporals = daysOfWeekRelative(list, settings.getDate());
         return receivedTemporals;
+    }
+
+    /**
+     * Method changes found time expression temporal objects according to
+     * specified date and timezone
+     * 
+     * @param receivedTemporals
+     * @param settings
+     * @return
+     */
+    public TreeSet<TemporalExtraction> changeExpressionsAccordingToUserTimeZoneAndCurrentDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
+        Iterator<TemporalExtraction> itr = receivedTemporals.iterator();
+        int offsetTimeZone = settings.getTimezoneOffset();
+        while (itr.hasNext()) {
+            TemporalExtraction te = itr.next();
+            List<Temporal> temporals = te.getTemporal();
+            for (int i = 0; i < temporals.size(); i++) {
+                Temporal temporal = temporals.get(i);
+                if (temporal != null) {
+                    TimeDate startTimeDate = temporal.getStartDate();
+                    if (startTimeDate != null) {
+                        startTimeDate = summerTime(startTimeDate, settings.getDate());
+                        startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone, settings.getDate());
+                        temporal.setStartDate(startTimeDate);
+                    }
+                    TimeDate endTimeDate = temporal.getEndDate();
+                    if (endTimeDate != null) {
+                        endTimeDate = summerTime(endTimeDate, settings.getDate());
+                        endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone, settings.getDate());
+                        temporal.setEndDate(endTimeDate);
+                    }
+                }
+            }
+        }
+
+        return receivedTemporals;
+    }
+
+    /**
+     * 
+     * Method is used to convert date in case summer time is observed
+     * 
+     * @param TimeDate
+     *            timeDate
+     * @param LocalDateTime
+     *            localDateTime - dateTime specified by user
+     * @return
+     */
+    private TimeDate summerTime(TimeDate timeDate, LocalDateTime localDateTime) {
+        if (timeDate == null) {
+            return null;
+        }
+        if (summerTimeIsObserved(timeDate)) {
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
+            localDateTimeStart = localDateTimeStart.minusMinutes(60);
+            timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
+        }
+        return timeDate;
+    }
+
+    /**
+     * Method is used to convert date with user specified timezone offset
+     * 
+     * @param TimeDate
+     *            timeDate
+     * @param int offsetTimeZone - timezone
+     * @param LocalDateTime
+     *            localDateTime - dateTime specified by user
+     * @return
+     */
+    private TimeDate convertDateAndOffset(TimeDate timeDate, int offsetTimeZone, LocalDateTime localDateTime) {
+        if (timeDate == null) {
+            return null;
+        }
+        Time time = timeDate.getTime();
+        if (timeDate != null && time != null && time.getTimezoneOffset() == -1000) {
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
+            localDateTimeStart = localDateTimeStart.plusMinutes(offsetTimeZone);
+            timeDate = Utils.getTimeDate(localDateTimeStart, 0, timeDate);
+        } else if (timeDate != null && time != null) {
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
+            localDateTimeStart = localDateTimeStart.plusMinutes(timeDate.getTime().getTimezoneOffset());
+            timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
+        } else {
+            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
+            timeDate = Utils.getTimeDate(localDateTimeStart, offsetTimeZone, timeDate);
+        }
+
+        return timeDate;
+
+    }
+
+    /**
+     * Method is used to check whether found timeDate observes summer time
+     * 
+     * @param TimeDate
+     *            timeDate - timedate object to check for summer time
+     * @return boolean
+     */
+    private boolean summerTimeIsObserved(TimeDate timeDate) {
+        if (timeDate == null || timeDate.getTime() == null || timeDate.getTime().getTimezoneName() == null) {
+            return false;
+        }
+        if (timeDate.getTime().getTimezoneName() == null) {
+            return false;
+        }
+        String timezone = timeDate.getTime().getTimezoneName();
+        TimeZone tz = TimeZone.getTimeZone(timezone);
+        Calendar c = Calendar.getInstance(tz);
+        Date date = new Date();
+        c.setTime(date);
+        int offset = c.get(Calendar.DST_OFFSET);
+        if (offset > 0) {
+            return true;
+        }
+        return false;
+
     }
 
     private TreeSet<TemporalExtraction> daysOfWeekRelative(List<TemporalExtraction> list, LocalDateTime dateTime) {
@@ -158,90 +311,6 @@ public class ProcessRulesService {
 
         }
         return new TreeSet<TemporalExtraction>(list);
-    }
-
-    public TreeSet<TemporalExtraction> changeRulesAccordingToUserTimeZoneAndCurrentDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
-        Iterator<TemporalExtraction> itr = receivedTemporals.iterator();
-        int offsetTimeZone = settings.getTimezoneOffset();
-        while (itr.hasNext()) {
-            TemporalExtraction te = (TemporalExtraction) itr.next();
-            List<Temporal> temporals = te.getTemporal();
-            for (int i = 0; i < temporals.size(); i++) {
-                Temporal temporal = temporals.get(i);
-                if (temporal != null) {
-                    TimeDate startTimeDate = temporal.getStartDate();
-                    if (startTimeDate != null) {
-                        startTimeDate = summerTime(startTimeDate, settings.getDate());
-                        startTimeDate = convertDateAndOffset(startTimeDate, offsetTimeZone, settings.getDate());
-                        temporal.setStartDate(startTimeDate);
-                    }
-                    TimeDate endTimeDate = temporal.getEndDate();
-                    if (endTimeDate != null) {
-                        endTimeDate = summerTime(endTimeDate, settings.getDate());
-                        endTimeDate = convertDateAndOffset(endTimeDate, offsetTimeZone, settings.getDate());
-                        temporal.setEndDate(endTimeDate);
-                    }
-                }
-            }
-        }
-
-        return receivedTemporals;
-    }
-
-    private TimeDate summerTime(TimeDate timeDate, LocalDateTime localDateTime) {
-        if (timeDate == null) {
-            return null;
-        }
-
-        if (summerTimeIsObserved(timeDate)) {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
-            localDateTimeStart = localDateTimeStart.minusMinutes(60);
-            timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
-        }
-        return timeDate;
-    }
-
-    private TimeDate convertDateAndOffset(TimeDate timeDate, int offsetTimeZone, LocalDateTime localDateTime) {
-        if (timeDate == null) {
-            return null;
-        }
-        Time time = timeDate.getTime();
-        if (timeDate != null && time != null && time.getTimezoneOffset() == -1000) {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
-            localDateTimeStart = localDateTimeStart.plusMinutes(offsetTimeZone);
-            timeDate = Utils.getTimeDate(localDateTimeStart, 0, timeDate);
-        } else if (timeDate != null && time != null) {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
-            localDateTimeStart = localDateTimeStart.plusMinutes(timeDate.getTime().getTimezoneOffset());
-            timeDate = Utils.getTimeDate(localDateTimeStart, timeDate.getTime().getTimezoneOffset(), timeDate);
-        } else {
-            LocalDateTime localDateTimeStart = Utils.getTimeDate(timeDate, localDateTime);
-            timeDate = Utils.getTimeDate(localDateTimeStart, offsetTimeZone, timeDate);
-        }
-
-        return timeDate;
-
-    }
-
-    private boolean summerTimeIsObserved(TimeDate timeDate) {
-        if (timeDate == null || timeDate.getTime() == null || timeDate.getTime().getTimezoneName() == null) {
-            return false;
-        }
-        if (timeDate.getTime().getTimezoneName() == null) {
-            return false;
-        }
-        String timezone = timeDate.getTime().getTimezoneName();
-
-        TimeZone tz = TimeZone.getTimeZone(timezone);
-        Calendar c = Calendar.getInstance(tz);
-        Date date = new Date();
-        c.setTime(date);
-        int offset = c.get(Calendar.DST_OFFSET);
-        if (offset > 0) {
-            return true;
-        }
-        return false;
-
     }
 
 }

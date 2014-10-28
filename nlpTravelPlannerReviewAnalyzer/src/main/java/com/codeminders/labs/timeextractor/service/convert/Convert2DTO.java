@@ -1,20 +1,34 @@
-package com.codeminders.labs.timeextractor.service;
+package com.codeminders.labs.timeextractor.service.convert;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 import com.codeminders.labs.timeextractor.dto.DTODuration;
 import com.codeminders.labs.timeextractor.dto.DTODurationInterval;
+import com.codeminders.labs.timeextractor.dto.DTORule;
 import com.codeminders.labs.timeextractor.dto.DTOSet;
 import com.codeminders.labs.timeextractor.dto.DTOTemporal;
 import com.codeminders.labs.timeextractor.dto.DTOTimeDate;
+import com.codeminders.labs.timeextractor.entities.Rule;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.temporal.entities.Temporal;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
-/* Class transforms annotation object to htmltemporal object */
+/**
+ * <h1>Convert Annotation objects to DTOTemporal Objects Class</h1> is used for
+ * convering found time expression objects to DTO objects to use further in REST
+ * service
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
 
-public class Annotation2DTOTemporalConversion {
+public class Convert2DTO {
 
     public List<DTOTemporal> convert(TemporalExtraction temporals) {
         List<DTOTemporal> htmlTemporals = new ArrayList<DTOTemporal>();
@@ -43,6 +57,27 @@ public class Annotation2DTOTemporalConversion {
             }
         }
         return htmlTemporals;
+    }
+
+    public Map<String, TreeSet<DTORule>> convertRulesToDto(TreeSet<Rule> rules) {
+        Map<String, TreeSet<DTORule>> map = new HashMap<String, TreeSet<DTORule>>();
+        TreeSet<String> rulePackages = new TreeSet<String>();
+        Iterator<Rule> itr = rules.iterator();
+        while (itr.hasNext()) {
+            Rule rule = itr.next();
+            DTORule dtoRule = new DTORule(rule);
+            String packageName = rule.getClass().getPackage().getName();
+            if (rulePackages.contains(packageName)) {
+                TreeSet<DTORule> dtoRules = map.get(packageName);
+                dtoRules.add(dtoRule);
+            } else {
+                TreeSet<DTORule> dtoRules = new TreeSet<DTORule>();
+                dtoRules.add(dtoRule);
+                rulePackages.add(packageName);
+                map.put(packageName, dtoRules);
+            }
+        }
+        return map;
     }
 
     public Type getGeneralType(Type type) {

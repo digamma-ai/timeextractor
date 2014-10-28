@@ -11,5 +11,6 @@ public class RestParameters {
     public static String TIMEZONE_OFFSET = "timezone_offset";
     public static String TIMEZONE_NAME = "timezone_name";
     public static String RULES_TO_IGNORE = "rules_to_ignore";
+    public static String ONLY_LATEST_DATES = "only_latest_dates";
 
 }

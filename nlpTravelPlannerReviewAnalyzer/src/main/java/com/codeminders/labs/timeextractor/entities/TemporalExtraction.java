@@ -29,6 +29,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
         confidence = rule.getConfidence();
         temporal = rule.getTemporal(result.getText());
         temporalExpression = result.getText();
+        this.rule = result.getRule();
         if (rule.getType() != null && getTemporal() != null && getTemporal().get(0) != null) {
             getTemporal().get(0).setType(rule.getType());
         }
@@ -41,6 +42,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     private List<Temporal> temporal;
     private double confidence;
     private Locale locale;
+    private Rule rule;
 
     public String getTemporalExpression() {
         return temporalExpression;
@@ -116,6 +118,14 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     @Override
     public int compareTo(TemporalExtraction o) {
         return compare(this, o);
+    }
+
+    public Rule getRule() {
+        return rule;
+    }
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
     }
 
 }

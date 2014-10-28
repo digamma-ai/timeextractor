@@ -11,17 +11,23 @@ function save_options() {
 		open();
 	}
 	var rules = [];
+	var only_latest_dates = 0;
 	$('input[type=checkbox]').each(function() {
 		var sThisVal = (this.checked ? $(this).val() : "");
-		if (sThisVal == 'on') {
+		if (sThisVal == 'on' && $(this).attr('id') != 'only_latest_dates') {
 			rules.push($(this).attr('id'));
 		}
+
 	});
+	if ($('#only_latest_dates').is(':checked')) {
+		only_latest_dates = 1;
+	}
 	var id = saveArrayOfRuleIds(rules);
 	chrome.storage.sync.set({
 		connectionType : connectionType,
 		rules : rules,
-		ruleIds : id
+		ruleIds : id,
+		only_latest_dates : only_latest_dates
 	}, function() {
 		var status = document.getElementById('status');
 		status.textContent = 'Options saved.';
@@ -47,6 +53,15 @@ function restore_options() {
 				$(this).prop("checked", true);
 			}
 		});
+	});
+
+	chrome.storage.sync.get({
+		only_latest_dates : 'only_latest_dates',
+	}, function(items) {
+		if (items.only_latest_dates == 1) {
+			$('#only_latest_dates').prop("checked", true);
+		}
+
 	});
 }
 
@@ -94,8 +109,10 @@ function saveArrayOfRuleIds(arrayOfRuleNames) {
 	for ( var name in arrayOfRuleNames) {
 		var ruleName = arrayOfRuleNames[name];
 		var rules = allRules[ruleName];
-		for (var i = 0; i < rules.length; i++) {
-			id.push(rules[i].id);
+		if (rules != null) {
+			for (var i = 0; i < rules.length; i++) {
+				id.push(rules[i].id);
+			}
 		}
 	}
 	return id;
@@ -139,8 +156,13 @@ function addTable(rules) {
 		html += '<td>' + rule_group_name(prop)['example'] + '</td>';
 		html += "</tr>";
 	}
+	html += '<tr>';
+	html += '<td>' + "<input type='checkbox' id=\"only_latest_dates"
+			+ "\" class=\"checkbox\" ></input>" + '</td>';
+	html += '<td><b>' + rule_group_name("past dates")['type'] + '</b></td>';
+	html += '<td>' + rule_group_name("past dates")['example'] + '</td>';
+	html += "</tr>";
 	html += "</tbody></table>"
-
 	$(html).appendTo('#rules');
 
 }

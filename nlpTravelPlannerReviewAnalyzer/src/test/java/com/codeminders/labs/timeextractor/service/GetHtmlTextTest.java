@@ -6,14 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
-import com.codeminders.labs.timeextractor.service.GetHtmlText;
+import com.codeminders.labs.timeextractor.service.convert.ConvertHtmlToText;
 
 public class GetHtmlTextTest {
-    private GetHtmlText service;
+    private ConvertHtmlToText service;
 
     @Before
     public void before() {
-        service = new GetHtmlText();
+        service = new ConvertHtmlToText();
     }
 
     @Test

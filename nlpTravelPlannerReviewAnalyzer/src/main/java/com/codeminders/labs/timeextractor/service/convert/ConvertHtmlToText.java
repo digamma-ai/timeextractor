@@ -1,4 +1,4 @@
-package com.codeminders.labs.timeextractor.service;
+package com.codeminders.labs.timeextractor.service.convert;
 
 import java.util.ArrayList;
 import java.util.regex.PatternSyntaxException;
@@ -14,14 +14,14 @@ import com.codeminders.labs.timeextractor.entities.HtmlElement;
 
 /* */
 
-public class GetHtmlText {
+public class ConvertHtmlToText {
 
     private final boolean PRETTY_PRINT = false;
     private final EscapeMode ESCAPE_MODE = EscapeMode.xhtml;
     private final int MAX_HTML_STRING_LENGTH = 7000;
     private final int MIN_TEXT_LENGTH = 2;
 
-    public GetHtmlText() {
+    public ConvertHtmlToText() {
     }
 
     public ArrayList<HtmlElement> getElements(String html) {
@@ -61,15 +61,6 @@ public class GetHtmlText {
         }
 
         return elements;
-    }
-
-    public static void main(String[] args) {
-        String html = "<body><p class=\"cnn_storypgraphtxt cnn_storypgraph76\"><i><a href=\"http://www.restaurant-lemagret.com/\" target=\"_blank\">Le Magret</a></i><i>, Marche Victor Hugo, 31000 Toulouse; +33 (0)5 61 23 21 32; Tuesday-Friday 11.45 a.m.-2.30 p.m., Saturday-Sunday 11</i><i>.</i><i>45 a.m.-3 p.m.; moderate</i></p></body>";
-        GetHtmlText service = new GetHtmlText();
-        ArrayList<HtmlElement> htmlElements = service.getElements(html);
-        for (HtmlElement element : htmlElements) {
-            System.out.println("extracted: " + element.getExtractedText());
-        }
     }
 
 }

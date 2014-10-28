@@ -12,7 +12,14 @@ import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
-/* Class is responsible for combining rules by rule types */
+/**
+ * <h1>Combine Rules Service Class</h1> is responsible for combining rules by
+ * rule types
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
 
 public class CombineRulesService {
 

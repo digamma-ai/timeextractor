@@ -52,18 +52,17 @@ public class TimeExtractorRestService {
         String text = object.optString(RestParameters.TEXT);
         String timezoneOffset = object.optString(RestParameters.TIMEZONE_OFFSET);
         String date = object.optString(RestParameters.DATE);
-        System.out.println(date);
+        String latestDates = object.optString(RestParameters.ONLY_LATEST_DATES);
+
         LocalDateTime localDate = null;
         if (date != null) {
             SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
             try {
                 Date dateStr = sdf.parse(date);
                 localDate = new LocalDateTime(dateStr);
-
             } catch (Exception ex) {
                 logger.error(ex);
                 return Response.status(400).entity(ExceptionMessages.DATE_RULES).build();
-
             }
         }
 
@@ -77,8 +76,15 @@ public class TimeExtractorRestService {
             return Response.status(400).entity(ExceptionMessages.FILLED_FIELEDS).build();
         }
         Settings settings = null;
+        int lDates = 0;
+        if (latestDates != null) {
+            try {
+                lDates = Integer.parseInt(latestDates);
+            } catch (Exception ex) {
+            }
+        }
         try {
-            settings = new Settings(localDate, timezoneOffset, rulesToIgnore);
+            settings = new Settings(localDate, timezoneOffset, rulesToIgnore, lDates);
         } catch (NumberFormatException ex) {
             logger.error(ex);
             return Response.status(400).entity(ExceptionMessages.TIMEZONE).build();

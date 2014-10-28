@@ -22,6 +22,15 @@ import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 import com.codeminders.labs.timeextractor.temporal.entities.Type;
 import com.codeminders.labs.timeextractor.temporal.entities.WeekOfMonth;
 
+/**
+ * <h1>Temporal Parser Utils Class</h1> is used for getting Temporal objects by
+ * specified parameters(season, holidays, durations, etc.)
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
+
 public class TemporalParser {
 
     public Temporal getSeason(String season, int year) {

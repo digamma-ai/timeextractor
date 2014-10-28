@@ -12,7 +12,7 @@ public class GeneralTest {
     @BeforeClass
     public static void before() throws Exception {
         service = new TemporalExtractionService();
-        settings = new Settings(null, "0", null);
+        settings = new Settings(null, "0", null, 0);
     }
 
 }

@@ -8,8 +8,15 @@ import java.util.regex.Pattern;
 
 import com.codeminders.labs.timeextractor.entities.RegexResult;
 import com.codeminders.labs.timeextractor.entities.Rule;
-import com.codeminders.labs.timeextractor.entities.Settings;
 
+/**
+ * <h1>Multiple Extraction Service Class</h1> is designed to extract information
+ * from texts by specified regex patterns with respect to their priority levels.
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
 public class MultipleExtractionService {
 
     private static MultiplePatternsGenerator generator;
@@ -18,13 +25,10 @@ public class MultipleExtractionService {
         generator = new MultiplePatternsGenerator(file);
     }
 
-    public List<RegexResult> getTemporals(String text, Settings settings) {
+    public List<RegexResult> getTemporals(String text) {
         TreeSet<Rule> rules = generator.getRules();
         List<RegexResult> results = new ArrayList<RegexResult>();
         for (Rule rule : rules) {
-            if (settings.getRulesToIgnore().contains(rule.getId())) {
-                continue;
-            }
             Pattern p = Pattern.compile(rule.getRule(), Pattern.CASE_INSENSITIVE);
             Matcher m = p.matcher(text);
             while (m.find()) {
@@ -53,8 +57,15 @@ public class MultipleExtractionService {
         return results;
     }
 
-    /* Method checks if two results overlap */
-
+    /**
+     * Method checks if two results overlap
+     * 
+     * @param RegexResult
+     *            result1
+     * @param RegexResult
+     *            result2
+     * @return boolean
+     */
     private boolean overlap(RegexResult result1, RegexResult result2) {
         return Math.max(result1.getStart(), result2.getStart()) <= Math.min(result1.getEnd(), result2.getEnd());
     }

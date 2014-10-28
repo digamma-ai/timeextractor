@@ -43,7 +43,7 @@ public class MainTestingClass {
             }
             String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-").trim();
             System.out.println(text);
-            Settings settings = new Settings(null, "0", null);
+            Settings settings = new Settings(null, "0", null, 0);
             TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {

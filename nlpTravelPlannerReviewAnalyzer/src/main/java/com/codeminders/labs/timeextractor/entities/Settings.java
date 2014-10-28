@@ -13,8 +13,9 @@ public class Settings {
     private LocalDateTime date;
     private int timezoneOffset = 0;
     private Set<UUID> rulesToIgnore = new HashSet<UUID>();
+    private boolean includeOnlyLatestDates;
 
-    public Settings(LocalDateTime date, String timezoneOffset, String rulesToIgnore) throws Exception {
+    public Settings(LocalDateTime date, String timezoneOffset, String rulesToIgnore, int includeOnlyLatestDates) throws Exception {
         // validation comes here
         this.date = date;
         if (timezoneOffset != null) {
@@ -22,6 +23,9 @@ public class Settings {
         }
         if (rulesToIgnore != null && rulesToIgnore.length() > 4) {
             this.rulesToIgnore = Utils.getSetofUUIDsFromString(rulesToIgnore);
+        }
+        if (includeOnlyLatestDates == 1) {
+            this.includeOnlyLatestDates = true;
         }
 
     }
@@ -48,6 +52,14 @@ public class Settings {
 
     public void setRulesToIgnore(Set<UUID> rulesToIgnore) {
         this.rulesToIgnore = rulesToIgnore;
+    }
+
+    public boolean isIncludeOnlyLatestDates() {
+        return includeOnlyLatestDates;
+    }
+
+    public void setIncludeOnlyLatestDates(boolean includeOnlyLatestDates) {
+        this.includeOnlyLatestDates = includeOnlyLatestDates;
     }
 
 }

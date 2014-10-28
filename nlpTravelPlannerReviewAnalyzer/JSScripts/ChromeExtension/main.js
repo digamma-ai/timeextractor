@@ -1,4 +1,4 @@
-var TEMPORAL_EXTRACTION_URL_HTTP = "http://timeext.codeminders.com:8080/timeextractor-2/api/annotate";
+var TEMPORAL_EXTRACTION_URL_HTTP = "http://timeext.codeminders.com/timeextractor-2/api/annotate";
 var TEMPORAL_EXTRACTION_URL_HTTPS = "https://timeext.codeminders.com:8443/timeextractor-2/api/annotate";
 
 var METHOD_POST = "POST";
@@ -11,17 +11,18 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 	if (!highlighted) {
 		chrome.storage.sync.get({
 			'connectionType' : 'http',
-			'ruleIds' : ''
+			'ruleIds' : '',
+			'only_latest_dates' : ''
 		}, function(obj) {
 			var connectionType = obj['connectionType'];
 			var rulesToIgnore = obj['ruleIds'];
+			var onlyLatestDays = obj['only_latest_dates'];
 			var url = serverURL(connectionType);
-			start(url, rulesToIgnore);
+			start(url, rulesToIgnore, onlyLatestDays);
 		});
 	} else {
 		start(null, null);
 	}
-
 });
 
 $(document).ready()
@@ -33,7 +34,7 @@ $(document).ready()
 	alert_error();
 }
 
-var start = function(url, rulesToIgnore) {
+var start = function(url, rulesToIgnore, onlyLatestDays) {
 	var all_tags = $("*");
 	for (var i = 0; i < all_tags.length; i++) {
 		$(all_tags[i]).attr(TEMPORAL_ID, TEMPORAL_ID + i);
@@ -61,7 +62,8 @@ var start = function(url, rulesToIgnore) {
 		'html' : html,
 		'timezone_offset' : offset,
 		date : currentdate,
-		rules_to_ignore : rulesToIgnore
+		rules_to_ignore : rulesToIgnore,
+		only_latest_dates : onlyLatestDays
 	} ];
 	$.when(temporalData(json_to_get_temporal, url)).then(
 			function(data, textStatus, jqXHR) {

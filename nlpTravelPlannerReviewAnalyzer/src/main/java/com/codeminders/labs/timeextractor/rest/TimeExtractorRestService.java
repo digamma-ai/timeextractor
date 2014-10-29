@@ -1,8 +1,6 @@
 package com.codeminders.labs.timeextractor.rest;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
@@ -28,18 +26,25 @@ import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
 import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
+import com.codeminders.labs.timeextractor.entities.UserInfo;
 import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
 import com.codeminders.labs.timeextractor.service.GetRulesService;
 import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
+import com.codeminders.labs.timeextractor.service.key.ApiKeyRegistration;
+import com.codeminders.labs.timeextractor.service.key.ApiKeyService;
+import com.codeminders.labs.timeextractor.service.key.IORegistrationService;
 
 /* Rest service to extract temporal date either from array of texts or from html page*/
 
 @Path("/")
 public class TimeExtractorRestService {
     private static final Logger logger = Logger.getLogger(TimeExtractorRestService.class);
-    private String parserRule = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     private TemporalExtractionService service = new TemporalExtractionService();
     private GetRulesService rulesService = new GetRulesService();
+    private ApiKeyService keyGenService = new ApiKeyService();
+    private RestParametersService paramsService = new RestParametersService();
+    private IORegistrationService registration = new IORegistrationService();
+    private ApiKeyRegistration apiKeyRegistration = new ApiKeyRegistration();
 
     @POST
     @Path("/annotate")
@@ -47,44 +52,38 @@ public class TimeExtractorRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
         JSONObject object = jsonArray.getJSONObject(0);
-
+        Settings settings = null;
         String html = object.optString(RestParameters.HTML);
-        String text = object.optString(RestParameters.TEXT);
         String timezoneOffset = object.optString(RestParameters.TIMEZONE_OFFSET);
-        String date = object.optString(RestParameters.DATE);
-        String latestDates = object.optString(RestParameters.ONLY_LATEST_DATES);
+        String key = object.optString(RestParameters.KEY);
+        String email = object.optString(RestParameters.EMAIL);
 
-        LocalDateTime localDate = null;
-        if (date != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
-            try {
-                Date dateStr = sdf.parse(date);
-                localDate = new LocalDateTime(dateStr);
-            } catch (Exception ex) {
-                logger.error(ex);
-                return Response.status(400).entity(ExceptionMessages.DATE_RULES).build();
-            }
+        // checks if email exists in database
+        boolean validEmail = registration.checkIfEmailExists(email);
+        if (!validEmail) {
+            return Response.status(400).entity(ExceptionMessages.API_KEY_VALIDATION_EMAIL).build();
         }
-
-        String rulesToIgnore = null;
-        try {
-            rulesToIgnore = object.optString(RestParameters.RULES_TO_IGNORE);
-        } catch (Exception ex) {
-            logger.error(ex);
+        // checks if provided key is valid
+        boolean validKey = keyGenService.checkKey(email, key);
+        if (!validKey) {
+            return Response.status(400).entity(ExceptionMessages.API_KEY_VALIDATION).build();
         }
-        if ((html == null) && (text == null)) {
+        boolean filledParams = paramsService.validateTextOrHtml(object);
+        if (filledParams) {
             return Response.status(400).entity(ExceptionMessages.FILLED_FIELEDS).build();
         }
-        Settings settings = null;
-        int lDates = 0;
-        if (latestDates != null) {
-            try {
-                lDates = Integer.parseInt(latestDates);
-            } catch (Exception ex) {
-            }
+        LocalDateTime localDate = paramsService.getLocalDateTimeParameter(object);
+        if (localDate == null) {
+            return Response.status(400).entity(ExceptionMessages.DATE_RULES).build();
         }
+        String rulesToIgnore = paramsService.rulesToIgnore(object);
+        if (rulesToIgnore == null) {
+            return Response.status(400).entity(ExceptionMessages.FIELD_RULES).build();
+        }
+        int latestDates = paramsService.latestDates(object);
+
         try {
-            settings = new Settings(localDate, timezoneOffset, rulesToIgnore, lDates);
+            settings = new Settings(localDate, timezoneOffset, rulesToIgnore, latestDates);
         } catch (NumberFormatException ex) {
             logger.error(ex);
             return Response.status(400).entity(ExceptionMessages.TIMEZONE).build();
@@ -100,7 +99,6 @@ public class TimeExtractorRestService {
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - currentTime;
             System.out.println(totalTime);
-
             return Response.status(200).entity(result).build();
 
         }
@@ -133,6 +131,23 @@ public class TimeExtractorRestService {
     public Response getAllRules() throws JSONException {
         Map<String, TreeSet<DTORule>> rules = rulesService.getAllAvailableRules();
         return Response.status(200).entity(rules).build();
+    }
+
+    @POST
+    @Path("/generatekey")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response generateAPIKey(JSONObject object) throws JSONException {
+        String email = object.optString(RestParameters.EMAIL);
+        String name = object.optString(RestParameters.NAME);
+        String country = object.optString(RestParameters.COUNTRY);
+        UserInfo user = new UserInfo(name, email, country);
+        try {
+            String key = apiKeyRegistration.registerAndGetAPIKey(user);
+            return Response.status(200).entity(key).build();
+        } catch (Exception e) {
+            return Response.status(400).build();
+        }
     }
 
 }

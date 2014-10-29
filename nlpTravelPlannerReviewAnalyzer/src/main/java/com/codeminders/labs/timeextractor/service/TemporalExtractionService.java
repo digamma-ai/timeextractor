@@ -189,7 +189,7 @@ public class TemporalExtractionService {
         Date dateStr = sdf.parse("2014-10-27T18:40:40.931Z");
         LocalDateTime localDate = new LocalDateTime(dateStr);
         Settings settings = new Settings(localDate, "0", null, 0);
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("Honda has trimmed its full-year sales forecast while announcing quarterly operating profit fell by 4.", settings);
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("mid-May", settings);
         System.out.println(extracted);
     }
 }

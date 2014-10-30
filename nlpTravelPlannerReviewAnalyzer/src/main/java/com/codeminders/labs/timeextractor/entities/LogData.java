@@ -6,12 +6,14 @@ public class LogData {
     private String userEmail;
     private String utcDate;
     private String service;
+    private String ip;
 
-    public LogData(String apiKey, String userEmail, String utcDate, String service) {
+    public LogData(String apiKey, String userEmail, String utcDate, String service, String ip) {
         this.apiKey = apiKey;
         this.userEmail = userEmail;
         this.utcDate = utcDate;
         this.service = service;
+        this.ip = ip;
     }
 
     public String getApiKey() {
@@ -44,6 +46,14 @@ public class LogData {
 
     public void setService(String service) {
         this.service = service;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
 }

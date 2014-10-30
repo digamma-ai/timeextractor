@@ -37,7 +37,7 @@ public class APIUsersLogging {
             fileWr = new FileWriter(file, true);
             bufferedWr = new BufferedWriter(fileWr);
             writer = new PrintWriter(bufferedWr);
-            writer.println(log.getUtcDate() + "," + log.getApiKey() + "," + log.getService() + "," + log.getUserEmail());
+            writer.println(log.getUtcDate() + "," + log.getApiKey() + "," + log.getService() + "," + log.getUserEmail() + "," + log.getIp());
             writer.close();
         } catch (NullPointerException ex) {
             logger.error(ExceptionMessages.FILE_NOT_FOUND + " " + logFile);

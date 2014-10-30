@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -57,7 +58,7 @@ public class TimeExtractorRestService {
     @Path("/annotate")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray, @Context UriInfo uriInfo) throws JSONException {
+    public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray, @Context HttpServletRequest req) throws JSONException {
         JSONObject object = jsonArray.getJSONObject(0);
         Settings settings = null;
         String html = object.optString(RestParameters.HTML);
@@ -109,7 +110,7 @@ public class TimeExtractorRestService {
             return Response.status(400).entity(ExceptionMessages.FIELD_RULES).build();
         }
 
-        LogData log = new LogData(key, email, Utils.dateInUTC(new Date()), "/annotate");
+        LogData log = new LogData(key, email, Utils.dateInUTC(new Date()), "/annotate", req.getRemoteHost() + "(" + req.getRemoteAddr() + ":" + req.getRemotePort() + ")");
         logging.log(log);
 
         // html case

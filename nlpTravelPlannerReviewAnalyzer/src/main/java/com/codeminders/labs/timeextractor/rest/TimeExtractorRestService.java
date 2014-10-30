@@ -1,6 +1,7 @@
 package com.codeminders.labs.timeextractor.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
@@ -10,8 +11,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;
@@ -24,15 +27,18 @@ import com.codeminders.labs.timeextractor.dto.DTORule;
 import com.codeminders.labs.timeextractor.entities.AnnotationInterval;
 import com.codeminders.labs.timeextractor.entities.AnnotationIntervalHtml;
 import com.codeminders.labs.timeextractor.entities.BaseText;
+import com.codeminders.labs.timeextractor.entities.LogData;
 import com.codeminders.labs.timeextractor.entities.Settings;
 import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
 import com.codeminders.labs.timeextractor.entities.UserInfo;
 import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
+import com.codeminders.labs.timeextractor.service.APIUsersLogging;
 import com.codeminders.labs.timeextractor.service.GetRulesService;
 import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
 import com.codeminders.labs.timeextractor.service.key.ApiKeyRegistration;
 import com.codeminders.labs.timeextractor.service.key.ApiKeyService;
 import com.codeminders.labs.timeextractor.service.key.IORegistrationService;
+import com.codeminders.labs.timeextractor.utils.Utils;
 
 /* Rest service to extract temporal date either from array of texts or from html page*/
 
@@ -45,12 +51,13 @@ public class TimeExtractorRestService {
     private RestParametersService paramsService = new RestParametersService();
     private IORegistrationService registration = new IORegistrationService();
     private ApiKeyRegistration apiKeyRegistration = new ApiKeyRegistration();
+    private APIUsersLogging logging = new APIUsersLogging();
 
     @POST
     @Path("/annotate")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray) throws JSONException {
+    public Response getAllAnnotationsForMultipleTexts(JSONArray jsonArray, @Context UriInfo uriInfo) throws JSONException {
         JSONObject object = jsonArray.getJSONObject(0);
         Settings settings = null;
         String html = object.optString(RestParameters.HTML);
@@ -58,10 +65,20 @@ public class TimeExtractorRestService {
         String key = object.optString(RestParameters.KEY);
         String email = object.optString(RestParameters.EMAIL);
 
+        // checks if email is null
+        boolean nullEmail = paramsService.checkNullValues(email);
+        if (nullEmail || email.length() <= 1) {
+            return Response.status(400).entity(ExceptionMessages.VALIDATION_EMAIL).build();
+        }
         // checks if email exists in database
         boolean validEmail = registration.checkIfEmailExists(email);
         if (!validEmail) {
             return Response.status(400).entity(ExceptionMessages.API_KEY_VALIDATION_EMAIL).build();
+        }
+        // checks if key is null
+        boolean nullKey = paramsService.checkNullValues(key);
+        if (nullKey || key.length() <= 1) {
+            return Response.status(400).entity(ExceptionMessages.VALIDATION_KEY).build();
         }
         // checks if provided key is valid
         boolean validKey = keyGenService.checkKey(email, key);
@@ -92,13 +109,12 @@ public class TimeExtractorRestService {
             return Response.status(400).entity(ExceptionMessages.FIELD_RULES).build();
         }
 
+        LogData log = new LogData(key, email, Utils.dateInUTC(new Date()), "/annotate");
+        logging.log(log);
+
         // html case
         if (html != null & !html.isEmpty()) {
-            long currentTime = System.currentTimeMillis();
             Map<String, TreeSet<AnnotationIntervalHtml>> result = service.extractDatesAndTimeFromHtml(html, settings);
-            long endTime = System.currentTimeMillis();
-            long totalTime = endTime - currentTime;
-            System.out.println(totalTime);
             return Response.status(200).entity(result).build();
 
         }
@@ -128,7 +144,7 @@ public class TimeExtractorRestService {
     @Path("/rules")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllRules() throws JSONException {
+    public Response getAllRules(@Context UriInfo uriInfo) throws JSONException {
         Map<String, TreeSet<DTORule>> rules = rulesService.getAllAvailableRules();
         return Response.status(200).entity(rules).build();
     }
@@ -137,17 +153,18 @@ public class TimeExtractorRestService {
     @Path("/generatekey")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response generateAPIKey(JSONObject object) throws JSONException {
+    public Response generateAPIKey(JSONObject object, @Context UriInfo uriInfo) throws JSONException {
+
         String email = object.optString(RestParameters.EMAIL);
         String name = object.optString(RestParameters.NAME);
         String country = object.optString(RestParameters.COUNTRY);
         UserInfo user = new UserInfo(name, email, country);
         try {
             String key = apiKeyRegistration.registerAndGetAPIKey(user);
-            return Response.status(200).entity(key).build();
-        } catch (Exception e) {
-            return Response.status(400).build();
+            return Response.status(200).entity(Utils.jsonObject("key", key)).build();
+        } catch (Exception ex) {
+            logger.error(ex + "Email: " + email);
+            return Response.status(400).entity(ex.getMessage()).build();
         }
     }
-
 }

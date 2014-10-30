@@ -59,6 +59,8 @@ var start = function(url, rulesToIgnore, onlyLatestDays) {
 	var html = $("html").html();
 	var json_to_get_temporal = [ {
 		'id' : '1',
+		'key' : '6d9aea0514fcf1766f31fff6672fd3e12239b25246c83e9669b13a4a98a93588',
+		'email' : 'timeextractor@gmail.com',
 		'html' : html,
 		'timezone_offset' : offset,
 		date : currentdate,
@@ -70,10 +72,12 @@ var start = function(url, rulesToIgnore, onlyLatestDays) {
 				highlighted = true;
 				highlight(html, data);
 				$(".loader").fadeOut("slow");
-			}).fail(function(data, textStatus, jqXHR) {
+			}).fail(function(xhr, textStatus, jqXHR) {
 		$(".loader").fadeOut("slow");
-		if (jqXHR == 'Not Found') {
+		if (jqXHR == 'Not Found' || xhr.responseText == '') {
 			openPopup('Server is not responding, try again later');
+		} else {
+			openPopup(xhr.responseText);
 		}
 	});
 	;

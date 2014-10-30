@@ -1,5 +1,6 @@
 package com.codeminders.labs.timeextractor.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +9,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -19,6 +22,18 @@ import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 
 public class Utils {
+
+    public static JSONObject jsonObject(String key, String value) throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put(key, value);
+        return object;
+    }
+
+    public static String dateInUTC(java.util.Date currentTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm:ss a z");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return sdf.format(currentTime);
+    }
 
     /* Method returns TimeDate from LocalDateTime */
 

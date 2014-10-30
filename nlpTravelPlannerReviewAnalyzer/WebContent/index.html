@@ -27,8 +27,6 @@
 	position: absolute;
 }
 
-
-
 .reference td {
 	border: 1px solid #d4d4d4;
 	padding: 5px;
@@ -57,7 +55,6 @@
 
 			</span> <span class="temporalextractortitle">Time Extractor</span>
 
-
 			<div class="content">
 				<div class="content-inside">
 
@@ -82,18 +79,27 @@
 					<p class="bio">
 						<a
 							href="https://chrome.google.com/webstore/detail/time-extractor/hgaoahpeednaofaedhlbengbefdcfiei"
-							class="chromeExtension" target="_blank">Download Chrome
-							Extension</a> <a href="guide.html" class="instruction"
-							target="_blank">Chrome Extension User Guide</a>
+							class="button" target="_blank">Download Chrome Extension</a> <a
+							href="guide.html" class="button" target="_blank">Chrome
+							Extension User Guide</a>
 					</p>
-
+					<h1>
+						API Key: <br>
+					</h1>
+					<p class="bio">
+						To use the API, you will need to get API key. <br /> <br> <a
+							href="registration.html" class="button" target="_blank">Get
+							API Key</a>
+					</p>
+					<br>
 					<h1>
 						API Documentation: <br>
 					</h1>
 					<p class="bio">
 						<select id="api_type" class="css-select">
 							<option value="">SELECT ENDPOINT FUNCTION...</option>
-							<option value="post">TIME EXTRACTION: POST</option>
+							<option value="post" selected="selected">TIME
+								EXTRACTION: POST</option>
 							<option value="get">AVAILABLE RULES: GET</option>
 						</select>
 					</p>
@@ -132,12 +138,12 @@
 											<td>unique text identifier (integer)</td>
 										</tr>
 										<tr>
-											<td>text*</td>
-											<td>Text to be annotated</td>
+											<td>email**</td>
+											<td>Email which you entered during registration</td>
 										</tr>
 										<tr>
-											<td>html</td>
-											<td>Html page to be annotated</td>
+											<td>key**</td>
+											<td>API key that you received</td>
 										</tr>
 										<tr>
 											<td>timezone**</td>
@@ -148,6 +154,15 @@
 											<td>Current date in format, ex: 2014-10-24T13:37:40.931Z
 											</td>
 										</tr>
+										<tr>
+											<td>text*</td>
+											<td>Text to be annotated</td>
+										</tr>
+										<tr>
+											<td>html</td>
+											<td>Html page to be annotated</td>
+										</tr>
+
 										<tr>
 											<td>rules_to_ignore</td>
 											<td>UUID of rules that will be excluded, <br>ex.
@@ -190,7 +205,7 @@
 						* either 'text' or 'html' parameter should be specified, otherwise
 						400 Exception Missing parameter is thrown <br /> ** obligatory
 						parameter<br /> *** for html page, each tag should have
-						_temporal_id parameter, as it comes in response to identify tag
+						"_temporal_id" parameter, as it comes in response to identify tag
 						with temporal text inside
 						</p>
 

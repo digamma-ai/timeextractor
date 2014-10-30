@@ -7,15 +7,10 @@ public class ApiKeyRegistration {
     private ApiKeyService apiKeyService = new ApiKeyService();
     private IORegistrationService regService = new IORegistrationService();
 
-    public String registerAndGetAPIKey(UserInfo userInfo) {
+    public String registerAndGetAPIKey(UserInfo userInfo) throws Exception {
         String email = userInfo.getEmail();
-        try {
-            regService.writeToFile(userInfo);
-            return apiKeyService.generateAPIKey(email);
-        } catch (Exception e) {
-            return null;
-        }
-
+        regService.writeToFile(userInfo);
+        return apiKeyService.generateAPIKey(email);
     }
 
 }

@@ -1,6 +1,5 @@
 $(document).ready()
 {
-	$('#post_api').hide();
 	$('#get_api').hide();
 
 }

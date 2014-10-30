@@ -17,7 +17,7 @@ public class DurationRule1 extends Rule {
     private TemporalParser parser;
     private double confidence = 0.8;
     private int priority = 4;
-    private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last|after)[\\s]*)?(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))" + "([\\s]*[-]?" + TemporalConstants.DURATION + ")";
+    private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last|after)[\\s]*)?(([1-9])|([1-9][0-9])|([1-9][0-9][0-9]))" + "([\\s]*[-]?" + TemporalConstants.DURATION + "\\b)";
     protected String example = "lasts n days, more than 3 hours, etc.";
     protected UUID id = UUID.fromString("a8578915-03f3-4297-b9cd-6486974e1feb");
 

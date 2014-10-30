@@ -10,6 +10,14 @@ import com.codeminders.labs.timeextractor.constants.RestParameters;
 
 public class RestParametersService {
 
+    public boolean checkNullValues(String parameter) {
+        if (parameter == null) {
+            return true;
+        }
+        return false;
+
+    }
+
     public LocalDateTime getLocalDateTimeParameter(JSONObject object) {
         if (object == null) {
             return null;

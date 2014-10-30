@@ -3,6 +3,14 @@ package com.codeminders.labs.timeextractor.service.key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * <h1>ApiKey Service Class</h1> is designed for generation of API key
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-30
+ */
+
 public class ApiKeyService {
     private static final String secret = "8484q7af0-5f73-11e4-9803-0800s200c9a66";
 

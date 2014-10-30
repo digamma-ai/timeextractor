@@ -21,6 +21,14 @@ import com.codeminders.labs.timeextractor.temporal.entities.Date;
 import com.codeminders.labs.timeextractor.temporal.entities.Time;
 import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
 
+/**
+ * <h1>Utils Class</h1> provides different static help methods, such as timedate
+ * convertors, json object convertors, etc.
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
 public class Utils {
 
     public static JSONObject jsonObject(String key, String value) throws JSONException {

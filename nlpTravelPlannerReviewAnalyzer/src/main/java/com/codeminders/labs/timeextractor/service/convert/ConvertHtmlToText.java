@@ -12,7 +12,14 @@ import org.jsoup.select.Elements;
 import com.codeminders.labs.timeextractor.constants.RestParameters;
 import com.codeminders.labs.timeextractor.entities.HtmlElement;
 
-/* */
+/**
+ * <h1>Convert Html To Text Class</h1> is designed for processing of html
+ * document to text fragments from html document tags
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-30
+ */
 
 public class ConvertHtmlToText {
 

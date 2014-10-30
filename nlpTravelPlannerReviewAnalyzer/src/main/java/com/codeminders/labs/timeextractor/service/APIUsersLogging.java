@@ -12,6 +12,14 @@ import com.codeminders.labs.timeextractor.entities.LogData;
 import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
 import com.codeminders.labs.timeextractor.service.key.IORegistrationService;
 
+/**
+ * <h1>APIUsers Logging Service Class</h1> is developed for storing information
+ * about service usage by users
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-28
+ */
 public class APIUsersLogging {
 
     private String logFile = "/logs/log.data";

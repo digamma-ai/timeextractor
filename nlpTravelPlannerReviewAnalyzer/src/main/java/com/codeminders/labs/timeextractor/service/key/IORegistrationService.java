@@ -15,6 +15,15 @@ import com.codeminders.labs.timeextractor.exceptions.ExceptionMessages;
 
 // /var/lib/tomcat7/webapps/timeextractor-2/WEB-INF/classes/registration/registration.data
 
+/**
+ * <h1>IORegistration Service Class</h1> is used for user registration, and
+ * validation of already registered users
+ *
+ * @author Anastasiia Mishchuk
+ * @version 1.0
+ * @since 2014-10-30
+ */
+
 public class IORegistrationService {
     private String registrationFile = "/registration/registration.data";
     private static final Logger logger = Logger.getLogger(IORegistrationService.class);

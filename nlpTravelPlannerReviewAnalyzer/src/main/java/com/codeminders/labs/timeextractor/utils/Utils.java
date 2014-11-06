@@ -31,6 +31,10 @@ import com.codeminders.labs.timeextractor.temporal.entities.TimeDate;
  */
 public class Utils {
 
+    private Utils() {
+        // This class is not meant to be instantiated
+    }
+
     public static JSONObject jsonObject(String key, String value) throws JSONException {
         JSONObject object = new JSONObject();
         object.put(key, value);
@@ -119,6 +123,7 @@ public class Utils {
             }
             if (date.getDay() != 0) {
                 localDateTime = localDateTime.withDayOfMonth(date.getDay());
+
             }
         }
         if (time != null) {

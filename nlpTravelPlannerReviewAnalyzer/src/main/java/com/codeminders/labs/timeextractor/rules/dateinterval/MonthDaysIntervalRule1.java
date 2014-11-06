@@ -45,7 +45,8 @@ public class MonthDaysIntervalRule1 extends Rule {
         int endDay = Integer.parseInt(m.group(8));
         int month = 0;
         int year = 0;
-        MonthOfYear monthEnum = TemporalBasicCaseParser.getMonthOfYear(m.group(1));
+        MonthOfYear monthEnum = TemporalBasicCaseParser.getMonthOfYear(m.group(2));
+
         if (monthEnum != null) {
             month = monthEnum.getValue();
         }

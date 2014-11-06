@@ -10,7 +10,7 @@ import com.codeminders.labs.timeextractor.temporal.entities.Type;
 
 public class FilterRules1 extends Rule {
     private double confidence = 0.9;
-    private String rule = "\\b((the sun)|(may be)|(may do)|(may try)|(may apply)|(may have)|(may know)|(may influence)|(may never have)|(may not be)|(spring fall)|(wall fall)|(water fall)|(the fall of)|(fall[s]? again)|(\\d[.]\\d[%]))|(by[\\s]*[1-9][1-9]?[.][1-9][\\s]*([%]|(percent)))\\b";
+    private String rule = "((\\b([\\d]{1,})-year-old)\\b|\\b(([\\d]{1,}) years old)\\b|\\b(([\\d]{1,}) year old)\\b|\\b(the sun)\\b|(may[\\s]*be)|(may do)|(may try)|(may apply)|(may have)|(may know)|(may influence)|(may never have)|(may not be)|(spring fall)|(wall fall)|(water fall)|(the fall of)|(fall[s]? again)|(\\d[.]\\d[%]))|(by[\\s]*[1-9][1-9]?[.][1-9][\\s]*([%]|(percent)))";
     protected String example = "the sun, may be, 1.4%, water fall";
     protected UUID id = UUID.fromString("8b486001-fcaf-4379-a604-6c74678522a7");
     private int priority = 20;

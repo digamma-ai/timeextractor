@@ -1,7 +1,7 @@
 {
   "name": "Time extractor",
   "manifest_version": 2, 
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Extracts time information from html page and is used to add dates/times from web page to your google calendar. ",
   "browser_action": {
     "name": "Manipulate DOM",

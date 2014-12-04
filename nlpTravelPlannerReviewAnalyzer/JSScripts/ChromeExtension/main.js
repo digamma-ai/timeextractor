@@ -29,7 +29,7 @@ $(document).ready()
 {
 	var imgURL = chrome.extension.getURL("images/loading.gif");
 	addGlobalStyle('.highlight { background-color: yellow  }');
-	addGlobalStyle(".loader {   position: fixed;        left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999; background:url('"
+	addGlobalStyle(".loader_nlp_ext {   position: fixed; display: none;     left: 0px;      top: 0px;       width: 100%;    height: 100%;   z-index: 9999; background:url('"
 			+ imgURL + "') 50% 50% no-repeat rgb(249,249,249) }");
 	alert_error();
 }
@@ -53,7 +53,8 @@ var start = function(url, rulesToIgnore, onlyLatestDays) {
 		return;
 	}
 
-	$('body').prepend('<div class="loader"></div>');
+	$('body').prepend('<div class="loader_nlp_ext"></div>');
+	$(".loader_nlp_ext").show();
 	var currentdate = new Date();
 	var offset = new Date().getTimezoneOffset();
 	var html = $("html").html();
@@ -71,9 +72,11 @@ var start = function(url, rulesToIgnore, onlyLatestDays) {
 			function(data, textStatus, jqXHR) {
 				highlighted = true;
 				highlight(html, data);
-				$(".loader").fadeOut("slow");
+				$(".loader_nlp_ext").fadeOut("slow");
+
 			}).fail(function(xhr, textStatus, jqXHR) {
-		$(".loader").fadeOut("slow");
+		$(".loader_nlp_ext").fadeOut("slow");
+
 		if (jqXHR == 'Not Found' || xhr.responseText == '') {
 			openPopup('Server is not responding, try again later');
 		} else {

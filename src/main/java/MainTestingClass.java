@@ -4,23 +4,23 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.codeminders.labs.timeextractor.business.CsvReader;
-import com.codeminders.labs.timeextractor.business.CsvWriter;
-import com.codeminders.labs.timeextractor.business.FScore;
-import com.codeminders.labs.timeextractor.entities.Settings;
-import com.codeminders.labs.timeextractor.entities.TemporalExtraction;
-import com.codeminders.labs.timeextractor.entities.Tip;
-import com.codeminders.labs.timeextractor.service.TemporalExtractionService;
+import ai.digamma.business.CsvReader;
+import ai.digamma.business.CsvWriter;
+import ai.digamma.business.FScore;
+import ai.digamma.entities.Settings;
+import ai.digamma.entities.TemporalExtraction;
+import ai.digamma.entities.Tip;
+import ai.digamma.service.TemporalExtractionService;
 
 public class MainTestingClass {
-    private static String TRAINING_DATA = "/training.csv";
-    private static String TEST_RESULTS_FILE = "C:/test/results.txt";
+    private static String TRAINING_DATA = "/home/anna/time/timeextractor/data/train.csv";
+    private static String TEST_RESULTS_FILE = "/test/results.txt";
 
     public static void main(String[] args) throws Exception {
 
         TemporalExtractionService service = new TemporalExtractionService();
         CsvReader reader = new CsvReader();
-        String csv = CsvReader.class.getResource(TRAINING_DATA).getPath();
+        String csv = TRAINING_DATA;
         CsvWriter writer = new CsvWriter();
         String fileToWrite = TEST_RESULTS_FILE;
 
@@ -38,10 +38,10 @@ public class MainTestingClass {
             HashSet<String> annotated = new HashSet<String>();
 
             while (matcher.find()) {
-                String result = matcher.group().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-");
+                String result = matcher.group().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("ï¿½", "-");
                 annotated.add(result.trim());
             }
-            String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("–", "-").trim();
+            String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("ï¿½", "-").trim();
             System.out.println(text);
             Settings settings = new Settings(null, "0", null, 0);
             TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);

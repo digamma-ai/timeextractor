@@ -4,6 +4,7 @@
 	<groupId>timeextractor</groupId>
 	<artifactId>timeextractor</artifactId>
 	<version>2</version>
+	<packaging>jar</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -19,12 +20,9 @@
 		</plugins>
 	</build>
 	<properties>
-
 		<spring.version>3.2.3.RELEASE</spring.version>
 		<jersey.version>1.18.1</jersey.version>
 	</properties>
-
-
 	<dependencies>
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>

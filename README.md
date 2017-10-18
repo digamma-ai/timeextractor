@@ -49,4 +49,10 @@ The output will be:
 
 3 Mondays, DayOfWeekRule1, [Temporal [type=DATE, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
 ```
-
+## Advanced settings
+You can modify default extraction settings for some specific scenarios, like:
+* find closest day of week according to current date for relative date;
+* find closest date according to current date for relative date;
+* change found time expression according to specified date and timezone;
+* filter extraction rules;
+* find only dates that are current date or after current date.

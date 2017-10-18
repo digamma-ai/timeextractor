@@ -15,9 +15,11 @@ public class Settings {
     private Set<UUID> rulesToIgnore = new HashSet<UUID>();
     private boolean includeOnlyLatestDates;
 
-    public Settings(LocalDateTime date, String timezoneOffset, String rulesToIgnore, int includeOnlyLatestDates) throws Exception {
+    public Settings(String date, String timezoneOffset, String rulesToIgnore, int includeOnlyLatestDates) throws Exception {
         // validation comes here
-        this.date = date;
+        if(date != null){
+            this.date = Utils.convertInputDate(date);
+        }
         if (timezoneOffset != null) {
             this.timezoneOffset = Integer.parseInt(timezoneOffset);
         }

@@ -1,8 +1,7 @@
-import java.util.HashSet;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 import ai.digamma.business.CsvReader;
 import ai.digamma.business.CsvWriter;
@@ -14,7 +13,7 @@ import ai.digamma.service.TemporalExtractionService;
 
 public class MainTestingClass {
     private static String TRAINING_DATA = "/home/anna/time/timeextractor/data/train.csv";
-    private static String TEST_RESULTS_FILE = "/test/results.txt";
+    private static String TEST_RESULTS_FILE = "/home/anna/time/timeextractor/data/results.txt";
 
     public static void main(String[] args) throws Exception {
 
@@ -43,7 +42,9 @@ public class MainTestingClass {
             }
             String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("�", "-").trim();
             System.out.println(text);
-            Settings settings = new Settings(null, "0", null, 0);
+            String localDateTime = "2014-10-27T18:40:40.931Z";
+            String rulesToIgnore = "ef72a1a4-bd22-4a3c-83ea-8be3c98f0da0";
+            Settings settings = new Settings(localDateTime, "0", rulesToIgnore, 0);
             TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {

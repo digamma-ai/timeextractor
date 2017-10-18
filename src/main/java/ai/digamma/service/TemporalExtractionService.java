@@ -17,6 +17,7 @@ import ai.digamma.entities.Rule;
 import ai.digamma.entities.Settings;
 import ai.digamma.entities.TemporalExtraction;
 
+
 /**
  * <h1>TemporalExtractionService Class</h1> is used for finding time expressions
  * from texts and html pages. The work flow contains of several steps: finding
@@ -88,9 +89,10 @@ public class TemporalExtractionService {
         TemporalExtractionService service = new TemporalExtractionService();
         String parserRule = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
         SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
+        String s = "2014-10-27T18:40:40.931Z";
         Date dateStr = sdf.parse("2014-10-27T18:40:40.931Z");
         LocalDateTime localDate = new LocalDateTime(dateStr);
-        Settings settings = new Settings(localDate, "0", null, 0);
+        Settings settings = new Settings(s, "0", null, 0);
         TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("An 8-year-old may be very ", settings);
         System.out.println(extracted);
     }

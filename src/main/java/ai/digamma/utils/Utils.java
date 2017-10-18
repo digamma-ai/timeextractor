@@ -150,7 +150,7 @@ public class Utils {
     }
 
     public static LocalDateTime convertInputDate(String date){
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         LocalDateTime dt = LocalDateTime.parse(date, fmt);
         return dt;
     }

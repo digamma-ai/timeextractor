@@ -149,6 +149,12 @@ public class Utils {
         return m;
     }
 
+    public static LocalDateTime convertInputDate(String date){
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dt = LocalDateTime.parse(date, fmt);
+        return dt;
+    }
+
     public static String currentLocalDate() {
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");

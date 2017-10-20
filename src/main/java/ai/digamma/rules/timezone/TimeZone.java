@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Time;
 import ai.digamma.temporal.entities.Type;
@@ -15,13 +15,13 @@ import ai.digamma.utils.TemporalBasicCaseParser;
 import ai.digamma.utils.TemporalObjectGenerator;
 import ai.digamma.utils.Utils;
 
-public class TimeZone extends Rule {
+public class TimeZone extends ExtractionRule {
     private TemporalBasicCaseParser parser = new TemporalBasicCaseParser();
     protected Locale locale = Locale.US;
     protected double confidence = 0.3;
     private int priority = 1;
     private String rule = "\\b" + TemporalConstants.TIME_ZONE + "\\b";
-    protected String example = "CET, UTC, etc. (rule is used only for composite rules, not as a simple rule )";
+    protected String example = "CET, UTC, etc. (rule is used only for composite rules.txt, not as a simple rule )";
     protected UUID id = UUID.fromString("4803fc1e-9c43-4e78-b5af-51865c5c3ed1");
 
     public TimeZone() {
@@ -85,7 +85,7 @@ public class TimeZone extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

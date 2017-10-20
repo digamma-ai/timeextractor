@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalParser;
@@ -15,7 +15,7 @@ import ai.digamma.utils.Utils;
 
 // between noon and 3pm
 
-public class TimeIntervalRule16 extends Rule {
+public class TimeIntervalRule16 extends ExtractionRule {
 
     private TemporalParser parser;
     protected Locale locale = Locale.US;
@@ -75,7 +75,7 @@ public class TimeIntervalRule16 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

@@ -13,7 +13,7 @@ import ai.digamma.temporal.entities.TimeDate;
 import ai.digamma.temporal.entities.Type;
 
 /**
- * <h1>Combine Rules Service Class</h1> is responsible for combining rules by
+ * <h1>Combine Rules Service Class</h1> is responsible for combining rules.txt by
  * rule types
  *
  * @author Anastasiia Mishchuk

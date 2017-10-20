@@ -1,10 +1,10 @@
 package ai.digamma.service;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import org.apache.log4j.Logger;
 
 /**
- * <h1>Rules Factory Class</h1> is designed to return concrete abstract Rule
+ * <h1>Rules Factory Class</h1> is designed to return concrete abstract ExtractionRule
  * class implementation by specified name
  *
  * @author Anastasiia Mishchuk
@@ -14,10 +14,10 @@ import org.apache.log4j.Logger;
 public class RulesFactory {
     private static final Logger logger = Logger.getLogger(TemporalExtractionService.class);
 
-    public Rule createRule(String className) {
+    public ExtractionRule createRule(String className) {
         try {
             Class<?> concreteClass = Class.forName(className);
-            return (Rule) concreteClass.newInstance();
+            return (ExtractionRule) concreteClass.newInstance();
         } catch (NullPointerException e) {
             logger.error("No class found: " + className);
         } catch (InstantiationException e) {

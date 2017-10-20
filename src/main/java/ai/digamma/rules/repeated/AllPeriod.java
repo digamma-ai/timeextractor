@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalParser;
 import ai.digamma.utils.Utils;
 
-public class AllPeriod extends Rule {
+public class AllPeriod extends ExtractionRule {
     private TemporalParser parser;
     private double confidence = 0.9;
     private String rule = "\\b((whole|all|entire|full)[\\s]*(day|week|month|year))\\b";
@@ -50,7 +50,7 @@ public class AllPeriod extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

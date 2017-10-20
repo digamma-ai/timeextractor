@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Date;
 import ai.digamma.temporal.entities.WeekOfMonth;
 import ai.digamma.utils.TemporalBasicCaseParser;
@@ -18,7 +18,7 @@ import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalObjectGenerator;
 
 //1st Tuesday of the month
-public class DayOfWeekOrderRule2 extends Rule {
+public class DayOfWeekOrderRule2 extends ExtractionRule {
 
     protected double confidence = 0.9;
     private String rule = "\\b(the[\\s]*)?(([1-5])(th|st|nd|rd)?[\\s]*)" + "((" + TemporalConstants.DAY_OF_WEEK + "|" + TemporalConstants.DAY_OF_WEEK_EASY
@@ -94,7 +94,7 @@ public class DayOfWeekOrderRule2 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

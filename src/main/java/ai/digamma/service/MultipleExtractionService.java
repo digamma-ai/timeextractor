@@ -6,8 +6,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.entities.RegexResult;
-import ai.digamma.entities.Rule;
 
 /**
  * <h1>Multiple Extraction Service Class</h1> is designed to extract information
@@ -26,9 +26,9 @@ public class MultipleExtractionService {
     }
 
     public List<RegexResult> getTemporals(String text) {
-        TreeSet<Rule> rules = generator.getRules();
+        TreeSet<ExtractionRule> rules = generator.getRules();
         List<RegexResult> results = new ArrayList<RegexResult>();
-        for (Rule rule : rules) {
+        for (ExtractionRule rule : rules) {
             Pattern p = Pattern.compile(rule.getRule(), Pattern.CASE_INSENSITIVE);
             Matcher m = p.matcher(text);
             while (m.find()) {
@@ -59,12 +59,6 @@ public class MultipleExtractionService {
 
     /**
      * Method checks if two results overlap
-     * 
-     * @param RegexResult
-     *            result1
-     * @param RegexResult
-     *            result2
-     * @return boolean
      */
     private boolean overlap(RegexResult result1, RegexResult result2) {
         return Math.max(result1.getStart(), result2.getStart()) <= Math.min(result1.getEnd(), result2.getEnd());

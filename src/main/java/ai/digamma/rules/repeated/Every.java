@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 
-public class Every extends Rule {
+public class Every extends ExtractionRule {
 
     private double confidence = 0.2;
     private String rule = "\\b(every|each)\\b";
     private int priority = 2;
-    protected String example = "every/each (rule is used only for composite rules, not as a simple rule )";
+    protected String example = "every/each (rule is used only for composite rules.txt, not as a simple rule )";
     protected UUID id = UUID.fromString("a69ee2a4-64fe-431a-9931-ddfa7df9a43d");
 
     public Every() {
@@ -42,7 +42,7 @@ public class Every extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

@@ -6,12 +6,12 @@ import java.util.Locale;
 import java.util.UUID;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalParser;
 
-public class Holidays extends Rule {
+public class Holidays extends ExtractionRule {
     protected double confidence = 0.99;
     private TemporalParser parser;
     private int priority = 1;
@@ -56,7 +56,7 @@ public class Holidays extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

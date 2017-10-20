@@ -6,7 +6,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.utils.TemporalBasicCaseParser;
 import ai.digamma.utils.TemporalObjectGenerator;
 import ai.digamma.utils.Utils;
@@ -16,7 +16,7 @@ import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.TimeDate;
 import ai.digamma.temporal.entities.Type;
 
-public class DateInterval4 extends Rule {
+public class DateInterval4 extends ExtractionRule {
     private String rule = "(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")" + "[\\s]*((\\b[1-9]\\b)|(\\b[1-2][0-9]\\b)|(\\b[3][0-1]\\b))[\\s]*(-|to)[\\s]*"
             + "(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")" + "[\\s]*((\\b[1-9]\\b)|(\\b[1-2][0-9]\\b)|(\\b[3][0-1]\\b))" + "([\\s,.]*([12][0-9])\\d\\d)?";
 
@@ -87,7 +87,7 @@ public class DateInterval4 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

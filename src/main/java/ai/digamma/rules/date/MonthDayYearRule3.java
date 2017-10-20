@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Date;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
@@ -15,7 +15,7 @@ import ai.digamma.utils.Utils;
 
 //  2014-09-29
 
-public class MonthDayYearRule3 extends Rule {
+public class MonthDayYearRule3 extends ExtractionRule {
 
     private double confidence = 0.8;
     private int priority = 4;
@@ -75,7 +75,7 @@ public class MonthDayYearRule3 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

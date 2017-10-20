@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.service.combine.CombineRulesService;
 import ai.digamma.service.filter.FilterRulesService;
 import ai.digamma.service.process.ProcessRulesService;
@@ -13,7 +14,6 @@ import org.apache.log4j.Logger;
 import org.joda.time.LocalDateTime;
 
 import ai.digamma.entities.RegexResult;
-import ai.digamma.entities.Rule;
 import ai.digamma.entities.Settings;
 import ai.digamma.entities.TemporalExtraction;
 
@@ -21,7 +21,7 @@ import ai.digamma.entities.TemporalExtraction;
 /**
  * <h1>TemporalExtractionService Class</h1> is used for finding time expressions
  * from texts and html pages. The work flow contains of several steps: finding
- * simple expressions by multiple regex rules, combining them, using extracted
+ * simple expressions by multiple regex rules.txt, combining them, using extracted
  * time expression types, transforming relative ones according to relative date
  * and filtering.
  *
@@ -55,7 +55,7 @@ public class TemporalExtractionService {
         temporals = processingService.processRelativeDayOfWeek(temporals, settings);
         // process timezone
         temporals = processingService.changeExpressionsAccordingToUserTimeZoneAndCurrentDate(temporals, settings);
-        // filter simple rules
+        // filter simple rules.txt
         temporals = filterService.removeSimpleTemporals(new ArrayList<TemporalExtraction>(temporals), settings);
         return temporals;
     }
@@ -70,7 +70,7 @@ public class TemporalExtractionService {
         }
         List<RegexResult> results = service.getTemporals(text);
         for (RegexResult result : results) {
-            Rule rule = result.getRule();
+            ExtractionRule rule = result.getRule();
             if (rule == null) {
                 continue;
             }

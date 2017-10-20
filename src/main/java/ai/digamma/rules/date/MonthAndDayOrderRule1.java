@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Date;
 import ai.digamma.temporal.entities.MonthOfYear;
 import ai.digamma.utils.TemporalBasicCaseParser;
@@ -18,7 +18,7 @@ import ai.digamma.utils.Utils;
 
 // March the Fourteenth, 2011
 
-public class MonthAndDayOrderRule1 extends Rule {
+public class MonthAndDayOrderRule1 extends ExtractionRule {
     private double confidence = 0.99;
     private int priority = 3;
     private String rule = "\\b(" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[\\s]*(the)?[\\s]*(" + TemporalConstants.BASIC_ORDER
@@ -75,7 +75,7 @@ public class MonthAndDayOrderRule1 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

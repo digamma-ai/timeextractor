@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalParser;
 import ai.digamma.utils.Utils;
 
-public class FrequencyTime extends Rule {
+public class FrequencyTime extends ExtractionRule {
 
     private double confidence = 0.9;
     private TemporalParser parser;
@@ -52,7 +52,7 @@ public class FrequencyTime extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

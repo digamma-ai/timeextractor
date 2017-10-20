@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 
-public class FilterRules1 extends Rule {
+public class FilterRules1 extends ExtractionRule {
     private double confidence = 0.9;
     private String rule = "((\\b([\\d]{1,})-year-old)\\b|\\b(([\\d]{1,}) years old)\\b|\\b(([\\d]{1,}) year old)\\b|\\b(the sun)\\b|(may[\\s]*be)|(may do)|(may try)|(may apply)|(may have)|(may know)|(may influence)|(may never have)|(may not be)|(spring fall)|(wall fall)|(water fall)|(the fall of)|(fall[s]? again)|(\\d[.]\\d[%]))|(by[\\s]*[1-9][1-9]?[.][1-9][\\s]*([%]|(percent)))";
     protected String example = "the sun, may be, 1.4%, water fall";
@@ -41,7 +41,7 @@ public class FilterRules1 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

@@ -6,13 +6,13 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Duration;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.Utils;
 
-public class DurationRule4 extends Rule {
+public class DurationRule4 extends ExtractionRule {
     private double confidence = 0.9;
     private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last)[\\s]*)?" + "([\\d]{1,})[\\s]*(hr|h)[\\s]*([\\d]{1,})[\\s]*(mins|min|mn|m)" + "\\b";
     private int priority = 4;
@@ -61,7 +61,7 @@ public class DurationRule4 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

@@ -7,13 +7,13 @@ import ai.digamma.temporal.entities.Temporal;
 public class RegexResult {
 
     private String text;
-    private Rule rule;
+    private ExtractionRule rule;
     private int start;
     private int end;
     private String ruleName;
     private List<Temporal> temporal;
 
-    public RegexResult(String text, Rule rule, String ruleName, int start, int end) {
+    public RegexResult(String text, ExtractionRule rule, String ruleName, int start, int end) {
         super();
         this.text = text;
         this.rule = rule;
@@ -46,11 +46,11 @@ public class RegexResult {
         this.end = end;
     }
 
-    public Rule getRule() {
+    public ExtractionRule getRule() {
         return rule;
     }
 
-    public void setRule(Rule rule) {
+    public void setRule(ExtractionRule rule) {
         this.rule = rule;
     }
 

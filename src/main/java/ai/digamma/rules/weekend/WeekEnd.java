@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.TimeDate;
 import ai.digamma.temporal.entities.Type;
@@ -13,7 +13,7 @@ import ai.digamma.utils.TemporalObjectGenerator;
 import ai.digamma.temporal.entities.Date;
 import ai.digamma.temporal.entities.DayOfWeek;
 
-public class WeekEnd extends Rule {
+public class WeekEnd extends ExtractionRule {
 
     private double confidence = 0.9;
     private String rule = "\\b(weekend|weekends|week-end|week-ends)\\b";
@@ -70,7 +70,7 @@ public class WeekEnd extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

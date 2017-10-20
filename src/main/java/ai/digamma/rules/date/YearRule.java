@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Date;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
@@ -15,7 +15,7 @@ import ai.digamma.utils.Utils;
 
 // year rule (2014, 2013, 1989, etc.)
 
-public class YearRule extends Rule {
+public class YearRule extends ExtractionRule {
 
     protected double confidence = 0.3;
     protected String rule = "\\b(in[\\s]*|until[\\s]*|till[\\s]*|til[\\s]*)?\\b((([1][8-9])|([2][01]))\\d\\d)\\b";
@@ -58,7 +58,7 @@ public class YearRule extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

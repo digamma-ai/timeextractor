@@ -27,13 +27,7 @@ public class FilterRulesService {
 
     /**
      * Main filtering method: exludes results by rule type filtering, simple
-     * rules, lates dates, etc.
-     * 
-     * @param List
-     *            <TemporalExtraction> list - list of found time expressions
-     * @param Settings
-     *            settings - user settings
-     * @return TreeSet<TemporalExtraction> - filtered time expressions
+     * rules.txt, lates dates, etc.
      */
     public TreeSet<TemporalExtraction> removeSimpleTemporals(List<TemporalExtraction> list, Settings settings) {
         for (int i = 0; i < list.size(); i++) {
@@ -63,11 +57,6 @@ public class FilterRulesService {
     /**
      * Method checks whether current time found expression needs to be excluded
      * by user set rule type
-     * 
-     * @param TemporalExtraction
-     *            current - found temporal expression
-     * @param Settings
-     *            settings - user settings
      * @return boolean
      */
     private boolean excludeRulesSelectedByUsers(TemporalExtraction current, Settings settings) {
@@ -80,10 +69,6 @@ public class FilterRulesService {
     /**
      * Method checks whether current time found expression needs to be excluded
      * because of not combined simple rule, like timezone or word 'every'
-     * 
-     * @param TemporalExtraction
-     *            current - found temporal expression
-     * @return boolean
      */
     private boolean filterSimpleCases(TemporalExtraction current) {
         Type currentType = current.getTemporal().get(0).getType();
@@ -96,10 +81,6 @@ public class FilterRulesService {
     /**
      * Method checks whether current time found expression needs to be excluded
      * because of the filtering rule
-     * 
-     * @param TemporalExtraction
-     *            current - found temporal expression
-     * @return boolean
      */
     private boolean excludeFilterRules(TemporalExtraction current) {
         Type currentType = current.getTemporal().get(0).getType();
@@ -114,12 +95,6 @@ public class FilterRulesService {
      * Method checks whether current time found expression needs to be excluded
      * by user set to find only dates that are current date or after current
      * date
-     * 
-     * @param TemporalExtraction
-     *            current - found temporal expression
-     * @param Settings
-     *            settings - user settings
-     * @return boolean
      */
 
     private boolean excludePastDates(TemporalExtraction current, Settings settings) {

@@ -6,13 +6,13 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalParser;
 import ai.digamma.utils.Utils;
 
-public class DurationRule2 extends Rule {
+public class DurationRule2 extends ExtractionRule {
     private TemporalParser parser;
     private double confidence = 0.9;
     private String rule = "\\b((about|lasts|past|at least|up to|more than)[\\s]*)((an|a)[\\s*])?(hour|minute|second|day|week|month|year)\\b";
@@ -60,7 +60,7 @@ public class DurationRule2 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

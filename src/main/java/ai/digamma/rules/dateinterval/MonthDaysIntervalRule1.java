@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.TimeDate;
 import ai.digamma.temporal.entities.Type;
@@ -18,7 +18,7 @@ import ai.digamma.temporal.entities.MonthOfYear;
 import ai.digamma.utils.Utils;
 
 //July 28th-31st (date period ), Jul 28th-31st 2014
-public class MonthDaysIntervalRule1 extends Rule {
+public class MonthDaysIntervalRule1 extends ExtractionRule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.9;
@@ -94,7 +94,7 @@ public class MonthDaysIntervalRule1 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

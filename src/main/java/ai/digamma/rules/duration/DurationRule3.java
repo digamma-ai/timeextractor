@@ -7,14 +7,14 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalBasicCaseParser;
 import ai.digamma.utils.TemporalParser;
 import ai.digamma.utils.Utils;
 
-public class DurationRule3 extends Rule {
+public class DurationRule3 extends ExtractionRule {
     private TemporalParser parser;
     private double confidence = 0.9;
     private String rule = "\\b((lasts|about|past|at least|up to|more than|less than|last)[\\s]*)?" + "(" + TemporalConstants.BASIC_NUMBER_ONE_TEN + "|" + TemporalConstants.BASIC_NUMBER_TWENTY_HUNDRED
@@ -65,7 +65,7 @@ public class DurationRule3 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

@@ -10,12 +10,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import org.apache.log4j.Logger;
 
 /**
  * <h1>Multiple Patterns Generator Class</h1> is designed to upload in memory
- * all available rules from file and return TreeSet<Rule> of all available rule
+ * all available rules.txt from file and return TreeSet<ExtractionRule> of all available rule
  * objects
  *
  * @author Anastasiia Mishchuk
@@ -29,7 +29,7 @@ public class MultiplePatternsGenerator {
     private static RulesFactory factory = new RulesFactory();
     private static String defaultFile = "/factory_EN_US";
     private static String file;
-    private TreeSet<Rule> rules;
+    private TreeSet<ExtractionRule> rules;
     private static List<String> ruleClassesNames = new ArrayList<String>();
 
     public MultiplePatternsGenerator(String file) {
@@ -39,11 +39,11 @@ public class MultiplePatternsGenerator {
         rules = getRulesFromFile();
     }
 
-    public static TreeSet<Rule> getRulesFromFile() {
+    public static TreeSet<ExtractionRule> getRulesFromFile() {
         populateRuleClassesFromFile();
-        TreeSet<Rule> rules = new TreeSet<Rule>(Collections.reverseOrder());
+        TreeSet<ExtractionRule> rules = new TreeSet<ExtractionRule>(Collections.reverseOrder());
         for (int i = 0; i < ruleClassesNames.size(); i++) {
-            Rule rule = factory.createRule(ruleClassesNames.get(i));
+            ExtractionRule rule = factory.createRule(ruleClassesNames.get(i));
             rules.add(rule);
         }
         return rules;
@@ -69,11 +69,11 @@ public class MultiplePatternsGenerator {
 
     }
 
-    public TreeSet<Rule> getRules() {
+    public TreeSet<ExtractionRule> getRules() {
         return rules;
     }
 
-    public void setRules(TreeSet<Rule> rules) {
+    public void setRules(TreeSet<ExtractionRule> rules) {
         this.rules = rules;
     }
 

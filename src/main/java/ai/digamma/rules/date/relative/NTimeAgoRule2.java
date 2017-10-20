@@ -6,11 +6,11 @@ import java.util.Locale;
 import java.util.UUID;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 
-public class NTimeAgoRule2 extends Rule {
+public class NTimeAgoRule2 extends ExtractionRule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.7;
@@ -55,7 +55,7 @@ public class NTimeAgoRule2 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

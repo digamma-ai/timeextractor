@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 
-public class TodayTomorrowEtc extends Rule {
+public class TodayTomorrowEtc extends ExtractionRule {
     private double confidence = 0.9;
     private int priority = 2;
     protected String rule = "\\b((today)|(yesterday)|(tomorrow)|(the day before yesterday)|(tonight))\\b";
@@ -51,7 +51,7 @@ public class TodayTomorrowEtc extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

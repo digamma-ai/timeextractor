@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Time;
 import ai.digamma.temporal.entities.TimeDate;
@@ -16,7 +16,7 @@ import ai.digamma.utils.TemporalBasicCaseParser;
 import ai.digamma.utils.TemporalObjectGenerator;
 import ai.digamma.utils.Utils;
 
-public class TimeIntervalRule3 extends Rule {
+public class TimeIntervalRule3 extends ExtractionRule {
 
     protected Locale locale = Locale.US;
     protected double confidence = 0.3;
@@ -104,7 +104,7 @@ public class TimeIntervalRule3 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

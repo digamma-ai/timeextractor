@@ -6,14 +6,14 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Date;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalObjectGenerator;
 import ai.digamma.utils.Utils;
 
-public class MonthDayYearRule2 extends Rule {
+public class MonthDayYearRule2 extends ExtractionRule {
     private double confidence = 0.6;
     private int priority = 2;
     protected String rule = "\\b((0?[1-9]|[12][0-9]|3[01])[.\\/](0?[1-9]|1[012])[.\\/](([12][0-9])?\\d\\d))\\b";
@@ -73,7 +73,7 @@ public class MonthDayYearRule2 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

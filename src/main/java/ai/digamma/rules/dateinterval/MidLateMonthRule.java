@@ -7,18 +7,17 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.*;
 import ai.digamma.utils.TemporalBasicCaseParser;
 import org.joda.time.LocalDate;
-
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.TimeDate;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalObjectGenerator;
 import ai.digamma.utils.Utils;
 
-public class MidLateMonthRule extends Rule {
+public class MidLateMonthRule extends ExtractionRule {
     private double confidence = 0.9;
     private String rule = "\\b(mid|mid-late)[-\\s]*((" + TemporalConstants.MONTH_OF_YEAR + "|" + TemporalConstants.MONTH_OF_YEAR_EASY + ")[s]?([.])?)";
     protected int priority = 3;
@@ -89,7 +88,7 @@ public class MidLateMonthRule extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

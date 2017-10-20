@@ -2,7 +2,7 @@ package ai.digamma.dto;
 
 import java.util.UUID;
 
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 
 public class DTORule implements Comparable<DTORule> {
     private UUID id;
@@ -10,7 +10,7 @@ public class DTORule implements Comparable<DTORule> {
     private String name;
     private double confidencce;
 
-    public DTORule(Rule rule) {
+    public DTORule(ExtractionRule rule) {
         this.id = rule.getId();
         this.example = rule.getExample();
         this.name = rule.getClass().getSimpleName();

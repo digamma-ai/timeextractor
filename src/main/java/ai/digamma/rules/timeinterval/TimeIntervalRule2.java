@@ -6,13 +6,13 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 
 import ai.digamma.constants.TemporalConstants;
-import ai.digamma.entities.Rule;
+import ai.digamma.entities.ExtractionRule;
 import ai.digamma.temporal.entities.Temporal;
 import ai.digamma.temporal.entities.Type;
 import ai.digamma.utils.TemporalParser;
 import ai.digamma.utils.Utils;
 
-public class TimeIntervalRule2 extends Rule {
+public class TimeIntervalRule2 extends ExtractionRule {
 
     private TemporalParser parser;
     private int priority = 2;
@@ -76,7 +76,7 @@ public class TimeIntervalRule2 extends Rule {
     }
 
     @Override
-    public int compareTo(Rule o) {
+    public int compareTo(ExtractionRule o) {
         return super.compare(this, o);
     }
 

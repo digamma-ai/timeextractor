@@ -21,7 +21,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     }
 
     public TemporalExtraction(RegexResult result) {
-        Rule rule = result.getRule();
+        ExtractionRule rule = result.getRule();
         fromPosition = result.getStart();
         classOfRuleType = result.getRuleName();
         toPosition = result.getEnd();
@@ -42,7 +42,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     private List<Temporal> temporal;
     private double confidence;
     private Locale locale;
-    private Rule rule;
+    private ExtractionRule rule;
 
     public String getTemporalExpression() {
         return temporalExpression;
@@ -120,11 +120,11 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
         return compare(this, o);
     }
 
-    public Rule getRule() {
+    public ExtractionRule getRule() {
         return rule;
     }
 
-    public void setRule(Rule rule) {
+    public void setRule(ExtractionRule rule) {
         this.rule = rule;
     }
 

@@ -1,7 +1,9 @@
 package ai.digamma.entities;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import ai.digamma.temporal.entities.Temporal;
 
@@ -22,6 +24,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
 
     public TemporalExtraction(RegexResult result) {
         ExtractionRule rule = result.getRule();
+        this.rule = rule;
         fromPosition = result.getStart();
         classOfRuleType = result.getRuleName();
         toPosition = result.getEnd();
@@ -29,7 +32,11 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
         confidence = rule.getConfidence();
         temporal = rule.getTemporal(result.getText());
         temporalExpression = result.getText();
-        this.rule = result.getRule();
+        UUID uuid = rule.getId();
+        RulesMap map = new RulesMap();
+        HashMap<String, String> values = map.getRuleInfo(uuid.toString());
+        this.rule_name = values.get("rule");
+        this.group = values.get("group");
         if (rule.getType() != null && getTemporal() != null && getTemporal().get(0) != null) {
             getTemporal().get(0).setType(rule.getType());
         }
@@ -42,6 +49,8 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     private List<Temporal> temporal;
     private double confidence;
     private Locale locale;
+    private String rule_name;
+    private String group;
     private ExtractionRule rule;
 
     public String getTemporalExpression() {

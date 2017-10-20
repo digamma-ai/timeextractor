@@ -6,9 +6,7 @@ import java.util.regex.Pattern;
 import ai.digamma.business.CsvReader;
 import ai.digamma.business.CsvWriter;
 import ai.digamma.business.FScore;
-import ai.digamma.entities.Settings;
-import ai.digamma.entities.TemporalExtraction;
-import ai.digamma.entities.Tip;
+import ai.digamma.entities.*;
 import ai.digamma.service.TemporalExtractionService;
 
 public class MainTestingClass {
@@ -42,9 +40,13 @@ public class MainTestingClass {
             }
             String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("�", "-").trim();
             System.out.println(text);
-            String localDateTime = "2014-10-27T18:40:40.931Z";
-            String rulesToIgnore = "ef72a1a4-bd22-4a3c-83ea-8be3c98f0da0";
-            Settings settings = new Settings(localDateTime, "0", rulesToIgnore, 0);
+
+            RulesMap map = new RulesMap();
+            RulesGroup group = map.getRulesGroup("dateRule");
+            List<Rule> rules = group.getGroupRules();
+            List<Rule> rulesToIgnore = new ArrayList<>();
+            rulesToIgnore.add(rules.get(3));
+            Settings settings = new Settings(null, "0", rulesToIgnore, 0);
             TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {

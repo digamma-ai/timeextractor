@@ -1,6 +1,7 @@
 package ai.digamma.entities;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,7 +16,12 @@ public class Settings {
     private Set<UUID> rulesToIgnore = new HashSet<UUID>();
     private boolean includeOnlyLatestDates;
 
-    public Settings(String date, String timezoneOffset, String rulesToIgnore, int includeOnlyLatestDates) throws Exception {
+    public Settings(){
+        this.date = null;
+        this.includeOnlyLatestDates = false;
+    }
+
+    public Settings(String date, String timezoneOffset, List<Rule> rulesToIgnore, int includeOnlyLatestDates) throws Exception {
         // validation comes here
         if(date != null){
             this.date = Utils.convertInputDate(date);
@@ -23,7 +29,7 @@ public class Settings {
         if (timezoneOffset != null) {
             this.timezoneOffset = Integer.parseInt(timezoneOffset);
         }
-        if (rulesToIgnore != null && rulesToIgnore.length() > 4) {
+        if (rulesToIgnore != null) {
             this.rulesToIgnore = Utils.getSetofUUIDsFromString(rulesToIgnore);
         }
         if (includeOnlyLatestDates == 1) {

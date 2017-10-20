@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.UUID;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ import ai.digamma.exceptions.ExceptionMessages;
 import ai.digamma.temporal.entities.Date;
 import ai.digamma.temporal.entities.Time;
 import ai.digamma.temporal.entities.TimeDate;
+import ai.digamma.entities.Rule;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -58,16 +60,18 @@ public class Utils {
 
     }
 
-    public static Set<UUID> getSetofUUIDsFromString(String arrayOfUUIDs) throws Exception {
-        Set<UUID> setOfUUIDs = new HashSet<UUID>();
-        String[] UUIDs = arrayOfUUIDs.split(",");
-        for (String UUId : UUIDs) {
-            try {
-                UUId = UUId.replace("\"", "").replace("[", "").replace("]", "").trim();
-                UUID uuid = UUID.fromString(UUId);
-                setOfUUIDs.add(uuid);
-            } catch (Exception ex) {
-                throw new Exception(ExceptionMessages.FIELD_RULES + ": " + UUId);
+    public static Set<UUID> getSetofUUIDsFromString(List<Rule> rules) throws Exception {
+        Set<UUID> setOfUUIDs = new HashSet<>();
+        for (Rule rule : rules){
+            List<String> uuids = rule.getUuidList();
+            for (String UUId : uuids) {
+                try {
+                    UUId = UUId.replace("\"", "").replace("[", "").replace("]", "").trim();
+                    UUID uuid = UUID.fromString(UUId);
+                    setOfUUIDs.add(uuid);
+                } catch (Exception ex) {
+                    throw new Exception(ExceptionMessages.FIELD_RULES + ": " + UUId);
+                }
             }
         }
         return setOfUUIDs;

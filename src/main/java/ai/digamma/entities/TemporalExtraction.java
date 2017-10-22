@@ -34,9 +34,6 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
         temporalExpression = result.getText();
         UUID uuid = rule.getId();
         RulesMap map = new RulesMap();
-        HashMap<String, String> values = map.getRuleInfo(uuid.toString());
-        this.rule_name = values.get("rule");
-        this.group = values.get("group");
         if (rule.getType() != null && getTemporal() != null && getTemporal().get(0) != null) {
             getTemporal().get(0).setType(rule.getType());
         }

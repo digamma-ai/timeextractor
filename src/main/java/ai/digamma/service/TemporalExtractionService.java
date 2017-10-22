@@ -85,7 +85,7 @@ public class TemporalExtractionService {
 
 
 
-    public static void main(String[] args) throws Exception {
+   /* public static void main(String[] args) throws Exception {
         TemporalExtractionService service = new TemporalExtractionService();
         String parserRule = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
         SimpleDateFormat sdf = new SimpleDateFormat(parserRule);
@@ -95,5 +95,5 @@ public class TemporalExtractionService {
         Settings settings = new Settings(s, "0", null, 0);
         TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText("An 8-year-old may be very ", settings);
         System.out.println(extracted);
-    }
+    }*/
 }

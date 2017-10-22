@@ -35,19 +35,29 @@ public class FilterRulesService {
             boolean excludePastDates = false;
             boolean excludeByRule = false;
             boolean excludeFilterRules = false;
+            boolean includeByRule = false;
 
             TemporalExtraction current = list.get(i);
             List<Temporal> temporals = current.getTemporal();
             if (temporals != null && temporals.get(0) != null && temporals.get(0).getType() != null) {
                 excludeByRule = excludeRulesSelectedByUsers(current, settings);
+                includeByRule = includeRulesSelectedByUsers(current, settings);
                 excludeSimpleCases = filterSimpleCases(current);
                 excludeFilterRules = excludeFilterRules(current);
                 if (settings.isIncludeOnlyLatestDates()) {
                     excludePastDates = excludePastDates(current, settings);
                 }
-                if (excludeSimpleCases || excludePastDates || excludeByRule || excludeFilterRules) {
-                    list.remove(i);
-                    i = i - 1;
+                if(settings.isUserIncludeRuleExist()) {
+                    if (excludeSimpleCases || excludePastDates || excludeByRule || excludeFilterRules || !(includeByRule)) {
+                        list.remove(i);
+                        i = i - 1;
+                    }
+                }
+                else{
+                    if (excludeSimpleCases || excludePastDates || excludeByRule || excludeFilterRules) {
+                        list.remove(i);
+                        i = i - 1;
+                    }
                 }
             }
         }
@@ -66,6 +76,12 @@ public class FilterRulesService {
         return false;
     }
 
+    private boolean includeRulesSelectedByUsers(TemporalExtraction current, Settings settings){
+        if(settings.getRulesToInclude().contains(current.getRule().getId())) {
+            return true;
+        }
+        return false;
+    }
     /**
      * Method checks whether current time found expression needs to be excluded
      * because of not combined simple rule, like timezone or word 'every'

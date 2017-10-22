@@ -60,23 +60,21 @@ public class Utils {
 
     }
 
-    public static Set<UUID> getSetofUUIDsFromString(List<Rule> rules) throws Exception {
+    public static Set<UUID> getSetofUUIDsFromString(List<String> uuids) throws Exception {
         Set<UUID> setOfUUIDs = new HashSet<>();
-        for (Rule rule : rules){
-            List<String> uuids = rule.getUuidList();
-            for (String UUId : uuids) {
-                try {
-                    UUId = UUId.replace("\"", "").replace("[", "").replace("]", "").trim();
-                    UUID uuid = UUID.fromString(UUId);
-                    setOfUUIDs.add(uuid);
-                } catch (Exception ex) {
-                    throw new Exception(ExceptionMessages.FIELD_RULES + ": " + UUId);
-                }
+        for (String UUId : uuids) {
+            try {
+                UUId = UUId.replace("\"", "").replace("[", "").replace("]", "").trim();
+                UUID uuid = UUID.fromString(UUId);
+                setOfUUIDs.add(uuid);
+            } catch (Exception ex) {
+                throw new Exception(ExceptionMessages.FIELD_RULES + ": " + UUId);
             }
         }
         return setOfUUIDs;
-
     }
+
+
 
     public static TimeDate getTimeDate(LocalDateTime localDate) {
         return getTimeDate(localDate, -1000);

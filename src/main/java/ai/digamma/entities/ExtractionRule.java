@@ -117,4 +117,6 @@ public abstract class ExtractionRule implements Comparable<ExtractionRule> {
         this.example = example;
     }
 
+
+
 }

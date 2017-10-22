@@ -13,15 +13,18 @@ public class Settings {
 
     private LocalDateTime date;
     private int timezoneOffset = 0;
-    private Set<UUID> rulesToIgnore = new HashSet<UUID>();
+    private Set<UUID> rulesToIgnore = new HashSet<>();
+    private Set<UUID> rulesToInclude = new HashSet<>();
+    private boolean includeRuleIsExist;
     private boolean includeOnlyLatestDates;
 
     public Settings(){
         this.date = null;
         this.includeOnlyLatestDates = false;
+        this.includeRuleIsExist = false;
     }
 
-    public Settings(String date, String timezoneOffset, List<Rule> rulesToIgnore, int includeOnlyLatestDates) throws Exception {
+    public Settings(String date, String timezoneOffset, List<String> rulesToIgnore, List<String> rulesToInclude, int includeOnlyLatestDates) throws Exception {
         // validation comes here
         if(date != null){
             this.date = Utils.convertInputDate(date);
@@ -31,6 +34,10 @@ public class Settings {
         }
         if (rulesToIgnore != null) {
             this.rulesToIgnore = Utils.getSetofUUIDsFromString(rulesToIgnore);
+        }
+        if(rulesToInclude != null){
+            this.rulesToInclude = Utils.getSetofUUIDsFromString(rulesToInclude);
+            this.includeRuleIsExist = true;
         }
         if (includeOnlyLatestDates == 1) {
             this.includeOnlyLatestDates = true;
@@ -54,9 +61,9 @@ public class Settings {
         this.timezoneOffset = timezoneOffset;
     }
 
-    public Set<UUID> getRulesToIgnore() {
-        return rulesToIgnore;
-    }
+    public Set<UUID> getRulesToIgnore() { return rulesToIgnore; }
+
+    public Set<UUID> getRulesToInclude(){ return rulesToInclude; }
 
     public void setRulesToIgnore(Set<UUID> rulesToIgnore) {
         this.rulesToIgnore = rulesToIgnore;
@@ -65,6 +72,8 @@ public class Settings {
     public boolean isIncludeOnlyLatestDates() {
         return includeOnlyLatestDates;
     }
+
+    public boolean isUserIncludeRuleExist() { return this.includeRuleIsExist; }
 
     public void setIncludeOnlyLatestDates(boolean includeOnlyLatestDates) {
         this.includeOnlyLatestDates = includeOnlyLatestDates;

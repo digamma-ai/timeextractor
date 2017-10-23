@@ -12,4 +12,12 @@ public class TimeExtractor {
         TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
         return extracted;
     }
+
+    public static TreeSet<TemporalExtraction> extract(String text){
+        Settings settings = new Settings();
+        TemporalExtractionService service = new TemporalExtractionService();
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
+        return extracted;
+    }
+
 }

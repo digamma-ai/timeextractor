@@ -22,7 +22,7 @@ This library is built on:
 * [Log4j Logging Service](https://logging.apache.org/log4j/2.x/)
 
 ## Quickstart
-Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convinience method to extract date/time fragments from input text.
+Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
 
 Here is an example of how `DateTimeExtractor` is used:
 ```

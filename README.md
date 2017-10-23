@@ -91,7 +91,7 @@ All extraction rules are divided into rules groups.
           <td><b>Description</b></td>
           <td><b>Example</b></td>
   </tr>
-  <tr style = "font-weight:bolder">
+  <tr bgcolor="blue">
     <td>DateGroup</td>
     <td colspan="2">Contains rules associated with the date</td>
   </tr>

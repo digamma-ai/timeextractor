@@ -161,7 +161,43 @@ All extraction rules are divided into rules groups.
       <tr>
     <td>repeatedRule</td>
     <td>>Extracts repeated events</td>
-        <td><em>Free organ show <ins>every Sunday at 4</ins>.<br>Try San Francisco City Guides, who offer free <ins> weekly </ins> tours</td>
+        <td><em>Free organ show <ins>every Sunday at 4</ins>.<br>Try San Francisco City Guides, who offer free <ins> weekly </ins> tours</em></td>
+  </tr>
+   <tr>
+    <td>SeasonGroup</td>
+    <td colspan="2">Contains rules associated with seasons of the year.</td>
+  </tr>
+      <tr>
+    <td>seasonRule</td>
+    <td>>Extracts seasons of the year</td>
+        <td><em><ins>In summer months</ins> , the park is an anti-urban oasis along the riverfront.<br>Catch the post-impressionist exhibit <ins>in the fall</ins>!</em></td>
+  </tr>
+     <tr>
+    <td>TimeGroup</td>
+    <td colspan="2">Contains rules associated with the time.</td>
+  </tr>
+      <tr>
+    <td>timeRule</td>
+    <td>>Extracts the time</td>
+        <td><em>Go <ins>before 4pm PST</ins> and get there in time for the Tower.<br>The 'Long Walk' on route to the races <ins>at about 1.30pm</ins></em></td>
+  </tr>
+   <tr>
+    <td>timeIntervalRule</td>
+    <td>>Extracts time intervals</td>
+        <td><em>Happy hour <ins>from 19 till 20</ins> !!</em><br>Best between <ins>2:00 pm and 4:00 pm</ins> to enjoy the sun</em></td>
+  </tr>
+  <tr>
+    <td>timeZoneRule</td>
+    <td>>Extracts time zones</td>
+        <td><em>Closed <ins>by 21:00CET</ins>.<br>Last entry <ins>04:15 UTC</ins> </em></td>
+  </tr>
+  <td>WeekendGroup</td>
+    <td colspan="2">Contains rules associated with weekends</td>
+  </tr>
+      <tr>
+    <td>weekendRule</td>
+    <td>>Extracts seasons of the year</td>
+        <td><em><ins>Weekend</ins> happy hour 11am-7pm</em></td>
   </tr>
 </table>
 

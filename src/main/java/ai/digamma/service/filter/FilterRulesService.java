@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import ai.digamma.entities.TemporalExtraction;
+import ai.digamma.exceptions.ExceptionMessages;
 import ai.digamma.temporal.entities.TimeDate;
 import org.joda.time.LocalDateTime;
 
@@ -29,7 +30,7 @@ public class FilterRulesService {
      * Main filtering method: exludes results by rule type filtering, simple
      * rules.txt, lates dates, etc.
      */
-    public TreeSet<TemporalExtraction> removeSimpleTemporals(List<TemporalExtraction> list, Settings settings) {
+    public TreeSet<TemporalExtraction> removeSimpleTemporals (List<TemporalExtraction> list, Settings settings){
         for (int i = 0; i < list.size(); i++) {
             boolean excludeSimpleCases = false;
             boolean excludePastDates = false;
@@ -113,11 +114,12 @@ public class FilterRulesService {
      * date
      */
 
-    private boolean excludePastDates(TemporalExtraction current, Settings settings) {
+    private boolean excludePastDates (TemporalExtraction current, Settings settings) {
         TimeDate timeDate = current.getTemporal().get(0).getEndDate();
         if (timeDate == null) {
             timeDate = current.getTemporal().get(0).getStartDate();
         }
+
         LocalDateTime foundDateTime = Utils.getTimeDate(timeDate, settings.getDate());
         if (foundDateTime.isBefore(settings.getDate())) {
             return true;

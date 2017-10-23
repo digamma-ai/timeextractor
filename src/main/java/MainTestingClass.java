@@ -7,7 +7,6 @@ import ai.digamma.business.CsvReader;
 import ai.digamma.business.CsvWriter;
 import ai.digamma.business.FScore;
 import ai.digamma.entities.*;
-import ai.digamma.service.TemporalExtractionService;
 import ai.digamma.service.TimeExtractor;
 import ai.digamma.utils.SettingsBuilder;
 
@@ -44,6 +43,7 @@ public class MainTestingClass {
             Settings settings = new SettingsBuilder()
                                      .addRulesGroup("dateRule")
                                      .excludeRules("holidaysRule")
+                                     .includeOnlyLatestDates(true)
                                      .build();
 
             TreeSet<TemporalExtraction> predicted = TimeExtractor.extract(text,settings);

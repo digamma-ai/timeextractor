@@ -126,5 +126,42 @@ All extraction rules are divided into rules groups.
           <td>Extracts year/month dates fragments</td>
           <td><em>In <ins>March 2008</ins>, the Golden Gate Bridge District board approved a resolution to implement congestion pricing.</em></td>
   </tr>
+  <tr>
+          <td>yearRule</td>
+          <td>Extracts year dates fragments</td>
+          <td><em><ins>2013</ins> is also the 850th anniversary of Notre-Dame.</em></td>
+  </tr>
+  <tr>
+    <td>DateIntervalGroup</td>
+    <td colspan="2">Contains rules associated with the period between two dates</td>
+  </tr>
+   <tr>
+          <td>dateIntervalRule</td>
+          <td>Extracts intervals between dates</td>
+          <td><em>$3 off general admission with your uberX receipt from <ins>10/16/13 - 10/18/13</ins>!<br>Best time to visit is <ins>from Tuesday to Thursday</ins>.<br>In main season (<ins>May - Sep</ins> ) the boat leaves <text>daily</text> exc.</em></td>
+  </tr>
+   <tr>
+    <td>DurationGroup</td>
+    <td colspan="2">Contains rules associated with the period of time.</td>
+  </tr>
+  <tr>
+    <td>intervalDurationRule</td>
+    <td>>Extracts duration intervals</td>
+        <td><em>It's acceptable to include <ins>10 - 15 years</ins> of experience. </em></td>
+  </tr>
+    <tr>
+    <td>durationRule</td>
+    <td>>Extracts periods of time</td>
+        <td><em>Buy a combined ticket it <ins>lasts two days</ins></em><br>Was told that the <ins>last 30min</ins> before closing is free.</td>
+  </tr>
+     <tr>
+    <td>RepeatedGroup</td>
+    <td colspan="2">Contains rules associated with repeated events.</td>
+  </tr>
+      <tr>
+    <td>repeatedRule</td>
+    <td>>Extracts repeated events</td>
+        <td><em>Free organ show <ins>every Sunday at 4</ins>.<br>Try San Francisco City Guides, who offer free <ins> weekly </ins> tours</td>
+  </tr>
 </table>
 

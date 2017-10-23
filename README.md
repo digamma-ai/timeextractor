@@ -57,6 +57,7 @@ You can modify default extraction settings for some specific scenarios, like:
 * find only dates that are current date or after current date.
 
 A `Settings` can be applied to specify some additional extraction options, like setting local user date/time, time-zone offset, filtering extraction rules and finding latest dates.
+
 `SettingsBuilder` is used for constructing `Settings` instance when you need to set configuration options other than the default. `SettingsBuilder` is best used by creating it, and then invoking its various configuration methods, and finally calling build.
 
 The following is an example shows how to use the `SettingsBuilder` to construct a `Settings` instance:

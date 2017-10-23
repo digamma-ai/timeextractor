@@ -7,12 +7,14 @@ import ai.digamma.exceptions.ExceptionMessages;
 import com.google.gson.Gson;
 
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
 public class RulesMap {
     protected List<RulesGroup> rulesGroups;
-    protected String rulesFilePath = String.class.getResource("/rule.json").getPath();
+    protected InputStream in = String.class.getResourceAsStream("/rule.json");
 
     public RulesMap() {
         this.rulesGroups = readRules();
@@ -21,14 +23,9 @@ public class RulesMap {
 
     private List<RulesGroup> readRules() {
         Gson gson = new Gson();
-        try {
-            RulesGroup[] groups = gson.fromJson(new FileReader(this.rulesFilePath), RulesGroup[].class);
-            List<RulesGroup> groups_list = Arrays.asList(groups);
-            return groups_list;
-        }
-        catch(IOException e){
-            throw new RuntimeException("Library is broken", e);
-        }
+        RulesGroup[] groups = gson.fromJson(new InputStreamReader(this.in), RulesGroup[].class);
+        List<RulesGroup> groups_list = Arrays.asList(groups);
+        return groups_list;
     }
 
     public List<String> getGroupUUID(String str_group) throws Exception{
@@ -72,5 +69,11 @@ public class RulesMap {
         }
         if(!isExist) { throw new Exception(ExceptionMessages.RULE_NOT_FOUND); }
         return uuids;
+    }
+
+    public static void main(String[] args) throws Exception {
+        RulesMap r = new RulesMap();
+        System.out.println(r.rulesGroups);
+
     }
 }

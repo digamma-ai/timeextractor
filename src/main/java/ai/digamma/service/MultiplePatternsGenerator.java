@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,10 +54,12 @@ public class MultiplePatternsGenerator {
 
     private static void populateRuleClassesFromFile() {
         if (file == null) {
-            URL url = MultiplePatternsGenerator.class.getResource(defaultFile);
-            file = url.getPath();
+            //URL url = MultiplePatternsGenerator.class.getResource(defaultFile);
+            //file = url.getPath();
+            file = defaultFile;
         }
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        InputStream in = MultiplePatternsGenerator.class.getResourceAsStream(file);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
             String line = br.readLine();
             while (line != null) {
                 ruleClassesNames.add(line);

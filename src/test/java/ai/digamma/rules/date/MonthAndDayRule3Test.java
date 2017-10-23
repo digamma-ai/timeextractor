@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ai.digamma.rules.general.GeneralTest;
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import org.junit.Test;
 
 import ai.digamma.entities.TemporalExtraction;
@@ -17,7 +17,7 @@ public class MonthAndDayRule3Test extends GeneralTest {
     public void monthAndDayRule3Test1() {
 
         String toPredict = "the 14th of july 2014";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("the 14th of july 2014", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -29,7 +29,7 @@ public class MonthAndDayRule3Test extends GeneralTest {
     public void monthAndDayRule3Test2() {
 
         String toPredict = "the 14th july 2014";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("the 14th july 2014", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -41,7 +41,7 @@ public class MonthAndDayRule3Test extends GeneralTest {
     public void monthAndDayRule3Test3() {
 
         String toPredict = "the 14th july";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("the 14th july", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -52,7 +52,7 @@ public class MonthAndDayRule3Test extends GeneralTest {
     public void monthAndDayRule3Test4() {
 
         String toPredict = "14th july";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("14th july", predicted.get(0).getTemporalExpression());
 
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
@@ -64,7 +64,7 @@ public class MonthAndDayRule3Test extends GeneralTest {
     public void monthAndDayRule3Test5() {
 
         String toPredict = "14th july 2014";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("14th july 2014", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(14, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());

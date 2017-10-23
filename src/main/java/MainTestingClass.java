@@ -7,17 +7,14 @@ import ai.digamma.business.CsvReader;
 import ai.digamma.business.CsvWriter;
 import ai.digamma.business.FScore;
 import ai.digamma.entities.*;
-import ai.digamma.service.TemporalExtractionService;
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import ai.digamma.utils.SettingsBuilder;
 
 public class MainTestingClass {
-    private static String TRAINING_DATA = "/home/anna/time/timeextractor/data/train.csv";
-    private static String TEST_RESULTS_FILE = "/home/anna/time/timeextractor/data/results.txt";
+    private static String TRAINING_DATA = System.getProperty("user.dir") + "/data/train.csv";
+    private static String TEST_RESULTS_FILE = System.getProperty("user.dir") + "/data/results.txt";
 
     public static void main(String[] args) throws Exception {
-
-        TemporalExtractionService service = new TemporalExtractionService();
         CsvReader reader = new CsvReader();
         String csv = TRAINING_DATA;
         CsvWriter writer = new CsvWriter();
@@ -46,9 +43,10 @@ public class MainTestingClass {
             Settings settings = new SettingsBuilder()
                                      .addRulesGroup("dateRule")
                                      .excludeRules("holidaysRule")
+                                     .includeOnlyLatestDates(true)
                                      .build();
 
-            TreeSet<TemporalExtraction> predicted = TimeExtractor.extract(text,settings);
+            TreeSet<TemporalExtraction> predicted = DateTimeExtractor.extract(text,settings);
 
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {

@@ -48,7 +48,7 @@ public class RulesMap {
                 break;
             }
         }
-        if(!isExist) { throw new Exception(ExceptionMessages.RULE_NOT_FOUND); }
+        if(!isExist) { throw new Exception(ExceptionMessages.GROUP_NOT_FOUND); }
         return uuids;
     }
 

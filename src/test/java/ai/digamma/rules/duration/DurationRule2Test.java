@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import org.junit.Test;
 
 import ai.digamma.entities.TemporalExtraction;
@@ -18,7 +18,7 @@ public class DurationRule2Test extends GeneralTest {
     public void durationRule2Test1() {
 
         String toPredict = "three minutes";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("three minutes", predicted.get(0).getTemporalExpression());
         assertEquals(Type.DURATION, predicted.get(0).getTemporal().get(0).getType());
         assertEquals(3, predicted.get(0).getTemporal().get(0).getDuration().getMinutes());

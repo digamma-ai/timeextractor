@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import org.junit.Test;
 
 import ai.digamma.entities.TemporalExtraction;
@@ -17,7 +17,7 @@ public class MonthAndYearRule1Test extends GeneralTest {
     public void monthAndYearRule1Test1() {
 
         String toPredict = "October 2011";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("October 2011", predicted.get(0).getTemporalExpression());
         assertEquals(10, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(2011, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getYear());
@@ -28,7 +28,7 @@ public class MonthAndYearRule1Test extends GeneralTest {
     public void monthAndYearRule1Test2() {
 
         String toPredict = "October, 2011";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("October, 2011", predicted.get(0).getTemporalExpression());
         assertEquals(10, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(2011, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getYear());
@@ -39,7 +39,7 @@ public class MonthAndYearRule1Test extends GeneralTest {
     public void monthAndYearRule1Test3() {
 
         String toPredict = "October;2011";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("October;2011", predicted.get(0).getTemporalExpression());
         assertEquals(10, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(2011, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getYear());
@@ -50,7 +50,7 @@ public class MonthAndYearRule1Test extends GeneralTest {
     public void monthAndYearRule1Test4() {
 
         String toPredict = "October;20111";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("October", predicted.get(0).getTemporalExpression());
 
     }

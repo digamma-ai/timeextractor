@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ai.digamma.rules.general.GeneralTest;
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import org.junit.Test;
 
 import ai.digamma.entities.TemporalExtraction;
@@ -17,7 +17,7 @@ public class MonthDayYearRule1Test extends GeneralTest {
     public void monthDayYearRule1Test1() {
 
         String toPredict = " 30.11.2013";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("30.11.2013", predicted.get(0).getTemporalExpression());
         assertEquals(11, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(30, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());
@@ -29,7 +29,7 @@ public class MonthDayYearRule1Test extends GeneralTest {
     public void monthDayYearRule1Test2() {
 
         String toPredict = " 30.11.10";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("30.11.10", predicted.get(0).getTemporalExpression());
         assertEquals(11, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(30, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDay());

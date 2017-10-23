@@ -1,0 +1,23 @@
+package ai.digamma.service;
+
+import ai.digamma.entities.Settings;
+import ai.digamma.entities.TemporalExtraction;
+
+import java.util.TreeSet;
+
+public class DateTimeExtractor {
+
+    public static TreeSet<TemporalExtraction> extract(String text, Settings settings){
+        TemporalExtractionService service = new TemporalExtractionService();
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
+        return extracted;
+    }
+
+    public static TreeSet<TemporalExtraction> extract(String text){
+        Settings settings = new Settings();
+        TemporalExtractionService service = new TemporalExtractionService();
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
+        return extracted;
+    }
+
+}

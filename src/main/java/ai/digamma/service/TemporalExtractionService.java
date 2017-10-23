@@ -44,7 +44,7 @@ public class TemporalExtractionService {
     }
 
 
-    public TreeSet<TemporalExtraction> extractDatesAndTimeFromText(String text, Settings settings) {
+    public TreeSet<TemporalExtraction> extractDatesAndTimeFromText (String text, Settings settings){
         // extract dates and times
         TreeSet<TemporalExtraction> temporals = extractDatesAndTimes(text, settings);
         // process relative date

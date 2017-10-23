@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import org.junit.Test;
 
 import ai.digamma.entities.TemporalExtraction;
@@ -18,7 +18,7 @@ public class MonthAndDayRule5Test extends GeneralTest {
     public void monthAndDayRule4Test1() {
 
         String toPredict = "Sunday 17 of July";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("Sunday 17 of July", predicted.get(0).getTemporalExpression());
         assertEquals(7, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getMonth());
         assertEquals(DayOfWeek.SU, predicted.get(0).getTemporal().get(0).getStartDate().getDate().getDayOfWeek());

@@ -22,25 +22,24 @@ This library is built on:
 * [Log4j Logging Service](https://logging.apache.org/log4j/2.x/)
 
 ## Quickstart
-In the following example, the string `inputText` will be used as the input. 
+Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
+
+`TemporalExtraction` class representing an element of extracted date/time fragments.  
+
+Here is an example of how `DateTimeExtractor` and `TemporalExtraction` are used:
 ```
+// input string
 String inputText = "Reduced entrance fee after 16:30 except for Thursdays. Closed on Mondays.";
+        
+// extract date/times fragments
+TreeSet<TemporalExtraction> result = DateTimeExtractor.extract(inputText);
 
-// finding time expression service
-TemporalExtractionService service = new TemporalExtractionService();
-
-// settings for specific extraction scenarios
-// default values is used here
-Settings settings = new Settings();
-
-// extracting dates and time
-TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(inputText, settings);
-
-// printing extracted results
-for (TemporalExtraction elem : extracted) {
+// print extracted results
+for (TemporalExtraction elem : result) {
      System.out.println(elem);
 }
 ```
+
 The output will be:
 ```
 1 after 16:30, TimeIntervalRule3, [Temporal [type=TIME_INTERVAL, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=18, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32
@@ -56,3 +55,19 @@ You can modify default extraction settings for some specific scenarios, like:
 * change found time expression according to specified date and timezone;
 * filter extraction rules;
 * find only dates that are current date or after current date.
+
+A `Settings` can be applied to specify some additional extraction options, like setting local user date/time, time-zone offset, filtering extraction rules and finding latest dates.
+
+`SettingsBuilder` is used for constructing `Settings` instance when you need to set configuration options other than the default. `SettingsBuilder` is best used by creating it, and then invoking its various configuration methods, and finally calling build.
+
+The following is an example shows how to use the `SettingsBuilder` to construct a `Settings` instance:
+```
+Settings settings = new SettingsBuilder()
+         .addRulesGroup("DateGroup")
+         .excludeRules("holidaysRule")
+         .addUserDate("2017-10-23T18:40:40.931Z")
+         .addTimeZoneOffset("100")
+         .includeOnlyLatestDates(true)
+         .build();
+
+```

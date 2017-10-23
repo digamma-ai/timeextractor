@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import ai.digamma.exceptions.ExceptionMessages;
 import org.joda.time.LocalDateTime;
 
 import ai.digamma.utils.Utils;
@@ -40,7 +41,12 @@ public class Settings {
             this.includeRuleIsExist = true;
         }
         if (includeOnlyLatestDates == 1) {
-            this.includeOnlyLatestDates = true;
+            if(this.date!=null) {
+                this.includeOnlyLatestDates = true;
+            }
+            else{
+                throw new Exception(ExceptionMessages.LOCAL_DATE_NOT_EXIST);
+            }
         }
 
     }
@@ -57,17 +63,9 @@ public class Settings {
         return timezoneOffset;
     }
 
-    public void setTimezoneOffset(int timezoneOffset) {
-        this.timezoneOffset = timezoneOffset;
-    }
-
     public Set<UUID> getRulesToIgnore() { return rulesToIgnore; }
 
     public Set<UUID> getRulesToInclude(){ return rulesToInclude; }
-
-    public void setRulesToIgnore(Set<UUID> rulesToIgnore) {
-        this.rulesToIgnore = rulesToIgnore;
-    }
 
     public boolean isIncludeOnlyLatestDates() {
         return includeOnlyLatestDates;
@@ -75,8 +73,5 @@ public class Settings {
 
     public boolean isUserIncludeRuleExist() { return this.includeRuleIsExist; }
 
-    public void setIncludeOnlyLatestDates(boolean includeOnlyLatestDates) {
-        this.includeOnlyLatestDates = includeOnlyLatestDates;
-    }
 
 }

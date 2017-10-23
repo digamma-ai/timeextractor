@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import org.junit.Test;
 
 import ai.digamma.entities.TemporalExtraction;
@@ -17,7 +17,7 @@ public class CompositeDayOfWeekTimeOfDayTest extends GeneralTest {
     public void compositeDayOfWeekTimeOfDayTest1() {
 
         String toPredict = "Friday morning";
-        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(DateTimeExtractor.extract(toPredict,settings));
         assertEquals("Friday morning", predicted.get(0).getTemporalExpression());
         System.out.println(predicted.get(0).getTemporalExpression());
     }

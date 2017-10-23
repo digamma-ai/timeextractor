@@ -12,8 +12,9 @@ import ai.digamma.service.TimeExtractor;
 import ai.digamma.utils.SettingsBuilder;
 
 public class MainTestingClass {
-    private static String TRAINING_DATA = "/home/anna/time/timeextractor/data/train.csv";
-    private static String TEST_RESULTS_FILE = "/home/anna/time/timeextractor/data/results.txt";
+
+    private static String TRAINING_DATA = System.getProperty("user.dir") + "/data/train.csv";
+    private static String TEST_RESULTS_FILE = System.getProperty("user.dir") + "/data/results.txt";
 
     public static void main(String[] args) throws Exception {
 

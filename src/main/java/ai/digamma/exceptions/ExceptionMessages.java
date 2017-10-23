@@ -1,16 +1,8 @@
 package ai.digamma.exceptions;
 
 public class ExceptionMessages {
-    public static String FILLED_FIELEDS = "Missing parameter: At least one field (text or html) should be filled";
-    public static String TIMEZONE = "Missing parameter 'timezone_offset': Should be properly field";
     public static String FIELD_RULES = "UUID's of rules.txt should be well-formed";
-    public static String DATE_RULES = "Date should be well-formed";
-    public static String RULE_GROUP_NOT_FOUND = "ExtractionRule group not found";
-    public static String API_KEY_VALIDATION_EMAIL = "Your API key is not valid as such email wasn't used for registration";
-    public static String VALIDATION_EMAIL = "You need to provide 'email' parameter";
-    public static String VALIDATION_KEY = "You need to provide API 'key' parameter";
-    public static String REGISTRATION_ERROR = "For this email you have already received API key";
-    public static String FILE_NOT_FOUND = "Server error. Registration file not found";
-    public static String IO_EXCEPTION = "I/O Exception";
+    public static String GROUP_NOT_FOUND = "Incorrect group name. Group with such name doesn't exist";
+    public static String RULE_NOT_FOUND = "Incorrect rule name. Rule with such name doesn't exist";
 
 }

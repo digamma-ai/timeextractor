@@ -8,6 +8,8 @@ import ai.digamma.business.CsvWriter;
 import ai.digamma.business.FScore;
 import ai.digamma.entities.*;
 import ai.digamma.service.TemporalExtractionService;
+import ai.digamma.service.TimeExtractor;
+import ai.digamma.utils.SettingsBuilder;
 
 public class MainTestingClass {
     private static String TRAINING_DATA = "/home/anna/time/timeextractor/data/train.csv";
@@ -41,13 +43,13 @@ public class MainTestingClass {
             String text = tip.getTipText().replace("<text>", "").replace("</text>", "").replace("?", "-").replace("�", "-").trim();
             System.out.println(text);
 
-            RulesMap map = new RulesMap();
-            RulesGroup group = map.getRulesGroup("dateRule");
-            List<Rule> rules = group.getGroupRules();
-            List<Rule> rulesToIgnore = new ArrayList<>();
-            rulesToIgnore.add(rules.get(3));
-            Settings settings = new Settings(null, "0", rulesToIgnore, 0);
-            TreeSet<TemporalExtraction> predicted = service.extractDatesAndTimeFromText(text, settings);
+            Settings settings = new SettingsBuilder()
+                                     .addRulesGroup("dateRule")
+                                     .excludeRules("holidaysRule")
+                                     .build();
+
+            TreeSet<TemporalExtraction> predicted = TimeExtractor.extract(text,settings);
+
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {
                 tn++;

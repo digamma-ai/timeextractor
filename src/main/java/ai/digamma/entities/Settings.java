@@ -32,10 +32,10 @@ public class Settings {
         if (timezoneOffset != null) {
             this.timezoneOffset = Integer.parseInt(timezoneOffset);
         }
-        if (rulesToIgnore != null) {
+        if (rulesToIgnore.size() != 0) {
             this.rulesToIgnore = Utils.getSetofUUIDsFromString(rulesToIgnore);
         }
-        if(rulesToInclude != null){
+        if(rulesToInclude.size() != 0){
             this.rulesToInclude = Utils.getSetofUUIDsFromString(rulesToInclude);
             this.includeRuleIsExist = true;
         }

@@ -2,14 +2,17 @@ package ai.digamma.entities;
 
 import java.io.IOException;
 import java.util.*;
+
+import ai.digamma.exceptions.ExceptionMessages;
 import com.google.gson.Gson;
+
 import java.io.FileReader;
 import java.util.ArrayList;
 
 
 public class RulesMap {
     protected List<RulesGroup> rulesGroups;
-    protected String rulesFilePath = "/home/anna/time/timeextractor/src/main/resources/rule.json";
+    protected String rulesFilePath = String.class.getResource("/rule.json").getPath();
 
     public RulesMap() {
         this.rulesGroups = readRules();
@@ -24,25 +27,17 @@ public class RulesMap {
             return groups_list;
         }
         catch(IOException e){
-            throw new RuntimeException("", e);
+            throw new RuntimeException("Library is broken", e);
         }
     }
 
-    public RulesGroup getRulesGroup(String groupName) {
-        for (RulesGroup group : this.rulesGroups) {
-            if (group.getGroupName().equals(groupName)) {
-                return group;
-            }
-        }
-        return null;
-    }
-
-
-    public List<String> getGroupUUID(String str_group){
+    public List<String> getGroupUUID(String str_group) throws Exception{
         List<RulesGroup> groups = this.rulesGroups;
         List<String> uuids = new ArrayList<>();
+        boolean isExist = false;
         for (RulesGroup group : groups) {
             if (group.getGroupName().equals(str_group)) {
+                isExist = true;
                 List<Rule> rules = group.getGroupRules();
                 for (Rule rule : rules){
                     List<String> curr_uuids = rule.getUuidList();
@@ -53,12 +48,14 @@ public class RulesMap {
                 break;
             }
         }
+        if(!isExist) { throw new Exception(ExceptionMessages.RULE_NOT_FOUND); }
         return uuids;
     }
 
-    public List<String> getRuleUUID(String str_rule){
+    public List<String> getRuleUUID(String str_rule) throws Exception{
         List<RulesGroup> groups = this.rulesGroups;
         List<String> uuids = new ArrayList<>();
+        boolean isExist = false;
         for (RulesGroup group : groups) { {
                 List<Rule> rules = group.getGroupRules();
                 for (Rule rule : rules){
@@ -67,11 +64,13 @@ public class RulesMap {
                         for (String uuid : curr_uuids) {
                             uuids.add(uuid);
                         }
+                        isExist = true;
                         break;
                     }
                 }
             }
         }
+        if(!isExist) { throw new Exception(ExceptionMessages.RULE_NOT_FOUND); }
         return uuids;
     }
 }

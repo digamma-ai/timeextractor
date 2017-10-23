@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ai.digamma.rules.general.GeneralTest;
+import ai.digamma.service.TimeExtractor;
 import org.junit.Test;
 
 import ai.digamma.entities.TemporalExtraction;
@@ -18,7 +19,7 @@ public class CompositeDateYear extends GeneralTest {
     public void compositeDateTimeInterval1() {
 
         String toPredict = "25th of May 2014";
-        List<TemporalExtraction> predicted = new ArrayList<TemporalExtraction>(service.extractDatesAndTimeFromText(toPredict, settings));
+        List<TemporalExtraction> predicted =  new ArrayList<>(TimeExtractor.extract(toPredict,settings));
         Type type = predicted.get(0).getTemporal().get(0).getType();
         Date startDate = predicted.get(0).getTemporal().get(0).getStartDate().getDate();
         Date endDate = predicted.get(0).getTemporal().get(0).getEndDate().getDate();

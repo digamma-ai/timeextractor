@@ -24,7 +24,9 @@ This library is built on:
 ## Quickstart
 Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
 
-Here is an example of how `DateTimeExtractor` is used:
+`TemporalExtraction` class representing an element of extracted date/time fragments.  
+
+Here is an example of how `DateTimeExtractor` and `TemporalExtraction` are used:
 ```
 // input string
 String inputText = "Reduced entrance fee after 16:30 except for Thursdays. Closed on Mondays.";
@@ -53,3 +55,18 @@ You can modify default extraction settings for some specific scenarios, like:
 * change found time expression according to specified date and timezone;
 * filter extraction rules;
 * find only dates that are current date or after current date.
+
+A `Settings` can be applied to specify some additional extraction options, like setting local user date/time, time-zone offset, filtering extraction rules and finding latest dates.
+`SettingsBuilder` is used for constructing `Settings` instance when you need to set configuration options other than the default. `SettingsBuilder` is best used by creating it, and then invoking its various configuration methods, and finally calling build.
+
+The following is an example shows how to use the `SettingsBuilder` to construct a `Settings` instance:
+```
+Settings settings = new SettingsBuilder()
+         .addRulesGroup("DateGroup")
+         .excludeRules("holidaysRule")
+         .addUserDate("2017-10-23T18:40:40.931Z")
+         .addTimeZoneOffset("100")
+         .includeOnlyLatestDates(true)
+         .build();
+
+```

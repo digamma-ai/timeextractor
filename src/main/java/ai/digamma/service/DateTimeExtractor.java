@@ -5,7 +5,7 @@ import ai.digamma.entities.TemporalExtraction;
 
 import java.util.TreeSet;
 
-public class TimeExtractor {
+public class DateTimeExtractor {
 
     public static TreeSet<TemporalExtraction> extract(String text, Settings settings){
         TemporalExtractionService service = new TemporalExtractionService();

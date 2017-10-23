@@ -7,7 +7,7 @@ import ai.digamma.business.CsvReader;
 import ai.digamma.business.CsvWriter;
 import ai.digamma.business.FScore;
 import ai.digamma.entities.*;
-import ai.digamma.service.TimeExtractor;
+import ai.digamma.service.DateTimeExtractor;
 import ai.digamma.utils.SettingsBuilder;
 
 public class MainTestingClass {
@@ -46,7 +46,7 @@ public class MainTestingClass {
                                      .includeOnlyLatestDates(true)
                                      .build();
 
-            TreeSet<TemporalExtraction> predicted = TimeExtractor.extract(text,settings);
+            TreeSet<TemporalExtraction> predicted = DateTimeExtractor.extract(text,settings);
 
             System.out.println(predicted);
             if (predicted.size() == 0 && annotated.size() == 0) {

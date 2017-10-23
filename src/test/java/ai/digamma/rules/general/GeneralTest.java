@@ -1,12 +1,10 @@
 package ai.digamma.rules.general;
 
 import ai.digamma.entities.TemporalExtraction;
-import ai.digamma.service.TimeExtractor;
 import ai.digamma.utils.SettingsBuilder;
 import org.junit.BeforeClass;
 
 import ai.digamma.entities.Settings;
-import ai.digamma.service.TemporalExtractionService;
 
 import java.util.TreeSet;
 

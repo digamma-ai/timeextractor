@@ -84,16 +84,15 @@ Settings settings = new SettingsBuilder()
 
 ## Extraction rules
 All extraction rules are divided into rules groups. 
-
 <table>
   <tr>
-          <td><b>Group</b></td>
+          <td style="font-size: 75px;"><b>Group</b></td>
           <td><b>Description</b></td>
           <td><b>Example</b></td>
   </tr>
-  <tr bgcolor="blue">
-    <td>DateGroup</td>
-    <td colspan="2">Contains rules associated with the date</td>
+  <tr>
+          <td><b>DateGroup</b></td>
+    <td colspan="2"><b>Contains rules associated with the date</b></td>
   </tr>
   <tr>
           <td>dayOfWeekRule</td>
@@ -132,8 +131,8 @@ All extraction rules are divided into rules groups.
           <td><em><ins>2013</ins> is also the 850th anniversary of Notre-Dame.</em></td>
   </tr>
   <tr>
-    <td>DateIntervalGroup</td>
-    <td colspan="2">Contains rules associated with the period between two dates</td>
+    <td><b>DateIntervalGroup</b></td>
+    <td colspan="2"><b>Contains rules associated with the period between two dates</b></td>
   </tr>
    <tr>
           <td>dateIntervalRule</td>
@@ -141,8 +140,8 @@ All extraction rules are divided into rules groups.
           <td><em>$3 off general admission with your uberX receipt from <ins>10/16/13 - 10/18/13</ins>!<br>Best time to visit is <ins>from Tuesday to Thursday</ins>.<br>In main season (<ins>May - Sep</ins> ) the boat leaves <text>daily</text> exc.</em></td>
   </tr>
    <tr>
-    <td>DurationGroup</td>
-    <td colspan="2">Contains rules associated with the period of time.</td>
+    <td><b>DurationGroup</b></td>
+    <td colspan="2"><b>Contains rules associated with the period of time.</b></td>
   </tr>
   <tr>
     <td>intervalDurationRule</td>
@@ -155,8 +154,8 @@ All extraction rules are divided into rules groups.
         <td><em>Buy a combined ticket it <ins>lasts two days</ins></em><br>Was told that the <ins>last 30min</ins> before closing is free.</td>
   </tr>
      <tr>
-    <td>RepeatedGroup</td>
-    <td colspan="2">Contains rules associated with repeated events.</td>
+    <td><b>RepeatedGroup</b></td>
+    <td colspan="2"><b>Contains rules associated with repeated events.</b></td>
   </tr>
       <tr>
     <td>repeatedRule</td>
@@ -164,8 +163,8 @@ All extraction rules are divided into rules groups.
         <td><em>Free organ show <ins>every Sunday at 4</ins>.<br>Try San Francisco City Guides, who offer free <ins> weekly </ins> tours</em></td>
   </tr>
    <tr>
-    <td>SeasonGroup</td>
-    <td colspan="2">Contains rules associated with seasons of the year.</td>
+    <td><b>SeasonGroup</b></td>
+    <td colspan="2"><b>Contains rules associated with seasons of the year.</b></td>
   </tr>
       <tr>
     <td>seasonRule</td>
@@ -173,8 +172,8 @@ All extraction rules are divided into rules groups.
         <td><em><ins>In summer months</ins> , the park is an anti-urban oasis along the riverfront.<br>Catch the post-impressionist exhibit <ins>in the fall</ins>!</em></td>
   </tr>
      <tr>
-    <td>TimeGroup</td>
-    <td colspan="2">Contains rules associated with the time.</td>
+    <td><b>TimeGroup</b></td>
+    <td colspan="2"><b>Contains rules associated with the time.</b></td>
   </tr>
       <tr>
     <td>timeRule</td>
@@ -191,8 +190,8 @@ All extraction rules are divided into rules groups.
     <td>Extracts time zones</td>
         <td><em>Closed <ins>by 21:00CET</ins>.<br>Last entry <ins>04:15 UTC</ins> </em></td>
   </tr>
-  <td>WeekendGroup</td>
-    <td colspan="2">Contains rules associated with weekends</td>
+  <td><b>WeekendGroup</b></td>
+    <td colspan="2"><b>Contains rules associated with weekends</b></td>
   </tr>
       <tr>
     <td>weekendRule</td>

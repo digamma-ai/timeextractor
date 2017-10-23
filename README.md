@@ -16,11 +16,11 @@ maven clean install
 you will find in `target/` folder a jar named like `timeextractor.jar`.
 ## Dependencies
 This library is built on:
-* [joda-time Library for the Java date and time classes](https://github.com/JodaOrg/joda-time)
-* [opencsv Parser Library for Java](http://opencsv.sourceforge.net/)
-* [JUnit Testing Framework for Java](http://junit.org/junit5/)
-* [Log4j Logging Service](https://logging.apache.org/log4j/2.x/)
-
+* [joda-time](https://github.com/JodaOrg/joda-time) Library for the Java date and time classes
+* [opencsv](http://opencsv.sourceforge.net/) Parser Library for Java
+* [JUnit](http://junit.org/junit5/) Testing Framework for Java
+* [Log4j](https://logging.apache.org/log4j/2.x/) Logging Service
+* [Gson](https://github.com/google/gson) Json Serialization/Deserialization
 ## Quickstart
 Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
 

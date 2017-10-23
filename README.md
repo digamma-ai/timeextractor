@@ -60,6 +60,15 @@ A `Settings` can be applied to specify some additional extraction options, like 
 
 `SettingsBuilder` is used for constructing `Settings` instance when you need to set configuration options other than the default. `SettingsBuilder` is best used by creating it, and then invoking its various configuration methods, and finally calling build.
 
+| **Method** | **Attributes** | **Description** |
+| ----| --------- | ----- |
+| `addRulesGroup()` |`String` rulesGroup | Adds extraction rules from `rulesGroup` group for extracting date/time fragments |
+| `excludeRules()` | `String` ruleToExclude | Excludes extraction rule `ruleToExclude` from extracting rules |
+| `addUserDate()` | `String` userDate | Changes found time expression according to specified user date <br> *correct format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"*|
+| `addTimeZoneOffset()` | `String` timeZoneOffset | Changes found time expression according to specified user time-zone offset in minutes|
+| `includeOnlyLatestDates()` | `boolean` includeOnlyLatest | Finds only dates that are current date or after current date |
+| `build()` | | Creates a `Settings` instance based on the current configuration.
+
 The following is an example shows how to use the `SettingsBuilder` to construct a `Settings` instance:
 ```
 Settings settings = new SettingsBuilder()

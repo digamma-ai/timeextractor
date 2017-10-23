@@ -17,10 +17,11 @@ you will find in `target/` folder a jar named like `timeextractor.jar`.
 ## Dependencies
 This library is built on:
 * [joda-time](https://github.com/JodaOrg/joda-time) Library for the Java date and time classes
-* [opencsv](http://opencsv.sourceforge.net/) Parser Library for Java
-* [JUnit](http://junit.org/junit5/) Testing Framework for Java
+* [opencsv](http://opencsv.sourceforge.net/) Parser Library 
+* [JUnit](http://junit.org/junit5/) Testing Framework 
 * [Log4j](https://logging.apache.org/log4j/2.x/) Logging Service
-* [Gson](https://github.com/google/gson) Json Serialization/Deserialization
+* [Gson](https://github.com/google/gson) Json Serialization/Deserialization library 
+
 ## Quickstart
 Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
 
@@ -80,3 +81,50 @@ Settings settings = new SettingsBuilder()
          .build();
 
 ```
+
+## Extraction rules
+All extraction rules are divided into rules groups. 
+
+<table>
+  <tr>
+          <td><b>Group</b></td>
+          <td><b>Description</b></td>
+          <td><b>Example</b></td>
+  </tr>
+  <tr>
+    <td>DateGroup</td>
+    <td colspan="2">Contains rules associated with the date</td>
+  </tr>
+  <tr>
+          <td>dayOfWeekRule</td>
+          <td>Extracts days of week fragments</td>
+          <td><em>Come along to celebrate on <ins>Saturday 16</ins></em></td>
+  </tr>
+  <tr>
+          <td>relativeDateRule</td>
+          <td>Extracts relative dates fragments</td>
+          <td><em>It was <ins>1 week ago</ins>.<br> Went there <ins>today</ins>.</em></td>
+  </tr>
+  <tr>
+          <td>holidaysRule</td>
+          <td>Extracts holidays dates fragments</td>
+          <td><em>We will meet on <ins>Christmas</ins> day.</em></td>
+  </tr>
+   <tr>
+          <td>monthDayRule</td>
+          <td>Extracts month-day dates fragments</td>
+          <td><em>The Snowy Day and the Art of Ezra Jack Keats (through <ins>January 29</ins>).</em></td>
+  </tr>
+           <tr>
+          <td>monthYearDayRule</td>
+          <td>Extracts year/month/day dates fragments</td>
+          <td><em><ins>January 13-19, 2014</ins> Show Times".</em></td>
+  </tr>
+   </tr>
+           <tr>
+          <td>monthYearRule</td>
+          <td>Extracts year/month dates fragments</td>
+          <td><em>In <ins>March 2008</ins>, the Golden Gate Bridge District board approved a resolution to implement congestion pricing.</em></td>
+  </tr>
+</table>
+

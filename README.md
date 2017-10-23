@@ -49,6 +49,26 @@ The output will be:
 
 3 Mondays, DayOfWeekRule1, [Temporal [type=DATE, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
 ```
+## Output Description
+The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` class. This class has next attributes:
+
+| **Attributes** | **Description** |
+| ---- | ----- |
+| `String` temporalExpression | founded date/time fragment |
+| `String` ruleType | used rule for extracting current date/time fragment |
+| `Temporal` temporal | represents date/time fragment's details |
+
+`Temporal` class attributes:
+
+| **Attributes** | **Description** |
+| ---- | ----- |
+| `String` type | type of founded date/time fragment (date, time, relative date, etc.)|
+| `Duration` duration | duration of extracting date/time fragment |
+| `DurationInterval` temporal | duration interval of extracting date/time fragment |
+| `Set` set | set of frequency, interval and days of repetiotion properties |
+| `TimeDate` startDate | info about start date of extracting date/time fragment |
+| `TimeDate` endDate | info about end date of extracting date/time fragment |
+
 ## Advanced settings
 You can modify default extraction settings for some specific scenarios, like:
 * find closest day of week according to current date for relative date;

@@ -171,7 +171,7 @@ All extraction rules are divided into rules groups.
     <tr>
     <td>durationRule</td>
     <td>Extracts periods of time</td>
-        <td><em>Buy a combined ticket it <ins>lasts two days</ins></em><br>Was told that the <ins>last 30min</ins> before closing is free.</td>
+        <td><em>Buy a combined ticket it <ins>lasts two days</ins><br>Was told that the <ins>last 30min</ins> before closing is free.</em></td>
   </tr>
      <tr>
     <td><b>RepeatedGroup</b></td>
@@ -203,7 +203,7 @@ All extraction rules are divided into rules groups.
    <tr>
     <td>timeIntervalRule</td>
     <td>Extracts time intervals</td>
-        <td><em>Happy hour <ins>from 19 till 20</ins> !!</em><br>Best between <ins>2:00 pm and 4:00 pm</ins> to enjoy the sun</em></td>
+        <td><em>Happy hour <ins>from 19 till 20</ins> !!<br>Best between <ins>2:00 pm and 4:00 pm</ins> to enjoy the sun</em></td>
   </tr>
   <tr>
     <td>timeZoneRule</td>

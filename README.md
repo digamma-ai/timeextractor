@@ -13,7 +13,7 @@ git clone https://github.com/digamma-ai/timeextractor.git timeextractor
 cd timeextractor
 maven clean install
 ```
-you will find in `target/` folder a jar named like `timeextractor.jar`.
+You will find in `target/` folder a jar named like `timeextractor.jar`.
 ## Dependencies
 This library is built on:
 * [joda-time](https://github.com/JodaOrg/joda-time) Library for the Java date and time classes

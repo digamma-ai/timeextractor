@@ -22,25 +22,22 @@ This library is built on:
 * [Log4j Logging Service](https://logging.apache.org/log4j/2.x/)
 
 ## Quickstart
-In the following example, the string `inputText` will be used as the input. 
+Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convinience method to extract date/time fragments from input text.
+
+Here is an example of how `DateTimeExtractor` is used:
 ```
+// input string
 String inputText = "Reduced entrance fee after 16:30 except for Thursdays. Closed on Mondays.";
+        
+// extract date/times fragments
+TreeSet<TemporalExtraction> result = DateTimeExtractor.extract(inputText);
 
-// finding time expression service
-TemporalExtractionService service = new TemporalExtractionService();
-
-// settings for specific extraction scenarios
-// default values is used here
-Settings settings = new Settings();
-
-// extracting dates and time
-TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(inputText, settings);
-
-// printing extracted results
-for (TemporalExtraction elem : extracted) {
+// print extracted results
+for (TemporalExtraction elem : result) {
      System.out.println(elem);
 }
 ```
+
 The output will be:
 ```
 1 after 16:30, TimeIntervalRule3, [Temporal [type=TIME_INTERVAL, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=18, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32

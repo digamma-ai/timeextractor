@@ -1,6 +1,6 @@
 [
   {
-    "groupName": "dateRule",
+    "groupName": "DateGroup",
     "rules": [
       {
         "ruleName": "dayOfWeekRule",
@@ -62,7 +62,7 @@
     ]
   },
   {
-    "groupName": "DateIntervalRule",
+    "groupName": "DateIntervalGroup",
     "rules": [
       {
         "ruleName": "dateIntervalRule",
@@ -80,7 +80,7 @@
     ]
   },
   {
-    "groupName": "DurationRule",
+    "groupName": "DurationGroup",
     "rules": [
       {
         "ruleName": "intervalDurationRule",
@@ -101,7 +101,7 @@
     ]
   },
   {
-    "groupName": "RepeatedRule",
+    "groupName": "RepeatedGroup",
     "rules": [
       {
         "ruleName": "repeatedRule",
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "groupName": "SeasonRule",
+    "groupName": "SeasonGroup",
     "rules": [
       {
         "ruleName": "seasonRule",
@@ -128,7 +128,7 @@
     ]
   },
   {
-    "groupName": "TimeRule",
+    "groupName": "TimeGroup",
     "rules": [
       {
         "ruleName": "timeRule",
@@ -142,12 +142,7 @@
           "039228bb-7b6d-4f67-bb07-2268faeb6584",
           "6c7c53ab-fc43-4527-9c75-428c0b8d2d8a"
         ]
-      }
-    ]
-  },
-  {
-    "groupName": "TimeIntervalRule",
-    "rules": [
+      },
       {
         "ruleName": "timeIntervalRule",
         "uuidList": [
@@ -174,12 +169,7 @@
           "ae135d69-9fcc-4014-9c1c-f02754be012a",
           "dd7ef249-9eac-499d-930a-0ee2a0c4b897"
         ]
-      }
-    ]
-  },
-  {
-    "groupName": "TimeZoneRule",
-    "rules": [
+      },
       {
         "ruleName": "timeZoneRule",
         "uuidList": [
@@ -189,7 +179,7 @@
     ]
   },
   {
-    "groupName": "WeekendRule",
+    "groupName": "WeekendGroup",
     "rules": [
       {
         "ruleName": "weekendRule",

@@ -2,11 +2,12 @@ package ai.digamma.temporal.entities;
 
 public class Temporal {
 
-    private Type type;
+    private String rule;
+    private String group;
     private Duration duration;
     private DurationInterval durationInterval;
     private Set set;
-
+    private Type type;
     private TimeDate startDate;
     private TimeDate endDate;
 
@@ -19,18 +20,31 @@ public class Temporal {
         this.endDate = endDate;
     }
 
+    public Temporal(TimeDate startDate, TimeDate endDate, String group, String rule) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.group = group;
+        this.rule = rule;
+    }
+
     public Temporal(TimeDate startDate, TimeDate endDate, Type type) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.type = type;
     }
-
     public Type getType() {
         return type;
     }
 
     public void setType(Type type) {
         this.type = type;
+    }
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
     }
 
     public TimeDate getStartDate() {
@@ -75,7 +89,7 @@ public class Temporal {
 
     @Override
     public String toString() {
-        return "Temporal [type=" + type + ", duration=" + duration + ", durationInterval=" + durationInterval + ", set=" + set + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+        return "Temporal[type=" + type + ", group=" + group + ", rule=" + rule + ", duration=" + duration + ", durationInterval=" + durationInterval + ", set=" + set + ", startDate=" + startDate + ", endDate=" + endDate + "]";
     }
 
 }

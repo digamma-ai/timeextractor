@@ -1,9 +1,6 @@
 package ai.digamma.entities;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 import ai.digamma.temporal.entities.Temporal;
 
@@ -23,8 +20,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     }
 
     public TemporalExtraction(RegexResult result) {
-        ExtractionRule rule = result.getRule();
-        this.rule = rule;
+        rule = result.getRule();
         fromPosition = result.getStart();
         classOfRuleType = result.getRuleName();
         toPosition = result.getEnd();
@@ -32,10 +28,10 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
         confidence = rule.getConfidence();
         temporal = rule.getTemporal(result.getText());
         temporalExpression = result.getText();
-        UUID uuid = rule.getId();
-        RulesMap map = new RulesMap();
         if (rule.getType() != null && getTemporal() != null && getTemporal().get(0) != null) {
-            getTemporal().get(0).setType(rule.getType());
+            Map<String, String> ruleInfo = rule.getGroupAndRule();
+            getTemporal().get(0).setGroup(ruleInfo.get("group"));
+            getTemporal().get(0).setRule(ruleInfo.get("rule"));
         }
     }
 
@@ -46,8 +42,6 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
     private List<Temporal> temporal;
     private double confidence;
     private Locale locale;
-    private String rule_name;
-    private String group;
     private ExtractionRule rule;
 
     public String getTemporalExpression() {
@@ -100,7 +94,7 @@ public class TemporalExtraction implements Comparable<TemporalExtraction> {
 
     @Override
     public String toString() {
-        return temporalExpression + ", " + classOfRuleType + ", " + temporal + ", " + fromPosition + ", " + toPosition;
+        return temporalExpression + ", " + temporal + ", " + fromPosition + ", " + toPosition;
     }
 
     public double getConfidence() {

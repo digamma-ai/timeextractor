@@ -49,6 +49,28 @@ public class RulesMap {
         return uuids;
     }
 
+
+    public Map<String,String> getRuleGRoupByUUID(String uuid) {
+        Map<String, String> ruleGroupMap = new HashMap<>();
+        List<RulesGroup> groups = this.rulesGroups;
+        for (RulesGroup group : groups) {
+            {
+                List<Rule> rules = group.getGroupRules();
+                for (Rule rule : rules) {
+                    List<String> curr_uuids = rule.getUuidList();
+                    for (String curr_uuid : curr_uuids) {
+                        if (uuid.equals(curr_uuid)){
+                            ruleGroupMap.put("group", group.getGroupName());
+                            ruleGroupMap.put("rule", rule.getRuleName());
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return ruleGroupMap;
+    }
+
     public List<String> getRuleUUID(String str_rule) throws Exception{
         List<RulesGroup> groups = this.rulesGroups;
         List<String> uuids = new ArrayList<>();

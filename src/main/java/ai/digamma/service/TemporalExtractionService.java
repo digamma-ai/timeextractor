@@ -1,10 +1,7 @@
 package ai.digamma.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 import ai.digamma.entities.ExtractionRule;
 import ai.digamma.service.combine.CombineRulesService;
@@ -70,13 +67,16 @@ public class TemporalExtractionService {
         }
         List<RegexResult> results = service.getTemporals(text);
         for (RegexResult result : results) {
+           //!!!!!!!!!!!!!!
             ExtractionRule rule = result.getRule();
             if (rule == null) {
                 continue;
             }
             TemporalExtraction temporal = new TemporalExtraction(result);
             if (rule.getType() != null && temporal.getTemporal() != null && temporal.getTemporal().get(0) != null) {
-                temporal.getTemporal().get(0).setType(rule.getType());
+                Map<String, String> ruleInfo = rule.getGroupAndRule();
+                temporal.getTemporal().get(0).setGroup(ruleInfo.get("group"));
+                temporal.getTemporal().get(0).setRule(ruleInfo.get("rule"));
             }
             temporals.add(temporal);
         }

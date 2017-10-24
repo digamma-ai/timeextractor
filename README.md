@@ -43,11 +43,11 @@ for (TemporalExtraction elem : result) {
 
 The output will be:
 ```
-1 after 16:30, TimeIntervalRule3, [Temporal [type=TIME_INTERVAL, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=18, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32
+1 after 16:30, [Temporal [group=TimeGroup, rule=weekendRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32
 
-2 Thursdays, DayOfWeekRule1, [Temporal [type=DATE, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=19, dayOfWeek=TH, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=19, dayOfWeek=TH, weekOfMonth=null]]]], 44, 54
+2 Thursdays., [Temporal [group=DateGroup, rule=weekendRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]]]], 44, 54
 
-3 Mondays, DayOfWeekRule1, [Temporal [type=DATE, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
+3 Mondays., [Temporal [group=DateGroup, rule=weekendRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
 ```
 ## Output Description
 The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` class. This class has next attributes:

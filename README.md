@@ -111,7 +111,7 @@ For extracting date/time fragments from CSV files, you should invoke `extractFro
 
 Settings settings = new SettingsBuilder().build();
 TreeSet<TemporalExtraction> result = DateTimeExtractor.extractFromCsv("pathToCsv.csv", ",", 
-                                                                       "outputPath.txt", settings);
+                                                                      "outputPath.txt", settings);
 ```
 ## Extraction rules
 All extraction rules are divided into rules groups. 

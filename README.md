@@ -23,7 +23,7 @@ This library is built on:
 * [Gson](https://github.com/google/gson) Json Serialization/Deserialization library 
 
 ## Quickstart
-Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
+Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a `DateTimeExtractor` instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
 
 `TemporalExtraction` class representing an element of extracted date/time fragments.  
 
@@ -43,11 +43,11 @@ for (TemporalExtraction elem : result) {
 
 The output will be:
 ```
-1 after 16:30, TimeIntervalRule3, [Temporal [type=TIME_INTERVAL, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=18, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32
+1 after 16:30, [Temporal[type=TIME_INTERVAL, group=TimeGroup, rule=timeIntervalRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32
 
-2 Thursdays, DayOfWeekRule1, [Temporal [type=DATE, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=19, dayOfWeek=TH, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=19, dayOfWeek=TH, weekOfMonth=null]]]], 44, 54
+2 Thursdays, [Temporal[type=DATE, group=DateGroup, rule=dayOfWeekRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]]]], 44, 54
 
-3 Mondays, DayOfWeekRule1, [Temporal [type=DATE, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=17, minutes=23, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=23, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
+3 Mondays, [Temporal[type=DATE, group=DateGroup, rule=dayOfWeekRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
 ```
 ## Output Description
 The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` class. This class has next attributes:
@@ -55,7 +55,6 @@ The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` c
 | **Attributes** | **Description** |
 | ---- | ----- |
 | `String` temporalExpression | founded date/time fragment |
-| `String` ruleType | used rule for extracting current date/time fragment |
 | `Temporal` temporal | represents date/time fragment's details |
 
 `Temporal` class attributes:
@@ -63,6 +62,8 @@ The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` c
 | **Attributes** | **Description** |
 | ---- | ----- |
 | `String` type | type of founded date/time fragment (date, time, relative date, etc.)|
+| `String` group | used group of rules for extracting current date/time fragment |
+| `String` rule | used rule for extracting current date/time fragment |
 | `Duration` duration | duration of extracting date/time fragment |
 | `DurationInterval` temporal | duration interval of extracting date/time fragment |
 | `Set` set | set of frequency, interval and days of repetiotion properties |
@@ -101,7 +102,17 @@ Settings settings = new SettingsBuilder()
          .build();
 
 ```
+## Working with CSV file
+For extracting date/time fragments from CSV files, you should invoke `extractFromCsv()` method on `DateTimeExtractor` instance. 
+```
+// "pathToCsv.csv" - csv file path
+// "," - csv file separator
+// "outputPath.txt" - output file path
 
+Settings settings = new SettingsBuilder().build();
+TreeSet<TemporalExtraction> result = DateTimeExtractor.extractFromCsv("pathToCsv.csv", ",", 
+                                                                      "outputPath.txt", settings);
+```
 ## Extraction rules
 All extraction rules are divided into rules groups. 
 <table>

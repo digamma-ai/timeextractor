@@ -41,9 +41,6 @@ public class MainTestingClass {
             System.out.println(text);
 
             Settings settings = new SettingsBuilder()
-                                     .addRulesGroup("dateRule")
-                                     .excludeRules("holidaysRule")
-                                     .includeOnlyLatestDates(true)
                                      .build();
 
             TreeSet<TemporalExtraction> predicted = DateTimeExtractor.extract(text,settings);

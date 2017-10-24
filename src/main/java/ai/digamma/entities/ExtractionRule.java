@@ -2,6 +2,7 @@ package ai.digamma.entities;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import ai.digamma.temporal.entities.Temporal;
@@ -79,6 +80,11 @@ public abstract class ExtractionRule implements Comparable<ExtractionRule> {
             return 1;
         }
         return cmp;
+    }
+
+    public Map<String,String> getGroupAndRule(){
+        RulesMap map = new RulesMap();
+        return map.getRuleGRoupByUUID(getId().toString());
     }
 
     public Locale getLocale() {

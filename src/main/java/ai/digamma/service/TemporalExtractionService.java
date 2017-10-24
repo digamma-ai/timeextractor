@@ -77,6 +77,7 @@ public class TemporalExtractionService {
                 Map<String, String> ruleInfo = rule.getGroupAndRule();
                 temporal.getTemporal().get(0).setGroup(ruleInfo.get("group"));
                 temporal.getTemporal().get(0).setRule(ruleInfo.get("rule"));
+                temporal.getTemporal().get(0).setType(rule.getType());
             }
             temporals.add(temporal);
         }

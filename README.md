@@ -23,7 +23,7 @@ This library is built on:
 * [Gson](https://github.com/google/gson) Json Serialization/Deserialization library 
 
 ## Quickstart
-Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a DateTime Extractor instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
+Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a `DateTimeExtractor` instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
 
 `TemporalExtraction` class representing an element of extracted date/time fragments.  
 
@@ -101,7 +101,16 @@ Settings settings = new SettingsBuilder()
          .build();
 
 ```
+## Working with CSV file
+For extracting date/time fragments from CSV files, you should invoke `extractFromCsv()` method on `DateTimeExtractor` instance. 
+```
+// "pathToCsv.csv" - csv file path
+// "," - csv file separator
+// "outputPath.txt" - output file path
 
+Settings settings = new SettingsBuilder().build();
+TreeSet<TemporalExtraction> result = DateTimeExtractor.extractFromCsv("pathToCsv.csv", ",", "outputPath.txt", settings);
+```
 ## Extraction rules
 All extraction rules are divided into rules groups. 
 <table>

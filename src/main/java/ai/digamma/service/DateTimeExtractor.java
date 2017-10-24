@@ -10,6 +10,8 @@ import ai.digamma.exceptions.ExceptionMessages;
 import java.io.IOException;
 import java.util.List;
 import java.util.TreeSet;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class DateTimeExtractor {
 
@@ -24,6 +26,35 @@ public class DateTimeExtractor {
         TemporalExtractionService service = new TemporalExtractionService();
         TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
         return extracted;
+    }
+
+    public static String extractJSON(String text){
+        Settings settings = new Settings();
+        TemporalExtractionService service = new TemporalExtractionService();
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(extracted);
+        } catch (JsonProcessingException e) {
+            json = e.getMessage();
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public static String extractJSON(String text, Settings settings){
+        TemporalExtractionService service = new TemporalExtractionService();
+        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(extracted);
+        } catch (JsonProcessingException e) {
+            json = e.getMessage();
+            e.printStackTrace();
+        }
+        return json;
     }
 
     public static TreeSet<TemporalExtraction> extractFromCsv(String csvPath, String separator, String outputPath, Settings settings)
@@ -46,5 +77,11 @@ public class DateTimeExtractor {
             }
         }
         return extracted;
+    }
+
+    public static void main(String[] args) {
+        String text = "from summer to winter";
+        String result = DateTimeExtractor.extractJSON(text);
+        System.out.println(result);
     }
 }

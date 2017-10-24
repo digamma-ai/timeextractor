@@ -43,11 +43,11 @@ for (TemporalExtraction elem : result) {
 
 The output will be:
 ```
-1 after 16:30, [Temporal [group=TimeGroup, rule=weekendRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32
+1 after 16:30, [Temporal[type=TIME_INTERVAL, group=TimeGroup, rule=timeIntervalRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=16, minutes=30, seconds=0, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=null, weekOfMonth=null]], endDate=null]], 21, 32
 
-2 Thursdays., [Temporal [group=DateGroup, rule=weekendRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]]]], 44, 54
+2 Thursdays, [Temporal[type=DATE, group=DateGroup, rule=dayOfWeekRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=TH, weekOfMonth=null]]]], 44, 54
 
-3 Mondays., [Temporal [group=DateGroup, rule=weekendRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=55, seconds=40, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
+3 Mondays, [Temporal[type=DATE, group=DateGroup, rule=dayOfWeekRule, duration=null, durationInterval=null, set=null, startDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]], endDate=TimeDate [time=Time [hours=18, minutes=59, seconds=43, timezoneOffset=0], date=Date [year=2017, month=10, day=24, dayOfWeek=MO, weekOfMonth=null]]]], 65, 73
 ```
 ## Output Description
 The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` class. This class has next attributes:
@@ -55,7 +55,6 @@ The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` c
 | **Attributes** | **Description** |
 | ---- | ----- |
 | `String` temporalExpression | founded date/time fragment |
-| `String` ruleType | used rule for extracting current date/time fragment |
 | `Temporal` temporal | represents date/time fragment's details |
 
 `Temporal` class attributes:
@@ -63,6 +62,8 @@ The ouptut of the extraction process will be `TreeSet` of `TemporalExtraction` c
 | **Attributes** | **Description** |
 | ---- | ----- |
 | `String` type | type of founded date/time fragment (date, time, relative date, etc.)|
+| `String` group | used group of rules for extracting current date/time fragment |
+| `String` rule | used rule for extracting current date/time fragment |
 | `Duration` duration | duration of extracting date/time fragment |
 | `DurationInterval` temporal | duration interval of extracting date/time fragment |
 | `Set` set | set of frequency, interval and days of repetiotion properties |

@@ -25,6 +25,13 @@ This library is built on:
 ## Quickstart
 Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeExtractor` is used by first constructing a `DateTimeExtractor` instance and then invoking `extract()` method on it. `extract()` is convenience method to extract date/time fragments from input text.
 
+| **Method** | **Attributes** | **Description** |
+| ----| --------- | ----- |
+| `extract()` |`String` text | Extracts date/time fragments with default settings |
+| Overloading `extract()` | `String` text, `Settings` settings | Extracts date/time fragments with custom settings |
+| `extractFromCsv()` | `String` csvPath, `String` outputPath, `String` separator, `Settings` settings | Extracts date/time fragments from .csv file |
+| `extractJson()` |`String` text, `Settings` settings | Extracts date/time fragments and saves output in JSON format |
+
 `TemporalExtraction` class representing an element of extracted date/time fragments.  
 
 Here is an example of how `DateTimeExtractor` and `TemporalExtraction` are used:
@@ -101,17 +108,6 @@ Settings settings = new SettingsBuilder()
          .includeOnlyLatestDates(true)
          .build();
 
-```
-## Working with CSV file
-For extracting date/time fragments from CSV files, you should invoke `extractFromCsv()` method on `DateTimeExtractor` instance. 
-```
-// "pathToCsv.csv" - csv file path
-// "," - csv file separator
-// "outputPath.txt" - output file path
-
-Settings settings = new SettingsBuilder().build();
-TreeSet<TemporalExtraction> result = DateTimeExtractor.extractFromCsv("pathToCsv.csv", ",", 
-                                                                      "outputPath.txt", settings);
 ```
 ## Extraction rules
 All extraction rules are divided into rules groups. 

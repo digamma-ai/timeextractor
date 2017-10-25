@@ -2,11 +2,12 @@
 Time Extractor NLP project - locate dates and times in text documents
 
 ## Introduction
-The project was started and coded by [Digamma.ai](http://digamma.ai/). We decided to build time/date extraction library. 
+The project was developed by [Digamma.ai](http://digamma.ai/). The goal of the project is to develop a library to find and extract time/date information from textual documents.. 
 
-The main goal is to highlight texts fragments that are anyhow related to time/date/period (exact date, time of day, day of the week, months, seasons, time intervals, etc.) and make structural forms from them.  
+The main goal is to indentify texts fragments that are related to time/date/period (exact date, time of day, day of the week, months, seasons, time intervals, etc.) and make structural forms from them. We tried to detect a variety of textual representations and handle things like recurring times (e.g. "every Wednesday"). 
 
 ## Installation
+
 Clone the repository and create `.jar` file, with
 ```
 git clone https://github.com/digamma-ai/timeextractor.git timeextractor

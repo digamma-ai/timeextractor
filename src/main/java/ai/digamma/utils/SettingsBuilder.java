@@ -73,7 +73,7 @@ public class SettingsBuilder {
 
         Settings settings = null;
         try {
-            settings = new Settings(this.date, this.timeZoneOffset, excludeUuids, includeUuids,this.includeOnlyLatestDate);
+            settings = new Settings(this.date, this.timeZoneOffset, excludeUuids, includeUuids, this.includeOnlyLatestDate);
         } catch (Exception e) {
             e.printStackTrace();
         }

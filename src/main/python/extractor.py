@@ -145,7 +145,7 @@ class ExtractionService(object):
     def extract(cls, text, **kwargs):
         kwargs.update({'text': text})
         if 'settings' in kwargs:
-            if not isinstance(kwargs['settings'].__class__, MetaJavaClass):
+            if not isinstance(kwargs['settings'].__class__, MetaJavaClass) and callable(kwargs['settings']):
                 kwargs['settings'] = kwargs['settings']()
             ServiceParams = [cls.Converter(el) for el in itemgetter('text', 'settings')(kwargs)]
         else:

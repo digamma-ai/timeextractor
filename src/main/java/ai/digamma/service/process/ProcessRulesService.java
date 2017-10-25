@@ -271,17 +271,17 @@ public class ProcessRulesService {
             Temporal new_temporal = new Temporal();
             if (temporal.getType() == Type.RELATIVE_TODAY) {
                 new_temporal = parser.getRelativeTemporalObjectByProperty(extraction.getTemporalExpression(), dateTime);
-                list.get(i).getTemporal().set(0, temporal);
+                list.get(i).getTemporal().set(0, new_temporal);
                 list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
             }
             if (temporal.getType() == Type.RELATIVE_DATE) {
                 new_temporal = parser.getRelativeDurationDate(extraction.getTemporalExpression(), dateTime);
-                list.get(i).getTemporal().set(0, temporal);
+                list.get(i).getTemporal().set(0, new_temporal);
                 list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
             }
             if (temporal.getType() == Type.RELATIVE_DATE_ORDER) {
                 new_temporal = parser.getRelativeDurationDate2(extraction.getTemporalExpression(), dateTime);
-                list.get(i).getTemporal().set(0, temporal);
+                list.get(i).getTemporal().set(0, new_temporal);
                 list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
             }
             new_temporal.setGroup(temporal.getGroup());

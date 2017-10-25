@@ -4,23 +4,21 @@ from numbers import Number
 from collections import Iterable, Mapping
 from operator import itemgetter
 
-from .config import PATH_TO_JAR, JavaSettingsConstructorParams
-
-os.environ['CLASSPATH'] = PATH_TO_JAR
+from .config import set_class_path, JavaSettingsConstructorParams
+set_class_path()
 
 from jnius import autoclass, MetaJavaClass
-import jnius
 
 # Java DataTypes
-jMap = jnius.autoclass('java.util.HashMap')
-jArrayList = jnius.autoclass('java.util.ArrayList')
-jList = jnius.autoclass('java.util.List')
-jInt = jnius.autoclass('java.lang.Integer')
-jLong = jnius.autoclass('java.lang.Long')
-jFloat = jnius.autoclass('java.lang.Float')
-jDouble = jnius.autoclass('java.lang.Double')
-jString = jnius.autoclass('java.lang.String')
-jBoolean = jnius.autoclass('java.lang.Boolean')
+jMap = autoclass('java.util.HashMap')
+jArrayList = autoclass('java.util.ArrayList')
+jList = autoclass('java.util.List')
+jInt = autoclass('java.lang.Integer')
+jLong = autoclass('java.lang.Long')
+jFloat = autoclass('java.lang.Float')
+jDouble = autoclass('java.lang.Double')
+jString = autoclass('java.lang.String')
+jBoolean = autoclass('java.lang.Boolean')
 
 # Custom Java Classes
 Settings = autoclass('ai.digamma.entities.Settings')

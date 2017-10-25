@@ -39,17 +39,20 @@ public class Temporal {
     public void setType(Type type) {
         this.type = type;
     }
+
     public void setGroup(String group) {
         this.group = group;
     }
+
+    public String getGroup() { return this.group; }
 
     public void setRule(String rule) {
         this.rule = rule;
     }
 
-    public TimeDate getStartDate() {
-        return startDate;
-    }
+    public String getRule() { return this.rule; }
+
+    public TimeDate getStartDate() { return startDate; }
 
     public void setStartDate(TimeDate startDate) {
         this.startDate = startDate;

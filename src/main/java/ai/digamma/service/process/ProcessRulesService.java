@@ -42,14 +42,6 @@ public class ProcessRulesService {
     /**
      * Method is used to find closest date according to current date for
      * relative date (today, yesterday, etc.)
-     * 
-     * @param TreeSet
-     *            <TemporalExtraction> receivedTemporals - found time
-     *            expressions
-     * @param Settings
-     *            settings - user specified Settings
-     * @return TreeSet<TemporalExtraction> - found time expressions with
-     *         temporal object with respect to current date
      */
     public TreeSet<TemporalExtraction> processRelativeDate(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
@@ -60,14 +52,6 @@ public class ProcessRulesService {
     /**
      * Method is used to find closest day of week according to current date for
      * relative date (Sunday, Monday, Second Tuesdday of the month)
-     * 
-     * @param TreeSet
-     *            <TemporalExtraction> receivedTemporals - found time
-     *            expressions
-     * @param Settings
-     *            settings - user specified Settings
-     * @return TreeSet<TemporalExtraction> - found time expressions with
-     *         temporal object with respect to current date
      */
     public TreeSet<TemporalExtraction> processRelativeDayOfWeek(TreeSet<TemporalExtraction> receivedTemporals, Settings settings) {
         List<TemporalExtraction> list = new ArrayList<TemporalExtraction>(receivedTemporals);
@@ -114,12 +98,7 @@ public class ProcessRulesService {
     /**
      * 
      * Method is used to convert date in case summer time is observed
-     * 
-     * @param TimeDate
-     *            timeDate
-     * @param LocalDateTime
-     *            localDateTime - dateTime specified by user
-     * @return
+     *
      */
     private TimeDate summerTime(TimeDate timeDate, LocalDateTime localDateTime) {
         if (timeDate == null) {
@@ -135,13 +114,7 @@ public class ProcessRulesService {
 
     /**
      * Method is used to convert date with user specified timezone offset
-     * 
-     * @param TimeDate
-     *            timeDate
-     * @param int offsetTimeZone - timezone
-     * @param LocalDateTime
-     *            localDateTime - dateTime specified by user
-     * @return
+     *
      */
     private TimeDate convertDateAndOffset(TimeDate timeDate, int offsetTimeZone, LocalDateTime localDateTime) {
         if (timeDate == null) {
@@ -167,10 +140,7 @@ public class ProcessRulesService {
 
     /**
      * Method is used to check whether found timeDate observes summer time
-     * 
-     * @param TimeDate
-     *            timeDate - timedate object to check for summer time
-     * @return boolean
+     *
      */
     private boolean summerTimeIsObserved(TimeDate timeDate) {
         if (timeDate == null || timeDate.getTime() == null || timeDate.getTime().getTimezoneName() == null) {
@@ -233,6 +203,8 @@ public class ProcessRulesService {
 
         }
         Temporal newTemporal = parser.getRelativeTemporalObjectByWeekOfMonth(dayOfWeek, weekOfMonth, dateTime);
+        newTemporal.setRule(temporal.getRule());
+        newTemporal.setGroup(temporal.getGroup());
         if (temporal.getStartDate() != null && temporal.getStartDate().getTime() != null) {
             Time time = temporal.getStartDate().getTime();
             newTemporal.getStartDate().setTime(time);
@@ -249,7 +221,6 @@ public class ProcessRulesService {
         dateTime = dateTime.withDayOfMonth(startTemporal.getEndDate().getDate().getDay());
         dateTime = dateTime.withMonthOfYear(startTemporal.getEndDate().getDate().getMonth());
         Temporal endTemporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getEndDate().getDate().getDayOfWeek(), dateTime);
-
         if (temporal.getStartDate() != null && temporal.getStartDate().getTime() != null) {
             Time time = temporal.getStartDate().getTime();
             startTemporal.getStartDate().setTime(time);
@@ -260,6 +231,8 @@ public class ProcessRulesService {
             endDate.setTime(time);
         }
         startTemporal.setEndDate(endTemporal.getEndDate());
+        startTemporal.setRule(temporal.getRule());
+        startTemporal.setGroup(temporal.getGroup());
         return startTemporal;
     }
 
@@ -271,6 +244,8 @@ public class ProcessRulesService {
             temporal.getStartDate().setTime(temporal.getEndDate().getTime());
         }
         Temporal newTemporal = parser.getRelativeTemporalObjectByDayOfWeek(temporal.getStartDate().getDate().getDayOfWeek(), dateTime);
+        newTemporal.setRule(temporal.getRule());
+        newTemporal.setGroup(temporal.getGroup());
         if (temporal.getStartDate() != null && temporal.getStartDate().getTime() != null) {
             Time time = temporal.getStartDate().getTime();
             newTemporal.getStartDate().setTime(time);
@@ -293,24 +268,26 @@ public class ProcessRulesService {
         for (int i = 0; i < list.size(); i++) {
             TemporalExtraction extraction = list.get(i);
             Temporal temporal = extraction.getTemporal().get(0);
+            Temporal new_temporal = new Temporal();
             if (temporal.getType() == Type.RELATIVE_TODAY) {
-                temporal = parser.getRelativeTemporalObjectByProperty(extraction.getTemporalExpression(), dateTime);
+                new_temporal = parser.getRelativeTemporalObjectByProperty(extraction.getTemporalExpression(), dateTime);
                 list.get(i).getTemporal().set(0, temporal);
                 list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
             }
             if (temporal.getType() == Type.RELATIVE_DATE) {
-                temporal = parser.getRelativeDurationDate(extraction.getTemporalExpression(), dateTime);
+                new_temporal = parser.getRelativeDurationDate(extraction.getTemporalExpression(), dateTime);
                 list.get(i).getTemporal().set(0, temporal);
                 list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
             }
             if (temporal.getType() == Type.RELATIVE_DATE_ORDER) {
-                temporal = parser.getRelativeDurationDate2(extraction.getTemporalExpression(), dateTime);
+                new_temporal = parser.getRelativeDurationDate2(extraction.getTemporalExpression(), dateTime);
                 list.get(i).getTemporal().set(0, temporal);
                 list.get(i).getTemporal().get(0).setType(Type.RELATIVE_TODAY);
             }
-
+            new_temporal.setGroup(temporal.getGroup());
+            new_temporal.setRule(temporal.getRule());
         }
-        return new TreeSet<TemporalExtraction>(list);
+        return new TreeSet<>(list);
     }
 
 }

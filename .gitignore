@@ -2,6 +2,7 @@
 .idea/
 target/
 lib/
+__pycache__/
 
 logs/
 src/main/java/.project

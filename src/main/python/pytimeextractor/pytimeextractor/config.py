@@ -1,7 +1,6 @@
 import os
 
-python_src_dir = os.path.dirname(os.path.abspath(__file__))
-project_dir = os.path.join(python_src_dir)#, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir)
+project_dir = os.path.dirname(os.path.abspath(__file__))
 
 JAR_FILENAME = "timeextractor-jar-with-dependencies.jar"
 PATH_TO_JAR = os.path.join(project_dir, JAR_FILENAME)

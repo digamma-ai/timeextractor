@@ -41,7 +41,7 @@ class JavaPrimitive(object):
         if isinstance(obj, int):
 
             if isinstance(obj, bool):
-                return jBoolean(obj)
+                return self.__return_value(jBoolean(obj), isValue, 'booleanValue')
 
             if obj <= jInt.MAX_VALUE:
                 return self.__return_value(jInt(obj), isValue, 'intValue')
@@ -120,9 +120,15 @@ class PySettingsBuilder(object):
     JavaSettingsBuilder = SettingsBuilder
     Converter = JavaComposite()
 
-    def __init__(self):
-        self.javaBuilderObj = self.JavaSettingsBuilder()
+    def __init__(self, javaBuilderObj=None):
+        self.javaBuilderObj = javaBuilderObj if javaBuilderObj else self.JavaSettingsBuilder()
 
+    def __set_java_builder(self, newJavaBuilderObj):
+        self.javaBuilderObj = newJavaBuilderObj
+        return self
+
+    def build(self):
+        return self.javaBuilderObj.build()
 
     def __getattr__(self, attr):
         if hasattr(self.javaBuilderObj, attr):
@@ -130,7 +136,8 @@ class PySettingsBuilder(object):
                 args = [self.Converter(arg, isValue=True) for arg in args]
                 for key, value in kwargs.items():
                     kwargs[key] = self.Converter(value, isValue=True)
-                return getattr(self.javaBuilderObj, attr)(*args, **kwargs)
+                rez = getattr(self.javaBuilderObj, attr)(*args, **kwargs)
+                return self.__set_java_builder(rez)
             return wrapper
         raise AttributeError(attr)
 

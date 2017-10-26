@@ -59,7 +59,7 @@ public class TemporalParser {
             boolean leap = isLeapYear(year);
             Date endDate = new Date(year, 2, 28);
             if (leap) {
-                endDate = new Date(2, 29);
+                endDate = new Date(year,2, 29);
             }
             start.setDate(startDate);
             end.setDate(endDate);

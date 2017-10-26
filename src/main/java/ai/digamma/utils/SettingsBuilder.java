@@ -70,7 +70,7 @@ public class SettingsBuilder {
                 }
             }
         }
-        
+
         Settings settings = new Settings(this.date, this.timeZoneOffset, excludeUuids, includeUuids, this.includeOnlyLatestDate);
         return settings;
     }

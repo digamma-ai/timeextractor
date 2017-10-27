@@ -104,16 +104,20 @@ class PySettings(object):
 
     def __init__(self, **kwargs):
         self.kwargs = kwargs
+        self.build_java_settings_obj()
 
-    def __call__(self):
+    def build_java_settings_obj(self):
         if self.kwargs:
             temp = dict()
             for param, value in self.kwargs.items():
                 temp[param] = self.Converter(value, isValue = True)
             JavaParams = itemgetter(*JavaSettingsConstructorParams)(temp)
-            return self.JavaSettings(*JavaParams)
+            self.javaSettingsObj = self.JavaSettings(*JavaParams)
         else:
-            return self.JavaSettings()
+            self.javaSettingsObj = self.JavaSettings()
+
+    def __call__(self):
+        return self.javaSettingsObj
 
 
 class PySettingsBuilder(object):
@@ -128,7 +132,9 @@ class PySettingsBuilder(object):
         return self
 
     def build(self):
-        return self.javaBuilderObj.build()
+        pySettings = PySettings()
+        pySettings.javaSettingsObj = self.javaBuilderObj.build()
+        return pySettings
 
     def __getattr__(self, attr):
         if hasattr(self.javaBuilderObj, attr):

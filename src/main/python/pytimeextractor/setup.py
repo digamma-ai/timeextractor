@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='pytimeextractor',
-      version='0.1.1',
+      version='0.1.2',
       description='Time Extractor NLP project - locate dates and times in text documents',
       long_description=readme(),
       keywords='NLP text extraction time date',

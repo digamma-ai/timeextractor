@@ -16,6 +16,7 @@ maven clean install
 ```
 You will find in `target/` folder a jar named like `timeextractor.jar`.
 ## [Python Installation and Usage](https://github.com/digamma-ai/timeextractor/blob/master/src/main/python/pytimeextractor/README.rst)
+## [Project on PyPI](https://pypi.python.org/pypi/pytimeextractor)
 ## Dependencies
 This library is built on:
 * [joda-time](https://github.com/JodaOrg/joda-time) Library for the Java date and time classes

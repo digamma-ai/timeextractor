@@ -18,6 +18,12 @@ Installation
 
     $ pip install pytimeextractor
 
+You can also download or checkout the latest code and install from the source:
+
+::
+
+    $ python setup.py install
+
 Usage
 -----
 

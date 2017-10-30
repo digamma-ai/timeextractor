@@ -49,6 +49,6 @@ various configuration methods, and finally calling build method.
     ...          .includeOnlyLatestDates(True)
     ...          .build()
     ...         )
-    >>> ExtractionService.extract(text, settings = settings)
+    >>> ExtractionService.extract(text, settings)
 
 .. _Digamma.ai: http://digamma.ai/

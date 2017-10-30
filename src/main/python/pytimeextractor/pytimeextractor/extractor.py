@@ -153,14 +153,17 @@ class ExtractionService(object):
     Converter = JavaComposite()
 
     @classmethod
-    def extract(cls, text, **kwargs):
-        kwargs.update({'text': text})
-        if 'settings' in kwargs:
-            if not isinstance(kwargs['settings'].__class__, MetaJavaClass) and callable(kwargs['settings']):
-                kwargs['settings'] = kwargs['settings']()
-            ServiceParams = [cls.Converter(el) for el in itemgetter('text', 'settings')(kwargs)]
+    def extract(cls, text, settings = None):
+        if not isinstance(text, (str, jString)):
+            raise TypeError('Text argument should be of type str or java.lang.String. Got {0} instead'.format(type(text)))
+        if settings:
+            if not isinstance(settings, (PySettings, Settings)):
+                raise TypeError('Settings argument should be of type PySettings or ai.digamma.entities.Settings. Got {0} instead'.format(type(settings)))
+            elif isinstance(settings, PySettings):
+                settings = settings()
+            ServiceParams = (cls.Converter(text), cls.Converter(settings))
         else:
-            ServiceParams = (cls.Converter(kwargs['text']),)
+            ServiceParams = (cls.Converter(text),)
         rez = cls.JavaService.extractJSON(*ServiceParams)
         return json.loads(rez)
 
@@ -175,7 +178,7 @@ if __name__=='__main__':
             .build()
            )
     text = "10-15 month"
-    rez = ExtractionService.extract(text=text, settings=settings)
+    rez = ExtractionService.extract(text, settings)
     print(rez)
 
 

@@ -15,4 +15,4 @@ settings = (PySettingsBuilder()
             .build()
            )
 
-ExtractionService.extract(text, settings=settings)
+ExtractionService.extract(text, settings)

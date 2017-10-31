@@ -398,7 +398,7 @@ public class TemporalBasicCaseParser {
     }
 
     public static TimeTag getTimeTag(String tag) {
-        if (tag.equalsIgnoreCase("after") || tag.equalsIgnoreCase("past")) {
+        if (tag.contains("after") || tag.contains("past")) {
             return TimeTag.AFTER;
         }
         return TimeTag.BEFORE;

@@ -33,7 +33,8 @@ Class `DateTimeExtractor` is the main class for using Timeextractor. `DateTimeEx
 | `extract()` |`String` text | Extracts date/time fragments with default settings |
 | Overloading `extract()` | `String` text, `Settings` settings | Extracts date/time fragments with custom settings |
 | `extractFromCsv()` | `String` csvPath, `String` outputPath, `String` separator, `Settings` settings | Extracts date/time fragments from .csv file |
-| `extractJson()` |`String` text, `Settings` settings | Extracts date/time fragments and saves output in JSON format |
+| `extractJson()` |`String` text, `Settings` settings | Extracts date/time fragments and saves output to JSON format |
+| `extractFromCsvToJson()`| `String` csvPath, `String` outputPath, `String` separator, `Settings` settings |  Extracts date/time fragments from .csv file to JSON format |
 
 `TemporalExtraction` class representing an element of extracted date/time fragments.  
 

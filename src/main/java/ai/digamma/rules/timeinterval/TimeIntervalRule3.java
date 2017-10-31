@@ -50,11 +50,11 @@ public class TimeIntervalRule3 extends ExtractionRule {
         }
         TimeTag tag = TemporalBasicCaseParser.getTimeTag(m.group(1));
         if (tag == TimeTag.BEFORE) {
-            start.setTime(time);
-            temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, start, null);
-        } else {
             end.setTime(time);
             temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, null, end);
+        } else {
+            start.setTime(time);
+            temporal = TemporalObjectGenerator.generateTemporalTime(Type.TIME_INTERVAL, start, null);
         }
         List<Temporal> temporalList = new ArrayList<Temporal>();
         temporalList.add(temporal);

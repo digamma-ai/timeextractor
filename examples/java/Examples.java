@@ -51,12 +51,24 @@ public class Examples {
         System.out.println(predictedJson);
     }
 
+    //extract from csv in JSON format
+    public static void extractFromCsvToJson() throws Exception{
+        String pathToCsv = System.getProperty("user.dir") + "/data/train.csv";
+        String outputPath = System.getProperty("user.dir") + "/examples/java/example_csv_output.txt";
+        String csvSeparator = ",";
+        Settings settings = new SettingsBuilder()
+                .build();
+        String predictedJson = DateTimeExtractor.extractJSONFromCsv(pathToCsv, csvSeparator, outputPath, settings);
+        System.out.println(predictedJson);
+    }
+
+
     public static void main(String[] args) throws Exception {
 
         extractFromText();
         extractWithCustomSettings();
         extractFromCsvFile();
         extractToJson();
-
+        extractFromCsvToJson();
     }
 }

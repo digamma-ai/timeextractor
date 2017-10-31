@@ -12,7 +12,6 @@ public class Examples {
         String text = "Friday night music 6:30pm, lecture 7pm, cash bar";
         Settings settings = new SettingsBuilder()
                 .build();
-
         TreeSet<TemporalExtraction> predicted = DateTimeExtractor.extract(text,settings);
         System.out.println(predicted);
     }

@@ -1,5 +1,7 @@
 package ai.digamma.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -40,44 +42,25 @@ public class TemporalParser {
         if (season == null || season.isEmpty()) {
             return null;
         }
-
-        TimeDate start = new TimeDate();
-        TimeDate end = new TimeDate();
-
         if (season.equalsIgnoreCase("Summer")) {
-            Date startDate = new Date(year, 6, 1);
-            Date endDate = new Date(year, 8, 31);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            return new Temporal(start, end);
-
+            return buildTemporal("01-06-" + year, "31-08-" + year);
         }
         if (season.equalsIgnoreCase("Winter")) {
-            Date startDate = new Date(year, 12, 1);
             // as end date will be in new year
-            year = year + 1;
+            int next_year = year + 1;
             boolean leap = isLeapYear(year);
-            Date endDate = new Date(year, 2, 28);
             if (leap) {
-                endDate = new Date(year,2, 29);
+                return buildTemporal("01-12-" + year, "29-02-" + next_year);
             }
-            start.setDate(startDate);
-            end.setDate(endDate);
-            return new Temporal(start, end);
+            else{
+                return buildTemporal("1-12-" + year, "28-02-" + next_year);
+            }
         }
         if (season.equalsIgnoreCase("Autumn") || season.equalsIgnoreCase("Fall")) {
-            Date startDate = new Date(year, 9, 1);
-            Date endDate = new Date(year, 11, 30);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            return new Temporal(start, end);
+            return buildTemporal("01-09-" + year, "30-11-" + year);
         }
         if (season.equalsIgnoreCase("Spring")) {
-            Date startDate = new Date(year, 3, 1);
-            Date endDate = new Date(year, 5, 31);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            return new Temporal(start, end);
+            return buildTemporal("01-03-" + year, "31-05-" + year);
         }
         return null;
     }
@@ -102,34 +85,18 @@ public class TemporalParser {
 
         if (holidayName.equalsIgnoreCase(Holidays.NEW_YEAR) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR2) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR3)
                 || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR4) || holidayName.equalsIgnoreCase(Holidays.NEW_YEAR5)) {
-            Date startDate = new Date(0, 1, 1);
-            Date endDate = new Date(0, 1, 1);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            temporal = new Temporal(start, end);
+            return buildTemporal("01-01-00", "01-01-00");
 
         } else if (holidayName.equalsIgnoreCase(Holidays.HALLOWEEN)) {
-            Date startDate = new Date(0, 10, 31);
-            Date endDate = new Date(0, 10, 31);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            temporal = new Temporal(start, end);
+            return buildTemporal("31-10-00", "31-10-00");
         }
 
         else if (holidayName.contains("Valentine")) {
-            Date startDate = new Date(0, 2, 14);
-            Date endDate = new Date(0, 2, 14);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            temporal = new Temporal(start, end);
+            return buildTemporal("14-02-00", "14-02-00");
         }
 
         else if (holidayName.equalsIgnoreCase(Holidays.CHRISTMAS) || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS2) || holidayName.equalsIgnoreCase(Holidays.CHRISTMAS3)) {
-            Date startDate = new Date(0, 12, 25);
-            Date endDate = new Date(0, 12, 25);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            temporal = new Temporal(start, end);
+            return buildTemporal("25-12-00", "25-12-00");
         }
 
         else if (holidayName.equalsIgnoreCase(Holidays.THANKSGIVING) || holidayName.equalsIgnoreCase(Holidays.THANKSGIVING2)) {
@@ -147,21 +114,15 @@ public class TemporalParser {
         }
 
         else if (holidayName.equalsIgnoreCase(Holidays.INDEPENDENCE_DAY)) {
-            Date startDate = new Date(0, 7, 4);
-            Date endDate = new Date(0, 7, 4);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            temporal = new Temporal(start, end);
+            return buildTemporal("04-07-00", "04-07-00");
+        }
 
+        else if (holidayName.equalsIgnoreCase(Holidays.ST_VALENTINE)){
+            return buildTemporal("14-02-00", "14-02-00");
         }
 
         else if (holidayName.equalsIgnoreCase(Holidays.INAUGURATION_DAY)) {
-            Date startDate = new Date(0, 1, 20);
-            Date endDate = new Date(0, 1, 20);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            temporal = new Temporal(start, end);
-
+            return buildTemporal("20-01-00", "20-01-00");
         }
 
         else if (holidayName.equalsIgnoreCase(Holidays.MLK_DAY1) || holidayName.equalsIgnoreCase(Holidays.MLK_DAY2)) {
@@ -234,12 +195,7 @@ public class TemporalParser {
         }
 
         else if (holidayName.equalsIgnoreCase(Holidays.VETERANS_DAY)) {
-            Date startDate = new Date(0, 11, 11);
-            Date endDate = new Date(0, 11, 11);
-            start.setDate(startDate);
-            end.setDate(endDate);
-            temporal = new Temporal(start, end);
-
+            return buildTemporal("11-11-00", "11-11-00");
         }
 
         if (temporal != null && temporal.getType() == null) {
@@ -668,6 +624,18 @@ public class TemporalParser {
             return null;
         }
 
+    }
+
+    private Temporal buildTemporal(String start, String end) {
+        String startEl[] = start.split("-");
+        String endEl[] = end.split("-");
+        TimeDate start_date = new TimeDate();
+        TimeDate end_date = new TimeDate();
+        Date startDate = new Date(Integer.parseInt(startEl[2]), Integer.parseInt(startEl[1]), Integer.parseInt(startEl[0]));
+        Date endDate = new Date(Integer.parseInt(endEl[2]), Integer.parseInt(endEl[1]), Integer.parseInt(endEl[0]));
+        start_date.setDate(startDate);
+        end_date.setDate(endDate);
+        return new Temporal(start_date, end_date);
     }
 
 }

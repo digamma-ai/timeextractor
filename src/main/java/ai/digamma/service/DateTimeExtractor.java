@@ -29,9 +29,7 @@ public class DateTimeExtractor {
     }
 
     public static String extractJSON(String text){
-        Settings settings = new Settings();
-        TemporalExtractionService service = new TemporalExtractionService();
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
+        TreeSet<TemporalExtraction> extracted = extract(text);
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {
@@ -44,8 +42,7 @@ public class DateTimeExtractor {
     }
 
     public static String extractJSON(String text, Settings settings){
-        TemporalExtractionService service = new TemporalExtractionService();
-        TreeSet<TemporalExtraction> extracted = service.extractDatesAndTimeFromText(text, settings);
+        TreeSet<TemporalExtraction> extracted = extract(text, settings);
         ObjectMapper mapper = new ObjectMapper();
         String json = "";
         try {
@@ -63,6 +60,7 @@ public class DateTimeExtractor {
         CsvWriter writer = new CsvWriter();
         List<Tip> tips;
         TemporalExtractionService service = new TemporalExtractionService();
+        ObjectMapper mapper = new ObjectMapper();
         TreeSet<TemporalExtraction> extracted = new TreeSet<>();
         try {
             tips = reader.getTipsFromFile(csvPath, separator);
@@ -70,13 +68,29 @@ public class DateTimeExtractor {
         catch(IOException e){ throw new Exception(ExceptionMessages.INPUT_FILE_NOT_FOUND);}
         for (Tip tip : tips) {
             String text = tip.getTipText();
-            TreeSet<TemporalExtraction> curr_extracted = service.extractDatesAndTimeFromText(text,settings);
+            TreeSet<TemporalExtraction> curr_extracted = service.extractDatesAndTimeFromText(text, settings);
             for(TemporalExtraction temp : curr_extracted) {
                 extracted.add(temp);
-                writer.writeToFile(outputPath, extracted.toString());
             }
+            writer.writeToFile(outputPath, mapper.writeValueAsString(curr_extracted));
+
         }
         return extracted;
+    }
+
+    public static String extractJSONFromCsv(String csvPath, String separator, String outputPath, Settings settings)
+            throws Exception {
+
+        TreeSet<TemporalExtraction> extracted = extractFromCsv(csvPath, separator, outputPath, settings);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(extracted);
+        } catch (JsonProcessingException e) {
+            json = e.getMessage();
+            e.printStackTrace();
+        }
+        return json;
     }
 
     public static void main(String[] args) {

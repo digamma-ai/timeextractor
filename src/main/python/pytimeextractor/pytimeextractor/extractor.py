@@ -167,6 +167,15 @@ class ExtractionService(object):
         rez = cls.JavaService.extractJSON(*ServiceParams)
         return json.loads(rez)
 
+    @classmethod
+    def extractFromCsv(cls, csvPath, outputPath, settings, separator = ','):
+        if not isinstance(settings, (PySettings, Settings)):
+            raise TypeError('Settings argument should be of type PySettings or ai.digamma.entities.Settings. Got {0} instead'.format(type(settings)))
+        elif isinstance(settings, PySettings):
+                settings = settings()
+        rez = cls.JavaService.extractJSONFromCsv(csvPath, separator, outputPath, settings)
+        return json.loads(rez)
+
 
 if __name__=='__main__':
     settings = (PySettingsBuilder()

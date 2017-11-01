@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import ai.digamma.exceptions.ExceptionMessages;
+import org.apache.log4j.Logger;
 import org.joda.time.LocalDateTime;
 
 import ai.digamma.utils.Utils;
@@ -18,6 +19,7 @@ public class Settings {
     private Set<UUID> rulesToInclude = new HashSet<>();
     private boolean includeRuleIsExist;
     private boolean includeOnlyLatestDates;
+    private static final Logger logger = Logger.getLogger(Settings.class);
 
     public Settings(){
         this.date = null;
@@ -28,10 +30,22 @@ public class Settings {
     public Settings(String date, String timezoneOffset, List<String> rulesToIgnore, List<String> rulesToInclude, int includeOnlyLatestDates) throws Exception {
         // validation comes here
         if(date != null){
-            this.date = Utils.convertInputDate(date);
+            try {
+                this.date = Utils.convertInputDate(date);
+            }
+            catch(IllegalArgumentException e){
+                logger.error("Local user date has incorrect format.");
+                throw new Exception(ExceptionMessages.LOCAL_DATE_INCORRECT_FORMAT);
+            }
         }
         if (timezoneOffset != null) {
-            this.timezoneOffset = Integer.parseInt(timezoneOffset);
+            try {
+                this.timezoneOffset = Integer.parseInt(timezoneOffset);
+            }
+            catch(NumberFormatException e){
+                logger.error("Time-zone offset should be a number. Incorrect format.");
+                throw new Exception(ExceptionMessages.TIME_ZONE_INCORRECT_FORMAT);
+            }
         }
         if (rulesToIgnore.size() != 0) {
             this.rulesToIgnore = Utils.getSetofUUIDsFromString(rulesToIgnore);
@@ -45,12 +59,11 @@ public class Settings {
                 this.includeOnlyLatestDates = true;
             }
             else{
+                logger.error("Local date setting doesn't specified.");
                 throw new Exception(ExceptionMessages.LOCAL_DATE_NOT_EXIST);
             }
         }
-
     }
-
     public LocalDateTime getDate() {
         return date;
     }

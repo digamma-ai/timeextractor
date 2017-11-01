@@ -5,6 +5,7 @@ import java.util.*;
 
 import ai.digamma.exceptions.ExceptionMessages;
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 
 import java.io.FileReader;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class RulesMap {
     protected List<RulesGroup> rulesGroups;
     protected InputStream in = String.class.getResourceAsStream("/rule.json");
+    private static final Logger logger = Logger.getLogger(RulesMap.class);
 
     public RulesMap() {
         this.rulesGroups = readRules();
@@ -45,7 +47,10 @@ public class RulesMap {
                 break;
             }
         }
-        if(!isExist) { throw new Exception(ExceptionMessages.GROUP_NOT_FOUND); }
+        if(!isExist) {
+            logger.error("Incorrect group name:" + str_group);
+            throw new Exception(ExceptionMessages.GROUP_NOT_FOUND);
+        }
         return uuids;
     }
 
@@ -75,21 +80,23 @@ public class RulesMap {
         List<RulesGroup> groups = this.rulesGroups;
         List<String> uuids = new ArrayList<>();
         boolean isExist = false;
-        for (RulesGroup group : groups) { {
-                List<Rule> rules = group.getGroupRules();
-                for (Rule rule : rules){
-                    if (rule.getRuleName().equals(str_rule)) {
-                        List<String> curr_uuids = rule.getUuidList();
-                        for (String uuid : curr_uuids) {
-                            uuids.add(uuid);
-                        }
-                        isExist = true;
-                        break;
+        for (RulesGroup group : groups) {
+            List<Rule> rules = group.getGroupRules();
+            for (Rule rule : rules){
+                if (rule.getRuleName().equals(str_rule)) {
+                    List<String> curr_uuids = rule.getUuidList();
+                    for (String uuid : curr_uuids) {
+                        uuids.add(uuid);
                     }
+                    isExist = true;
+                    break;
                 }
             }
         }
-        if(!isExist) { throw new Exception(ExceptionMessages.RULE_NOT_FOUND); }
+        if(!isExist) {
+            logger.info("Incorrect rule name:" + str_rule);
+            throw new Exception(ExceptionMessages.RULE_NOT_FOUND);
+        }
         return uuids;
     }
 

@@ -227,7 +227,6 @@ public class TemporalParser {
         }
 
         if (property.equalsIgnoreCase("tonight")) {
-            localDate = localDate.plusDays(1);
             TimeDate timeDate = Utils.getTimeDateUTC(localDate);
             Time time = new Time(19, 0, 0);
             time.setTimezone(0);

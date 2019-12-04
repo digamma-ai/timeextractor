@@ -295,18 +295,18 @@ public class TemporalParser {
         } else if (weekOfMonth == WeekOfMonth.FIRST) {
             LocalDateTime newLocalDate = nthWeekdayOfMonth(parsedDayOfWeek, localDate.getMonthOfYear(), localDate.getYear(), 1);
             if (newLocalDate.getDayOfMonth() < localDate.getDayOfMonth()) {
-                localDate = nthWeekdayOfMonth(parsedDayOfWeek, localDate.getMonthOfYear() + 1, localDate.getYear(), 1);
+                localDate = nthWeekdayOfMonth(parsedDayOfWeek, localDate.plusMonths(1).getMonthOfYear(), localDate.getYear(), 1);
             } else {
                 localDate = newLocalDate;
             }
 
         } else if (currentWeek > parsedWeekOfMonth) {
-            localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear() + 1, localDate.getYear(), weekOfMonth.getValue());
+            localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.plusMonths(1).getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
         } else if (currentWeek < parsedWeekOfMonth) {
             localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
         } else if (currentWeek == parsedWeekOfMonth) {
             if (parsedDayOfWeek < currentDayOfWeek) {
-                localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear() + 1, localDate.getYear(), weekOfMonth.getValue());
+                localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.plusMonths(1).getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
             } else {
                 localDate = nthWeekdayOfMonth(dayOfWeek.getValue(), localDate.getMonthOfYear(), localDate.getYear(), weekOfMonth.getValue());
             }

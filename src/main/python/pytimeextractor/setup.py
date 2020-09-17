@@ -14,7 +14,7 @@ setup(name='pytimeextractor',
       author_email='info@digamma.ai',
       license='MIT',
       install_requires=[
-          'pyjnius==1.1.1',
+          'pyjnius==1.3.0',
       ],
       packages=['pytimeextractor'],
       include_package_data=True,
